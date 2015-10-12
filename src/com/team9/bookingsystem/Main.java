@@ -10,5 +10,6 @@ public class Main {
 
         System.out.println("Working");
         System.out.println("Nima was here");
+        System.out.println("Olle was here");
     }
 }
