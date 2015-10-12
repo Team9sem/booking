@@ -20,3 +20,4 @@ tasks.xml
 # Maven
 log/
 target/
+/bin/
