@@ -1,11 +1,14 @@
+
+/* setting the font with the @font-face rule  */
 @font-face {
     font-family: Infinity;
     src: url('../fonts/Infinity.ttf');
 }
 
-
+/* each css class used here is defined with the stylesheet="" syntax in the fxml document  */
 .root{
     -fx-background-color:#9099ac;
+    -fx-background-image: url("../img/Death_to_stock_communicate_hands_2.jpg");
 
 }
 
@@ -15,7 +18,7 @@
     -fx-font-family: Infinity;
     -fx-fill: #ffffff;
 }
-
+/* settings four round button needed to make it into a circle */
 .round-button{
     -fx-min-height: 200px;
     -fx-min-width: 200px;
