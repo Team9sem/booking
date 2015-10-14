@@ -12,7 +12,7 @@ public class Main {
         // Mysql tool
         MysqlUtil util = new MysqlUtil();
 
-       // get some input
+        // get some input
         Scanner scanner = new Scanner(System.in);
         System.out.println("enter username:");
         String uname = scanner.nextLine();
@@ -28,11 +28,10 @@ public class Main {
             e.printStackTrace();
         }
 
-<<<<<<< HEAD
-=======
+
         System.out.println("Working");
         System.out.println("Nima was here");
         System.out.println("and here");
->>>>>>> 1cd96150dc86e38c2da1b6097152db6763a6e83d
+
     }
 }
