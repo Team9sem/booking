@@ -55,7 +55,7 @@
                 <Insets top="10" bottom="10" left="10" right="10"></Insets>
             </GridPane.margin>
 
-            <Button fx:id="back" text="Back" onAction="#register"></Button>
+            <Button fx:id="back" text="Back" onAction="#showWelcomeArea"></Button>
 
         </HBox>
 
