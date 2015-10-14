@@ -1,0 +1,32 @@
+@font-face {
+    font-family: Infinity;
+    src: url('../fonts/Infinity.ttf');
+}
+
+
+.root{
+    -fx-background-color:#9099ac;
+
+}
+
+.login-title{
+    -fx-font-smoothing-type: lcd;
+    -fx-font-size: 40pt;
+    -fx-font-family: Infinity;
+    -fx-fill: #ffffff;
+}
+
+.round-button{
+    -fx-min-height: 200px;
+    -fx-min-width: 200px;
+    -fx-max-height: 200px;
+    -fx-max-width: 200px;
+
+    -fx-background-color: azure;
+    -fx-font-family: Infinity;
+    -fx-font-smoothing-type: lcd;
+    -fx-font-size: 18pt;
+    -fx-text-fill: indianred;
+
+
+}
