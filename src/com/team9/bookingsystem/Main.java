@@ -28,5 +28,11 @@ public class Main {
             e.printStackTrace();
         }
 
+<<<<<<< HEAD
+=======
+        System.out.println("Working");
+        System.out.println("Nima was here");
+        System.out.println("and here");
+>>>>>>> 1cd96150dc86e38c2da1b6097152db6763a6e83d
     }
 }
