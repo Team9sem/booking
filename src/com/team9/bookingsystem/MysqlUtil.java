@@ -20,7 +20,7 @@ public class MysqlUtil {
     public MysqlUtil()
     {
         path = "jdbc:mysql://sql.smallwhitebird.com:3306/BookingSystem";
-        user = "booker";
+        user = "team9";
         pass = "team9";
 
     }
