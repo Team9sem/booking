@@ -12,6 +12,7 @@ import org.json.JSONException;
  * Created by pontuspohl on 12/10/15.
  */
 public class MysqlUtil {
+
     private final String path;
     private final String user;
     private final String pass;
@@ -22,7 +23,6 @@ public class MysqlUtil {
         path = "jdbc:mysql://sql.smallwhitebird.com:3306/BookingSystem";
         user = "team9";
         pass = "team9";
-
     }
     // initialises the Connection.
     public Connection getConnection() throws SQLException{
@@ -123,6 +123,8 @@ public class MysqlUtil {
     return null;
 
     }
+
+    // TODO : Register Method
 
     // prototype using HashMap
     public HashMap getAllUsers(){
