@@ -124,7 +124,7 @@ public class MysqlUtil {
 
     }
 
-    // TODO : Register Method
+    // TODO : Register Method for Mayra
 
     // prototype using HashMap
     public HashMap getAllUsers(){
