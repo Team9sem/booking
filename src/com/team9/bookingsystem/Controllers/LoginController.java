@@ -47,6 +47,7 @@ public class LoginController
         try{
 
             User loggedInUser = util.loginAndGetUser(username.getText(), password.getText());
+            mainController.showBookingInterface();
             System.out.println(loggedInUser.toString());
             // TODO Display the booking interface
 
