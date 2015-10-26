@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Circle;
 import javafx.fxml.FXMLLoader;
@@ -60,6 +61,36 @@ public class MainController {
         }
         System.out.println("Register Button Clicked");
         //TODO: Show Register Form
+    }
+    public void showBookingInterface(){
+        try{
+            // Load Booking FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/booking.fxml"));
+            // Get BorderPane from loader
+            BorderPane borderPane = loader.load();
+            // Get controller From loader
+            BookingController bookingController = loader.getController();
+            // Pass reference to maincontroller to Bookingcontroller
+            bookingController.init(this);
+            System.out.println(this.toString());
+            // Clear Main AnchorPane
+            Ui.getChildren().clear();
+            // add booking.fxml borderpane to main AnchorPane
+            Ui.getChildren().add(borderPane);
+            // set layout constraints
+            Ui.setBottomAnchor(borderPane,0.0);
+            Ui.setTopAnchor(borderPane,0.0);
+            Ui.setLeftAnchor(borderPane,0.0);
+            Ui.setRightAnchor(borderPane,0.0);
+            System.out.println(Ui.getBottomAnchor(borderPane));
+//            welcomeArea.getChildren().clear();
+//            welcomeArea.getChildren().addAll(borderPane.getChildren());
+
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+
+
     }
 
 

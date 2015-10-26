@@ -125,6 +125,58 @@ public class MysqlUtil {
     }
 
     // TODO : Register Method for Mayra
+    //TODO: Find rooms by Filip
+
+    public String getRooms(Room room){ 	//or maybe it should accept a booking class, or room+time+date
+										//returns string for now, just for testing
+
+        String location = room.getLocation();
+        String roomSize = room.getRoomSize();
+        //int roomID = room.getRoomID();
+        int hasProjector = room.getHasProjector();
+        int hasWhiteboard = room.getHasWhiteboard();
+        int hasCoffeeMachine = room.getHasCoffeeMachine();
+        String query = "SELECT * FROM Room WHERE roomID > 0 ";
+
+        if(location != null && !location.isEmpty()){query += " AND location = " + location;}
+        if(roomSize != null && !roomSize.isEmpty()){query += " AND roomSize = " + roomSize;}
+        if(hasProjector > 0){query += " AND hasProjector = 1 ";}
+        if(hasWhiteboard > 0){query += " AND hasWhiteboard = 1 ";}
+        if(hasCoffeeMachine > 0){query += " AND hasCoffeeMachine = 1 ";}
+
+        String toReturn="Nothing to return";
+
+        try(Connection connection = getConnection()){
+
+            System.out.println("Connection Established");
+
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(
+                query += ";"
+            );
+            ResultSetMetaData rsMetaData = rs.getMetaData();
+            int columnsNumber = rsMetaData.getColumnCount();
+
+            while (rs.next()) {
+                for (int i = 1; i <= columnsNumber; i++) {
+                    if (i > 1) System.out.print(",  ");
+                    String columnValue = rs.getString(i);
+                    System.out.print(columnValue + " " + rsMetaData.getColumnName(i));
+                }
+            }
+
+            rs.close();
+            statement.close();
+            connection.close();
+            return toReturn;
+
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return toReturn;
+        //Room[] rooms = new Room[5];   //
+        //return rooms;                 //when i succeed in exporting it to a class file
+    }
 
     // prototype using HashMap
     public HashMap getAllUsers(){

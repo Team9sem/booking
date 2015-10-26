@@ -18,7 +18,7 @@
     <children>
 
         <GridPane alignment="CENTER" AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.bottomAnchor="0.0"
-                  AnchorPane.topAnchor="0.0" fx:id="WelcomeArea" styleClass="welcome-area">
+                  AnchorPane.topAnchor="0.0" fx:id="WelcomeArea" styleClass="welcome-area" gridLinesVisible="true">
             <children>
 
                 <HBox GridPane.columnIndex="0"
@@ -37,7 +37,7 @@
 
                 </HBox>
 
-                <HBox GridPane.columnIndex="0" GridPane.rowIndex="1" alignment="CENTER">
+                <HBox  GridPane.columnIndex="0" GridPane.rowIndex="1" alignment="CENTER">
 
                     <GridPane.margin>
                         <Insets top="10" bottom="10" left="10" right="10"></Insets>
