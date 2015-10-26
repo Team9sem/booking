@@ -128,6 +128,55 @@ public class MysqlUtil {
     }
 
     // TODO : Register Method for Mayra
+    // TODO : create a class for room, use this class as a return type for RegisterRoom analog to "loginAndGetUser" 
+    // room registration
+    // Output confirmation or error
+    // Input  User, Building, Room, Date, Start time, End time, Purpose
+    // Check  if input is valid 
+    // Check  If room is available
+    // Create Room object
+    // SQL server
+    // http://sql.smallwhitebird.com
+    // user team9, password team9
+    
+    //STRUCTURE for Bookings
+    //bid		NULL	INT
+    //userId	NULL	INT
+    //roomId	NULL	INT
+    //bDate		NULL	date
+    //bStart	NULL	time
+    //bEnd		NULL	time
+    public User RegisterRoom(int userId, int roomId, String bDate, String bStart, String bEnd) throws Exception
+    {
+      
+        // we have to catch potential SQLExceptions
+        try(Connection connection = getConnection()){
+
+            System.out.println("Registration Connection Established");
+
+            // statement
+            Statement statement = connection.createStatement();
+
+            String sql = "INSERT INTO Bookings " +
+            			 "(userId, roomId, bDate, bStart, bEnd)" +
+            			 " Values ('"+userId+ "','"+roomId+"','"+bDate+"','"+bStart+"','"+bEnd+"')";
+            System.out.println("SQL string: "+sql); 
+       
+            statement.executeUpdate(sql);
+           
+            statement.close();
+            connection.close();
+//            return toReturn;
+        }catch(SQLException e){
+            e.printStackTrace();
+  } //end public User RegisterRoom
+
+
+
+    return null;
+
+    }
+    
 
     // prototype using HashMap
     public HashMap getAllUsers(){
