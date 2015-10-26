@@ -45,7 +45,7 @@
                         <children>
                             <Button styleClass="round-button"
                                     fx:id="roundButtonLeft"
-                                    text="Button"
+                                    text="Login"
                                     onAction="#showLoginForm"></Button>
                         </children>
 
@@ -59,7 +59,7 @@
                         <children>
                             <Button styleClass="round-button"
                                     fx:id="roundButtonRight"
-                                    text="Button"
+                                    text="Register"
                                     onAction="#showRegisterForm"></Button>
                         </children>
                 </HBox>

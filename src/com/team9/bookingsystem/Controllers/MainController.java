@@ -43,12 +43,22 @@ public class MainController {
         }catch(IOException e){
             e.printStackTrace();
         }
-        System.out.println("Left Button Clicked");
+        System.out.println("Login Button Clicked");
         //TODO: Login logic
     }
     // method mapped to onActionEvent of roundButtonRight
     @FXML public void showRegisterForm(ActionEvent event){
-        System.out.println("Right Button Clicked");
+        try{
+        	FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/register.fxml"));
+        	GridPane gridPane = loader.load();
+        	RegisterController registerController = loader.getController();
+        	registerController.init(this);
+        	WelcomeArea.getChildren().clear();
+        	WelcomeArea.getChildren().addAll(gridPane.getChildren());
+        }catch(IOException e){
+        	e.printStackTrace();
+        }
+        System.out.println("Register Button Clicked");
         //TODO: Show Register Form
     }
 

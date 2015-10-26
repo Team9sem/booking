@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<?import javafx.scene.shape.Circle?>
+<GridPane  xmlns="http://javafx.com/javafx/8"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:id="registerPane"
+           fx:controller="com.team9.bookingsystem.Controllers.RegisterController"
+           gridLinesVisible="true">
+    <children>
+
+        <HBox GridPane.columnIndex="0"
+              GridPane.rowIndex="0"
+              GridPane.columnSpan="2"
+              GridPane.rowSpan="1"
+              alignment="CENTER"
+              spacing="10">
+
+            <Label fx:id="registerLabel" text="Register" styleClass="login-title"></Label>
+
+            <GridPane.margin>
+                <Insets bottom="10" top="10" left="10" right="10"/>
+            </GridPane.margin>
+
+
+        </HBox>
+		
+		<Label text="Username" GridPane.columnIndex="0" GridPane.rowIndex="1"></Label>
+		
+        <HBox GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="2" alignment="CENTER">
+
+            <GridPane.margin>
+                <Insets top="10" bottom="10" left="10" right="10"></Insets>
+            </GridPane.margin>
+
+            <TextField fx:id="username"></TextField>
+            
+         </HBox>
+         
+         <Label text="Password" GridPane.columnIndex="0" GridPane.rowIndex="2"></Label>
+         
+         <HBox  GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.columnSpan="2" alignment="CENTER">
+
+            <GridPane.margin>
+                <Insets top="10" bottom="10" left="10" right="10"></Insets>
+            </GridPane.margin>
+
+            <PasswordField fx:id="passowrd"></PasswordField>
+
+        </HBox>
+		
+		<Label text="First name" GridPane.columnIndex="0" GridPane.rowIndex="3"></Label>
+		
+        <HBox GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.columnSpan="2" alignment="CENTER">
+
+            <GridPane.margin>
+                <Insets top="10" bottom="10" left="10" right="10"></Insets>
+            </GridPane.margin>
+
+            <TextField fx:id="firstname"></TextField>
+
+
+        </HBox>
+        
+        <Label text="Last name" GridPane.columnIndex="0" GridPane.rowIndex="4"></Label>
+        
+                <HBox GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.columnSpan="2" alignment="CENTER">
+
+            <GridPane.margin>
+                <Insets top="10" bottom="10" left="10" right="10"></Insets>
+            </GridPane.margin>
+
+            <TextField fx:id="lastname"></TextField>
+
+
+        </HBox>
+        
+         <Label text="Social security number" GridPane.columnIndex="0" GridPane.rowIndex="5"></Label>
+        
+        <HBox GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.columnSpan="2" alignment="CENTER">
+       
+
+            <GridPane.margin>
+                <Insets top="10" bottom="10" left="10" right="10"></Insets>
+            </GridPane.margin>
+
+            <TextField fx:id="personnumber"></TextField>
+            
+            </HBox>
+
+          <Label text="Adress" GridPane.columnIndex="0" GridPane.rowIndex="6"></Label>
+     
+     
+        <HBox GridPane.columnIndex="1" GridPane.rowIndex="6" GridPane.columnSpan="2" alignment="CENTER">
+
+            <GridPane.margin>
+                <Insets top="10" bottom="10" left="10" right="10"></Insets>
+            </GridPane.margin>
+
+            <TextField fx:id="adress"></TextField>
+            
+        </HBox>
+        
+        <Label text="Zip code" GridPane.columnIndex="0" GridPane.rowIndex="7"></Label>
+
+        <HBox GridPane.columnIndex="1" GridPane.rowIndex="7" GridPane.columnSpan="2" alignment="CENTER">
+
+            <GridPane.margin>
+                <Insets top="10" bottom="10" left="10" right="10"></Insets>
+            </GridPane.margin>
+
+            <TextField fx:id="zip"></TextField>
+        </HBox>
+       
+        <HBox  GridPane.columnIndex="1" GridPane.rowIndex="8" GridPane.columnSpan="1" alignment="CENTER_RIGHT">
+
+            <GridPane.margin>
+                <Insets top="10" bottom="10" left="10" right="10"></Insets>
+            </GridPane.margin>
+
+            <Button fx:id="register" text="Register" onAction="#register"></Button>
+
+        </HBox>
+
+        <HBox  GridPane.columnIndex="0" GridPane.rowIndex="8" GridPane.columnSpan="1" alignment="CENTER_LEFT">
+
+            <GridPane.margin>
+                <Insets top="10" bottom="10" left="10" right="10"></Insets>
+            </GridPane.margin>
+
+            <Button fx:id="back" text="Back" onAction="#showWelcomeArea" ></Button>
+            
+
+        </HBox>
+
+
+
+
+
+    </children>
+
+
+
+
+
+
+
+
+</GridPane>
