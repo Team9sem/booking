@@ -130,7 +130,7 @@ public class MysqlUtil {
     // TODO : Register Method for Mayra
     // TODO : create a class for room, use this class as a return type for RegisterRoom analog to "loginAndGetUser" 
     // room registration
-    // Output confirmation or error
+    // Output confirmation or error.
     // Input  User, Building, Room, Date, Start time, End time, Purpose
     // Check  if input is valid 
     // Check  If room is available
@@ -146,13 +146,13 @@ public class MysqlUtil {
     //bDate		NULL	date
     //bStart	NULL	time
     //bEnd		NULL	time
-    public User RegisterRoom(int userId, int roomId, String bDate, String bStart, String bEnd) throws Exception
+    public boolean RegisterRoom(int userId, int roomId, String bDate, String bStart, String bEnd) throws Exception
     {
       
         // we have to catch potential SQLExceptions
         try(Connection connection = getConnection()){
 
-            System.out.println("Registration Connection Established");
+            System.out.println("Room Registration Connection Established");
 
             // statement
             Statement statement = connection.createStatement();
@@ -166,16 +166,53 @@ public class MysqlUtil {
            
             statement.close();
             connection.close();
-//            return toReturn;
+            return true;
         }catch(SQLException e){
             e.printStackTrace();
+        } 
+     return false;   
   } //end public User RegisterRoom
 
+  //userid 		int(11)
+  //alias		varchar(20)
+  //passwd		varchar(255)
+  //firstname 	varchar(20)
+  //lastname	varchar(30)
+  //pNumber		bigint(20)
+  //usertype	varchar(30)
+  //street		varchar(30)
+  //zip			int(11)
+        
+  public boolean RegisterUser(String alias, String passwd, String firstname, String lastname, long pNumber, String usertype, String street, int zip) throws Exception
+  {
+          
+	  // we have to catch potential SQLExceptions
+      try(Connection connection = getConnection()){
+    	  
+    	  
+    	  System.out.println("User Registration Connection Established");
 
+    	  // statement
+    	  Statement statement = connection.createStatement();
 
-    return null;
+    	  String sql = "INSERT INTO User " +
+                   	"(alias, passwd, firstname, lastname, pNumber, usertype, street, zip)" +
+                   	" Values ('"+alias+ "','"+passwd+"','"+firstname+"','"+lastname+"','"+pNumber+"','"+usertype+"','"+street+"','"+zip+"')";
+      
+    	  System.out.println("SQL string: "+sql); 
+           
+    	  statement.executeUpdate(sql);
+               
+          statement.close();
+          connection.close();
+          return true;
+       }catch(SQLException e){
+            e.printStackTrace();
+       }
 
-    }
+    return false;
+
+    }//end public User RegisterRoom
     
 
     // prototype using HashMap
