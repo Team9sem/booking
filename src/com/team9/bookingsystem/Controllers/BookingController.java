@@ -36,6 +36,28 @@ public class BookingController {
     @FXML BorderPane borderPane;
     @FXML Pagination pagination;
     @FXML AnchorPane resultAnchorPane;
+    
+    //SearchAnchorPaneElements
+    @FXML Label SearchPreferences;
+    @FXML Label Features;
+    @FXML CheckBox CoffeMachine;
+    @FXML CheckBox Whiteboard;
+    @FXML CheckBox Projector;
+    @FXML Label RoomSize;
+    @FXML CheckBox Small;
+    @FXML CheckBox Medium;
+    @FXML CheckBox Large;
+    @FXML Label Date;
+    @FXML DatePicker Datepicker;
+    @FXML Label FromTime;
+    @FXML TextField FromTimeInput;
+    @FXML Label ToTime;
+    @FXML TextField ToTimeInput;
+    @FXML Label Location;
+    @FXML ChoiceBox LocationPick;
+    @FXML Button SearchButton;
+    
+    
 
 
 
@@ -58,6 +80,7 @@ public class BookingController {
 
 
     // Todo: add method to handle search button
+
 
 
 
