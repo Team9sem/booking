@@ -40,7 +40,7 @@ public class LoginController
     //  Method that displays welcomeArea
     @FXML public void showWelcomeArea(){
         // TODO: take user back to welcome area
-
+        mainController.showWelcomeArea();
     }
     // Validate user input with the database.
     @FXML public void login(){
