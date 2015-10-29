@@ -42,7 +42,7 @@ public class BookingController {
     // this method runs when controller is started
     public void initialize() {
     	util = new MysqlUtil();
-
+        
 //
 
 
@@ -57,7 +57,7 @@ public class BookingController {
     //  Method that displays show search result
 
 
-
+    // Todo: add method to handle search button
 
 
 
