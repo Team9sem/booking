@@ -22,6 +22,7 @@ public class MainController {
     @FXML private GridPane WelcomeArea;
     @FXML private Button roundButtonLeft;
     @FXML private Button roundButtonRight;
+    
 
     // is run when FXML is loaded
     public void initialize() {
