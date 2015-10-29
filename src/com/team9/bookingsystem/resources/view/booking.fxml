@@ -13,22 +13,106 @@
             <Insets />
          </BorderPane.margin>
          <children>
-            <VBox id="options-area" prefHeight="513.0" prefWidth="374.0" styleClass="options-area" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <VBox id="options-area" layoutX="8.0" layoutY="14.0" prefHeight="513.0" prefWidth="374.0" styleClass="options-area">
                <padding>
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </padding>
+               <children>
+                  <Label fx:id="loginLabel1" alignment="TOP_LEFT" styleClass="booking-title" text="Search Preferences" textAlignment="CENTER">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label text="Features:">
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <CheckBox mnemonicParsing="false" text="Whiteboard">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </CheckBox>
+                  <CheckBox mnemonicParsing="false" text="Projector">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </CheckBox>
+                  <Label text="Room size:">
+                     <padding>
+                        <Insets bottom="5.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <CheckBox mnemonicParsing="false" prefHeight="20.0" prefWidth="92.0" text="Small">
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </CheckBox>
+                  <CheckBox mnemonicParsing="false" text="Medium">
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </CheckBox>
+                  <CheckBox mnemonicParsing="false" text="Large" />
+                  <Label text="Date:">
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <DatePicker>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </DatePicker>
+                  <Label text="Location:">
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <ChoiceBox prefWidth="150.0">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </ChoiceBox>
+                  <Label text="Time:">
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField prefHeight="26.0" prefWidth="126.0" />
+                  <Button mnemonicParsing="false" text="Button" />
+               </children>
             </VBox>
          </children>
       </AnchorPane>
    </left>
    <top>
       <AnchorPane id="top-area" fx:id="topAnchorPane" prefHeight="103.0" prefWidth="1000.0" styleClass="top-area" BorderPane.alignment="CENTER">
+        
+         
+         <Label fx:id="loginLabel" alignment="TOP_LEFT" layoutX="264.0" layoutY="22.0" styleClass="booking-title" text="Book a room!" textAlignment="CENTER">
+            <font>
+               <Font name="Arial Rounded MT Bold" size="50.0" />
+            </font></Label>
          <BorderPane.margin>
-            <Insets />
+            <Insets bottom="10" left="50" right="100" top="10" />
          </BorderPane.margin>
+         <padding>
+            <Insets left="100.0" />
+         </padding>
       </AnchorPane>
    </top>
    <center>
-      <AnchorPane fx:id="resultAnchorPane" minHeight="100.0" minWidth="100.0" BorderPane.alignment="CENTER" />
+      <AnchorPane fx:id="resultAnchorPane" minHeight="100.0" minWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" layoutX="14.0" layoutY="36.0" prefHeight="23.0" prefWidth="172.0" text="Search Results">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="20.0" />
+               </font>
+            </Label>
+         </children></AnchorPane>
    </center>
 </BorderPane>
