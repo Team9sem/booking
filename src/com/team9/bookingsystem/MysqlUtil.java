@@ -161,7 +161,7 @@ public class MysqlUtil {
             			 "(userId, roomId, bDate, bStart, bEnd)" +
             			 " Values ('"+userId+ "','"+roomId+"','"+bDate+"','"+bStart+"','"+bEnd+"')";
             System.out.println("SQL string: "+sql); 
-       
+
             statement.executeUpdate(sql);
            
             statement.close();
