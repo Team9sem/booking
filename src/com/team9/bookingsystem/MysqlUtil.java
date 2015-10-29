@@ -124,7 +124,6 @@ public class MysqlUtil {
 
     }
 
-    // TODO : Register Method for Mayra
     //TODO: Find rooms by Filip
 
     public String getRooms(Room room){ 	//or maybe it should accept a booking class, or room+time+date
