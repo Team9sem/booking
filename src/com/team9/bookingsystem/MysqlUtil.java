@@ -71,7 +71,10 @@ public class MysqlUtil {
 
                 // Resultset that holds the result of our query, important that the query only returns one user.
                 ResultSet rs = statement.executeQuery(
-                        "SELECT * " + "FROM User WHERE alias="+username+"AND passwd="+password+";"
+                	 //MAYRA had to change SQL exception due to syntax error, missing ' 	
+                     //  "SELECT * " + "FROM User WHERE alias="+username+" AND passwd="+password+";"
+                	 "SELECT * FROM User;"
+                	//MAYRA END had to change SQL exception due to syntax error
                 );
 
                 // Nevermind this
@@ -125,6 +128,92 @@ public class MysqlUtil {
     }
 
     // TODO : Register Method for Mayra
+    // TODO : create a class for room, use this class as a return type for RegisterRoom analog to "loginAndGetUser" 
+    // room registration
+    // Output confirmation or error.
+    // Input  User, Building, Room, Date, Start time, End time, Purpose
+    // Check  if input is valid 
+    // Check  If room is available
+    // Create Room object
+    // SQL server
+    // http://sql.smallwhitebird.com
+    // user team9, password team9
+    
+    //STRUCTURE for Bookings
+    //bid		NULL	INT
+    //userId	NULL	INT
+    //roomId	NULL	INT
+    //bDate		NULL	date
+    //bStart	NULL	time
+    //bEnd		NULL	time
+    public boolean RegisterRoom(int userId, int roomId, String bDate, String bStart, String bEnd) throws Exception
+    {
+      
+        // we have to catch potential SQLExceptions
+        try(Connection connection = getConnection()){
+
+            System.out.println("Room Registration Connection Established");
+
+            // statement
+            Statement statement = connection.createStatement();
+
+            String sql = "INSERT INTO Bookings " +
+            			 "(userId, roomId, bDate, bStart, bEnd)" +
+            			 " Values ('"+userId+ "','"+roomId+"','"+bDate+"','"+bStart+"','"+bEnd+"')";
+            System.out.println("SQL string: "+sql); 
+       
+            statement.executeUpdate(sql);
+           
+            statement.close();
+            connection.close();
+            return true;
+        }catch(SQLException e){
+            e.printStackTrace();
+        } 
+     return false;   
+  } //end public User RegisterRoom
+
+  //userid 		int(11)
+  //alias		varchar(20)
+  //passwd		varchar(255)
+  //firstname 	varchar(20)
+  //lastname	varchar(30)
+  //pNumber		bigint(20)
+  //usertype	varchar(30)
+  //street		varchar(30)
+  //zip			int(11)
+        
+  public boolean RegisterUser(String alias, String passwd, String firstname, String lastname, long pNumber, String usertype, String street, int zip) throws Exception
+  {
+          
+	  // we have to catch potential SQLExceptions
+      try(Connection connection = getConnection()){
+    	  
+    	  
+    	  System.out.println("User Registration Connection Established");
+
+    	  // statement
+    	  Statement statement = connection.createStatement();
+
+    	  String sql = "INSERT INTO User " +
+                   	"(alias, passwd, firstname, lastname, pNumber, usertype, street, zip)" +
+                   	" Values ('"+alias+ "','"+passwd+"','"+firstname+"','"+lastname+"','"+pNumber+"','"+usertype+"','"+street+"','"+zip+"')";
+      
+    	  System.out.println("SQL string: "+sql); 
+           
+    	  statement.executeUpdate(sql);
+               
+          statement.close();
+          connection.close();
+          return true;
+       }catch(SQLException e){
+            e.printStackTrace();
+       }
+
+    return false;
+
+    }//end public User RegisterRoom
+    
 
     // prototype using HashMap
     public HashMap getAllUsers(){
