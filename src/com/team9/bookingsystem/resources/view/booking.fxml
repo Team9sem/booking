@@ -13,90 +13,189 @@
             <Insets />
          </BorderPane.margin>
          <children>
-            <VBox id="options-area" layoutX="8.0" layoutY="14.0" prefHeight="513.0" prefWidth="374.0" styleClass="options-area">
-               <padding>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </padding>
+            <VBox id="options-area" layoutX="8.0" layoutY="14.0" prefHeight="490.0" prefWidth="345.0" styleClass="options-area" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                <children>
-                  <Label fx:id="loginLabel1" alignment="TOP_LEFT" styleClass="booking-title" text="Search Preferences" textAlignment="CENTER">
-                     <font>
-                        <Font name="Arial Rounded MT Bold" size="20.0" />
-                     </font>
-                  </Label>
-                  <Label text="Features:">
-                     <VBox.margin>
-                        <Insets top="20.0" />
-                     </VBox.margin>
-                  </Label>
-                  <CheckBox mnemonicParsing="false" text="Whiteboard">
-                     <VBox.margin>
-                        <Insets top="5.0" />
-                     </VBox.margin>
-                  </CheckBox>
-                  <CheckBox mnemonicParsing="false" text="Projector">
-                     <VBox.margin>
-                        <Insets top="5.0" />
-                     </VBox.margin>
-                  </CheckBox>
-                  <CheckBox mnemonicParsing="false" text="Coffe machine">
-                     <VBox.margin>
-                        <Insets top="5.0" />
-                     </VBox.margin>
-                  </CheckBox>
-                  <Label text="Room size:">
-                     <padding>
-                        <Insets bottom="5.0" />
-                     </padding>
-                     <VBox.margin>
-                        <Insets top="20.0" />
-                     </VBox.margin>
-                  </Label>
-                  <CheckBox mnemonicParsing="false" prefHeight="20.0" prefWidth="92.0" text="Small">
-                     <padding>
-                        <Insets top="5.0" />
-                     </padding>
-                  </CheckBox>
-                  <CheckBox mnemonicParsing="false" text="Medium">
-                     <padding>
-                        <Insets top="5.0" />
-                     </padding>
-                  </CheckBox>
-                  <CheckBox mnemonicParsing="false" text="Large" />
-                  <Label text="Date:">
-                     <VBox.margin>
-                        <Insets top="20.0" />
-                     </VBox.margin>
-                  </Label>
-                  <DatePicker>
-                     <VBox.margin>
-                        <Insets top="5.0" />
-                     </VBox.margin>
-                  </DatePicker>
-                  <Label text="Time:">
-                     <VBox.margin>
-                        <Insets top="20.0" />
-                     </VBox.margin>
-                  </Label>
-                  <TextField>
-                     <VBox.margin>
-                        <Insets top="5.0" />
-                     </VBox.margin>
-                  </TextField>
-                  <Label text="Location:">
-                     <VBox.margin>
-                        <Insets top="20.0" />
-                     </VBox.margin>
-                  </Label>
-                  <ChoiceBox prefWidth="150.0">
-                     <VBox.margin>
-                        <Insets top="5.0" />
-                     </VBox.margin>
-                  </ChoiceBox>
-                  <Button mnemonicParsing="false" text="Search">
-                     <VBox.margin>
-                        <Insets top="20.0" />
-                     </VBox.margin></Button>
+                  <GridPane hgap="10.0" vgap="5.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <HBox alignment="CENTER" GridPane.columnSpan="3">
+                           <children>
+                              <Label fx:id="loginLabel1" alignment="TOP_LEFT" styleClass="booking-title" text="Search Preferences" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Arial Rounded MT Bold" size="20.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" GridPane.rowIndex="1">
+                           <children>
+                              <Label text="Features:" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="BOTTOM_LEFT" GridPane.columnSpan="3" GridPane.rowIndex="3">
+                           <children>
+                              <CheckBox mnemonicParsing="false" text="Whiteboard">
+                                 <HBox.margin>
+                                    <Insets top="5.0" />
+                                 </HBox.margin></CheckBox>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                        </HBox>
+                        <HBox alignment="BOTTOM_LEFT" GridPane.columnSpan="3" GridPane.rowIndex="4">
+                           <children>
+                              <CheckBox mnemonicParsing="false" text="Projector">
+                                 <HBox.margin>
+                                    <Insets top="5.0" />
+                                 </HBox.margin></CheckBox>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                        </HBox>
+                        <HBox alignment="BOTTOM_LEFT" GridPane.columnSpan="3" GridPane.rowIndex="2">
+                           <children>
+                              <CheckBox mnemonicParsing="false" text="Coffe machine">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin></CheckBox>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" GridPane.rowIndex="5">
+                           <children>
+                              <Label text="Room size:">
+                                 <HBox.margin>
+                                    <Insets top="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox GridPane.rowIndex="6">
+                           <children>
+                              <CheckBox mnemonicParsing="false" prefHeight="20.0" prefWidth="92.0" text="Small">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </CheckBox>
+                           </children>
+                        </HBox>
+                        <HBox GridPane.rowIndex="7">
+                           <children>
+                              <CheckBox mnemonicParsing="false" text="Medium">
+                                 <HBox.margin>
+                                    <Insets top="5.0" />
+                                 </HBox.margin>
+                              </CheckBox>
+                           </children>
+                        </HBox>
+                        <HBox GridPane.rowIndex="8">
+                           <children>
+                              <CheckBox mnemonicParsing="false" text="Large">
+                                 <HBox.margin>
+                                    <Insets top="5.0" />
+                                 </HBox.margin></CheckBox>
+                           </children>
+                        </HBox>
+                        <HBox GridPane.rowIndex="9">
+                           <children>
+                              <Label text="Date:">
+                                 <HBox.margin>
+                                    <Insets top="5.0" />
+                                 </HBox.margin></Label>
+                           </children>
+                        </HBox>
+                        <HBox GridPane.rowIndex="10">
+                           <children>
+                              <DatePicker />
+                           </children>
+                        </HBox>
+                        <HBox GridPane.rowIndex="11">
+                           <children>
+                              <Label text="From time:">
+                                 <HBox.margin>
+                                    <Insets top="5.0" />
+                                 </HBox.margin></Label>
+                           </children>
+                        </HBox>
+                        <HBox GridPane.rowIndex="12">
+                           <children>
+                              <TextField promptText="i.e. 12:00" />
+                           </children>
+                        </HBox>
+                        <HBox GridPane.rowIndex="13">
+                           <children>
+                              <Label text="To time:">
+                                 <HBox.margin>
+                                    <Insets top="5.0" />
+                                 </HBox.margin></Label>
+                           </children>
+                        </HBox>
+                        <HBox GridPane.rowIndex="14">
+                           <children>
+                              <TextField promptText="i.e. 14:00" />
+                           </children>
+                        </HBox>
+                        <HBox GridPane.rowIndex="15">
+                           <children>
+                              <Label text="Location:">
+                                 <HBox.margin>
+                                    <Insets top="5.0" />
+                                 </HBox.margin></Label>
+                           </children>
+                        </HBox>
+                        <HBox GridPane.rowIndex="16">
+                           <children>
+                              <ChoiceBox prefWidth="150.0" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" GridPane.columnSpan="3" GridPane.rowIndex="17">
+                           <children>
+                              <Button mnemonicParsing="false" text="Search" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </GridPane>
                </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
             </VBox>
          </children>
       </AnchorPane>
@@ -122,11 +221,33 @@
    <center>
       <AnchorPane fx:id="resultAnchorPane" minHeight="100.0" minWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" layoutX="14.0" layoutY="36.0" prefHeight="23.0" prefWidth="172.0" text="Search Results">
-               <font>
-                  <Font name="Arial Rounded MT Bold" size="20.0" />
-               </font>
-            </Label>
+            <GridPane AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints maxHeight="75.33334350585938" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="365.3333282470703" minHeight="10.0" prefHeight="334.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="141.33334350585938" minHeight="0.0" prefHeight="52.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="23.0" prefWidth="172.0" text="Search Results">
+                           <font>
+                              <Font name="Arial Rounded MT Bold" size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <Pagination prefHeight="200.0" prefWidth="695.0" GridPane.rowIndex="1" />
+                  <HBox alignment="CENTER" GridPane.rowIndex="2">
+                     <children>
+                        <Button mnemonicParsing="false" text="Button" />
+                     </children>
+                  </HBox>
+               </children>
+            </GridPane>
          </children></AnchorPane>
    </center>
 </BorderPane>
