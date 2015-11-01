@@ -7,6 +7,9 @@ public class User {
 
     private MysqlUtil _db;
 
+    //Mayra added primary key userID. I need this for booking rooms
+    private int	   userID;
+    //Mayra END added primary key userID. I need this for booking rooms
     private long   pNumber;
     private String userName;
     private String password;
@@ -46,6 +49,13 @@ public class User {
         this.lastName  = user.lastName;
         this.street    = user.street;
         this.zip       = user.zip;
+    }
+    public void setUserID(int userID) {   	
+    	this.userID = userID;
+    }
+    
+    public int getUserID(){
+    	return userID;
     }
 
     public long getpNumber() {
@@ -132,6 +142,7 @@ public class User {
         toReturn += String.format("//- %s \n",getpNumber());
         toReturn += String.format("//- %s \n",getStreet());
         toReturn += String.format("//- %s \n",getZip());
+        toReturn += String.format("//- %s \n",getUserID());
         return toReturn;
     }
 
