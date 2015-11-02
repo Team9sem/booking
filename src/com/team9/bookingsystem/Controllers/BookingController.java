@@ -175,30 +175,12 @@ public class BookingController {
         return 5;
     }
 
-    //  Method that displays show search result
 
 
 
 
-//    //SearchAnchorPaneElements
-//    @FXML Label searchPreferences;
-//    @FXML Label features;
-//    @FXML CheckBox coffeMachine;
-//    @FXML CheckBox whiteboard;
-//    @FXML CheckBox projector;
-//    @FXML Label roomSize;
-//    @FXML CheckBox small;
-//    @FXML CheckBox medium;
-//    @FXML CheckBox large;
-//    @FXML Label date;
-//    @FXML DatePicker datePicker;
-//    @FXML Label fromTime;
-//    @FXML TextField fromTimeInput;
-//    @FXML Label toTime;
-//    @FXML TextField toTimeInput;
-//    @FXML Label location;
-//    @FXML ChoiceBox locationPick;
-//    @FXML Button searchButton;
+
+
     // Todo: add method to handle search button
     @FXML public void Search(ActionEvent event) {
 
@@ -246,5 +228,9 @@ public class BookingController {
 
             }
         });
+    }
+
+    @FXML public void bookRoom(ActionEvent event){
+        // Todo: book a room
     }
 }

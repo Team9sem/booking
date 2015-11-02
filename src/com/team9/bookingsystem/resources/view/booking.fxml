@@ -243,7 +243,7 @@
                   <HBox fx:id="paginationBox" GridPane.rowIndex="1" />
                   <HBox alignment="CENTER" GridPane.rowIndex="2">
                      <children>
-                        <Button mnemonicParsing="false" text="Button" />
+                        <Button onAction="#bookRoom" mnemonicParsing="false" text="Button" />
                      </children>
                   </HBox>
                </children>
