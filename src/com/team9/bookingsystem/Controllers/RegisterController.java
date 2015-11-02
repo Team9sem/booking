@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 
 /**
  * Created by Olle Renard and Nima Fard 22 October 2015
+ * Controller for login.fxml
  */
 
 

@@ -71,10 +71,7 @@ public class MysqlUtil {
 
                 // Resultset that holds the result of our query, important that the query only returns one user.
                 ResultSet rs = statement.executeQuery(
-                	 //MAYRA had to change SQL exception due to syntax error, missing ' 	
-                     //  "SELECT * " + "FROM User WHERE alias="+username+" AND passwd="+password+";"
-                	 "SELECT * FROM User;"
-                	//MAYRA END had to change SQL exception due to syntax error
+                        "SELECT * " + "FROM User WHERE alias="+username+" AND passwd="+password+";"
                 );
 
                 // Nevermind this
@@ -108,9 +105,7 @@ public class MysqlUtil {
                     break;
                 }
 
-                rs.close();
-                statement.close();
-                connection.close();
+
                 return toReturn;
 
 

@@ -1,5 +1,6 @@
 package com.team9.bookingsystem.Controllers;
 
+import com.team9.bookingsystem.User;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -11,29 +12,36 @@ import java.io.IOException;
 
 /**
  * Created by pontuspohl on 13/10/15.
+ * Controller class for Root.fxml
  */
-// Controller for Root.fxml
+
 public class MainController {
 
 
-    private GridPane welcomeAreaCopy;
+
     // Variables mapped to fxml elements
     @FXML private AnchorPane Ui;
     @FXML private Pane welcomeArea;
+    // variablename Ending with Controller automatically gets reference to element's Controller instance
     @FXML private welcomeAreaController welcomeAreaController;
-//    @FXML private Button roundButtonLeft;
-//    @FXML private Button roundButtonRight;
 
-    // is run when FXML is loaded
+
+    /**
+     * Javafx Controller class constructor, Called when Controller is loaded, Sends reference
+     * to this controller instance to welcomeareaController
+     */
     public void initialize() {
 
-        // Sets shape on Buttons to Circle
-//        roundButtonLeft.setShape(new Circle(100));
-//        roundButtonRight.setShape(new Circle(100));
+
         welcomeAreaController.init(this);
         System.out.println(welcomeAreaController.toString());
 
     }
+
+    /**
+     * Clears out welcomeArea Pane and loads login.fxml into it. Also gives loginController instance
+     * a reference to this instance.
+     */
     public void showLoginForm(){
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/login.fxml"));
@@ -41,12 +49,17 @@ public class MainController {
             LoginController loginController = loader.getController();
             loginController.init(this);
             welcomeArea.getChildren().clear();
-            welcomeArea.getChildren().addAll(gridPane.getChildren());
+            welcomeArea.getChildren().add(gridPane);
             System.out.println(welcomeAreaController.toString());
-        }catch(IOException e){
+        }// got to catch any IOExceptions when loading fxml files
+        catch(IOException e){
             e.printStackTrace();
         }
     }
+    /**
+     * Clears out welcomeArea Pane and loads register.fxml into it. Also gives RegisterController instance
+     * a reference to this instance.
+     */
     public void showRegisterForm(){
 
         try{
@@ -57,13 +70,18 @@ public class MainController {
             System.out.println(this.toString());
             welcomeArea.getChildren().clear();
             welcomeArea.getChildren().addAll(gridPane.getChildren());
-        }catch(IOException e){
+        }// got to catch any IOExceptions when loading fxml files
+        catch(IOException e){
             e.printStackTrace();
         }
 
 
 
     }
+    /**
+     * Clears out welcomeArea Pane and loads welcomearea.fxml into it. Also gives welcomeAreaController instance
+     * a reference to this instance.
+     */
     public void showWelcomeArea(){
 
         try{
@@ -75,16 +93,23 @@ public class MainController {
             welcomeArea.getChildren().clear();
             welcomeArea.getChildren().add(gridPane);
 
-        }catch(IOException e){
+        }// got to catch any IOExceptions when loading fxml files
+        catch(IOException e){
             e.printStackTrace();
         }
     }
-    public void showBookingInterface(){
+    /**
+     * Clears out Root anchorpane and loads booking.fxml into it. Also gives BookingController instance
+     * a reference to this instance. Sets distance from anchors on root AnchorPane to 0.0 on all sides.
+     */
+    public void showBookingInterface(User loggedinUser){
+
+
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/booking.fxml"));
             BorderPane borderPane = loader.load();
             BookingController bookingController = loader.getController();
-            bookingController.init(this);
+            bookingController.init(this,loggedinUser);
             System.out.println(this.toString());
             Ui.getChildren().clear();
             Ui.getChildren().add(borderPane);
@@ -92,61 +117,16 @@ public class MainController {
             Ui.setTopAnchor(borderPane,0.0);
             Ui.setLeftAnchor(borderPane,0.0);
             Ui.setRightAnchor(borderPane,0.0);
-            System.out.println(Ui.getBottomAnchor(borderPane));
+
 //            welcomeArea.getChildren().clear();
 //            welcomeArea.getChildren().addAll(borderPane.getChildren());
 
-        }catch(IOException e){
+        } // got to catch any IOExceptions when loading fxml files
+        catch(IOException e){
             e.printStackTrace();
         }
 
 
     }
-
-//    // method mapped to onActionEvent of roundButtonLeft
-//    @FXML public void showLoginForm(ActionEvent event){
-//        try{
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/login.fxml"));
-//            GridPane gridPane = loader.load();
-//            LoginController loginController = loader.getController();
-//            loginController.init(this);
-//            WelcomeArea.getChildren().clear();
-//            WelcomeArea.getChildren().addAll(gridPane.getChildren());
-//        }catch(IOException e){
-//            e.printStackTrace();
-//        }
-//        System.out.println("Left Button Clicked");
-//        //TODO: Login logic
-//    }
-//    // method mapped to onActionEvent of roundButtonRight
-//    @FXML public void showRegisterForm(ActionEvent event){
-//        try{
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/register.fxml"));
-//            GridPane gridPane = loader.load();
-//            RegisterController registerController = loader.getController();
-//            registerController.init(this);
-//            System.out.println(this.toString());
-//            WelcomeArea.getChildren().clear();
-//            WelcomeArea.getChildren().addAll(gridPane.getChildren());
-//        }catch(IOException e){
-//            e.printStackTrace();
-//        }
-//        System.out.println("Left Button Clicked");
-//
-//        System.out.println("Right Button Clicked");
-//        //TODO: Show Register Form
-//    }
-//    public void showWelcomeArea(GridPane pane){
-//
-//        try{
-//            WelcomeArea.getChildren().clear();
-//            WelcomeArea.getChildren().addAll(pane.getChildren());
-//        }catch(Exception e){
-//            e.printStackTrace();
-//        }
-//
-//
-//    }
-
 
 }

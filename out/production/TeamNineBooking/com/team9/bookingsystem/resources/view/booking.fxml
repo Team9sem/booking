@@ -240,7 +240,7 @@
                         </Label>
                      </children>
                   </HBox>
-                  <Pagination prefHeight="200.0" prefWidth="695.0" GridPane.rowIndex="1" />
+                  <HBox fx:id="paginationBox" GridPane.rowIndex="1" />
                   <HBox alignment="CENTER" GridPane.rowIndex="2">
                      <children>
                         <Button mnemonicParsing="false" text="Button" />
