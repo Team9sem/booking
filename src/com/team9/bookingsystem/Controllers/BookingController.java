@@ -67,7 +67,7 @@ public class BookingController {
     @FXML TextField fromTimeInput;
     @FXML Label toTime;
     @FXML TextField toTimeInput;
-    @FXML Label location;
+//    @FXML Label location;
     @FXML ChoiceBox locationPick;
     @FXML Button searchButton;
     
@@ -200,8 +200,9 @@ public class BookingController {
             public void handle(WorkerStateEvent event) {
 
                 searchResult = (ArrayList<Room>) searchService.getValue();
-                System.out.println(searchResult.toString());
+
                 if (searchResult != null) {
+                    System.out.println(searchResult.toString());
                     Pagination pagination = initPagination();
 
 
@@ -221,8 +222,9 @@ public class BookingController {
                         paginationBox.getChildren().clear();
                         paginationBox.getChildren().add(pagination);
                     }
-
-
+                }
+                else {
+                    System.out.println("no result");
                 }
 
 
