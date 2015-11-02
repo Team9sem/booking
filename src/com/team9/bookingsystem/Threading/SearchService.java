@@ -19,6 +19,13 @@ public class SearchService extends ThreadService{
     private String fromTime;
     private String toTime;
     private String size;
+    private boolean isSmall;
+    private boolean isMedium;
+    private boolean isLarge;
+    private boolean hasCoffeemachine;
+    private boolean hasWhiteBoard;
+    private boolean hasProjector;
+    private String location;
 
     /**
      * Class Constructor
@@ -42,12 +49,28 @@ public class SearchService extends ThreadService{
      * @param size Desired Size property
      * @see String
      */
-    public SearchService(String date, String fromTime, String toTime, String size){
+    public SearchService(String date,
+                         String fromTime,
+                         String toTime,
+                         boolean isSmall,
+                         boolean isMedium,
+                         boolean isLarge,
+                         boolean hasCoffeemachine,
+                         boolean hasWhiteBoard,
+                         boolean hasProjector)
+    {
         super();
         this.date = date;
         this.fromTime = fromTime;
         this.toTime = toTime;
         this.size = size;
+        this.isSmall = isSmall;
+        this.isMedium = isMedium;
+        this.isLarge = isLarge;
+        this.hasCoffeemachine = hasCoffeemachine;
+        this.hasProjector = hasProjector;
+        this.hasWhiteBoard = hasWhiteBoard;
+        this.location = location;
     }
 
     /**

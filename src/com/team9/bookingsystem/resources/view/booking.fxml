@@ -187,7 +187,7 @@
                         </HBox>
                         <HBox alignment="CENTER_LEFT" GridPane.columnSpan="3" GridPane.rowIndex="17">
                            <children>
-                              <Button mnemonicParsing="false" text="Search" />
+                              <Button onAction="#Search" mnemonicParsing="false" text="Search" />
                            </children>
                         </HBox>
                      </children>

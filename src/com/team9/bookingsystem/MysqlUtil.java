@@ -54,9 +54,9 @@ public class MysqlUtil {
     // accepts username and pass, returns user
     public User loginAndGetUser(String username,String password) throws Exception
     {
-        //username = "'"+username+"'";
-        //password = "'"+password+"'";
-        // create User Object to populate with database result.
+        username = "'"+username+"'";
+        password = "'"+password+"'";
+
         User toReturn = new User();
 
         // we have to catch potential SQLExceptions
@@ -122,7 +122,7 @@ public class MysqlUtil {
         	return toReturn;
     	}
         
-        public void GetLocations() throws Exception
+    public void GetLocations() throws Exception
         {
         	//Method that prints all rooms 
             // we have to catch potential SQLExceptions
@@ -152,7 +152,7 @@ public class MysqlUtil {
 
         }
         
-        public int GetRoomID(String location) throws Exception
+    public int GetRoomID(String location) throws Exception
         {
         	//Method that prints all rooms 
         	int roomID = 0;
