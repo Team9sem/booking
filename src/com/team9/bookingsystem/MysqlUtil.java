@@ -54,8 +54,8 @@ public class MysqlUtil {
     // accepts username and pass, returns user
     public User loginAndGetUser(String username,String password) throws Exception
     {
-        username = "'"+username+"'";
-        password = "'"+password+"'";
+        //username = "'"+username+"'";
+        //password = "'"+password+"'";
         // create User Object to populate with database result.
         User toReturn = new User();
 
@@ -65,15 +65,17 @@ public class MysqlUtil {
 
 
             System.out.println("Connection Established");
-
+            String SQL="SELECT * " + "FROM User WHERE alias="+username+" AND passwd="+password+";";
+            System.out.println(SQL);
                 // statement
                 Statement statement = connection.createStatement();
 
                 // Resultset that holds the result of our query, important that the query only returns one user.
                 ResultSet rs = statement.executeQuery(
-                        "SELECT * " + "FROM User WHERE alias="+username+" AND passwd="+password+";"
+                      "SELECT * " + "FROM User WHERE alias="+username+" AND passwd="+password+";"
                 );
 
+                
                 // Nevermind this
                 //JSONArray array = resultSetToJson(rs);
                 //System.out.println(array.getJSONObject(0).get("passwd"));
@@ -101,29 +103,89 @@ public class MysqlUtil {
                     toReturn.setpNumber(rs.getLong("pnumber"));
                     toReturn.setStreet(rs.getString("street"));
                     toReturn.setZip(rs.getInt("zip"));
-
+                    //MAYRA assign the primary key UserID to the User object so that we can use it for booking rooms
+                    int userID = Integer.parseInt(rs.getString("userID"));
+                    toReturn.setUserID(userID);
+                    //MAYRA End
                     break;
                 }
 
-
+                rs.close();
+                statement.close();
+                connection.close();
                 return toReturn;
 
+        	}catch(SQLException e){
+        		e.printStackTrace();
 
+        	}
+        	return toReturn;
+    	}
+        
+        public void GetLocations() throws Exception
+        {
+        	//Method that prints all rooms 
+            // we have to catch potential SQLExceptions
+            try(Connection connection = getConnection()){
+            	
+                System.out.println("Connection Established");
+                String SQL="SELECT location FROM Room;";
+                System.out.println(SQL);
+                    // statement
+                    Statement statement = connection.createStatement();
 
+                    // Resultset that holds the result of our query, important that the query only returns one user.
+                    ResultSet rs = statement.executeQuery(SQL);
+                    while(rs.next()){
+                    	String location = rs.getString("location");
+                    	System.out.println(location);
+                    }
 
-        }catch(SQLException e){
-            e.printStackTrace();
+                    rs.close();
+                    statement.close();
+                    connection.close();
+
+            }catch(SQLException e){
+                e.printStackTrace();
+
+            }
 
         }
+        
+        public int GetRoomID(String location) throws Exception
+        {
+        	//Method that prints all rooms 
+        	int roomID = 0;
+            // we have to catch potential SQLExceptions
+            try(Connection connection = getConnection()){
+            	
+                System.out.println("Connection Established");
+                String SQL="SELECT roomID FROM Room WHERE location ='"+location+"';";
+                System.out.println(SQL);
+                    // statement
+                    Statement statement = connection.createStatement();
 
+                    // Resultset that holds the result of our query, important that the query only returns one user.
+                    ResultSet rs = statement.executeQuery(SQL);
+                    while(rs.next()){
+                    	String tmp = rs.getString("roomID");
+                    	roomID = Integer.parseInt(tmp);
+                    	System.out.println(roomID);
+                    }
 
+                    rs.close();
+                    statement.close();
+                    connection.close();
 
-    return null;
+            }catch(SQLException e){
+                e.printStackTrace();
 
-    }
+            }
+            return roomID;
+        }
 
     // TODO : Register Method for Mayra
-    // TODO : create a class for room, use this class as a return type for RegisterRoom analog to "loginAndGetUser" 
+    // TODO : create a class for room, use this class as a return type for BookRoom analog to "loginAndGetUser" 
     // room registration
     // Output confirmation or error.
     // Input  User, Building, Room, Date, Start time, End time, Purpose
@@ -141,7 +203,7 @@ public class MysqlUtil {
     //bDate		NULL	date
     //bStart	NULL	time
     //bEnd		NULL	time
-    public boolean RegisterRoom(int userId, int roomId, String bDate, String bStart, String bEnd) throws Exception
+    public boolean BookRoom(int userId, int roomId, String bDate, String bStart, String bEnd) throws Exception
     {
       
         // we have to catch potential SQLExceptions
@@ -156,7 +218,7 @@ public class MysqlUtil {
             			 "(userId, roomId, bDate, bStart, bEnd)" +
             			 " Values ('"+userId+ "','"+roomId+"','"+bDate+"','"+bStart+"','"+bEnd+"')";
             System.out.println("SQL string: "+sql); 
-
+       
             statement.executeUpdate(sql);
            
             statement.close();
@@ -166,7 +228,7 @@ public class MysqlUtil {
             e.printStackTrace();
         } 
      return false;   
-  } //end public User RegisterRoom
+  } //end public User BookRoom
 
   //userid 		int(11)
   //alias		varchar(20)
@@ -194,6 +256,43 @@ public class MysqlUtil {
                    	"(alias, passwd, firstname, lastname, pNumber, usertype, street, zip)" +
                    	" Values ('"+alias+ "','"+passwd+"','"+firstname+"','"+lastname+"','"+pNumber+"','"+usertype+"','"+street+"','"+zip+"')";
       
+    	  //System.out.println("SQL string: "+sql); 
+           
+    	  statement.executeUpdate(sql);
+               
+          statement.close();
+          connection.close();
+          return true;
+       }catch(SQLException e){
+            e.printStackTrace();
+       }
+
+    return false;
+
+    }//end public User RegisterUser
+    
+  public boolean RegisterRoom(String location, String roomSize, int hasProjector, int hasWhiteBoard, int hasCoffeeMachine) throws Exception
+  {
+	  	//roomID int(11)
+	    //location char(30)
+	    //roomSize char(30)
+	    //hasProjector int
+	    //hasWhiteBoard int
+	    //hasCoffeMachine int
+          
+	  // we have to catch potential SQLExceptions
+      try(Connection connection = getConnection()){
+    	  
+    	  
+    	  System.out.println("User resister room Connection Established");
+
+    	  // statement
+    	  Statement statement = connection.createStatement();
+
+    	  String sql = "INSERT INTO Room " +
+                   	"(location, roomSize, hasProjector, hasWhiteBoard, hasCoffeeMachine)" +
+                   	" Values ('"+location+ "','"+roomSize+"','"+hasProjector+"','"+hasWhiteBoard+"','"+hasCoffeeMachine+"')";
+      
     	  System.out.println("SQL string: "+sql); 
            
     	  statement.executeUpdate(sql);
@@ -207,8 +306,7 @@ public class MysqlUtil {
 
     return false;
 
-    }//end public User RegisterRoom
-    
+    }//end public User RegisterUser
 
     // prototype using HashMap
     public HashMap getAllUsers(){
