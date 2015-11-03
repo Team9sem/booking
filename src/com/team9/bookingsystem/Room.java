@@ -113,17 +113,17 @@ public class Room {
     }
 
     public String toString(){
-        String toReturn = "",hasProjector="",hasWhiteboard="",hasCoffeeMachine="";
-//        if(getHasProjector()>0){hasProjector="has projector";}
-//        else{hasProjector="no projector";}
-//        if(getHasWhiteboard()>0){hasWhiteboard="has whiteboard";}
-//        else{hasWhiteboard="no whiteboard";}
-//        if(getHasCoffeeMachine()>0){hasCoffeeMachine="has coffee machine";}
-//        else{hasCoffeeMachine="no coffee machine";}
-
-        toReturn += String.format("//- %s \n",getRoomID());
-        toReturn += String.format("//- %s \n",getLocation());
+        String toReturn = "";
+        toReturn += String.format("\n//- %s \n",getLocation());
         toReturn += String.format("//- %s \n",getRoomSize());
+        toReturn += String.format("//- %s \n",getHasProjectore());
+        toReturn += String.format("//- %s \n",getHasWhiteBoard());
+        toReturn += String.format("//- %s \n",getHasCoffeMachine());
+        return toReturn;
+    }
+
+
+}
         toReturn += String.format("//- %s \n",getHasProjector());
         toReturn += String.format("//- %s \n",getHasWhiteboard());
         toReturn += String.format("//- %s \n",getHasCoffeeMachine());

@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 
 /**
  * Created by Olle Renard and Nima Fard 22 October 2015
+ * Controller for login.fxml
  */
 
 
@@ -24,7 +25,7 @@ public class RegisterController
     // Variables mapped to fxml elements
     @FXML Label registerLabel;
     @FXML TextField username;
-    @FXML TextField name;
+    @FXML TextField firstname;
     @FXML TextField lastname;
     @FXML TextField personnumber;
     @FXML TextField adress;
@@ -45,7 +46,7 @@ public class RegisterController
     //  Method that displays welcomeArea
     @FXML public void showWelcomeArea(){
         // TODO: take user back to welcome area
-
+        mainController.showWelcomeArea();
     }
     // Validate user input with the database.
     @FXML public void register(){

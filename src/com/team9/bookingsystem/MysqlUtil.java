@@ -1,8 +1,8 @@
 package com.team9.bookingsystem;
 
 import java.sql.*;
-import java.sql.Date;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -56,7 +56,7 @@ public class MysqlUtil {
     {
         username = "'"+username+"'";
         password = "'"+password+"'";
-        // create User Object to populate with database result.
+
         User toReturn = new User();
 
         // we have to catch potential SQLExceptions
@@ -65,15 +65,17 @@ public class MysqlUtil {
 
 
             System.out.println("Connection Established");
-
+            String SQL="SELECT * " + "FROM User WHERE alias="+username+" AND passwd="+password+";";
+            System.out.println(SQL);
                 // statement
                 Statement statement = connection.createStatement();
 
                 // Resultset that holds the result of our query, important that the query only returns one user.
                 ResultSet rs = statement.executeQuery(
-                        "SELECT * " + "FROM User WHERE alias="+username+"AND passwd="+password+";"
+                      "SELECT * " + "FROM User WHERE alias="+username+" AND passwd="+password+";"
                 );
 
+                
                 // Nevermind this
                 //JSONArray array = resultSetToJson(rs);
                 //System.out.println(array.getJSONObject(0).get("passwd"));
@@ -101,7 +103,10 @@ public class MysqlUtil {
                     toReturn.setpNumber(rs.getLong("pnumber"));
                     toReturn.setStreet(rs.getString("street"));
                     toReturn.setZip(rs.getInt("zip"));
-
+                    //MAYRA assign the primary key UserID to the User object so that we can use it for booking rooms
+                    int userID = Integer.parseInt(rs.getString("userID"));
+                    toReturn.setUserID(userID);
+                    //MAYRA End
                     break;
                 }
 
@@ -110,154 +115,198 @@ public class MysqlUtil {
                 connection.close();
                 return toReturn;
 
+        	}catch(SQLException e){
+        		e.printStackTrace();
 
+        	}
+        	return toReturn;
+    	}
+        
+    public void GetLocations() throws Exception
+        {
+        	//Method that prints all rooms 
+            // we have to catch potential SQLExceptions
+            try(Connection connection = getConnection()){
+            	
+                System.out.println("Connection Established");
+                String SQL="SELECT location FROM Room;";
+                System.out.println(SQL);
+                    // statement
+                    Statement statement = connection.createStatement();
 
+                    // Resultset that holds the result of our query, important that the query only returns one user.
+                    ResultSet rs = statement.executeQuery(SQL);
+                    while(rs.next()){
+                    	String location = rs.getString("location");
+                    	System.out.println(location);
+                    }
 
-        }catch(SQLException e){
-            e.printStackTrace();
+                    rs.close();
+                    statement.close();
+                    connection.close();
+
+            }catch(SQLException e){
+                e.printStackTrace();
+
+            }
 
         }
+        
+    public int GetRoomID(String location) throws Exception
+        {
+        	//Method that prints all rooms 
+        	int roomID = 0;
+            // we have to catch potential SQLExceptions
+            try(Connection connection = getConnection()){
+            	
+                System.out.println("Connection Established");
+                String SQL="SELECT roomID FROM Room WHERE location ='"+location+"';";
+                System.out.println(SQL);
+                    // statement
+                    Statement statement = connection.createStatement();
 
+                    // Resultset that holds the result of our query, important that the query only returns one user.
+                    ResultSet rs = statement.executeQuery(SQL);
+                    while(rs.next()){
+                    	String tmp = rs.getString("roomID");
+                    	roomID = Integer.parseInt(tmp);
+                    	System.out.println(roomID);
+                    }
 
+                    rs.close();
+                    statement.close();
+                    connection.close();
 
-    return null;
+            }catch(SQLException e){
+                e.printStackTrace();
 
-    }
-
-    //TODO: Find rooms by Filip
-
-    public int totalNumberOfRooms(){
-        int j = 0;
-        try(Connection connection = getConnection()){
-
-            System.out.println("\nConnection Established");
-            Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery(
-                    "SELECT * FROM Room NATURAL JOIN Bookings;"
-            );
-
-            while (rs.next()) {
-                j++;
             }
-            System.out.println("Rooms total:"+j);
-
-        }catch(SQLException e) {
-            e.printStackTrace();
+            return roomID;
         }
-        return j;
-    }
 
-    public String composeRoomQuery(Room room,
-                                   String bookingDate,
-                                   String timeStart,
-                                   String timeEnd){
-        String query = "SELECT Room.roomID,Room.location ,Room.roomSize,Room.hasProjector,Room.hasWhiteboard," +
-                "Room.hasCoffeeMachine FROM Room JOIN Bookings ON Room.roomID = Bookings.roomID" +
-                " WHERE Room.roomID> 0 "; //NATURAL JOIN Bookings
-
-        String location = room.getLocation();
-        String roomSize = room.getRoomSize();
-        int hasProjector = room.getHasProjector();
-        int hasWhiteboard = room.getHasWhiteboard();
-        int hasCoffeeMachine = room.getHasCoffeeMachine();
-
-        if(location != null && !location.isEmpty()){query += " AND location = " + "'"+location+"'";}
-        if(roomSize != null && !roomSize.isEmpty()){query += " AND roomSize = " + "'"+roomSize+"'";}
-        if(hasProjector > 0){query += " AND hasProjector = 1 ";}
-        if(hasWhiteboard > 0){query += " AND hasWhiteboard = 1 ";}
-        if(hasCoffeeMachine > 0){query += " AND hasCoffeeMachine = 1 ";}
-        if(timeStart != null){query += " AND Bookings.bStart NOT BETWEEN " + "'" + timeStart + "'"
-                + " AND " + "'" + timeEnd + "'"; }
-        if(timeEnd != null && !location.isEmpty()){query += " AND Bookings.bdate = " + "'" + bookingDate + "'";}
-        if(bookingDate != null && !location.isEmpty()){}
-
-        return query + ";";
-    }
-
-    public Room[] getRooms(String query){ 	//or maybe it should accept a booking class, or room+time+date
-                                            // returns string for now, just for testing
-
-
-        int roomsNumber = totalNumberOfRooms();
-        int availableRoomsNo = 0;
-        BookedRoom[] bridgeRooms = new BookedRoom[roomsNumber];
-
+    // TODO : Register Method for Mayra
+    // TODO : create a class for room, use this class as a return type for BookRoom analog to "loginAndGetUser" 
+    // room registration
+    // Output confirmation or error.
+    // Input  User, Building, Room, Date, Start time, End time, Purpose
+    // Check  if input is valid 
+    // Check  If room is available
+    // Create Room object
+    // SQL server
+    // http://sql.smallwhitebird.com
+    // user team9, password team9
+    
+    //STRUCTURE for Bookings
+    //bid		NULL	INT
+    //userId	NULL	INT
+    //roomId	NULL	INT
+    //bDate		NULL	date
+    //bStart	NULL	time
+    //bEnd		NULL	time
+    public boolean BookRoom(int userId, int roomId, String bDate, String bStart, String bEnd) throws Exception
+    {
+      
+        // we have to catch potential SQLExceptions
         try(Connection connection = getConnection()){
 
-            System.out.println("\nConnection Established\n");
+            System.out.println("Room Registration Connection Established");
 
-            String locationOfRoom = "", sizeOfRoom = "";
-            int projector = 0, whiteboard = 0, coffee = 0, rID = 0, bID=0, uID=0;
-            Date date = null, startTime= null, endTime = null;
-
+            // statement
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery(query);
 
-            ResultSetMetaData rsMetaData = rs.getMetaData();
-            int columnsNumber = rsMetaData.getColumnCount();
-
-            BookedRoom[] hlpRooms = new BookedRoom[roomsNumber];
-
-            int k = 0;
-            System.out.println(query);
-            while (rs.next()) {
-
-                for (int i = 1; i <= columnsNumber; i++) {
-
-                    String columnValue = rs.getString(i);
-                    char c;
-                    if(i==1 || i==7 || i==8) {
-                        if(i==1){ rID = Integer.parseInt(columnValue); }
-                        if(i==7){ bID = Integer.parseInt(columnValue); }
-                        if(i==8){ uID = Integer.parseInt(columnValue); }
-                    }
-                    if(i==2) {
-                        locationOfRoom = columnValue;
-                    }
-                    if(i==3) {
-                        sizeOfRoom = columnValue;
-                    }
-                    if(i==4 || i == 5 || i == 6){
-                        c = columnValue.charAt(0);
-                        if(i==4) { projector = Character.getNumericValue(c); }
-                        if(i==5) { whiteboard = Character.getNumericValue(c); }
-                        if(i==6) { coffee = Character.getNumericValue(c); }
-                    }
-                    if(i==9){  }
-                    if(i==10){  }
-                    if(i==11){  }
-
-                }
-                Room tmpRoom = new Room(rID, locationOfRoom, sizeOfRoom, projector, whiteboard, coffee);
-                hlpRooms[k] = new BookedRoom(tmpRoom, bID, uID, date, startTime, endTime);
-                k++;
-                availableRoomsNo++;
-            }
-            //testing purposes - counts results
-            System.out.println("Rooms total:"+availableRoomsNo);
-
-            bridgeRooms = hlpRooms;
-
-            rs.close();
+            String sql = "INSERT INTO Bookings " +
+            			 "(userId, roomId, bDate, bStart, bEnd)" +
+            			 " Values ('"+userId+ "','"+roomId+"','"+bDate+"','"+bStart+"','"+bEnd+"')";
+            System.out.println("SQL string: "+sql); 
+       
+            statement.executeUpdate(sql);
+           
             statement.close();
             connection.close();
-
+            return true;
         }catch(SQLException e){
-         e.printStackTrace();
-        }
+            e.printStackTrace();
+        } 
+     return false;   
+  } //end public User BookRoom
 
-        Room[] rooms = new Room[availableRoomsNo];
+  //userid 		int(11)
+  //alias		varchar(20)
+  //passwd		varchar(255)
+  //firstname 	varchar(20)
+  //lastname	varchar(30)
+  //pNumber		bigint(20)
+  //usertype	varchar(30)
+  //street		varchar(30)
+  //zip			int(11)
+        
+  public boolean RegisterUser(String alias, String passwd, String firstname, String lastname, long pNumber, String usertype, String street, int zip) throws Exception
+  {
+          
+	  // we have to catch potential SQLExceptions
+      try(Connection connection = getConnection()){
+    	  
+    	  
+    	  System.out.println("User Registration Connection Established");
 
-        for(int i=0; i<availableRoomsNo; i++){
-            rooms[i] = bridgeRooms[i];
-        }
+    	  // statement
+    	  Statement statement = connection.createStatement();
 
-        return rooms;
-    }
-    //
-    //END OF ROOMS HANDLING-----------------------------------------------------------------------------
-    //
+    	  String sql = "INSERT INTO User " +
+                   	"(alias, passwd, firstname, lastname, pNumber, usertype, street, zip)" +
+                   	" Values ('"+alias+ "','"+passwd+"','"+firstname+"','"+lastname+"','"+pNumber+"','"+usertype+"','"+street+"','"+zip+"')";
+      
+    	  //System.out.println("SQL string: "+sql); 
+           
+    	  statement.executeUpdate(sql);
+               
+          statement.close();
+          connection.close();
+          return true;
+       }catch(SQLException e){
+            e.printStackTrace();
+       }
 
+    return false;
+
+    }//end public User RegisterUser
+    
+  public boolean RegisterRoom(String location, String roomSize, int hasProjector, int hasWhiteBoard, int hasCoffeeMachine) throws Exception
+  {
+	  	//roomID int(11)
+	    //location char(30)
+	    //roomSize char(30)
+	    //hasProjector int
+	    //hasWhiteBoard int
+	    //hasCoffeMachine int
+          
+	  // we have to catch potential SQLExceptions
+      try(Connection connection = getConnection()){
+    	  
+    	  
+    	  System.out.println("User resister room Connection Established");
+
+    	  // statement
+    	  Statement statement = connection.createStatement();
+
+    	  String sql = "INSERT INTO Room " +
+                   	"(location, roomSize, hasProjector, hasWhiteBoard, hasCoffeeMachine)" +
+                   	" Values ('"+location+ "','"+roomSize+"','"+hasProjector+"','"+hasWhiteBoard+"','"+hasCoffeeMachine+"')";
+      
+    	  System.out.println("SQL string: "+sql); 
+           
+    	  statement.executeUpdate(sql);
+               
+          statement.close();
+          connection.close();
+          return true;
+       }catch(SQLException e){
+            e.printStackTrace();
+       }
+
+    return false;
+
+    }//end public User RegisterUser
 
     // prototype using HashMap
     public HashMap getAllUsers(){
