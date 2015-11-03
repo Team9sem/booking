@@ -55,14 +55,15 @@ public class Main {
     	}catch(Exception e){
     		e.printStackTrace();
     	}	
-        while(selection !=4){
+        while(selection !=5){
         	//MAYRA clear any string from the previous loop (garbage in the output can cause integer exception in parseInt)
         	System.out.println("Welcome to the booking system");
         	System.out.println("Please select an option:");
         	System.out.println("1: Add a new user");
         	System.out.println("2: Add a new room");
         	System.out.println("3: Book a room");
-        	System.out.println("4: exit");
+        	System.out.println("4: Delete a booking");
+        	System.out.println("5: exit");
         	selection = Integer.parseInt(scanner.nextLine());
         
         	if(selection == 1) {
@@ -138,6 +139,24 @@ public class Main {
         		//roomID = scanner.nextInt();
         	}
         	if(selection == 4) {
+        		try{
+        			Booking[] bookObj = new Booking[100];
+        			bookObj = util.GetUserBookings(user.getUserID());
+        			int i=0;
+        			System.out.println("These are your bookings:");
+        			while(bookObj[i] != null){
+        				System.out.println(bookObj[i].toString());
+        				i++;
+        			}
+        			System.out.println("Please select a booking to delete:");
+        			int bIDtoDelete = Integer.parseInt(scanner.nextLine());
+        			util.removeRoomBooking(bIDtoDelete);			
+     
+        		}catch(Exception e){
+        			e.printStackTrace();
+        		}
+        	}
+        	if(selection == 5) {
         		System.out.println("Bye!");
         	}
         	try{
@@ -159,7 +178,7 @@ public class Main {
         		e.printStackTrace();
         	}
         	
-        } //end while(selection !=4)
+        } //end while(selection !=5)
         
         
         scanner.close();
