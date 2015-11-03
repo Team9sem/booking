@@ -1,55 +1,51 @@
 package com.team9.bookingsystem;
 
 /**
- * Created by Mayra Soliz on 01/11/15.
+ * Created by iso.f on 28/10/15.
  */
 public class Room {
-	//roomID int(11)
-    //location char(30)
-    //roomSize char(30)
-    //hasProjector bool
-    //hasWhiteBoard bool
-    //hasCoffeMachine bool
 
     private MysqlUtil _db;
+
     private int roomID;
-    private String location; 
+    private String location;
     private String roomSize;
-    private boolean hasProjector;
-    private boolean hasWhiteBoard;
-    private boolean hasCoffeMachine;
+    private int hasProjector;
+    private int hasWhiteboard;
+    private int hasCoffeeMachine;
 
     // Default Constructor
-    public Room(){}
+    public Room() {
+    }
 
     // New Room with Parameters
-    public Room(String location, String roomSize, boolean hasProjector, boolean hasWhiteBoard, boolean hasCoffeMachine)
-    {
+    public Room(int roomID,
+                String location,
+                String roomSize,
+                int hasProjector,
+                int hasWhiteboard,
+                int hasCoffeeMachine) {
         _db = new MysqlUtil();
+        this.roomID = roomID;
         this.location = location;
-        this.roomSize  = roomSize;
-        this.hasProjector  = hasProjector;
-        this.hasWhiteBoard = hasWhiteBoard;
-        this.hasCoffeMachine  = hasCoffeMachine;
+        this.roomSize = roomSize;
+        this.hasProjector = hasProjector;
+        this.hasWhiteboard = hasWhiteboard;
+        this.hasCoffeeMachine = hasCoffeeMachine;
     }
 
     // Copy Constructor
-    
-   
-   // public Room(Room user)
-   // {
-   //     _db = new MysqlUtil();
-   //
-   //     this.userName  = user.userName;
-   //     this.password  = user.password;
-   //     this.firstName = user.firstName;
-   //     this.lastName  = user.lastName;
-   //     this.street    = user.street;
-   //     this.zip       = user.zip;
-   // }
-    public int getRoomID() {
-    	return roomID;
+    public Room(Room room) {
+        _db = new MysqlUtil();
+
+        this.roomID = room.roomID;
+        this.location = room.location;
+        this.roomSize = room.roomSize;
+        this.hasProjector = room.hasProjector;
+        this.hasWhiteboard = room.hasWhiteboard;
+        this.hasCoffeeMachine = room.hasCoffeeMachine;
     }
+
     public String getLocation() {
         return location;
     }
@@ -58,58 +54,62 @@ public class Room {
         this.location = location;
     }
 
-    public String getRoomSize () {
+    public String getRoomSize() {
         return roomSize;
     }
 
-    public void setRoomSize(String roomSize) {
-    	this.roomSize =  roomSize;
+    public int getRoomID() {
+        return roomID;
     }
 
-    public Boolean getHasProjectore() {
+    public int getHasProjector() {
         return hasProjector;
     }
 
-    public void setHasProjector(Boolean hasProjector) {
+    public int getHasWhiteboard() {
+        return hasWhiteboard;
+    }
+
+    public int getHasCoffeeMachine() {
+        return hasCoffeeMachine;
+    }
+
+    public void setRoomSize(String roomSize) {
+        this.roomSize = roomSize;
+    }
+
+    public void setRoomID(int roomID) {
+        this.roomID = roomID;
+    }
+
+    public void setHasProjector(int hasProjector) {
         this.hasProjector = hasProjector;
     }
 
-    public Boolean getHasWhiteBoard() {
-        return hasWhiteBoard;
+    public void setHasWhiteboard(int hasWhiteboard) {
+        this.hasWhiteboard = hasWhiteboard;
     }
 
-    public void setHasWhiteBoard(boolean hasWhiteBoard) {
-        this.hasWhiteBoard = hasWhiteBoard;
+    public void setHasCoffeeMachine(int hasCoffeeMachine) {
+        this.hasCoffeeMachine = hasCoffeeMachine;
     }
-    public Boolean getHasCoffeMachine(){
-    	return this.hasCoffeMachine;
-    }
-    public void setHasCoffeMachine(Boolean hasCoffeMachine) {
-        this.hasCoffeMachine = hasCoffeMachine;
-    }
+
+
+
+
 
     public static boolean isValidInput(String location,
                                       String roomSize,
-                                      Boolean hasProjector,
-                                      Boolean hasWhiteBoard,
-                                      Boolean hasCoffeMachine)
+                                      int hasProjector,
+                                      int hasWhiteboard,
+                                      int hasCoffeeMachine)
     {
-        if(location.length() > 30) {
-        	return false;
-        }
-        if(roomSize.length() > 30) {
-        	return false;
-        }
-        if(hasProjector.equals(null)) {
-        	return false;
-        }
-        if(hasWhiteBoard.equals(null)) {
-        	return false;
-        }
-        if(hasCoffeMachine.equals(null)) {
-        	return false;
-        }
-    return true;    
+        if(location.length() > 30){ return false; }
+        if(roomSize.length() > 30){ return false; }
+        if(hasProjector > 1 || hasProjector < 0){ return false; }
+        if(hasWhiteboard > 1 || hasWhiteboard < 0){ return false; }
+        if(hasCoffeeMachine > 1 || hasCoffeeMachine < 0){ return false; }
+        return true;
     }
 
     public String toString(){
@@ -121,6 +121,18 @@ public class Room {
         toReturn += String.format("//- %s \n",getHasCoffeMachine());
         return toReturn;
     }
+
+
+}
+        toReturn += String.format("//- %s \n",getHasProjector());
+        toReturn += String.format("//- %s \n",getHasWhiteboard());
+        toReturn += String.format("//- %s \n",getHasCoffeeMachine());
+
+//        toReturn += getLocation() + ",\t" + getRoomSize() + ",\t" + hasProjector + ",\t" + hasWhiteboard + ",\t"
+//                + hasCoffeeMachine + ",\t" + getRoomID() + "/n";
+        return toReturn;
+    }
+
 
 
 }
