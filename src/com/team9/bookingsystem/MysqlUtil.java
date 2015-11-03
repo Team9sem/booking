@@ -54,9 +54,9 @@ public class MysqlUtil {
     // accepts username and pass, returns user
     public User loginAndGetUser(String username,String password) throws Exception
     {
-        username = "'"+username+"'";
-        password = "'"+password+"'";
-
+        //username = "'"+username+"'";
+        //password = "'"+password+"'";
+        // create User Object to populate with database result.
         User toReturn = new User();
 
         // we have to catch potential SQLExceptions
@@ -122,7 +122,7 @@ public class MysqlUtil {
         	return toReturn;
     	}
         
-    public void GetLocations() throws Exception
+        public void GetLocations() throws Exception
         {
         	//Method that prints all rooms 
             // we have to catch potential SQLExceptions
@@ -152,7 +152,79 @@ public class MysqlUtil {
 
         }
         
-    public int GetRoomID(String location) throws Exception
+        public Booking[] GetUserBookings(int userId) throws Exception
+        {
+        	Booking[] BookObj = new Booking[100];
+        	String bID;
+        	//Method that prints all Bookings
+            // we have to catch potential SQLExceptions
+            try(Connection connection = getConnection()){
+            	
+                System.out.println("Connection Established");
+                String SQL="SELECT * FROM Bookings WHERE userid = '"+userId+"';";
+                System.out.println(SQL);
+                    // statement
+                    Statement statement = connection.createStatement();
+
+                    // Resultset that holds the result of our query, important that the query only returns one user.
+                    ResultSet rs = statement.executeQuery(SQL);
+                    int i = 0;
+                    while(rs.next()){
+                    	BookObj[i] = new Booking();      
+                    	BookObj[i].setbID(rs.getInt("bID"));
+                    	BookObj[i].setuserid(rs.getInt("userid"));
+                    	BookObj[i].setroomID(rs.getInt("roomID"));
+                    	BookObj[i].setbdate(rs.getString("bdate"));
+                    	BookObj[i].setbStart(rs.getString("bStart"));
+                    	BookObj[i].setbEnd(rs.getString("bEnd"));
+                    	i++;
+                 
+                    }
+
+                    rs.close();
+                    statement.close();
+                    connection.close();
+
+            }catch(SQLException e){
+                e.printStackTrace();
+
+            }
+            return BookObj;
+
+        }
+        
+        public String GetRoomLocation(int roomID) throws Exception
+        {
+        	//Method get the location using the roomID
+        	String toReturn = "";
+            // we have to catch potential SQLExceptions
+            try(Connection connection = getConnection()){
+            	
+                System.out.println("Connection Established");
+                String SQL="SELECT location FROM Room WHERE roomID ='"+roomID+"';";
+                System.out.println(SQL);
+                    // statement
+                    Statement statement = connection.createStatement();
+
+                    // Resultset that holds the result of our query, important that the query only returns one user.
+                    ResultSet rs = statement.executeQuery(SQL);
+                    while(rs.next()){
+                    	toReturn = rs.getString("location");
+                    	System.out.println(toReturn);
+                    }
+
+                    rs.close();
+                    statement.close();
+                    connection.close();
+
+            }catch(SQLException e){
+                e.printStackTrace();
+
+            }
+            return toReturn;
+        }
+        
+        public int GetRoomID(String location) throws Exception
         {
         	//Method that prints all rooms 
         	int roomID = 0;
@@ -230,6 +302,31 @@ public class MysqlUtil {
      return false;   
   } //end public User BookRoom
 
+    public boolean removeRoomBooking(int bID) throws Exception
+    {
+      
+        // we have to catch potential SQLExceptions
+        try(Connection connection = getConnection()){
+
+            System.out.println("Room De-Registration Connection Established");
+
+            // statement
+            Statement statement = connection.createStatement();
+            
+            String sql = "DELETE FROM Bookings WHERE" +
+            			 "(bID ='"+bID+"');";
+            System.out.println("SQL string: "+sql); 
+       
+            statement.executeUpdate(sql);
+           
+            statement.close();
+            connection.close();
+            return true;
+        }catch(SQLException e){
+            e.printStackTrace();
+        } 
+     return false;   
+  } //end public User BookRoom
   //userid 		int(11)
   //alias		varchar(20)
   //passwd		varchar(255)
