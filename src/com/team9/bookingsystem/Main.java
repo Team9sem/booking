@@ -44,13 +44,13 @@ public class Main {
 
         try{
             // try to fetch rooms
-            Room[] rooms;
-            String query = util.composeRoomQuery(room, bookingDate, timeStart, timeEnd);
-            rooms = util.getRooms(query);
-
-            for(int k=0; k < rooms.length; k++){
-                System.out.println(rooms[k]);
-            }
+//            Room[] rooms;
+//            String query = util.composeRoomQuery(room, bookingDate, timeStart, timeEnd);
+//            rooms = util.getRooms(query);
+//
+//            for(int k=0; k < rooms.length; k++){
+//                System.out.println(rooms[k]);
+//            }
 
         }catch(Exception e){
             e.printStackTrace();

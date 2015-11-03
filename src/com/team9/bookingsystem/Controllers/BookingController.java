@@ -183,6 +183,7 @@ public class BookingController {
 
     // Todo: add method to handle search button
     @FXML public void Search(ActionEvent event) {
+        System.out.println("searching");
 
         SearchService searchService = new SearchService(datePicker.getPromptText(),
                 fromTimeInput.getText(),
@@ -234,5 +235,8 @@ public class BookingController {
 
     @FXML public void bookRoom(ActionEvent event){
         // Todo: book a room
+        if(selectedRoom != null){
+
+        }
     }
 }

@@ -116,20 +116,14 @@ public class Room {
         String toReturn = "";
         toReturn += String.format("\n//- %s \n",getLocation());
         toReturn += String.format("//- %s \n",getRoomSize());
-        toReturn += String.format("//- %s \n",getHasProjectore());
-        toReturn += String.format("//- %s \n",getHasWhiteBoard());
-        toReturn += String.format("//- %s \n",getHasCoffeMachine());
-        return toReturn;
-    }
-
-
-}
+        toReturn += String.format("//- %s \n",getHasProjector());
+        toReturn += String.format("//- %s \n",getHasWhiteboard());
+        toReturn += String.format("//- %s \n",getHasCoffeeMachine());
         toReturn += String.format("//- %s \n",getHasProjector());
         toReturn += String.format("//- %s \n",getHasWhiteboard());
         toReturn += String.format("//- %s \n",getHasCoffeeMachine());
 
-//        toReturn += getLocation() + ",\t" + getRoomSize() + ",\t" + hasProjector + ",\t" + hasWhiteboard + ",\t"
-//                + hasCoffeeMachine + ",\t" + getRoomID() + "/n";
+
         return toReturn;
     }
 

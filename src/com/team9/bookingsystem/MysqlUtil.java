@@ -1,6 +1,7 @@
 package com.team9.bookingsystem;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -54,8 +55,8 @@ public class MysqlUtil {
     // accepts username and pass, returns user
     public User loginAndGetUser(String username,String password) throws Exception
     {
-        //username = "'"+username+"'";
-        //password = "'"+password+"'";
+        username = "'"+username+"'";
+        password = "'"+password+"'";
         // create User Object to populate with database result.
         User toReturn = new User();
 
@@ -122,8 +123,8 @@ public class MysqlUtil {
         	return toReturn;
     	}
         
-        public void GetLocations() throws Exception
-        {
+    public void GetLocations() throws Exception
+    {
         	//Method that prints all rooms 
             // we have to catch potential SQLExceptions
             try(Connection connection = getConnection()){
@@ -152,8 +153,8 @@ public class MysqlUtil {
 
         }
         
-        public Booking[] GetUserBookings(int userId) throws Exception
-        {
+    public Booking[] GetUserBookings(int userId) throws Exception
+    {
         	Booking[] BookObj = new Booking[100];
         	String bID;
         	//Method that prints all Bookings
@@ -193,8 +194,8 @@ public class MysqlUtil {
 
         }
         
-        public String GetRoomLocation(int roomID) throws Exception
-        {
+    public String GetRoomLocation(int roomID) throws Exception
+    {
         	//Method get the location using the roomID
         	String toReturn = "";
             // we have to catch potential SQLExceptions
@@ -224,8 +225,8 @@ public class MysqlUtil {
             return toReturn;
         }
         
-        public int GetRoomID(String location) throws Exception
-        {
+    public int GetRoomID(String location) throws Exception
+    {
         	//Method that prints all rooms 
         	int roomID = 0;
             // we have to catch potential SQLExceptions
@@ -404,6 +405,162 @@ public class MysqlUtil {
     return false;
 
     }//end public User RegisterUser
+
+    public int totalNumberOfRooms(){
+        int j = 0;
+        try(Connection connection = getConnection()){
+
+            System.out.println("\nConnection Established");
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(
+                    "SELECT * FROM Room NATURAL JOIN Bookings;"
+            );
+
+            while (rs.next()) {
+                j++;
+            }
+            System.out.println("Rooms total:"+j);
+
+        }catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return j;
+    }
+
+    public String composeRoomQuery(String location,
+                                   boolean isSmall,
+                                   boolean isMedium,
+                                   boolean isLarge,
+                                   boolean hasProjector,
+                                   boolean hasWhiteboard,
+                                   boolean hasCoffeeMachine,
+                                   String bookingDate,
+                                   String timeStart,
+                                   String timeEnd){
+        System.out.println("inside composemethod");
+        String query = "SELECT * FROM Room WHERE Room.roomID> 0 ";
+
+
+
+        if(isSmall) query += "OR roomSize = 'S' ";
+        if(isMedium) query += "OR roomSize = 'M' ";
+        if(isLarge) query += "OR roomSize = 'L' ";
+        if(location != null && !location.isEmpty()){query += " AND location = " + "'"+location+"'";}
+        System.out.println(query);
+        if(hasProjector){query += " AND hasProjector = 1 ";}
+        if(hasWhiteboard){query += " AND hasWhiteboard = 1 ";}
+        if(hasCoffeeMachine){query += " AND hasCoffeeMachine = 1 ";}
+        System.out.println(query);
+
+        System.out.println(query);
+        query += "AND Room.roomID NOT IN(SELECT Bookings.roomID FROM Bookings WHERE bdate = '" + bookingDate +
+                "' AND bStart > '" + timeStart + "' AND bEnd > '" + timeStart + "' AND bEnd > '" + timeEnd + "')";
+        System.out.println(query);
+        return query + ";";
+    }
+
+    public ArrayList<Room> getRooms(String query){ 	//or maybe it should accept a booking class, or room+time+date
+        // returns string for now, just for testing
+
+
+        int roomsNumber = totalNumberOfRooms();
+
+//        BookedRoom[] bridgeRooms = new BookedRoom[roomsNumber];
+        ArrayList<Room> bridgeRooms = new ArrayList<>();
+
+
+        try(Connection connection = getConnection()){
+
+            System.out.println("\nConnection Established\n");
+
+            String locationOfRoom = "", sizeOfRoom = "";
+            int projector = 0, whiteboard = 0, coffee = 0, rID = 0, bID=0, uID=0;
+            Date date = null, startTime= null, endTime = null;
+
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+
+            ResultSetMetaData rsMetaData = rs.getMetaData();
+            int columnsNumber = rsMetaData.getColumnCount();
+
+            BookedRoom[] hlpRooms = new BookedRoom[roomsNumber];
+
+            int k = 0;
+            System.out.println(query);
+
+            if (!rs.isBeforeFirst() ) {
+                return null;
+
+            }
+
+            while (rs.next()) {
+                Room room = new Room();
+                room.setRoomSize(rs.getString("roomSize"));
+                room.setLocation(rs.getString("location"));
+                room.setHasProjector(rs.getInt("hasProjector"));
+                room.setHasWhiteboard(rs.getInt("hasWhiteboard"));
+                room.setHasCoffeeMachine(rs.getInt("hasCoffeeMachine"));
+                room.setRoomID(rs.getInt("roomID"));
+                bridgeRooms.add(room);
+
+                rs.getInt("roomId");
+            }
+            return bridgeRooms;
+//                for (int i = 1; i <= columnsNumber; i++) {
+//
+//                    String columnValue = rs.getString(i);
+//                    char c;
+//                    if(i==1 || i==7 || i==8) {
+//                        if(i==1){ rID = Integer.parseInt(columnValue); }
+//                        if(i==7){ bID = Integer.parseInt(columnValue); }
+//                        if(i==8){ uID = Integer.parseInt(columnValue); }
+//                    }
+//                    if(i==2) {
+//                        locationOfRoom = columnValue;
+//                    }
+//                    if(i==3) {
+//                        sizeOfRoom = columnValue;
+//                    }
+//                    if(i==4 || i == 5 || i == 6){
+//                        c = columnValue.charAt(0);
+//                        if(i==4) { projector = Character.getNumericValue(c); }
+//                        if(i==5) { whiteboard = Character.getNumericValue(c); }
+//                        if(i==6) { coffee = Character.getNumericValue(c); }
+//                    }
+//                    if(i==9){  }
+//                    if(i==10){  }
+//                    if(i==11){  }
+
+
+//                Room tmpRoom = new Room(rID, locationOfRoom, sizeOfRoom, projector, whiteboard, coffee);
+//                hlpRooms[k] = new BookedRoom(tmpRoom, bID, uID, date, startTime, endTime);
+//                k++;
+//                availableRoomsNo++;
+//
+//            //testing purposes - counts results
+//            System.out.println("Rooms total:"+availableRoomsNo);
+//
+//            bridgeRooms = hlpRooms;
+//
+//            rs.close();
+//            statement.close();
+//            connection.close();
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+//        Room[] rooms = new Room[availableRoomsNo];
+//
+//        for(int i=0; i<availableRoomsNo; i++){
+//            rooms[i] = bridgeRooms[i];
+//        }
+//
+//        return rooms;
+        return null;
+    }
+
+
 
     // prototype using HashMap
     public HashMap getAllUsers(){

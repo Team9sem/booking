@@ -1,6 +1,7 @@
 package com.team9.bookingsystem.Threading;
 
 import com.team9.bookingsystem.MysqlUtil;
+import com.team9.bookingsystem.Room;
 import javafx.concurrent.Task;
 
 import java.util.ArrayList;
@@ -83,14 +84,30 @@ public class SearchService extends ThreadService{
             @Override
             protected Object call() throws Exception {
 
+
+                System.out.println("in call method");
                 MysqlUtil util = new MysqlUtil();
 
-//                ArrayList<Room> searchResult =  util.searchRoom(date,fromTime,toTime,size);
-                updateProgress(10,10);
+                System.out.println("before util.composeQuery");
+                String query = util.composeRoomQuery(
+                        location,
+                        isSmall,
+                        isMedium,
+                        isLarge,
+                        hasProjector,
+                        hasWhiteBoard,
+                        hasCoffeemachine,
+                        date,
+                        fromTime,
+                        toTime);
+                System.out.println("after util.composeQuery");
+                ArrayList<Room> searchResult =  util.getRooms(query);
+                searchResult.forEach(element -> System.out.println(element.toString()));
+                updateProgress(10, 10);
 
 
-//                return searchResult;
-                return null;
+                return searchResult;
+
             }
         };
     }
