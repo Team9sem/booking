@@ -101,7 +101,7 @@ public class BookingController {
     public Pagination initPagination(){
 
         Pagination pagination = new Pagination();
-
+        pagination.getStyleClass().add("pagination");
         pagination.setPageFactory(new Callback<Integer, Node>() {
             @Override
             public Node call(Integer PageIndex) {
@@ -129,8 +129,9 @@ public class BookingController {
             @Override
             public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
                 if(newValue!=null){
-                    selectedRoom = (Room)group.getSelectedToggle().getUserData();
 
+                    selectedRoom = (Room)group.getSelectedToggle().getUserData();
+                    System.out.println(selectedRoom.toString());
                 }
             }
         });
@@ -145,6 +146,8 @@ public class BookingController {
                         "\n Size: " + searchResult.get(i).getRoomSize());
                 button.setUserData(searchResult.get(i));
                 button.setToggleGroup(group);
+
+                button.getStyleClass().add("toogle-button");
 
                 button.setPrefWidth(250);
 
