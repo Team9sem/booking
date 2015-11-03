@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<?import javafx.scene.shape.Circle?>
+<GridPane  xmlns="http://javafx.com/javafx/8"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:id="loginPane"
+           fx:controller="com.team9.bookingsystem.Controllers.LoginController">
+    <children>
+
+        <HBox GridPane.columnIndex="0"
+              GridPane.rowIndex="0"
+              GridPane.columnSpan="2"
+              GridPane.rowSpan="1"
+              alignment="CENTER"
+              spacing="10">
+
+            <Label fx:id="loginLabel" text="Login" styleClass="login-title"></Label>
+
+            <GridPane.margin>
+                <Insets bottom="10" top="10" left="10" right="10"/>
+            </GridPane.margin>
+
+
+        </HBox>
+
+        <HBox GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2" alignment="CENTER">
+
+            <GridPane.margin>
+                <Insets top="10" bottom="10" left="10" right="10"></Insets>
+            </GridPane.margin>
+
+            <TextField fx:id="username"></TextField>
+
+
+        </HBox>
+        <HBox  GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="2" alignment="CENTER">
+
+            <GridPane.margin>
+                <Insets top="10" bottom="10" left="10" right="10"></Insets>
+            </GridPane.margin>
+
+            <PasswordField fx:id="password"></PasswordField>
+
+        </HBox>
+
+
+        <HBox  GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="1" alignment="CENTER">
+
+            <GridPane.margin>
+                <Insets top="10" bottom="10" left="10" right="10"></Insets>
+            </GridPane.margin>
+
+            <Button fx:id="back" text="Back" onAction="#showWelcomeArea"></Button>
+
+        </HBox>
+
+        <HBox  GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.columnSpan="2" alignment="CENTER">
+
+            <GridPane.margin>
+                <Insets top="10" bottom="10" left="10" right="10"></Insets>
+            </GridPane.margin>
+
+            <Button fx:id="login" text="Login" onAction="#login" ></Button>
+
+        </HBox>
+
+
+
+
+
+    </children>
+
+
+
+
+
+
+
+
+</GridPane>

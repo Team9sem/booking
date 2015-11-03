@@ -30,15 +30,6 @@
     -fx-font-smoothing-type: lcd;
     -fx-font-size: 18pt;
     -fx-text-fill: indianred;
-}
-.options-area{
 
-    -fx-font-family: Infinity;
-    -fx-background-color: rgba(255, 243, 243, 0.82);
-    -fx-background-radius: 15px;
-    -fx-border-color: black;
-    -fx-border-radius: 15px;
-    -fx-border-style: dotted;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 
 }
