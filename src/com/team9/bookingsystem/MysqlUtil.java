@@ -1,8 +1,8 @@
 package com.team9.bookingsystem;
 
 import java.sql.*;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.sql.Date;
+import java.util.*;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -126,56 +126,138 @@ public class MysqlUtil {
 
     //TODO: Find rooms by Filip
 
-    public String getRooms(Room room){ 	//or maybe it should accept a booking class, or room+time+date
-										//returns string for now, just for testing
-
-        String location = room.getLocation();
-        String roomSize = room.getRoomSize();
-        //int roomID = room.getRoomID();
-        int hasProjector = room.getHasProjector();
-        int hasWhiteboard = room.getHasWhiteboard();
-        int hasCoffeeMachine = room.getHasCoffeeMachine();
-        String query = "SELECT * FROM Room WHERE roomID > 0 ";
-
-        if(location != null && !location.isEmpty()){query += " AND location = " + location;}
-        if(roomSize != null && !roomSize.isEmpty()){query += " AND roomSize = " + roomSize;}
-        if(hasProjector > 0){query += " AND hasProjector = 1 ";}
-        if(hasWhiteboard > 0){query += " AND hasWhiteboard = 1 ";}
-        if(hasCoffeeMachine > 0){query += " AND hasCoffeeMachine = 1 ";}
-
-        String toReturn="Nothing to return";
-
+    public int totalNumberOfRooms(){
+        int j = 0;
         try(Connection connection = getConnection()){
 
-            System.out.println("Connection Established");
-
+            System.out.println("\nConnection Established");
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(
-                query += ";"
+                    "SELECT * FROM Room NATURAL JOIN Bookings;"
             );
-            ResultSetMetaData rsMetaData = rs.getMetaData();
-            int columnsNumber = rsMetaData.getColumnCount();
 
             while (rs.next()) {
-                for (int i = 1; i <= columnsNumber; i++) {
-                    if (i > 1) System.out.print(",  ");
-                    String columnValue = rs.getString(i);
-                    System.out.print(columnValue + " " + rsMetaData.getColumnName(i));
-                }
+                j++;
             }
-
-            rs.close();
-            statement.close();
-            connection.close();
-            return toReturn;
+            System.out.println("Rooms total:"+j);
 
         }catch(SQLException e) {
             e.printStackTrace();
         }
-        return toReturn;
-        //Room[] rooms = new Room[5];   //
-        //return rooms;                 //when i succeed in exporting it to a class file
+        return j;
     }
+
+    public String composeRoomQuery(Room room,
+                                   String bookingDate,
+                                   String timeStart,
+                                   String timeEnd){
+        String query = "SELECT Room.roomID,Room.location ,Room.roomSize,Room.hasProjector,Room.hasWhiteboard," +
+                "Room.hasCoffeeMachine FROM Room JOIN Bookings ON Room.roomID = Bookings.roomID" +
+                " WHERE Room.roomID> 0 "; //NATURAL JOIN Bookings
+
+        String location = room.getLocation();
+        String roomSize = room.getRoomSize();
+        int hasProjector = room.getHasProjector();
+        int hasWhiteboard = room.getHasWhiteboard();
+        int hasCoffeeMachine = room.getHasCoffeeMachine();
+
+        if(location != null && !location.isEmpty()){query += " AND location = " + "'"+location+"'";}
+        if(roomSize != null && !roomSize.isEmpty()){query += " AND roomSize = " + "'"+roomSize+"'";}
+        if(hasProjector > 0){query += " AND hasProjector = 1 ";}
+        if(hasWhiteboard > 0){query += " AND hasWhiteboard = 1 ";}
+        if(hasCoffeeMachine > 0){query += " AND hasCoffeeMachine = 1 ";}
+        if(timeStart != null){query += " AND Bookings.bStart NOT BETWEEN " + "'" + timeStart + "'"
+                + " AND " + "'" + timeEnd + "'"; }
+        if(timeEnd != null && !location.isEmpty()){query += " AND Bookings.bdate = " + "'" + bookingDate + "'";}
+        if(bookingDate != null && !location.isEmpty()){}
+
+        return query + ";";
+    }
+
+    public Room[] getRooms(String query){ 	//or maybe it should accept a booking class, or room+time+date
+                                            // returns string for now, just for testing
+
+
+        int roomsNumber = totalNumberOfRooms();
+        int availableRoomsNo = 0;
+        BookedRoom[] bridgeRooms = new BookedRoom[roomsNumber];
+
+        try(Connection connection = getConnection()){
+
+            System.out.println("\nConnection Established\n");
+
+            String locationOfRoom = "", sizeOfRoom = "";
+            int projector = 0, whiteboard = 0, coffee = 0, rID = 0, bID=0, uID=0;
+            Date date = null, startTime= null, endTime = null;
+
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+
+            ResultSetMetaData rsMetaData = rs.getMetaData();
+            int columnsNumber = rsMetaData.getColumnCount();
+
+            BookedRoom[] hlpRooms = new BookedRoom[roomsNumber];
+
+            int k = 0;
+            System.out.println(query);
+            while (rs.next()) {
+
+                for (int i = 1; i <= columnsNumber; i++) {
+
+                    String columnValue = rs.getString(i);
+                    char c;
+                    if(i==1 || i==7 || i==8) {
+                        if(i==1){ rID = Integer.parseInt(columnValue); }
+                        if(i==7){ bID = Integer.parseInt(columnValue); }
+                        if(i==8){ uID = Integer.parseInt(columnValue); }
+                    }
+                    if(i==2) {
+                        locationOfRoom = columnValue;
+                    }
+                    if(i==3) {
+                        sizeOfRoom = columnValue;
+                    }
+                    if(i==4 || i == 5 || i == 6){
+                        c = columnValue.charAt(0);
+                        if(i==4) { projector = Character.getNumericValue(c); }
+                        if(i==5) { whiteboard = Character.getNumericValue(c); }
+                        if(i==6) { coffee = Character.getNumericValue(c); }
+                    }
+                    if(i==9){  }
+                    if(i==10){  }
+                    if(i==11){  }
+
+                }
+                Room tmpRoom = new Room(rID, locationOfRoom, sizeOfRoom, projector, whiteboard, coffee);
+                hlpRooms[k] = new BookedRoom(tmpRoom, bID, uID, date, startTime, endTime);
+                k++;
+                availableRoomsNo++;
+            }
+            //testing purposes - counts results
+            System.out.println("Rooms total:"+availableRoomsNo);
+
+            bridgeRooms = hlpRooms;
+
+            rs.close();
+            statement.close();
+            connection.close();
+
+        }catch(SQLException e){
+         e.printStackTrace();
+        }
+
+        Room[] rooms = new Room[availableRoomsNo];
+
+        for(int i=0; i<availableRoomsNo; i++){
+            rooms[i] = bridgeRooms[i];
+        }
+
+        return rooms;
+    }
+    //
+    //END OF ROOMS HANDLING-----------------------------------------------------------------------------
+    //
+
 
     // prototype using HashMap
     public HashMap getAllUsers(){

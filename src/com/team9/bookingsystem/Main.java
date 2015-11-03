@@ -2,6 +2,10 @@ package com.team9.bookingsystem;
 
 import java.sql.SQLException;
 import java.util.Scanner;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.sql.Time;
 
 /**
  * Created by pontuspohl on 12/10/15
@@ -9,7 +13,7 @@ import java.util.Scanner;
  */
 public class Main {
 
-    public static void main( String[] args){
+	public static void main(String[] args) {
         // Mysql tool
         MysqlUtil util = new MysqlUtil();
 
@@ -33,11 +37,21 @@ public class Main {
         int hasCoffeeMachine = scanner.nextInt();
         int roomID=0;
 
-        Room room = new Room(location, size, roomID, hasProjector, hasWhiteboard, hasCoffeeMachine);
+        //testing time
+        String bookingDate = "", timeStart = "", timeEnd="";
+
+        Room room = new Room(roomID, location, size, hasProjector, hasWhiteboard, hasCoffeeMachine);
+
         try{
             // try to fetch rooms
-            String str = util.getRooms(room);
-            System.out.println(str);
+            Room[] rooms;
+            String query = util.composeRoomQuery(room, bookingDate, timeStart, timeEnd);
+            rooms = util.getRooms(query);
+
+            for(int k=0; k < rooms.length; k++){
+                System.out.println(rooms[k]);
+            }
+
         }catch(Exception e){
             e.printStackTrace();
         }

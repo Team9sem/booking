@@ -7,9 +7,9 @@ public class Room {
 
     private MysqlUtil _db;
 
+    private int roomID;
     private String location;
     private String roomSize;
-    private int roomID;
     private int hasProjector;
     private int hasWhiteboard;
     private int hasCoffeeMachine;
@@ -19,16 +19,16 @@ public class Room {
     }
 
     // New Room with Parameters
-    public Room(String location,
+    public Room(int roomID,
+                String location,
                 String roomSize,
-                int roomID,
                 int hasProjector,
                 int hasWhiteboard,
                 int hasCoffeeMachine) {
         _db = new MysqlUtil();
+        this.roomID = roomID;
         this.location = location;
         this.roomSize = roomSize;
-        this.roomID = roomID;
         this.hasProjector = hasProjector;
         this.hasWhiteboard = hasWhiteboard;
         this.hasCoffeeMachine = hasCoffeeMachine;
@@ -38,9 +38,9 @@ public class Room {
     public Room(Room room) {
         _db = new MysqlUtil();
 
+        this.roomID = room.roomID;
         this.location = room.location;
         this.roomSize = room.roomSize;
-        this.roomID = room.roomID;
         this.hasProjector = room.hasProjector;
         this.hasWhiteboard = room.hasWhiteboard;
         this.hasCoffeeMachine = room.hasCoffeeMachine;
@@ -120,14 +120,19 @@ public class Room {
 //        else{hasWhiteboard="no whiteboard";}
 //        if(getHasCoffeeMachine()>0){hasCoffeeMachine="has coffee machine";}
 //        else{hasCoffeeMachine="no coffee machine";}
-        toReturn += String.format("\n//- %s \n",getLocation());
+
+        toReturn += String.format("//- %s \n",getRoomID());
+        toReturn += String.format("//- %s \n",getLocation());
         toReturn += String.format("//- %s \n",getRoomSize());
         toReturn += String.format("//- %s \n",getHasProjector());
         toReturn += String.format("//- %s \n",getHasWhiteboard());
         toReturn += String.format("//- %s \n",getHasCoffeeMachine());
-        //toReturn += String.format("//- %s \n",getRoomID());
+
+//        toReturn += getLocation() + ",\t" + getRoomSize() + ",\t" + hasProjector + ",\t" + hasWhiteboard + ",\t"
+//                + hasCoffeeMachine + ",\t" + getRoomID() + "/n";
         return toReturn;
     }
+
 
 
 }
