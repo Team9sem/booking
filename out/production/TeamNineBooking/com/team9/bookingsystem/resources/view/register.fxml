@@ -26,7 +26,7 @@
       <HBox alignment="CENTER_LEFT" GridPane.rowIndex="1">
          <children>
       		
-      		<Label text="Username" />
+      		<Label styleClass="register-labels" text="Username" />
          </children>
          <padding>
             <Insets left="90.0" />
@@ -35,7 +35,7 @@
       <HBox alignment="CENTER_LEFT" GridPane.rowIndex="2">
          <children>
                
-                           <Label text="Password" />
+           <Label styleClass="register-labels" text="Password" />
          </children>
          <padding>
             <Insets left="90.0" />
@@ -44,7 +44,7 @@
       <HBox alignment="CENTER_LEFT" GridPane.rowIndex="3">
          <children>
       		
-                        		<Label text="First name" />
+         <Label styleClass="register-labels" text="First Name" />
          </children>
          <padding>
             <Insets left="90.0" />
@@ -53,7 +53,7 @@
       <HBox alignment="CENTER_LEFT" GridPane.rowIndex="4">
          <children>
               
-                    <Label text="Last name" />
+         <Label styleClass="register-labels" text="Last Name"/>
          </children>
          <padding>
             <Insets left="90.0" />
@@ -62,7 +62,7 @@
       <HBox alignment="CENTER_LEFT" GridPane.rowIndex="5">
          <children>
               
-                     <Label text="Social security number" />
+         <Label styleClass="register-labels" text="Social Security Number" />
          </children>
          <padding>
             <Insets left="90.0" />
@@ -71,7 +71,7 @@
       <HBox alignment="CENTER_LEFT" GridPane.rowIndex="6">
          <children>
       
-                      <Label text="Adress" />
+         <Label styleClass="register-labels" text="Adress" />
          </children>
          <padding>
             <Insets left="90.0" />
@@ -80,7 +80,7 @@
       <HBox alignment="CENTER_LEFT" GridPane.rowIndex="7">
          <children>
               
-                    <Label text="Zip code" />
+         <Label styleClass="register-labels" text="Zip Code" />
          </children>
          <padding>
             <Insets left="90.0" />
@@ -93,7 +93,7 @@
                 <Insets bottom="10" left="10" right="10" top="10" />
             </GridPane.margin>
 
-            <TextField fx:id="username" />
+            <TextField fx:id="username"  promptText="Enter Username" />
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
@@ -106,7 +106,7 @@
                 <Insets bottom="10" left="10" right="10" top="10" />
             </GridPane.margin>
 
-            <PasswordField fx:id="password" />
+            <PasswordField fx:id="password" promptText="Enter Password" />
 
         </HBox>
 		
@@ -116,7 +116,7 @@
                 <Insets bottom="10" left="10" right="10" top="10" />
             </GridPane.margin>
 
-            <TextField fx:id="firstname" />
+            <TextField fx:id="firstname" promptText="Enter First Name" />
 
 
         </HBox>
@@ -127,7 +127,7 @@
                 <Insets bottom="10" left="10" right="10" top="10" />
             </GridPane.margin>
 
-            <TextField fx:id="lastname" />
+            <TextField fx:id="lastname" promptText="Enter Last Name"/>
 
 
         </HBox>
@@ -139,7 +139,7 @@
                 <Insets bottom="10" left="10" right="10" top="10" />
             </GridPane.margin>
 
-            <TextField fx:id="personnumber" />
+            <TextField fx:id="personnumber" promptText="Enter SSN"/>
             
             </HBox>
      
@@ -150,7 +150,7 @@
                 <Insets bottom="10" left="10" right="10" top="10" />
             </GridPane.margin>
 
-            <TextField fx:id="adress" />
+            <TextField fx:id="adress" promptText="Enter Adress"/>
             
         </HBox>
 
@@ -160,7 +160,7 @@
                 <Insets bottom="10" left="10" right="10" top="10" />
             </GridPane.margin>
 
-            <TextField fx:id="zip" />
+            <TextField fx:id="zip"  promptText="Enter Zip Code" />
         </HBox>
        
         <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="1" GridPane.rowIndex="8">
