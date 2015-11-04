@@ -23,6 +23,7 @@ import javafx.util.Callback;
 
 import javax.jws.soap.SOAPBinding;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,6 +78,28 @@ public class BookingController {
 
     // this method runs when controller is started
     public void initialize() {
+        datePicker.setShowWeekNumbers(true);
+
+        LocalDate localDate = LocalDate.now();
+        datePicker.setValue(localDate);
+        Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
+            @Override
+            public DateCell call(final DatePicker datePicker) {
+                return new DateCell() {
+                    @Override
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+
+                        if (item.isBefore(localDate)) {
+                            setDisable(true);
+                            setStyle("-fx-background-color: #ee333c;");
+                        }
+                    }
+                };
+            }
+        };
+        datePicker.setDayCellFactory(dayCellFactory);
+
     	util = new MysqlUtil();
         paginationBox.setAlignment(Pos.CENTER);
 //        ObservableList<String> choices= FXCollections.observableArrayList();
