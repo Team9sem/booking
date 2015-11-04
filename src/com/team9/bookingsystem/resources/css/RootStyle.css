@@ -86,3 +86,7 @@
 .logout-button{
 	-fx-font-family: Avant Garde;
 }
+.pagination-box-text{
+	-fx-text-fill: white;
+	
+}

@@ -239,7 +239,7 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox fx:id="paginationBox" GridPane.rowIndex="1" />
+                  <HBox fx:id="paginationBox" styleClass="pagination-box-text" GridPane.rowIndex="1"/>
                   <HBox alignment="CENTER" GridPane.rowIndex="2">
                      <children>
                         <Button mnemonicParsing="false" onAction="#bookRoom" text="Confirm" />
