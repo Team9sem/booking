@@ -23,12 +23,14 @@ import javafx.scene.layout.*;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
 import jfxtras.animation.Timer;
+import jfxtras.internal.scene.control.skin.LocalTimePickerSkin;
 import jfxtras.scene.control.LocalTimePicker;
 
 import javax.jws.soap.SOAPBinding;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,6 +86,19 @@ public class BookingController {
 
     // this method runs when controller is started
     public void initialize() {
+
+
+        setupDatePicker();
+    	util = new MysqlUtil();
+        paginationBox.setAlignment(Pos.CENTER);
+//        ObservableList<String> choices= FXCollections.observableArrayList();
+//        choices.addAll("OneChoice");
+//        locationPick.setItems(choices);
+
+
+    }
+
+    private void setupDatePicker(){
         datePicker.setShowWeekNumbers(true);
 
 
@@ -107,16 +122,8 @@ public class BookingController {
         };
         datePicker.setDayCellFactory(dayCellFactory);
 
-    	util = new MysqlUtil();
-        paginationBox.setAlignment(Pos.CENTER);
-//        ObservableList<String> choices= FXCollections.observableArrayList();
-//        choices.addAll("OneChoice");
-//        locationPick.setItems(choices);
-
 
     }
-
-
 
     // takes a reference to the controller of the parent
     public void init(MainController mainController,User user){
@@ -132,6 +139,8 @@ public class BookingController {
 
         Pagination pagination = new Pagination();
         pagination.getStyleClass().add("pagination");
+
+
         pagination.setPageFactory(new Callback<Integer, Node>() {
             @Override
             public Node call(Integer PageIndex) {
@@ -169,24 +178,46 @@ public class BookingController {
         int page = pageIndex * getElementsPerPage();
         for(int i=page;i < page + getElementsPerPage();i++){
             if(i < searchResult.size()){
+
                 HBox element = new HBox();
-                VBox content = new VBox();
+
+                element.setStyle("-fx-background-color: rgba(48, 57, 88, 0.25);" +
+                        " -fx-background-radius: 15px; -fx-border-color: black; -fx-border-radius: 15px;");
+
+
+
                 GridPane gridPane = new GridPane();
                 gridPane.setHgap(10);
 
+                gridPane.setGridLinesVisible(true);
 
-                //
                 HBox locationElement = new HBox();
                 HBox sizeElement = new HBox();
                 HBox buttonElement = new HBox();
+
+
+                locationElement.setAlignment(Pos.CENTER_LEFT);
+                sizeElement.setAlignment(Pos.CENTER_LEFT);
+                buttonElement.setAlignment(Pos.CENTER);
+
                 locationElement.setPrefWidth(200);
-                sizeElement.setPrefWidth(200);
-                buttonElement.setPrefWidth(100);
+                sizeElement.setPrefWidth(150);
+                buttonElement.setPrefWidth(150);
+                locationElement.setPrefHeight(100);
+                sizeElement.setPrefHeight(100);
+                buttonElement.setPrefHeight(100);
+
+
+
+                gridPane.setMargin(locationElement,new Insets(0.0,0.0,0.0,15.0));
 
 
                 Label location = new Label("Room in "+searchResult.get(i).getLocation());
 
                 Label size = new Label("Size of room is: "+searchResult.get(i).getRoomSize());
+
+                location.getStyleClass().add("result-element-label");
+                size.getStyleClass().add("result-element-label");
 
                 locationElement.getChildren().add(location);
                 sizeElement.getChildren().add(size);
@@ -194,16 +225,16 @@ public class BookingController {
 
                 ToggleButton button = new ToggleButton("Select Room");
                 button.setUserData(searchResult.get(i));
-//                button.setTextAlignment(TextAlignment.LEFT);
+                button.setTextAlignment(TextAlignment.LEFT);
                 button.setAlignment(Pos.CENTER);
                 button.setToggleGroup(group);
-                button.getStyleClass().add("toogle-button");
+                button.getStyleClass().add("element-toggle-button");
                 buttonElement.getChildren().add(button);
 
 
                 gridPane.add(locationElement,0,0);
                 gridPane.add(sizeElement,1,0);
-                gridPane.add(button,2,0);
+                gridPane.add(buttonElement,2,0);
 
 
                 element.getChildren().add(gridPane);
@@ -236,20 +267,49 @@ public class BookingController {
     }
 
 
+    /**
+     * Hour formatter that adds a zero if hour is in AM: format.
+     * i.e 7 -> 07,
+     * @param hour hour to analyze
+     * @return formatted hour as String
+     */
+    private String formatHour(int hour){
 
+        if(hour < 10) {
+            return String.format("0%d",hour);
+        }
 
+        return ""+hour;
 
+    }
 
 
     // Todo: add method to handle search button
+
+    /**
+     *
+     * Called when searchbutton is clicked, Starts a new thread that querys the database for rooms that
+     * correspond to search criterias and that are not already booked. It then populates the result Area
+     * of the Gui with the results.
+     *
+     * @param event
+     */
     @FXML public void Search(ActionEvent event) {
         System.out.println("searching");
-        System.out.println(fromTimeInput.getLocalTime().format(DateTimeFormatter.ofPattern("H:m"))+":00");
+
+
+        // Format Hours
+        String fromHour = formatHour(fromTimeInput.getLocalTime().getHour());
+        String toHour = formatHour(toTimeInput.getLocalTime().getHour());
+
+
+        System.out.println(fromHour+" : "+toHour);
+
 
         System.out.println(datePicker.getValue().toString());
         SearchService searchService = new SearchService(datePicker.getValue().toString(),
-                fromTimeInput.getLocalTime().format(DateTimeFormatter.ofPattern("H:m"))+":00",
-                toTimeInput.getLocalTime().format(DateTimeFormatter.ofPattern("H:m"))+":00",
+                fromTimeInput.getLocalTime().format(DateTimeFormatter.ofPattern(fromHour+":m"))+":00",
+                toTimeInput.getLocalTime().format(DateTimeFormatter.ofPattern(toHour+":m"))+":00",
                 small.isSelected(),
                 medium.isSelected(),
                 large.isSelected(),
@@ -294,6 +354,9 @@ public class BookingController {
             }
         });
     }
+
+
+
 
     @FXML public void bookRoom(ActionEvent event){
         // Todo: book a room

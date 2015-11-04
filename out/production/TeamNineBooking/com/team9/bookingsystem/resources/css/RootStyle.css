@@ -91,3 +91,35 @@
 	-fx-text-fill: white;
 	
 }
+
+.result-element-label{
+    -fx-text-fill: white;
+}
+/*.pagination{*/
+
+    /*-fx-base:black;*/
+
+/*}*/
+/*.pagination .toggle-button {*/
+
+    /*-fx-background-radius:15px;*/
+
+    /*-fx-padding: 0px;*/
+
+/*}*/
+
+/*.pagination .button{*/
+
+    /*-fx-padding: 10 15 10 16px;*/
+
+/*}*/
+
+.element-toggle-button{
+    -fx-background-color: rgba(30, 68, 34, 0.76);
+    -fx-text-fill: white;
+
+}
+.element-toggle-button:selected{
+    -fx-background-color: #ee333c;
+    -fx-border-color: black;
+}
