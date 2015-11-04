@@ -151,6 +151,9 @@ public class BookingController {
                 HBox locationElement = new HBox();
                 HBox sizeElement = new HBox();
                 HBox buttonElement = new HBox();
+                locationElement.setPrefWidth(200);
+                sizeElement.setPrefWidth(200);
+                buttonElement.setPrefWidth(100);
 
 
                 Label location = new Label("Room in "+searchResult.get(i).getLocation());

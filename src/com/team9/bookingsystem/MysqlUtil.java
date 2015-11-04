@@ -437,23 +437,27 @@ public class MysqlUtil {
                                    String bookingDate,
                                    String timeStart,
                                    String timeEnd){
+
         System.out.println("inside composemethod");
+
         String query = "SELECT * FROM Room WHERE Room.roomID> 0 ";
 
         query += " AND( ";
-        if(isSmall && isMedium && isLarge) query += "roomSize = 'S' OR roomSize = 'M' OR roomSize = 'L' ";
+        if(isSmall && isMedium && isLarge) query += "roomSize = 'S' OR roomSize = 'M' OR roomSize = 'L' )";
         else if(isSmall){
-            if(isMedium) query += "roomSize = 'S' OR roomSize = 'M'";
-            else if(isLarge) query += "roomSize = 'S' OR roomSize = 'L'";
-            else  query += "roomSize = 'S'";
+            if(isMedium) query += "roomSize = 'S' OR roomSize = 'M' )";
+            else if(isLarge) query += "roomSize = 'S' OR roomSize = 'L' )";
+            else  query += "roomSize = 'S')";
         }
         else if(isMedium){
-            if(isLarge) query += "roomSize = 'M' OR roomSize = 'L'";
-            else query += "roomSize = 'M'";
+            if(isLarge) query += "roomSize = 'M' OR roomSize = 'L')";
+            else query += "roomSize = 'M' )";
         }
-        else query += "roomSize = 'L'";
+        else if(isLarge) query += "roomSize = 'L')";
+        else{
+            query = "SELECT * FROM Room WHERE Room.roomID> 0 ";
+        }
 
-        query += ") ";
 
         if(location != null && !location.isEmpty()){query += " AND location = " + "'"+location+"'";}
         System.out.println(query);
