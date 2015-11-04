@@ -94,7 +94,7 @@ public class BookingController {
 
                         if (item.isBefore(localDate)) {
                             setDisable(true);
-                            setStyle("-fx-background-color: #ee333c;");
+                            setStyle("-fx-background-color: rgba(238, 51, 60, 0.67);");
                         }
                     }
                 };
