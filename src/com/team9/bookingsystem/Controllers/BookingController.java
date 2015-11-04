@@ -214,7 +214,7 @@ public class BookingController {
     @FXML public void Search(ActionEvent event) {
         System.out.println("searching");
 
-        
+
         System.out.println(datePicker.getValue().toString());
         SearchService searchService = new SearchService(datePicker.getValue().toString(),
                 fromTimeInput.getText(),

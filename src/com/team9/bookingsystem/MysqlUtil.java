@@ -440,11 +440,21 @@ public class MysqlUtil {
         System.out.println("inside composemethod");
         String query = "SELECT * FROM Room WHERE Room.roomID> 0 ";
 
+        query += " AND( ";
+        if(isSmall && isMedium && isLarge) query += "roomSize = 'S' OR roomSize = 'M' OR roomSize = 'L' ";
+        else if(isSmall){
+            if(isMedium) query += "roomSize = 'S' OR roomSize = 'M'";
+            else if(isLarge) query += "roomSize = 'S' OR roomSize = 'L'";
+            else  query += "roomSize = 'S'";
+        }
+        else if(isMedium){
+            if(isLarge) query += "roomSize = 'M' OR roomSize = 'L'";
+            else query += "roomSize = 'M'";
+        }
+        else query += "roomSize = 'L'";
 
+        query += ") ";
 
-        if(isSmall) query += "OR roomSize = 'S' ";
-        if(isMedium) query += "OR roomSize = 'M' ";
-        if(isLarge) query += "OR roomSize = 'L' ";
         if(location != null && !location.isEmpty()){query += " AND location = " + "'"+location+"'";}
         System.out.println(query);
         if(hasProjector){query += " AND hasProjector = 1 ";}
@@ -453,8 +463,13 @@ public class MysqlUtil {
         System.out.println(query);
 
         System.out.println(query);
-        query += "AND Room.roomID NOT IN(SELECT Bookings.roomID FROM Bookings WHERE bdate = '" + bookingDate +
-                "' AND bStart > '" + timeStart + "' AND bEnd > '" + timeStart + "' AND bEnd > '" + timeEnd + "')";
+        query += "AND Room.roomID NOT IN(SELECT Bookings.roomID FROM Bookings WHERE Bookings.bdate = '" + bookingDate +
+                "' AND ( " +
+                "('"+timeStart+"' BETWEEN Bookings.bStart AND Bookings.bEnd or '" + timeEnd + "' BETWEEN Bookings.bStart " +
+                "AND Bookings.bEnd) OR ( '"+timeStart+"' < Bookings.bStart AND '" + timeEnd + "' > Bookings.bEnd)))";
+
+
+
         System.out.println(query);
         return query + ";";
     }
