@@ -8,7 +8,7 @@
 /* each css class used here is defined with the stylesheet="" syntax in the fxml document  */
 .root{
     -fx-background-color:#9099ac;
-    -fx-background-image: url("../img/Death_to_stock_communicate_hands_2.jpg");
+    -fx-background-image: url("../img/background-twitter-images-1920x1080.png");
 
 }
 
@@ -16,7 +16,8 @@
     -fx-font-smoothing-type: lcd;
     -fx-font-size: 40pt;
     -fx-font-family: Infinity;
-    -fx-fill: #ffffff;
+    -fx-fill: #0000;
+    -fx-text-fill: white;
 }
 /* settings four round button needed to make it into a circle */
 .round-button{
@@ -28,8 +29,8 @@
     -fx-background-color: azure;
     -fx-font-family: Infinity;
     -fx-font-smoothing-type: lcd;
-    -fx-font-size: 18pt;
-    -fx-text-fill: indianred;
+    -fx-font-size: 30pt;
+    -fx-text-fill: grey;
 }
 .options-area{
 
