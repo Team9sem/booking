@@ -154,13 +154,13 @@
                                  </HBox.margin></Label>
                            </children>
                         </HBox>
-                        <HBox  GridPane.rowIndex="12" GridPane.rowSpan="2" GridPane.columnIndex="0" GridPane.columnSpan="3">
+                        <HBox  GridPane.rowIndex="12" GridPane.rowSpan="3" GridPane.columnIndex="0" GridPane.columnSpan="3">
                            <children>
                               <LocalTimePicker fx:id="fromTimeInput" prefWidth="400" prefHeight="300"></LocalTimePicker>
                               <!--<TextField fx:id="fromTimeInput" promptText="i.e. 12:00" />-->
                            </children>
                         </HBox>
-                        <HBox GridPane.rowIndex="14">
+                        <HBox GridPane.rowIndex="15">
                            <children>
                               <Label fx:id="toTime" styleClass="options-area-labels" text="To time:">
                                  <HBox.margin>
@@ -168,13 +168,13 @@
                                  </HBox.margin></Label>
                            </children>
                         </HBox>
-                        <HBox  GridPane.rowIndex="15" GridPane.rowSpan="2" GridPane.columnIndex="0" GridPane.columnSpan="3">
+                        <HBox  GridPane.rowIndex="16" GridPane.rowSpan="3" GridPane.columnIndex="0" GridPane.columnSpan="3">
                            <children>
                               <!--<TextField fx:id="toTimeInput" promptText="i.e. 14:00" />-->
                               <LocalTimePicker  fx:id="toTimeInput" style="-fx-progress-color: crimson" prefWidth="400" prefHeight="300" ></LocalTimePicker>
                            </children>
                         </HBox>
-                        <HBox GridPane.rowIndex="17">
+                        <HBox GridPane.rowIndex="19">
                            <children>
                               <Label fx:id="location" styleClass="options-area-labels" text="Location:">
                                  <HBox.margin>
@@ -182,12 +182,12 @@
                                  </HBox.margin></Label>
                            </children>
                         </HBox>
-                        <HBox GridPane.rowIndex="18">
+                        <HBox GridPane.rowIndex="20">
                            <children>
                               <ChoiceBox fx:id="locationPick"  prefWidth="150.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER_LEFT" GridPane.columnSpan="3" GridPane.rowIndex="19">
+                        <HBox alignment="CENTER_LEFT" GridPane.columnSpan="3" GridPane.rowIndex="21">
                            <children>
                               <Button fx:id="searchButton" mnemonicParsing="false" onAction="#Search" styleClass="search-button" text="Search" />
                            </children>
