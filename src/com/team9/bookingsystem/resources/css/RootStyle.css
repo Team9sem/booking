@@ -23,6 +23,14 @@
     -fx-font-size: 10pt;
     -fx-font-family: sans-serif;
 }
+.search-button{
+
+}
+
+.pagination{
+
+}
+
 .toggle-button:selected{
     -fx-background-color: rgba(219, 207, 207, 0.75);
 }
