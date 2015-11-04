@@ -5,6 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import java.net.*?>
 
 <BorderPane id="borderPane" fx:id="borderPane" prefHeight="600.0" prefWidth="1000.0" styleClass="borderPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team9.bookingsystem.Controllers.BookingController">
    <left>
@@ -232,7 +233,7 @@
                <children>
                   <HBox alignment="CENTER">
                      <children>
-                        <Label alignment="CENTER" prefHeight="23.0" prefWidth="172.0" text="Search Results">
+                        <Label styleClass="search-result-title" alignment="CENTER" prefHeight="23.0" prefWidth="172.0" text="Search Results">
                            <font>
                               <Font name="Arial Rounded MT Bold" size="20.0" />
                            </font>
@@ -242,11 +243,15 @@
                   <HBox fx:id="paginationBox" GridPane.rowIndex="1" />
                   <HBox alignment="CENTER" GridPane.rowIndex="2">
                      <children>
-                        <Button onAction="#bookRoom" mnemonicParsing="false" text="Button" />
+                        <Button styleClass="search-button" onAction="#bookRoom" mnemonicParsing="false" text="Button" />
                      </children>
                   </HBox>
                </children>
             </GridPane>
          </children></AnchorPane>
    </center>
+
+
+
+
 </BorderPane>
