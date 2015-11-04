@@ -37,6 +37,16 @@ public class Main {
         int hasCoffeeMachine = scanner.nextInt();
         int roomID=0;
 
+        //Mayra test
+        try{
+        	Booking temp = new Booking();
+        	temp = util.BookRoom(3, 1, "2015-10-20", "09:10", "9:15");
+        	System.out.println(temp.toString());
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        //Mayra test
         //testing time
         String bookingDate = "", timeStart = "", timeEnd="";
 

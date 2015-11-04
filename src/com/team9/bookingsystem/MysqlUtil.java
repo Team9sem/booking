@@ -276,10 +276,11 @@ public class MysqlUtil {
     //bDate		NULL	date
     //bStart	NULL	time
     //bEnd		NULL	time
-    public boolean BookRoom(int userId, int roomId, String bDate, String bStart, String bEnd) throws Exception
+    public Booking BookRoom(int userId, int roomId, String bDate, String bStart, String bEnd) throws Exception
     {
-      
-        // we have to catch potential SQLExceptions
+        Booking toReturn = new Booking();
+        int intbID = 0;
+        
         try(Connection connection = getConnection()){
 
             System.out.println("Room Registration Connection Established");
@@ -291,16 +292,37 @@ public class MysqlUtil {
             			 "(userId, roomId, bDate, bStart, bEnd)" +
             			 " Values ('"+userId+ "','"+roomId+"','"+bDate+"','"+bStart+"','"+bEnd+"')";
             System.out.println("SQL string: "+sql); 
-       
             statement.executeUpdate(sql);
+            
+            String bID = "SELECT bID FROM Bookings WHERE " +
+       			 "userId = '"+userId+"' AND roomId = '"+roomId+"' AND bDate = '"+bDate+"' AND bStart = '"+bStart+"' AND bEnd = '"+bEnd+"';";
            
+            System.out.println("SQL string: "+bID); 
+            
+            ResultSet rs = statement.executeQuery(bID);
+            while(rs.next()){
+            	String tmp = rs.getString("bID");
+            	intbID = Integer.parseInt(tmp);
+            	System.out.println(intbID);
+            }
+            //TODO There should only be one booking with the same Date. needs to be checked, until then use the final intbID
+            toReturn.setuserid(userId);
+            toReturn.setroomID(roomId);
+            toReturn.setbdate(bDate);
+            toReturn.setbStart(bStart);
+            toReturn.setbEnd(bEnd);
+            toReturn.setbID(intbID);
+            
+            rs.close();       
             statement.close();
             connection.close();
-            return true;
+            
+            return toReturn;
+            
         }catch(SQLException e){
             e.printStackTrace();
         } 
-     return false;   
+     return null;   
   } //end public User BookRoom
 
     public boolean removeRoomBooking(int bID) throws Exception
