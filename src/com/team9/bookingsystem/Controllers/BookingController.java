@@ -189,7 +189,7 @@ public class BookingController {
                 GridPane gridPane = new GridPane();
                 gridPane.setHgap(10);
 
-                gridPane.setGridLinesVisible(true);
+
 
                 HBox locationElement = new HBox();
                 HBox sizeElement = new HBox();
