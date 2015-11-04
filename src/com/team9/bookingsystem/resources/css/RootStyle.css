@@ -8,15 +8,33 @@
 /* each css class used here is defined with the stylesheet="" syntax in the fxml document  */
 .root{
     -fx-background-color:#9099ac;
-    -fx-background-image: url("../img/Death_to_stock_communicate_hands_2.jpg");
+<<<<<<< HEAD
+    -fx-background-image: url("../img/background-twitter-images-1920x1080.png");
 
+=======
+    -fx-background-image: url("../img/Death_to_stock_communicate_hands_2.jpg");
+	-fx-font-family: Infinity;
+	
+>>>>>>> feature/Nimas
 }
 
+.welcome-area{
+	
+
+}
+.login{
+	-fx-font-family: Infinity;
+}
 .login-title{
     -fx-font-smoothing-type: lcd;
     -fx-font-size: 40pt;
     -fx-font-family: Infinity;
-    -fx-fill: #ffffff;
+<<<<<<< HEAD
+    -fx-fill: #0000;
+    -fx-text-fill: white;
+=======
+    -fx-fill: #ffffff; 
+>>>>>>> feature/Nimas
 }
 /* settings four round button needed to make it into a circle */
 .round-button{
@@ -28,13 +46,42 @@
     -fx-background-color: azure;
     -fx-font-family: Infinity;
     -fx-font-smoothing-type: lcd;
-    -fx-font-size: 18pt;
-    -fx-text-fill: indianred;
+    -fx-font-size: 30pt;
+    -fx-text-fill: grey;
+}
+/* Booking Interface */
+.borderPane{
+	-fx-font-family: Infinity;
 }
 .options-area{
+	-fx-border-style: solid;
+    -fx-border-radius: 10 10 10 10;
+  	-fx-background-radius: 10 10 10 10;
+    -fx-font-family: Avant Garde;
+    -fx-background-color: rgba(167, 191, 63, 0.15)
 
+<<<<<<< HEAD
     -fx-font-family: Infinity;
 
 
 
+}
+.login-labels{
+
+	-fx-text-fill: white;
+	
+}
+.register-labels{
+	
+	-fx-text-fill: white;
+=======
+}
+.result-area{
+	-fx-border-style: solid;
+    -fx-border-radius: 10 10 10 10;
+  	-fx-background-radius: 10 10 10 10;
+    -fx-font-family: Avant Garde;
+    -fx-background-color: rgba(167, 191, 63, 0.15)
+	
+>>>>>>> develop
 }
