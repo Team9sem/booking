@@ -39,3 +39,12 @@
 
 
 }
+.login-labels{
+
+	-fx-text-fill: white;
+	
+}
+.register-labels{
+	
+	-fx-text-fill: white;
+}
