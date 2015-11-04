@@ -208,7 +208,7 @@
                <Font name="Infinity" size="50.0" />
             </font></Label>
          <Label layoutX="665.0" layoutY="58.0" text="Logged in as: team9" styleClass="top-anchorpanetext" />
-         <Button layoutX="806.0" layoutY="53.0" mnemonicParsing="false" text="Log out"  />
+         <Button layoutX="806.0" layoutY="53.0" mnemonicParsing="false" text="Log out" styleClass="logout-button"  />
          <BorderPane.margin>
             <Insets bottom="10" left="100" right="100" top="10" />
          </BorderPane.margin>
