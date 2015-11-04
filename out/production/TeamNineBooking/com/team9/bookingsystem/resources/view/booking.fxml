@@ -8,14 +8,14 @@
 
 <BorderPane id="borderPane" fx:id="borderPane" prefHeight="600.0" prefWidth="1000.0" styleClass="borderPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team9.bookingsystem.Controllers.BookingController">
    <left>
-      <AnchorPane  fx:id="searchAnchorPane" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="searchAnchorPane" styleClass="options-area" BorderPane.alignment="CENTER">
          <BorderPane.margin>
-            <Insets />
+            <Insets bottom="5.0" left="5.0" />
          </BorderPane.margin>
          <children>
-            <VBox  id="options-area" layoutX="8.0" layoutY="14.0" prefHeight="490.0" prefWidth="345.0" styleClass="options-area" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <VBox id="options-area" layoutX="8.0" layoutY="14.0" prefHeight="490.0" prefWidth="345.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                <children>
-                  <GridPane styleClass="options-area" hgap="10.0" vgap="5.0">
+                  <GridPane hgap="10.0" vgap="5.0">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -44,21 +44,21 @@
                      <children>
                         <HBox alignment="CENTER" GridPane.columnSpan="3">
                            <children>
-                              <Label fx:id="searchPreferences" alignment="TOP_LEFT" styleClass="booking-title" text="Search Preferences" textAlignment="CENTER">
+                              <Label fx:id="searchPreferences" alignment="TOP_LEFT" styleClass="labels" text="Search Preferences" textAlignment="CENTER">
                                  <font>
-                                    <Font name="Arial Rounded MT Bold" size="20.0" />
+                                    <Font name="Infinity" size="30.0" />
                                  </font>
                               </Label>
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" GridPane.rowIndex="1">
                            <children>
-                              <Label text="Features:" fx:id="features"/>
+                              <Label fx:id="features" text="Features:" />
                            </children>
                         </HBox>
                         <HBox alignment="BOTTOM_LEFT" GridPane.columnSpan="3" GridPane.rowIndex="3">
                            <children>
-                              <CheckBox mnemonicParsing="false" text="Whiteboard" fx:id="whiteboard">
+                              <CheckBox fx:id="whiteboard" mnemonicParsing="false" text="Whiteboard">
                                  <HBox.margin>
                                     <Insets top="5.0" />
                                  </HBox.margin></CheckBox>
@@ -72,7 +72,7 @@
                         </HBox>
                         <HBox alignment="BOTTOM_LEFT" GridPane.columnSpan="3" GridPane.rowIndex="4">
                            <children>
-                              <CheckBox mnemonicParsing="false" text="Projector" fx:id="projector">
+                              <CheckBox fx:id="projector" mnemonicParsing="false" text="Projector">
                                  <HBox.margin>
                                     <Insets top="5.0" />
                                  </HBox.margin></CheckBox>
@@ -86,7 +86,7 @@
                         </HBox>
                         <HBox alignment="BOTTOM_LEFT" GridPane.columnSpan="3" GridPane.rowIndex="2">
                            <children>
-                              <CheckBox mnemonicParsing="false" text="Coffe machine" fx:id="coffeMachine">
+                              <CheckBox fx:id="coffeMachine" mnemonicParsing="false" text="Coffe machine">
 
                               </CheckBox>
                            </children>
@@ -99,7 +99,7 @@
                         </HBox>
                         <HBox alignment="CENTER_LEFT" GridPane.rowIndex="5">
                            <children>
-                              <Label text="Room size:" fx:id="roomSize">
+                              <Label fx:id="roomSize" text="Room size:">
                                  <HBox.margin>
                                     <Insets top="5.0" />
                                  </HBox.margin>
@@ -108,7 +108,7 @@
                         </HBox>
                         <HBox GridPane.rowIndex="6">
                            <children>
-                              <CheckBox mnemonicParsing="false" prefHeight="20.0" prefWidth="92.0" text="Small" fx:id="small">
+                              <CheckBox fx:id="small" mnemonicParsing="false" prefHeight="20.0" prefWidth="92.0" text="Small">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
@@ -117,7 +117,7 @@
                         </HBox>
                         <HBox GridPane.rowIndex="7">
                            <children>
-                              <CheckBox mnemonicParsing="false" text="Medium" fx:id="medium">
+                              <CheckBox fx:id="medium" mnemonicParsing="false" text="Medium">
                                  <HBox.margin>
                                     <Insets top="5.0" />
                                  </HBox.margin>
@@ -126,7 +126,7 @@
                         </HBox>
                         <HBox GridPane.rowIndex="8">
                            <children>
-                              <CheckBox mnemonicParsing="false" text="Large" fx:id="large">
+                              <CheckBox fx:id="large" mnemonicParsing="false" text="Large">
                                  <HBox.margin>
                                     <Insets top="5.0" />
                                  </HBox.margin></CheckBox>
@@ -134,7 +134,7 @@
                         </HBox>
                         <HBox GridPane.rowIndex="9">
                            <children>
-                              <Label text="Date:" fx:id="date">
+                              <Label fx:id="date" text="Date:">
                                  <HBox.margin>
                                     <Insets top="5.0" />
                                  </HBox.margin></Label>
@@ -142,12 +142,12 @@
                         </HBox>
                         <HBox GridPane.rowIndex="10">
                            <children>
-                              <DatePicker fx:id="datePicker"></DatePicker>
+                              <DatePicker fx:id="datePicker" />
                            </children>
                         </HBox>
                         <HBox GridPane.rowIndex="11">
                            <children>
-                              <Label text="From time:" fx:id="fromTime">
+                              <Label fx:id="fromTime" text="From time:">
                                  <HBox.margin>
                                     <Insets top="5.0" />
                                  </HBox.margin></Label>
@@ -160,7 +160,7 @@
                         </HBox>
                         <HBox GridPane.rowIndex="13">
                            <children>
-                              <Label text="To time:" fx:id="toTime">
+                              <Label fx:id="toTime" text="To time:">
                                  <HBox.margin>
                                     <Insets top="5.0" />
                                  </HBox.margin></Label>
@@ -173,7 +173,7 @@
                         </HBox>
                         <HBox GridPane.rowIndex="15">
                            <children>
-                              <Label text="Location:" fx:id="location">
+                              <Label fx:id="location" text="Location:">
                                  <HBox.margin>
                                     <Insets top="5.0" />
                                  </HBox.margin></Label>
@@ -181,12 +181,12 @@
                         </HBox>
                         <HBox GridPane.rowIndex="16">
                            <children>
-                              <ChoiceBox prefWidth="150.0" fx:id="locationPick" />
+                              <ChoiceBox fx:id="locationPick" prefWidth="150.0" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" GridPane.columnSpan="3" GridPane.rowIndex="17">
                            <children>
-                              <Button fx:id="searchButton" onAction="#Search" mnemonicParsing="false" text="Search"></Button>
+                              <Button fx:id="searchButton" mnemonicParsing="false" onAction="#Search" styleClass="search-button" text="Search" />
                            </children>
                         </HBox>
                      </children>
@@ -200,17 +200,17 @@
       </AnchorPane>
    </left>
    <top>
-      <AnchorPane id="top-area" fx:id="topAnchorPane" prefHeight="103.0" prefWidth="1000.0" styleClass="top-area" BorderPane.alignment="CENTER">
+      <AnchorPane id="top-area" fx:id="topAnchorPane" prefHeight="103.0" prefWidth="1000.0" styleClass="top-area" BorderPane.alignment="TOP_RIGHT">
         
          
-         <Label fx:id="loginLabel" alignment="TOP_LEFT" layoutX="264.0" layoutY="22.0" styleClass="booking-title" text="Book a room!" textAlignment="CENTER">
+         <Label fx:id="loginLabel" alignment="TOP_LEFT" layoutX="264.0" layoutY="22.0" styleClass="labels" text="Book a room!" textAlignment="CENTER">
             <font>
-               <Font name="Arial Rounded MT Bold" size="50.0" />
+               <Font name="Infinity" size="50.0" />
             </font></Label>
          <Label layoutX="665.0" layoutY="58.0" text="Logged in as: team9" />
          <Button layoutX="806.0" layoutY="53.0" mnemonicParsing="false" text="Log out" />
          <BorderPane.margin>
-            <Insets bottom="10" left="50" right="100" top="10" />
+            <Insets bottom="10" left="100" right="100" top="10" />
          </BorderPane.margin>
          <padding>
             <Insets left="100.0" />
@@ -218,7 +218,7 @@
       </AnchorPane>
    </top>
    <center>
-      <AnchorPane fx:id="resultAnchorPane" minHeight="100.0" minWidth="100.0" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="resultAnchorPane" minHeight="100.0" minWidth="100.0" BorderPane.alignment="CENTER" styleClass="result-area">
          <children>
             <GridPane AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                <columnConstraints>
@@ -232,9 +232,9 @@
                <children>
                   <HBox alignment="CENTER">
                      <children>
-                        <Label alignment="CENTER" prefHeight="23.0" prefWidth="172.0" text="Search Results">
+                        <Label alignment="CENTER" prefHeight="23.0" prefWidth="172.0" styleClass="labels" text="Search Results">
                            <font>
-                              <Font name="Arial Rounded MT Bold" size="20.0" />
+                             <Font name="Infinity" size="30.0" />
                            </font>
                         </Label>
                      </children>
@@ -242,11 +242,14 @@
                   <HBox fx:id="paginationBox" GridPane.rowIndex="1" />
                   <HBox alignment="CENTER" GridPane.rowIndex="2">
                      <children>
-                        <Button onAction="#bookRoom" mnemonicParsing="false" text="Button" />
+                        <Button mnemonicParsing="false" onAction="#bookRoom" text="Confirm" />
                      </children>
                   </HBox>
                </children>
             </GridPane>
-         </children></AnchorPane>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" />
+         </BorderPane.margin></AnchorPane>
    </center>
 </BorderPane>

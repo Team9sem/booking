@@ -15,10 +15,12 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
 
 import javax.jws.soap.SOAPBinding;
@@ -124,7 +126,7 @@ public class BookingController {
     public Pagination initPagination(){
 
         Pagination pagination = new Pagination();
-
+        pagination.getStyleClass().add("pagination");
         pagination.setPageFactory(new Callback<Integer, Node>() {
             @Override
             public Node call(Integer PageIndex) {
@@ -152,8 +154,9 @@ public class BookingController {
             @Override
             public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
                 if(newValue!=null){
-                    selectedRoom = (Room)group.getSelectedToggle().getUserData();
 
+                    selectedRoom = (Room)group.getSelectedToggle().getUserData();
+                    System.out.println(selectedRoom.toString());
                 }
             }
         });
@@ -163,18 +166,47 @@ public class BookingController {
             if(i < searchResult.size()){
                 HBox element = new HBox();
                 VBox content = new VBox();
+                GridPane gridPane = new GridPane();
+                gridPane.setHgap(10);
 
-                ToggleButton button = new ToggleButton("Room in "+searchResult.get(i).getLocation()+
-                        "\n Size: " + searchResult.get(i).getRoomSize());
+
+                //
+                HBox locationElement = new HBox();
+                HBox sizeElement = new HBox();
+                HBox buttonElement = new HBox();
+                locationElement.setPrefWidth(200);
+                sizeElement.setPrefWidth(200);
+                buttonElement.setPrefWidth(100);
+
+
+                Label location = new Label("Room in "+searchResult.get(i).getLocation());
+
+                Label size = new Label("Size of room is: "+searchResult.get(i).getRoomSize());
+
+                locationElement.getChildren().add(location);
+                sizeElement.getChildren().add(size);
+                //
+
+                ToggleButton button = new ToggleButton("Select Room");
                 button.setUserData(searchResult.get(i));
+//                button.setTextAlignment(TextAlignment.LEFT);
+                button.setAlignment(Pos.CENTER);
                 button.setToggleGroup(group);
+                button.getStyleClass().add("toogle-button");
+                buttonElement.getChildren().add(button);
 
-                button.setPrefWidth(250);
 
-                content.getChildren().add(button);
-                content.setAlignment(Pos.CENTER_LEFT);
-                content.setPrefWidth(250);
-                element.getChildren().add(content);
+                gridPane.add(locationElement,0,0);
+                gridPane.add(sizeElement,1,0);
+                gridPane.add(button,2,0);
+
+
+                element.getChildren().add(gridPane);
+//                content.getChildren().add(button);
+//                content.setAlignment(Pos.CENTER);
+//                content.setPrefWidth(250);
+//                content.getStyleClass().add("result-box");
+
                 element.setAlignment(Pos.CENTER);
                 vBox.getChildren().add(element);
                 vBox.setVgrow(element, Priority.ALWAYS);
