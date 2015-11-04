@@ -256,7 +256,7 @@ public class BookingController {
         searchService.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
             @Override
             public void handle(WorkerStateEvent event) {
-
+                System.out.println("in succeded");
                 searchResult = (ArrayList<Room>) searchService.getValue();
 
                 if (searchResult != null) {
@@ -275,17 +275,29 @@ public class BookingController {
 
 
                     } else {
+
                         pagination.setPageCount((int) (Math.ceil(searchResult.size() / 5.0)));
                         pagination.setCurrentPageIndex(0);
                         paginationBox.getChildren().clear();
                         paginationBox.getChildren().add(pagination);
                     }
                 }
-                else {
-                    System.out.println("no result");
-                }
 
 
+
+            }
+        });
+        searchService.setOnFailed(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+                System.out.println("In Failed");
+                System.out.println("no result");
+                searchResult = new ArrayList<Room>();
+                Pagination pagination = initPagination();
+                pagination.setPageCount(1);
+                pagination.setCurrentPageIndex(0);
+                paginationBox.getChildren().clear();
+                paginationBox.getChildren().add(pagination);
             }
         });
     }

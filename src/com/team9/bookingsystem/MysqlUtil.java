@@ -382,7 +382,7 @@ public class MysqlUtil {
       try(Connection connection = getConnection()){
     	  
     	  
-    	  System.out.println("User resister room Connection Established");
+    	  System.out.println("User register room Connection Established");
 
     	  // statement
     	  Statement statement = connection.createStatement();
@@ -419,7 +419,7 @@ public class MysqlUtil {
             while (rs.next()) {
                 j++;
             }
-            System.out.println("Rooms total:"+j);
+            //System.out.println("Rooms total:"+j);
 
         }catch(SQLException e) {
             e.printStackTrace();
@@ -438,7 +438,7 @@ public class MysqlUtil {
                                    String timeStart,
                                    String timeEnd){
 
-        System.out.println("inside composemethod");
+        //System.out.println("inside composemethod");
 
         String query = "SELECT * FROM Room WHERE Room.roomID> 0 ";
 
@@ -466,7 +466,7 @@ public class MysqlUtil {
         if(hasCoffeeMachine){query += " AND hasCoffeeMachine = 1 ";}
         System.out.println(query);
 
-        System.out.println(query);
+        //System.out.println(query);
         query += "AND Room.roomID NOT IN(SELECT Bookings.roomID FROM Bookings WHERE Bookings.bdate = '" + bookingDate +
                 "' AND ( " +
                 "('"+timeStart+"' BETWEEN Bookings.bStart AND Bookings.bEnd or '" + timeEnd + "' BETWEEN Bookings.bStart " +
@@ -474,7 +474,7 @@ public class MysqlUtil {
 
 
 
-        System.out.println(query);
+        //System.out.println(query);
         return query + ";";
     }
 
@@ -492,20 +492,20 @@ public class MysqlUtil {
 
             System.out.println("\nConnection Established\n");
 
-            String locationOfRoom = "", sizeOfRoom = "";
-            int projector = 0, whiteboard = 0, coffee = 0, rID = 0, bID=0, uID=0;
-            Date date = null, startTime= null, endTime = null;
+//            String locationOfRoom = "", sizeOfRoom = "";
+//            int projector = 0, whiteboard = 0, coffee = 0, rID = 0, bID=0, uID=0;
+//            Date date = null, startTime= null, endTime = null;
 
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(query);
 
             ResultSetMetaData rsMetaData = rs.getMetaData();
-            int columnsNumber = rsMetaData.getColumnCount();
-
-            BookedRoom[] hlpRooms = new BookedRoom[roomsNumber];
-
-            int k = 0;
-            System.out.println(query);
+//            int columnsNumber = rsMetaData.getColumnCount();
+//
+//            BookedRoom[] hlpRooms = new BookedRoom[roomsNumber];
+//
+//            int k = 0;
+//            System.out.println(query);
 
             if (!rs.isBeforeFirst() ) {
                 return null;

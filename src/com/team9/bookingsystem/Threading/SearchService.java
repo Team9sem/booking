@@ -47,7 +47,9 @@ public class SearchService extends ThreadService{
      * @param date Desired date to book a room on
      * @param fromTime Desired startTime
      * @param toTime Desired EndTime
-     * @param size Desired Size property
+     * @param isSmall Desired Size property is S
+     * @param isMedium Desired Size property is M
+     * @param isLarge Desired Size property is L
      * @see String
      */
     public SearchService(String date,
