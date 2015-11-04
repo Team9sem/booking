@@ -60,6 +60,21 @@
     -fx-font-family: Avant Garde;
     -fx-background-color: rgba(167, 191, 63, 0.15)
 
+<<<<<<< HEAD
+    -fx-font-family: Infinity;
+
+
+
+}
+.login-labels{
+
+	-fx-text-fill: white;
+	
+}
+.register-labels{
+	
+	-fx-text-fill: white;
+=======
 }
 .result-area{
 	-fx-border-style: solid;
@@ -68,4 +83,5 @@
     -fx-font-family: Avant Garde;
     -fx-background-color: rgba(167, 191, 63, 0.15)
 	
+>>>>>>> develop
 }
