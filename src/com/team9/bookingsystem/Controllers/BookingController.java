@@ -22,6 +22,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
+import jfxtras.animation.Timer;
+import jfxtras.scene.control.LocalTimePicker;
 
 import javax.jws.soap.SOAPBinding;
 import java.io.IOException;
@@ -81,6 +83,7 @@ public class BookingController {
     // this method runs when controller is started
     public void initialize() {
         datePicker.setShowWeekNumbers(true);
+
 
         LocalDate localDate = LocalDate.now();
         datePicker.setValue(localDate);
@@ -260,7 +263,7 @@ public class BookingController {
                 searchResult = (ArrayList<Room>) searchService.getValue();
 
                 if (searchResult != null) {
-                    System.out.println(searchResult.toString());
+
                     Pagination pagination = initPagination();
 
 

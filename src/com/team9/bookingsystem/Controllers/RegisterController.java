@@ -37,6 +37,7 @@ public class RegisterController
     // this method runs when controller is started
     public void initialize() {
         util = new MysqlUtil();
+
     }
 
     // takes a reference to the controller of the parent
@@ -45,6 +46,7 @@ public class RegisterController
     }
     //  Method that displays welcomeArea
     @FXML public void showWelcomeArea(){
+
         // TODO: take user back to welcome area
         mainController.showWelcomeArea();
     }
