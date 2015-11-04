@@ -28,6 +28,7 @@ import jfxtras.scene.control.LocalTimePicker;
 import javax.jws.soap.SOAPBinding;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,12 +70,13 @@ public class BookingController {
     @FXML Label date;
     @FXML DatePicker datePicker;
     @FXML Label fromTime;
-    @FXML TextField fromTimeInput;
+    @FXML LocalTimePicker fromTimeInput;
     @FXML Label toTime;
-    @FXML TextField toTimeInput;
+    @FXML LocalTimePicker toTimeInput;
 //    @FXML Label location;
     @FXML ChoiceBox locationPick;
     @FXML Button searchButton;
+
     
     
 
@@ -242,12 +244,12 @@ public class BookingController {
     // Todo: add method to handle search button
     @FXML public void Search(ActionEvent event) {
         System.out.println("searching");
-
+        System.out.println(fromTimeInput.getLocalTime().format(DateTimeFormatter.ofPattern("H:m"))+":00");
 
         System.out.println(datePicker.getValue().toString());
         SearchService searchService = new SearchService(datePicker.getValue().toString(),
-                fromTimeInput.getText(),
-                toTimeInput.getText(),
+                fromTimeInput.getLocalTime().format(DateTimeFormatter.ofPattern("H:m"))+":00",
+                toTimeInput.getLocalTime().format(DateTimeFormatter.ofPattern("H:m"))+":00",
                 small.isSelected(),
                 medium.isSelected(),
                 large.isSelected(),

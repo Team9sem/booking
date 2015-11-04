@@ -45,7 +45,7 @@
                      <children>
                         <HBox alignment="CENTER" GridPane.columnSpan="3">
                            <children>
-                              <Label fx:id="searchPreferences" alignment="TOP_LEFT" styleClass="labels" text="Search Preferences" textAlignment="CENTER">
+                              <Label fx:id="searchPreferences"  alignment="TOP_LEFT" styleClass="options-area-labels" text="Search Preferences" textAlignment="CENTER">
                                  <font>
                                     <Font name="Infinity" size="30.0" />
                                  </font>
@@ -54,12 +54,12 @@
                         </HBox>
                         <HBox alignment="CENTER_LEFT" GridPane.rowIndex="1">
                            <children>
-                              <Label fx:id="features" text="Features:" />
+                              <Label fx:id="features" styleClass="options-area-labels" text="Features:" />
                            </children>
                         </HBox>
                         <HBox alignment="BOTTOM_LEFT" GridPane.columnSpan="3" GridPane.rowIndex="3">
                            <children>
-                              <CheckBox fx:id="whiteboard" mnemonicParsing="false" text="Whiteboard">
+                              <CheckBox fx:id="whiteboard" styleClass="options-area-labels" mnemonicParsing="false" text="Whiteboard">
                                  <HBox.margin>
                                     <Insets top="5.0" />
                                  </HBox.margin></CheckBox>
@@ -73,7 +73,7 @@
                         </HBox>
                         <HBox alignment="BOTTOM_LEFT" GridPane.columnSpan="3" GridPane.rowIndex="4">
                            <children>
-                              <CheckBox fx:id="projector" mnemonicParsing="false" text="Projector">
+                              <CheckBox fx:id="projector" styleClass="options-area-labels" mnemonicParsing="false" text="Projector">
                                  <HBox.margin>
                                     <Insets top="5.0" />
                                  </HBox.margin></CheckBox>
@@ -87,7 +87,7 @@
                         </HBox>
                         <HBox alignment="BOTTOM_LEFT" GridPane.columnSpan="3" GridPane.rowIndex="2">
                            <children>
-                              <CheckBox fx:id="coffeMachine" mnemonicParsing="false" text="Coffe machine">
+                              <CheckBox fx:id="coffeMachine" styleClass="options-area-labels" mnemonicParsing="false" text="Coffe machine">
 
                               </CheckBox>
                            </children>
@@ -100,7 +100,7 @@
                         </HBox>
                         <HBox alignment="CENTER_LEFT" GridPane.rowIndex="5">
                            <children>
-                              <Label fx:id="roomSize" text="Room size:">
+                              <Label fx:id="roomSize" styleClass="options-area-labels" text="Room size:">
                                  <HBox.margin>
                                     <Insets top="5.0" />
                                  </HBox.margin>
@@ -109,7 +109,7 @@
                         </HBox>
                         <HBox GridPane.rowIndex="6">
                            <children>
-                              <CheckBox fx:id="small" mnemonicParsing="false" prefHeight="20.0" prefWidth="92.0" text="Small">
+                              <CheckBox fx:id="small" styleClass="options-area-labels" mnemonicParsing="false" prefHeight="20.0" prefWidth="92.0" text="Small">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
@@ -118,7 +118,7 @@
                         </HBox>
                         <HBox GridPane.rowIndex="7">
                            <children>
-                              <CheckBox fx:id="medium" mnemonicParsing="false" text="Medium">
+                              <CheckBox fx:id="medium" styleClass="options-area-labels" mnemonicParsing="false" text="Medium">
                                  <HBox.margin>
                                     <Insets top="5.0" />
                                  </HBox.margin>
@@ -127,7 +127,7 @@
                         </HBox>
                         <HBox GridPane.rowIndex="8">
                            <children>
-                              <CheckBox fx:id="large" mnemonicParsing="false" text="Large">
+                              <CheckBox fx:id="large" styleClass="options-area-labels" mnemonicParsing="false" text="Large">
                                  <HBox.margin>
                                     <Insets top="5.0" />
                                  </HBox.margin></CheckBox>
@@ -135,7 +135,7 @@
                         </HBox>
                         <HBox GridPane.rowIndex="9">
                            <children>
-                              <Label fx:id="date" text="Date:">
+                              <Label fx:id="date" styleClass="options-area-labels" text="Date:">
                                  <HBox.margin>
                                     <Insets top="5.0" />
                                  </HBox.margin></Label>
@@ -148,7 +148,7 @@
                         </HBox>
                         <HBox GridPane.rowIndex="11">
                            <children>
-                              <Label fx:id="fromTime" text="From time:">
+                              <Label fx:id="fromTime" styleClass="options-area-labels" text="From time:">
                                  <HBox.margin>
                                     <Insets top="5.0" />
                                  </HBox.margin></Label>
@@ -156,13 +156,13 @@
                         </HBox>
                         <HBox  GridPane.rowIndex="12" GridPane.rowSpan="2" GridPane.columnIndex="0" GridPane.columnSpan="3">
                            <children>
-                              <LocalTimePicker prefWidth="400" prefHeight="300"></LocalTimePicker>
+                              <LocalTimePicker fx:id="fromTimeInput" prefWidth="400" prefHeight="300"></LocalTimePicker>
                               <!--<TextField fx:id="fromTimeInput" promptText="i.e. 12:00" />-->
                            </children>
                         </HBox>
                         <HBox GridPane.rowIndex="14">
                            <children>
-                              <Label fx:id="toTime" text="To time:">
+                              <Label fx:id="toTime" styleClass="options-area-labels" text="To time:">
                                  <HBox.margin>
                                     <Insets top="5.0" />
                                  </HBox.margin></Label>
@@ -171,12 +171,12 @@
                         <HBox  GridPane.rowIndex="15" GridPane.rowSpan="2" GridPane.columnIndex="0" GridPane.columnSpan="3">
                            <children>
                               <!--<TextField fx:id="toTimeInput" promptText="i.e. 14:00" />-->
-                              <LocalTimePicker style="-fx-progress-color: crimson" prefWidth="400" prefHeight="300" ></LocalTimePicker>
+                              <LocalTimePicker fx:id="toTimeInput" style="-fx-progress-color: crimson" prefWidth="400" prefHeight="300" ></LocalTimePicker>
                            </children>
                         </HBox>
                         <HBox GridPane.rowIndex="17">
                            <children>
-                              <Label fx:id="location" text="Location:">
+                              <Label fx:id="location" styleClass="options-area-labels" text="Location:">
                                  <HBox.margin>
                                     <Insets top="5.0" />
                                  </HBox.margin></Label>
@@ -184,7 +184,7 @@
                         </HBox>
                         <HBox GridPane.rowIndex="18">
                            <children>
-                              <ChoiceBox fx:id="locationPick" prefWidth="150.0" />
+                              <ChoiceBox fx:id="locationPick"  prefWidth="150.0" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" GridPane.columnSpan="3" GridPane.rowIndex="19">
@@ -206,12 +206,12 @@
       <AnchorPane id="top-area" fx:id="topAnchorPane" prefHeight="103.0" prefWidth="1000.0" styleClass="top-area" BorderPane.alignment="TOP_RIGHT">
         
          
-         <Label fx:id="loginLabel" alignment="TOP_LEFT" layoutX="264.0" layoutY="22.0" styleClass="labels" text="Book a room!" textAlignment="CENTER">
+         <Label fx:id="loginLabel"  alignment="TOP_LEFT" layoutX="264.0" layoutY="22.0" styleClass="options-area-labels" text="Book a room!" textAlignment="CENTER">
             <font>
                <Font name="Infinity" size="50.0" />
             </font></Label>
-         <Label layoutX="665.0" layoutY="58.0" text="Logged in as: team9" />
-         <Button layoutX="806.0" layoutY="53.0" mnemonicParsing="false" text="Log out" />
+         <Label layoutX="665.0" layoutY="58.0" styleClass="top-anchorpanetext" text="Logged in as: team9" />
+         <Button layoutX="806.0" layoutY="53.0"  mnemonicParsing="false" text="Log out" />
          <BorderPane.margin>
             <Insets bottom="10" left="100" right="100" top="10" />
          </BorderPane.margin>
@@ -235,7 +235,7 @@
                <children>
                   <HBox alignment="CENTER">
                      <children>
-                        <Label alignment="CENTER" prefHeight="23.0" prefWidth="172.0" styleClass="labels" text="Search Results">
+                        <Label alignment="CENTER" prefHeight="23.0" prefWidth="172.0" styleClass="options-area-labels" text="Search Results">
                            <font>
                              <Font name="Infinity" size="30.0" />
                            </font>
