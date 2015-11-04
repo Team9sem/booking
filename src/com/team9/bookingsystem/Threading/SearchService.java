@@ -102,7 +102,7 @@ public class SearchService extends ThreadService{
                         toTime);
                 System.out.println("after util.composeQuery");
                 ArrayList<Room> searchResult =  util.getRooms(query);
-                searchResult.forEach(element -> System.out.println(element.toString()));
+                searchResult.forEach(element -> System.out.println(element.getLocation()));
                 updateProgress(10, 10);
 
 

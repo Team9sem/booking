@@ -106,7 +106,7 @@
                 <Insets bottom="10" left="10" right="10" top="10" />
             </GridPane.margin>
 
-            <PasswordField fx:id="passowrd" />
+            <PasswordField fx:id="password" />
 
         </HBox>
 		
@@ -173,10 +173,10 @@
 
         </HBox>
 
-        <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="0" GridPane.columnSpan="1" GridPane.rowIndex="8">
+        <HBox alignment="CENTER" GridPane.columnIndex="0" GridPane.columnSpan="1" GridPane.rowIndex="8">
 
             <GridPane.margin>
-                <Insets bottom="10" left="100" right="100" top="10" />
+                <Insets bottom="10" left="10" right="10" top="10" />
             </GridPane.margin>
 
             <Button fx:id="back" onAction="#showWelcomeArea" text="Back" />

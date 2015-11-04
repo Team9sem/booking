@@ -22,9 +22,12 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
+import jfxtras.animation.Timer;
+import jfxtras.scene.control.LocalTimePicker;
 
 import javax.jws.soap.SOAPBinding;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,6 +82,29 @@ public class BookingController {
 
     // this method runs when controller is started
     public void initialize() {
+        datePicker.setShowWeekNumbers(true);
+
+
+        LocalDate localDate = LocalDate.now();
+        datePicker.setValue(localDate);
+        Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
+            @Override
+            public DateCell call(final DatePicker datePicker) {
+                return new DateCell() {
+                    @Override
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+
+                        if (item.isBefore(localDate)) {
+                            setDisable(true);
+                            setStyle("-fx-background-color: rgba(238, 51, 60, 0.67);");
+                        }
+                    }
+                };
+            }
+        };
+        datePicker.setDayCellFactory(dayCellFactory);
+
     	util = new MysqlUtil();
         paginationBox.setAlignment(Pos.CENTER);
 //        ObservableList<String> choices= FXCollections.observableArrayList();
@@ -237,7 +263,7 @@ public class BookingController {
                 searchResult = (ArrayList<Room>) searchService.getValue();
 
                 if (searchResult != null) {
-                    System.out.println(searchResult.toString());
+
                     Pagination pagination = initPagination();
 
 
