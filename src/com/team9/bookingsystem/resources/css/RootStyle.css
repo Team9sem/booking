@@ -120,6 +120,6 @@
 
 }
 .element-toggle-button:selected{
-    -fx-background-color: #ee333c;
+    -fx-background-color: #3c50ee;
     -fx-border-color: black;
 }

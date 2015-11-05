@@ -521,7 +521,7 @@ public class MysqlUtil {
                 room.setHasCoffeeMachine(rs.getInt("hasCoffeeMachine"));
                 room.setRoomID(rs.getInt("roomID"));
                 bridgeRooms.add(room);
-
+                
                 rs.getInt("roomId");
             }
             return bridgeRooms;
