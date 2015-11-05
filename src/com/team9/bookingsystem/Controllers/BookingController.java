@@ -353,6 +353,17 @@ public class BookingController {
 
             }
         });
+        searchService.setOnFailed(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+                searchResult = new ArrayList<Room>();
+                Pagination pagination = initPagination();
+                pagination.setPageCount(1);
+                pagination.setCurrentPageIndex(0);
+                paginationBox.getChildren().clear();
+                paginationBox.getChildren().add(pagination);
+            }
+        });
     }
 
 

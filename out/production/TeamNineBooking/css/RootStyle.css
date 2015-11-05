@@ -1,0 +1,125 @@
+
+/* setting the font with the @font-face rule  */
+@font-face {
+    font-family: Infinity;
+    src: url('../fonts/Infinity.ttf');
+}
+
+/* each css class used here is defined with the stylesheet="" syntax in the fxml document  */
+.root{
+    -fx-background-color:#9099ac;
+    -fx-background-image: url("../img/background-twitter-images-1920x1080.png");
+	-fx-font-family: Infinity;
+}
+
+.welcome-area{
+
+}
+.login{
+	-fx-font-family: Avant Garde;
+}
+.login-title{
+    -fx-font-smoothing-type: lcd;
+    -fx-font-size: 40pt;
+    -fx-font-family: Infinity;
+
+    -fx-fill: #0000;
+    -fx-text-fill: white;
+
+    -fx-fill: #ffffff; 
+
+}
+/* settings four round button needed to make it into a circle */
+.round-button{
+    -fx-min-height: 200px;
+    -fx-min-width: 200px;
+    -fx-max-height: 200px;
+    -fx-max-width: 200px;
+
+    -fx-background-color: azure;
+    -fx-font-family: Infinity;
+    -fx-font-smoothing-type: lcd;
+    -fx-font-size: 31pt;
+    -fx-text-fill: grey;
+}
+/* Booking Interface */
+.borderPane{
+	-fx-font-family: Infinity;
+}
+.options-area{
+	-fx-border-style: solid;
+    -fx-border-radius: 10 10 10 10;
+  	-fx-background-radius: 10 10 10 10;
+    -fx-font-family: Avant Garde;
+    -fx-background-color: rgba(212, 218, 255, 0.38)
+
+
+
+
+}
+
+.options-area-labels{
+	-fx-text-fill: white;
+	
+}
+.login-labels{
+
+	-fx-text-fill: white;
+	
+}
+.register-labels{
+	
+	-fx-text-fill: white;
+
+}
+.result-area{
+	-fx-border-style: solid;
+    -fx-border-radius: 10 10 10 10;
+  	-fx-background-radius: 10 10 10 10;
+    -fx-font-family: Avant Garde;
+    -fx-background-color: rgba(212, 218, 255, 0.38)
+
+}
+.top-anchorpanetext{
+	-fx-font-family: Avant Garde;
+	-fx-text-fill: white;
+}
+.logout-button{
+	-fx-font-family: Avant Garde;
+}
+.pagination-box-text{
+	-fx-text-fill: white;
+	
+}
+
+.result-element-label{
+    -fx-text-fill: white;
+}
+/*.pagination{*/
+
+    /*-fx-base:black;*/
+
+/*}*/
+/*.pagination .toggle-button {*/
+
+    /*-fx-background-radius:15px;*/
+
+    /*-fx-padding: 0px;*/
+
+/*}*/
+
+/*.pagination .button{*/
+
+    /*-fx-padding: 10 15 10 16px;*/
+
+/*}*/
+
+.element-toggle-button{
+    -fx-background-color: rgba(30, 68, 34, 0.76);
+    -fx-text-fill: white;
+
+}
+.element-toggle-button:selected{
+    -fx-background-color: #ee333c;
+    -fx-border-color: black;
+}
