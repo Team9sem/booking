@@ -371,7 +371,7 @@ public class BookingController {
 
     @FXML public void bookRoom(ActionEvent event){
         // Todo: book a room
-        if(selectedRoom != null){
+        if(selectedRoom != null && loggedInUser != null){
 
         }
     }
