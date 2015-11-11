@@ -30,6 +30,11 @@
     -fx-font-smoothing-type: lcd;
     -fx-font-size: 18pt;
     -fx-text-fill: indianred;
+}
+.options-area{
+
+    -fx-font-family: Infinity;
+
 
 
 }

@@ -8,22 +8,15 @@
 /* each css class used here is defined with the stylesheet="" syntax in the fxml document  */
 .root{
     -fx-background-color:#9099ac;
-
     -fx-background-image: url("../img/background-twitter-images-1920x1080.png");
-
-
-
 	-fx-font-family: Infinity;
-	
-
 }
 
 .welcome-area{
-	
 
 }
 .login{
-	-fx-font-family: Infinity;
+	-fx-font-family: Avant Garde;
 }
 .login-title{
     -fx-font-smoothing-type: lcd;
@@ -58,11 +51,16 @@
     -fx-border-radius: 10 10 10 10;
   	-fx-background-radius: 10 10 10 10;
     -fx-font-family: Avant Garde;
-    -fx-background-color: rgba(167, 191, 63, 0.15)
+    -fx-background-color: rgba(212, 218, 255, 0.38)
 
 
 
 
+}
+
+.options-area-labels{
+	-fx-text-fill: white;
+	
 }
 .login-labels{
 
@@ -79,7 +77,49 @@
     -fx-border-radius: 10 10 10 10;
   	-fx-background-radius: 10 10 10 10;
     -fx-font-family: Avant Garde;
-    -fx-background-color: rgba(167, 191, 63, 0.15)
-	
+    -fx-background-color: rgba(212, 218, 255, 0.38)
 
+}
+.top-anchorpanetext{
+	-fx-font-family: Avant Garde;
+	-fx-text-fill: white;
+}
+.logout-button{
+	-fx-font-family: Avant Garde;
+}
+.pagination-box-text{
+	-fx-text-fill: white;
+	
+}
+
+.result-element-label{
+    -fx-text-fill: white;
+}
+/*.pagination{*/
+
+    /*-fx-base:black;*/
+
+/*}*/
+/*.pagination .toggle-button {*/
+
+    /*-fx-background-radius:15px;*/
+
+    /*-fx-padding: 0px;*/
+
+/*}*/
+
+/*.pagination .button{*/
+
+    /*-fx-padding: 10 15 10 16px;*/
+
+/*}*/
+
+.element-toggle-button{
+    -fx-background-color: rgba(30, 68, 34, 0.76);
+    -fx-text-fill: white;
+
+}
+.element-toggle-button:selected{
+    -fx-background-color: #3c50ee;
+    -fx-border-color: black;
 }
