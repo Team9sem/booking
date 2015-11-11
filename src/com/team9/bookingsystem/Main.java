@@ -38,13 +38,38 @@ public class Main {
         int roomID=0;
 
         //Mayra test
+      //Booking temp = new Booking();
+    	//temp = util.BookRoom(3, 1, "2015-10-20", "09:10", "9:15");
+    	//System.out.println(temp.toString());
         try{
-        	Booking temp = new Booking();
-        	temp = util.BookRoom(3, 1, "2015-10-20", "09:10", "9:15");
-        	System.out.println(temp.toString());
-        }catch(Exception e){
-            e.printStackTrace();
-        }
+    	User userObj 	= new User("MS", "test", "Mayra", "Soliz", "testStreet", 12345);
+    	long pnumber = 821010123; 
+    	userObj.setpNumber(pnumber);
+    	userObj.setUserID(3);
+    	
+    	Room roomObj 	= new Room(1, "Patricia Room 9", "M", 0, 1, 0);
+    
+    	Date bDateIn 	= new Date();
+    	Date bStartIn	= new Date();
+    	Date bEndIn 	= new Date();
+    	bDateIn.setDate(02);
+    	bDateIn.setMonth(01);
+    	bDateIn.setYear(2015);
+    	
+    	bStartIn.setHours(9);
+    	bStartIn.setMinutes(15);
+    	
+    	bEndIn.setHours(10);
+    	bEndIn.setMinutes(30);
+    	
+    	//BookedRoom bRoom = new BookedRoom();
+	
+    	BookedRoom bRoom = util.BookRoom(userObj, roomObj, bDateIn, bStartIn, bEndIn);
+    	System.out.println(bRoom.toString());
+    }catch(Exception e){
+        e.printStackTrace();
+    }
+
 
         //Mayra test
         //testing time

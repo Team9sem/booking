@@ -2,6 +2,7 @@ package com.team9.bookingsystem;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -259,38 +260,38 @@ public class MysqlUtil {
 
     // TODO : Register Method for Mayra
     // TODO : create a class for room, use this class as a return type for BookRoom analog to "loginAndGetUser" 
-    // room registration
-    // Output confirmation or error.
-    // Input  User, Building, Room, Date, Start time, End time, Purpose
-    // Check  if input is valid 
-    // Check  If room is available
-    // Create Room object
-    // SQL server
-    // http://sql.smallwhitebird.com
-    // user team9, password team9
     
-    //STRUCTURE for Bookings
-    //bid		NULL	INT
-    //userId	NULL	INT
-    //roomId	NULL	INT
-    //bDate		NULL	date
-    //bStart	NULL	time
-    //bEnd		NULL	time
-    public Booking BookRoom(int userId, int roomId, String bDate, String bStart, String bEnd) throws Exception
+    @SuppressWarnings("deprecation")
+	public BookedRoom BookRoom(User userObj, Room roomObj, Date bDateIn, Date bStartIn, Date bEndIn) throws Exception
     {
-        Booking toReturn = new Booking();
+    	int iBid = 0;
+    	//Date formatting "2015-10-20", "09:10", "9:15"
+    	//TODO: Depreciated methods switch to Calender 
+    	int day = bDateIn.getDate();
+    	int month = bDateIn.getMonth();
+    	int year = bDateIn.getYear();
+    	String bDate = (+year +"-"+month+"-"+day);
+    	int hourStart = bStartIn.getHours();
+    	int minStart = bStartIn.getMinutes();
+    	String bStart = (+hourStart+":"+minStart);
+    	int hourEnd = bEndIn.getHours();
+    	int minEnd = bEndIn.getMinutes();
+    	String bEnd = (+hourEnd+":"+minEnd);
         int intbID = 0;
+        int userId = userObj.getUserID();
+        int roomId = roomObj.getRoomID();
         
         try(Connection connection = getConnection()){
 
             System.out.println("Room Registration Connection Established");
-
+            
             // statement
             Statement statement = connection.createStatement();
 
             String sql = "INSERT INTO Bookings " +
             			 "(userId, roomId, bDate, bStart, bEnd)" +
             			 " Values ('"+userId+ "','"+roomId+"','"+bDate+"','"+bStart+"','"+bEnd+"')";
+              
             System.out.println("SQL string: "+sql); 
             statement.executeUpdate(sql);
             
@@ -306,13 +307,9 @@ public class MysqlUtil {
             	System.out.println(intbID);
             }
             //TODO There should only be one booking with the same Date. needs to be checked, until then use the final intbID
-            toReturn.setuserid(userId);
-            toReturn.setroomID(roomId);
-            toReturn.setbdate(bDate);
-            toReturn.setbStart(bStart);
-            toReturn.setbEnd(bEnd);
-            toReturn.setbID(intbID);
-            
+          
+            BookedRoom toReturn = new BookedRoom(roomObj, intbID, userId, bDateIn, bStartIn, bEndIn);
+
             rs.close();       
             statement.close();
             connection.close();
@@ -323,7 +320,7 @@ public class MysqlUtil {
             e.printStackTrace();
         } 
      return null;   
-  } //end public User BookRoom
+  } //end public BookedRoom
 
     public boolean removeRoomBooking(int bID) throws Exception
     {
