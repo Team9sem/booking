@@ -345,8 +345,7 @@ public class BookingController {
                         paginationBox.getChildren().clear();
                         paginationBox.getChildren().add(pagination);
                     }
-                }
-                else {
+                } else {
                     System.out.println("no result");
                 }
 
@@ -372,6 +371,8 @@ public class BookingController {
     @FXML public void bookRoom(ActionEvent event){
         // Todo: book a room
         if(selectedRoom != null && loggedInUser != null){
+            String fromHour = formatHour(fromTimeInput.getLocalTime().getHour());
+            String toHour = formatHour(toTimeInput.getLocalTime().getHour());
 
         }
     }

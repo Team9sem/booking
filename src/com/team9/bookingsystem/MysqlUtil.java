@@ -260,10 +260,15 @@ public class MysqlUtil {
 
     // TODO : Register Method for Mayra
     // TODO : create a class for room, use this class as a return type for BookRoom analog to "loginAndGetUser" 
-    
+
+
+
+
     @SuppressWarnings("deprecation")
 	public BookedRoom BookRoom(User userObj, Room roomObj, Date bDateIn, Date bStartIn, Date bEndIn) throws Exception
     {
+
+
     	int iBid = 0;
     	//Date formatting "2015-10-20", "09:10", "9:15"
     	//TODO: Depreciated methods switch to Calender 
