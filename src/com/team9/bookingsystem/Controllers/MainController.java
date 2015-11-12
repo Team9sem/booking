@@ -106,10 +106,10 @@ public class MainController {
 
 
         try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/booking.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/testAdmin.fxml"));
             BorderPane borderPane = loader.load();
-            BookingController bookingController = loader.getController();
-            bookingController.init(this,loggedinUser);
+            TestAdminController testAdminController = loader.getController();
+            testAdminController.init(this,loggedinUser);
             System.out.println(this.toString());
             Ui.getChildren().clear();
             Ui.getChildren().add(borderPane);
