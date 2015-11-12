@@ -669,17 +669,49 @@ public class MysqlUtil {
         return jsonArray;
     }
 
+    /**
+     *Editing and removing a user from the database
+     *Created by iso on 12/11/15
+     */
 
+    public void editUser(User user){
+        try(Connection connection = getConnection()){
 
+            System.out.println("\nUser Connection Established\n");
 
-
-
-
-
-
-
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(
+                    "UPDATE User SET alias = '"+user.getUserName()+"',passwd ='"+user.getPassword()+
+                            "',firstname = '"+user.getFirstName()+"',lastname = '"+user.getLastName()+
+                            "',pNumber = '"+user.getpNumber()+"',usertype = '"+user.getUserType()+
+                            "',street = '"+user.getStreet()+"',zip = '"+user.getZip()+
+                            "' WHERE userID= '"+user.getUserID()+"'"
+            );
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
 
     }
+
+    public void deleteUser(User user){
+        try(Connection connection = getConnection()){
+
+            System.out.println("\nUser Connection Established\n");
+
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(
+                    "DELETE FROM User WHERE userID= '"+user.getUserID()+"'"
+            );
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+    //END OF EDITING AND REMOVING USER OPERATIONS
+
+
+
+
+  }
 
 
 
