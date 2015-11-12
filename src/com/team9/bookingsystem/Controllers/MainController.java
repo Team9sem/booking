@@ -105,6 +105,8 @@ public class MainController {
     public void showBookingInterface(User loggedinUser){
 
 
+
+
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/booking.fxml"));
             BorderPane borderPane = loader.load();
