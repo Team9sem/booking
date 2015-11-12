@@ -105,6 +105,11 @@ public class MainController {
     public void showBookingInterface(User loggedinUser){
 
 
+        System.out.println(loggedinUser.getUserName());
+        if(loggedinUser.getUserName().equals("admin")){
+
+            System.out.println("in showbooking");
+
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/booking.fxml"));
             BorderPane borderPane = loader.load();
@@ -125,18 +130,24 @@ public class MainController {
         catch(IOException e){
             e.printStackTrace();
             }
+
+            }
+        else{
+            showAdminConsole(loggedinUser);
         }
+    }
         
      public void showAdminConsole(User admin){
     	try{
-    		FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/administratorUI.fxml"));
+            System.out.println("in showAdmin");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/administratorUI.fxml"));
     		BorderPane borderPane = loader.load();
     		System.out.println(this.toString());
     		Ui.getChildren().clear();
     		Ui.getChildren().add(borderPane);
-    		Ui.setBottomAnchor(borderPane,0.0);
-            Ui.setTopAnchor(borderPane,0.0);
-            Ui.setLeftAnchor(borderPane,0.0);
+    		Ui.setBottomAnchor(borderPane, 0.0);
+            Ui.setTopAnchor(borderPane, 0.0);
+            Ui.setLeftAnchor(borderPane, 0.0);
             Ui.setRightAnchor(borderPane,0.0);
 
     		
