@@ -708,8 +708,112 @@ public class MysqlUtil {
     }
     //END OF EDITING AND REMOVING USER OPERATIONS
 
+    /**
+     * Searching through users, rooms and bookings in the database
+     */
 
+    public ArrayList<User> getUser(String column, String searchString){
+        ArrayList<User> userArrayList = new ArrayList<>();
+        try(Connection connection = getConnection()){
 
+            System.out.println("\nUser Connection Established\n");
+
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(
+                    "SELECT * FROM User WHERE "+ column +" LIKE '%%"+searchString+"%%'"
+            );
+
+            while (rs.next()) {
+                User user = new User();
+
+                user.setUserID(rs.getInt("userID"));
+                user.setUserName(rs.getString("alias"));
+                user.setPassword(rs.getString("passwd"));
+                user.setFirstName(rs.getString("firstname"));
+                user.setLastName(rs.getString("lastname"));
+                user.setpNumber(rs.getInt("pNumber"));
+                user.setUserType(rs.getString("usertype"));
+                user.setStreet(rs.getString("street"));
+                user.setZip(rs.getInt("zip"));
+
+                userArrayList.add(user);
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        //list of columns in the USER table
+        //userID, alias, passwd, firstname, lastname, pNumber, usertype, street, zip
+
+        return userArrayList;
+    }
+
+    public ArrayList<Room> getRoom(String column, String searchString){
+        ArrayList<Room> roomArrayList = new ArrayList<>();
+
+        try(Connection connection = getConnection()){
+
+            System.out.println("\nUser Connection Established\n");
+
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(
+                    "SELECT * FROM Room WHERE "+ column +" LIKE '%%"+searchString+"%%'"
+            );
+
+            while (rs.next()) {
+                Room room = new Room();
+
+                room.setRoomSize(rs.getString("roomSize"));
+                room.setLocation(rs.getString("location"));
+                room.setHasProjector(rs.getInt("hasProjector"));
+                room.setHasWhiteboard(rs.getInt("hasWhiteboard"));
+                room.setHasCoffeeMachine(rs.getInt("hasCoffeeMachine"));
+                room.setRoomID(rs.getInt("roomID"));
+
+                roomArrayList.add(room);
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        return roomArrayList;
+    }
+
+    public ArrayList<Booking> getBooking(String column, String searchString){
+        ArrayList<Booking> bookingArrayList = new ArrayList<>();
+
+        try(Connection connection = getConnection()){
+
+            System.out.println("\nUser Connection Established\n");
+
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(
+                    "SELECT * FROM Bookings WHERE "+ column +" LIKE '%%"+searchString+"%%'"
+            );
+
+            while (rs.next()) {
+                Booking booking = new Booking();
+
+                booking.setbID(rs.getInt("bID"));
+                booking.setuserid(rs.getInt("userid"));
+                booking.setroomID(rs.getInt("roomID"));
+                booking.setbdate(rs.getString("bdate"));
+                booking.setbStart(rs.getString("bStart"));
+                booking.setbEnd(rs.getString("bEnd"));
+
+                bookingArrayList.add(booking);
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        return bookingArrayList;
+    }
+
+    //END OF SEARCHING USER, ROOM AND BOOKING METHODS
 
   }
 
