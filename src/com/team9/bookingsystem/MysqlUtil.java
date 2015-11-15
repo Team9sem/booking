@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.text.*;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -126,7 +127,8 @@ public class MysqlUtil {
         
     public void GetLocations() throws Exception
     {
-        	//Method that prints all rooms 
+    		//Created by Mayra Soliz.
+    		//Method that prints all rooms 
             // we have to catch potential SQLExceptions
             try(Connection connection = getConnection()){
             	
@@ -156,7 +158,8 @@ public class MysqlUtil {
         
     public Booking[] GetUserBookings(int userId) throws Exception
     {
-        	Booking[] BookObj = new Booking[100];
+    		//Created by Mayra Soliz.
+    		Booking[] BookObj = new Booking[100];
         	String bID;
         	//Method that prints all Bookings
             // we have to catch potential SQLExceptions
@@ -197,7 +200,8 @@ public class MysqlUtil {
         
     public String GetRoomLocation(int roomID) throws Exception
     {
-        	//Method get the location using the roomID
+    		//Created by Mayra Soliz.
+    		//Method get the location using the roomID
         	String toReturn = "";
             // we have to catch potential SQLExceptions
             try(Connection connection = getConnection()){
@@ -228,7 +232,8 @@ public class MysqlUtil {
         
     public int GetRoomID(String location) throws Exception
     {
-        	//Method that prints all rooms 
+    		//Created by Mayra Soliz.
+    		//Method that prints all rooms 
         	int roomID = 0;
             // we have to catch potential SQLExceptions
             try(Connection connection = getConnection()){
@@ -261,30 +266,47 @@ public class MysqlUtil {
     // TODO : Register Method for Mayra
     // TODO : create a class for room, use this class as a return type for BookRoom analog to "loginAndGetUser" 
 
-
-
-
-    @SuppressWarnings("deprecation")
-	public BookedRoom BookRoom(User userObj, Room roomObj, Date bDateIn, Date bStartIn, Date bEndIn) throws Exception
+	public BookedRoom Booking(User userObj, Room roomObj, String bDate, String bStart, String bEnd) throws Exception
     {
-
-
+    	//Created by Mayra Soliz. Modified 15 November 2015
+		//Note that using strings to transfer date information can cause SQL errors if the strings are not formatted
+    	//correctly.
     	int iBid = 0;
-    	//Date formatting "2015-10-20", "09:10", "9:15"
-    	//TODO: Depreciated methods switch to Calender 
-    	int day = bDateIn.getDate();
-    	int month = bDateIn.getMonth();
-    	int year = bDateIn.getYear();
-    	String bDate = (+year +"-"+month+"-"+day);
-    	int hourStart = bStartIn.getHours();
-    	int minStart = bStartIn.getMinutes();
-    	String bStart = (+hourStart+":"+minStart);
-    	int hourEnd = bEndIn.getHours();
-    	int minEnd = bEndIn.getMinutes();
-    	String bEnd = (+hourEnd+":"+minEnd);
         int intbID = 0;
         int userId = userObj.getUserID();
         int roomId = roomObj.getRoomID();
+        Date date;
+        Date start;
+        Date stop;
+        
+        //creating Date objects so that a BookedRoom object can be returned
+        //Warnings suppressed due to Date methods being needed due to the Object definition  
+        //BookedRoom(roomObj, int, int, date, date, date);
+   
+        try{
+        	DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        	date = format.parse(bDate);
+        	//System.out.println(date); 
+            @SuppressWarnings("deprecation")
+        	DateFormat formatTime = new SimpleDateFormat("H:m");
+        	start = date; 
+        	start = formatTime.parse(bStart);
+        	start.setDate(date.getDate());
+        	start.setMonth(date.getMonth());
+        	start.setYear(date.getYear()); 
+        
+        	stop = date;
+        	stop = formatTime.parse(bEnd);
+        	stop.setDate(date.getDate());
+        	stop.setMonth(date.getMonth());
+        	stop.setYear(date.getYear());
+        } catch(ParseException e){   
+                e.printStackTrace();
+                System.out.println("Wrong date format for SQL");
+                throw new RuntimeException(e);
+        }
+        //END creating Date objects so that a BookedRoom object can be returned
+        
         
         try(Connection connection = getConnection()){
 
@@ -311,10 +333,11 @@ public class MysqlUtil {
             	intbID = Integer.parseInt(tmp);
             	System.out.println(intbID);
             }
+            
+            //TODO How should a series of bookings be handled? BookedRoom[] BookedRoom(roomObj, intbID, userId, date, start, stop, Xtimes)??
             //TODO There should only be one booking with the same Date. needs to be checked, until then use the final intbID
-          
-            BookedRoom toReturn = new BookedRoom(roomObj, intbID, userId, bDateIn, bStartIn, bEndIn);
-
+                        
+            BookedRoom toReturn = new BookedRoom(roomObj, intbID, userId, date, start, stop);
             rs.close();       
             statement.close();
             connection.close();
@@ -330,7 +353,8 @@ public class MysqlUtil {
     public boolean removeRoomBooking(int bID) throws Exception
     {
       
-        // we have to catch potential SQLExceptions
+    	//Created by Mayra Soliz.
+    	// we have to catch potential SQLExceptions
         try(Connection connection = getConnection()){
 
             System.out.println("Room De-Registration Connection Established");
@@ -395,6 +419,7 @@ public class MysqlUtil {
     
   public boolean RegisterRoom(String location, String roomSize, int hasProjector, int hasWhiteBoard, int hasCoffeeMachine) throws Exception
   {
+	  	//Created by Mayra Soliz.
 	  	//roomID int(11)
 	    //location char(30)
 	    //roomSize char(30)
