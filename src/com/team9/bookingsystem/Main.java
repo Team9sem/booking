@@ -49,22 +49,11 @@ public class Main {
     	
     	Room roomObj 	= new Room(1, "Patricia Room 9", "M", 0, 1, 0);
     
-    	Date bDateIn 	= new Date();
-    	Date bStartIn	= new Date();
-    	Date bEndIn 	= new Date();
-    	bDateIn.setDate(02);
-    	bDateIn.setMonth(01);
-    	bDateIn.setYear(2015);
-    	
-    	bStartIn.setHours(9);
-    	bStartIn.setMinutes(15);
-    	
-    	bEndIn.setHours(10);
-    	bEndIn.setMinutes(30);
-    	
     	//BookedRoom bRoom = new BookedRoom();
 	
-    	BookedRoom bRoom = util.BookRoom(userObj, roomObj, bDateIn, bStartIn, bEndIn);
+    	//BookedRoom bRoom = util.BookRoom(userObj, roomObj, bDateIn, bStartIn, bEndIn);
+    	BookedRoom bRoom = util.Booking(userObj, roomObj, "2015-10-21", "9:15", "10:30");
+    	
     	System.out.println(bRoom.toString());
     }catch(Exception e){
         e.printStackTrace();
