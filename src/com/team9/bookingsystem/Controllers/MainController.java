@@ -106,7 +106,7 @@ public class MainController {
 
 
         System.out.println(loggedinUser.getUserName());
-        if(loggedinUser.getUserName().equals("admin")){
+        if(!loggedinUser.getUserName().equals("admin")){
 
             System.out.println("in showbooking");
 
