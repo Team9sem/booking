@@ -266,11 +266,15 @@ public class MysqlUtil {
     // TODO : Register Method for Mayra
     // TODO : create a class for room, use this class as a return type for BookRoom analog to "loginAndGetUser" 
 
-	public BookedRoom Booking(User userObj, Room roomObj, String bDate, String bStart, String bEnd) throws Exception
+    public Booking Booking(User userObj, Room roomObj, String bDate, String bStart, String bEnd) throws Exception
     {
     	//Created by Mayra Soliz. Modified 15 November 2015
 		//Note that using strings to transfer date information can cause SQL errors if the strings are not formatted
     	//correctly.
+    	
+    	//TODO How should a series of bookings be handled? BookedRoom[] BookedRoom(roomObj, intbID, userId, date, start, stop, Xtimes)??
+        //TODO There should only be one booking with the same Date. needs to be checked, until then use the final intbID
+    	
     	int iBid = 0;
         int intbID = 0;
         int userId = userObj.getUserID();
@@ -283,28 +287,28 @@ public class MysqlUtil {
         //Warnings suppressed due to Date methods being needed due to the Object definition  
         //BookedRoom(roomObj, int, int, date, date, date);
    
-        try{
-        	DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        	date = format.parse(bDate);
+        //try{
+        //	DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        //	date = format.parse(bDate);
         	//System.out.println(date); 
-            @SuppressWarnings("deprecation")
-        	DateFormat formatTime = new SimpleDateFormat("H:m");
-        	start = date; 
-        	start = formatTime.parse(bStart);
-        	start.setDate(date.getDate());
-        	start.setMonth(date.getMonth());
-        	start.setYear(date.getYear()); 
+        //    @SuppressWarnings("deprecation")
+        //	DateFormat formatTime = new SimpleDateFormat("H:m");
+        //	start = date; 
+        //	start = formatTime.parse(bStart);
+        //	start.setDate(date.getDate());
+        //	start.setMonth(date.getMonth());
+        //	start.setYear(date.getYear()); 
         
-        	stop = date;
-        	stop = formatTime.parse(bEnd);
-        	stop.setDate(date.getDate());
-        	stop.setMonth(date.getMonth());
-        	stop.setYear(date.getYear());
-        } catch(ParseException e){   
-                e.printStackTrace();
-                System.out.println("Wrong date format for SQL");
-                throw new RuntimeException(e);
-        }
+        //	stop = date;
+        //	stop = formatTime.parse(bEnd);
+        //	stop.setDate(date.getDate());
+        //	stop.setMonth(date.getMonth());
+        //	stop.setYear(date.getYear());
+        //} catch(ParseException e){   
+        //        e.printStackTrace();
+        //        System.out.println("Wrong date format for SQL");
+        //        throw new RuntimeException(e);
+        //}
         //END creating Date objects so that a BookedRoom object can be returned
         
         
@@ -334,10 +338,7 @@ public class MysqlUtil {
             	System.out.println(intbID);
             }
             
-            //TODO How should a series of bookings be handled? BookedRoom[] BookedRoom(roomObj, intbID, userId, date, start, stop, Xtimes)??
-            //TODO There should only be one booking with the same Date. needs to be checked, until then use the final intbID
-                        
-            BookedRoom toReturn = new BookedRoom(roomObj, intbID, userId, date, start, stop);
+            Booking toReturn = new Booking(intbID, userObj.getUserID(), roomObj.getRoomID(), bDate, bStart, bEnd);
             rs.close();       
             statement.close();
             connection.close();
@@ -454,7 +455,104 @@ public class MysqlUtil {
     return false;
 
     }//end public User RegisterUser
+  
+  	public boolean editRoom(Room room) {
+  	//Created by Mayra Soliz 16 Nov 2015.
+  	//This method takes the data in the room object and updates the database with the data in the room object
+  		
+  	//SQL ROOM structure
+  		  //roomID int(11)
+  		  //location char(30)
+  		  //roomSize char(30)
+  		  //hasProjector int
+  		  //hasWhiteBoard int
+  		  //hasCoffeMachine int
+  		
+  		  int roomID = room.getRoomID();
+  		  int hasCoffeeMachine = room.getHasCoffeeMachine();
+    	  int hasProjector = room.getHasProjector();
+    	  int hasWhiteBoard = room.getHasWhiteboard();
+    	  String roomSize = room.getRoomSize();
+    	  String location = room.getLocation();
+  	          
+  		  // we have to catch potential SQLExceptions
+  	      try(Connection connection = getConnection()){
+  	    	    	    	  
+  	    	  System.out.println("Edit room Connection Established");
 
+  	    	  Statement statement = connection.createStatement();
+  	    	  
+  	    	
+  	    	  String sql = "UPDATE Room " + 
+  	    			  	   "SET " +
+  	                   	   "location='"+location+"',roomSize='"+roomSize+"',hasProjector='"+hasProjector+"'"
+  	                   	   			   +",hasWhiteBoard='"+hasWhiteBoard+"',hasCoffeeMachine='"+hasCoffeeMachine+"' "+
+  	                   	   "WHERE roomID='"+roomID+"'";
+  	                   	
+  	    	  System.out.println("SQL string: "+sql); 
+  	           
+  	    	  statement.executeUpdate(sql);
+  	               
+  	          statement.close();
+  	          connection.close();
+  	          return true;
+  	       }catch(SQLException e){
+  	            e.printStackTrace();
+  	       }
+
+  	    return false;
+  	}
+  	
+  	public boolean deleteRoom(Room room) {
+  	  	//Created by Mayra Soliz 16 Nov 2015.
+  	  	//This method deletes the Room using the roomID.
+  		//It also deletes all booking related to this roomID to retain database integrity
+  		//Note that the bookings have to be deleted before the room is delete due to the
+  		//foreign key restraints
+  	  		
+  	  	//SQL ROOM structure
+  	  		  //roomID int(11)
+  	  		  //location char(30)
+  	  		  //roomSize char(30)
+  	  		  //hasProjector int
+  	  		  //hasWhiteBoard int
+  	  		  //hasCoffeMachine int
+  	  		
+  	  		  int roomID = room.getRoomID();
+  	  		  String sql = "";
+    
+  	  		  // we have to catch potential SQLExceptions
+  	  	      try(Connection connection = getConnection()){
+
+  	  	    	  System.out.println("Delete room Connection Established");
+
+  	  	    	  Statement statement = connection.createStatement();
+  	  	    	  
+  	  	    	  //Delete all booking with this roomID from SQL Database to retain integrity
+  	  	    	  sql = "DELETE FROM Bookings "+
+  	  	    			"WHERE roomID='"+roomID+"';";
+  	  	    	  
+  	  	    	  System.out.println("SQL string: "+sql); 
+  	  	    	  statement.executeUpdate(sql);
+  	  	    	  
+  	  	    	  //Delete room from SQL Database
+  	  	    	  sql = "DELETE FROM Room "+
+  	  	    			"WHERE roomID='"+roomID+"';";
+  	  	    	  
+  	  	    	  System.out.println("SQL string: "+sql); 
+  	  	           
+  	  	    	  statement.executeUpdate(sql);
+
+  	  	          statement.close();
+  	  	          connection.close();
+  	  	          return true;
+  	  	       }catch(SQLException e){
+  	  	            e.printStackTrace();
+  	  	       }
+
+  	  	    return false;
+  	  	}
+  	
     public int totalNumberOfRooms(){
         int j = 0;
         try(Connection connection = getConnection()){

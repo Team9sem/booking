@@ -24,18 +24,18 @@ public class Main {
 //        System.out.println("enter password");
 //        String passwd = scanner.nextLine();
 
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Location (enter nothing if it doesn't matter): ");
-        String location = scanner.nextLine();
-        System.out.println("Enter size:(Small/Medium/Large)");
-        String size = scanner.nextLine();
-        System.out.println("Do you need a projector? 1/0 = Y/N");
-        int hasProjector = scanner.nextInt();
-        System.out.println("Do you need a whiteboard? 1/0 = Y/N");
-        int hasWhiteboard = scanner.nextInt();
-        System.out.println("Do you need a coffee machine? 1/0 = Y/N");
-        int hasCoffeeMachine = scanner.nextInt();
-        int roomID=0;
+        //Scanner scanner = new Scanner(System.in);
+        //System.out.println("Location (enter nothing if it doesn't matter): ");
+        //String location = scanner.nextLine();
+        //System.out.println("Enter size:(Small/Medium/Large)");
+        //String size = scanner.nextLine();
+        //System.out.println("Do you need a projector? 1/0 = Y/N");
+        //int hasProjector = scanner.nextInt();
+        //System.out.println("Do you need a whiteboard? 1/0 = Y/N");
+        //int hasWhiteboard = scanner.nextInt();
+        //System.out.println("Do you need a coffee machine? 1/0 = Y/N");
+        //int hasCoffeeMachine = scanner.nextInt();
+        //int roomID=0;
 
         //Mayra test
       //Booking temp = new Booking();
@@ -47,14 +47,19 @@ public class Main {
     	userObj.setpNumber(pnumber);
     	userObj.setUserID(3);
     	
-    	Room roomObj 	= new Room(1, "Patricia Room 9", "M", 0, 1, 0);
+    	Room roomObj 	= new Room(18, "Alfons", "M", 0, 0, 0);
     
+    	//util.editRoom(roomObj);
+    	//util.deleteRoom(roomObj);
     	//BookedRoom bRoom = new BookedRoom();
-	
-    	//BookedRoom bRoom = util.BookRoom(userObj, roomObj, bDateIn, bStartIn, bEndIn);
-    	BookedRoom bRoom = util.Booking(userObj, roomObj, "2015-10-21", "9:15", "10:30");
+    	Booking book = new Booking();
+    	book = util.Booking(userObj, roomObj, "2015-10-11", "9:15", "11:15");
+    	System.out.println(book.toString());
     	
-    	System.out.println(bRoom.toString());
+    	//BookedRoom bRoom = util.BookRoom(userObj, roomObj, bDateIn, bStartIn, bEndIn);
+    	//BookedRoom bRoom = util.Booking(userObj, roomObj, "2015-10-21", "9:15", "10:30");
+    	
+    	//System.out.println(bRoom.toString());
     }catch(Exception e){
         e.printStackTrace();
     }
@@ -62,11 +67,11 @@ public class Main {
 
         //Mayra test
         //testing time
-        String bookingDate = "", timeStart = "", timeEnd="";
+       // String bookingDate = "", timeStart = "", timeEnd="";
 
-        Room room = new Room(roomID, location, size, hasProjector, hasWhiteboard, hasCoffeeMachine);
+       // Room room = new Room(roomID, location, size, hasProjector, hasWhiteboard, hasCoffeeMachine);
 
-        try{
+       // try{
             // try to fetch rooms
 //            Room[] rooms;
 //            String query = util.composeRoomQuery(room, bookingDate, timeStart, timeEnd);
@@ -76,9 +81,9 @@ public class Main {
 //                System.out.println(rooms[k]);
 //            }
 
-        }catch(Exception e){
-            e.printStackTrace();
-        }
+       // }catch(Exception e){
+       //     e.printStackTrace();
+       // }
 
 
 //        try{
