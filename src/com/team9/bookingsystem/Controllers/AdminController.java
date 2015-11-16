@@ -222,73 +222,75 @@ public class AdminController {
         System.out.println("searching");
 
 
-        // Format Hours
+//        Format Hours
 //        String fromHour = formatHour(fromTimeInput.getLocalTime().getHour());
 //        String toHour = formatHour(toTimeInput.getLocalTime().getHour());
 //
 //
 //        System.out.println(fromHour+" : "+toHour);
-//
-//
-//        System.out.println(getValue().toString());
-//          SearchService searchService = new SearchService(toString(),
-//        		  radioID.isSelected(),
-//                radioUserName.isSelected(),
-//                radioName.isSelected(),
-//                radioType.isSelected(),
-//                radioPnumber.isSelected(),
-//                radioRoomID.isSelected(),
-//                radioSomething.isSelected());
-//            	
-//        searchService.start();
-//        searchService.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
-//            @Override
-//            public void handle(WorkerStateEvent event) {
-//
-//                searchResult = (ArrayList<Room>) searchService.getValue();
-//
-//                if (searchResult != null) {
-//
-//                    Pagination pagination = initPagination();
-//
-//
-//                    System.out.println(searchResult.size());
-//                    if (searchResult.size() <= 5) {
-//                        System.out.println("if happened");
-//
-//                        pagination.setPageCount(1);
-//                        pagination.setCurrentPageIndex(0);
-//                        paginationBox.getChildren().clear();
-//                        paginationBox.getChildren().add(pagination);
-//
-//
-//                    } else {
-//                        pagination.setPageCount((int) (Math.ceil(searchResult.size() / 5.0)));
-//                        pagination.setCurrentPageIndex(0);
-//                        paginationBox.getChildren().clear();
-//                        paginationBox.getChildren().add(pagination);
-//                    }
-//    			}
-//                else {
-//                    System.out.println("no result");
-//                }
-//
-//
-//            }
-//        });
-//        searchService.setOnFailed(new EventHandler<WorkerStateEvent>() {
-//            @Override
-//            public void handle(WorkerStateEvent event) {
-//                searchResult = new ArrayList<Room>();
-//                Pagination pagination = initPagination();
-//                pagination.setPageCount(1);
-//                pagination.setCurrentPageIndex(0);
-//                paginationBox.getChildren().clear();
-//                paginationBox.getChildren().add(pagination);
-//            }
-//        });
-//    }
-//
-//}
+
+
+//        System.out.println(toString());
+          SearchService searchService = new SearchService(
+        		radioID.isSelected(),
+                radioUserName.isSelected(),
+                radioName.isSelected(),
+                radioType.isSelected(),
+                radioPnumber.isSelected(),
+                radioRoomID.isSelected(),
+                radioSomething.isSelected()
+                );
+       	
+            	
+        searchService.start();
+        searchService.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+
+                searchResult = (ArrayList<Room>) searchService.getValue();
+
+                if (searchResult != null) {
+
+                    Pagination pagination = initPagination();
+
+
+                    System.out.println(searchResult.size());
+                    if (searchResult.size() <= 5) {
+                        System.out.println("if happened");
+
+                        pagination.setPageCount(1);
+                        pagination.setCurrentPageIndex(0);
+                        paginationBox.getChildren().clear();
+                        paginationBox.getChildren().add(pagination);
+
+
+                    } else {
+                        pagination.setPageCount((int) (Math.ceil(searchResult.size() / 5.0)));
+                        pagination.setCurrentPageIndex(0);
+                        paginationBox.getChildren().clear();
+                        paginationBox.getChildren().add(pagination);
+                    }
+    			}
+                else {
+                    System.out.println("no result");
+                }
+
+
+            }
+        });
+        searchService.setOnFailed(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+                searchResult = new ArrayList<Room>();
+                Pagination pagination = initPagination();
+                pagination.setPageCount(1);
+                pagination.setCurrentPageIndex(0);
+                paginationBox.getChildren().clear();
+                paginationBox.getChildren().add(pagination);
+            }
+        });
+    }
+
+}
 }
 }

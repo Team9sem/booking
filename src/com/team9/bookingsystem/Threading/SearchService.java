@@ -74,6 +74,9 @@ public class SearchService extends ThreadService{
         this.location = location;
     }
 
+    
+    
+
     /**
      * Overriden protected Method from com.team9.bookingsystem.Threading.ThreadService
      * @return Returns a Task Object which returns the Rooms meeting search criteria as ArrayList<Room>

@@ -307,7 +307,8 @@ public class BookingController {
 
 
         System.out.println(datePicker.getValue().toString());
-        SearchService searchService = new SearchService(datePicker.getValue().toString(),
+        SearchService searchService = new SearchService(
+        		datePicker.getValue().toString(),
                 fromTimeInput.getLocalTime().format(DateTimeFormatter.ofPattern(fromHour+":m"))+":00",
                 toTimeInput.getLocalTime().format(DateTimeFormatter.ofPattern(toHour+":m"))+":00",
                 small.isSelected(),

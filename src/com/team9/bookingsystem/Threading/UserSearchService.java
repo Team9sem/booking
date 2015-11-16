@@ -7,7 +7,7 @@ import com.team9.bookingsystem.Room;
 
 import javafx.concurrent.Task;
 
-public class AdminSearchService extends ThreadService {
+public class UserSearchService extends ThreadService {
 	
 
 
@@ -15,17 +15,17 @@ public class AdminSearchService extends ThreadService {
      * variables needed to Perform Database Operation
      */
     private Task task;
-    private String userSearchText;
-    private String roomSearchText;
+//    private String userSearchText;
+//    private String roomSearchText;
 //    private String toTime;
 //    private String size;
-    private boolean isID;
-    private boolean isUserName;
-    private boolean isName;
-    private boolean isType;
-    private boolean isPnumber;
-    private boolean isRoomID;
-    private boolean isSomething;
+    String ID;
+    String userName;
+    String name;
+    String userType;
+    String pNumber;
+    String zipCode;
+   
 
 
     /**
@@ -36,7 +36,7 @@ public class AdminSearchService extends ThreadService {
      * @param task custom Task object
      * @see Task
      */
-    public AdminSearchService(Task task){
+    public UserSearchService(Task task){
         super(task);
         System.out.println(this.task);
     }
@@ -50,26 +50,22 @@ public class AdminSearchService extends ThreadService {
      * @param size Desired Size property
      * @see String
      */
-    public AdminSearchService(String date,
-                         String userSearchText,
-                         String roomSearchText,
-                         boolean isID,
-                         boolean isUserName,
-                         boolean isName,
-                         boolean isType,
-                         boolean isPnumber,
-                         boolean isRoomID,
-                         boolean isSomething)
+    public UserSearchService(String ID,
+    		String userName,
+    		String name,
+    		String userType,
+    		String pNumber,
+    		String zipCode
+                        )
     {
         super();
-        this.isID = isID;
-        this.isUserName = isUserName;
-        this.isName = isName;
-        this.isType = isType;
-        this.isPnumber = isPnumber;
-        this.isRoomID = isRoomID;
-        this.isSomething = isSomething;
-
+        this.ID = ID;
+        this.userName = userName;
+        this.name = name;
+        this.userType = userType;
+        this.pNumber = pNumber;
+        this.zipCode = zipCode;
+     
     }
 
     /**
