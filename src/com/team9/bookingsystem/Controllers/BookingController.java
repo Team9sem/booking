@@ -22,14 +22,17 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
+import javafx.util.StringConverter;
 import jfxtras.animation.Timer;
 import jfxtras.internal.scene.control.skin.LocalTimePickerSkin;
 import jfxtras.scene.control.LocalTimePicker;
 
 import javax.jws.soap.SOAPBinding;
 import java.io.IOException;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.List;
@@ -121,7 +124,25 @@ public class BookingController {
             }
         };
         datePicker.setDayCellFactory(dayCellFactory);
-        datePicker.
+
+        final StringConverter<LocalDate> defaultConverter = datePicker.getConverter();
+        datePicker.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate value) {
+                return defaultConverter.toString(value);
+            }
+
+            @Override
+            public LocalDate fromString(String value) {
+                try{
+                    return defaultConverter.fromString(value);
+                }catch (DateTimeParseException e){
+                    e.printStackTrace();
+                    throw e;
+                }
+
+            }
+        });
 
     }
 
