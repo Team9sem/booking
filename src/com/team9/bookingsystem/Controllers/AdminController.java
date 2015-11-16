@@ -48,25 +48,13 @@ public class AdminController {
     
     
     @FXML Label searchPreferences;
-    @FXML Label searchForUser;
-    @FXML Label adminRoomLabel;
-    @FXML TextField userTextField; 
-    @FXML TextField roomTextField;
-//    @FXML Label features;
-    @FXML RadioButton radioID;
-    @FXML RadioButton radioUserName;
-    @FXML RadioButton radioName;
-    @FXML RadioButton radioType;
-    @FXML RadioButton radioPnumber;
-    @FXML RadioButton radioRoomID;
-    @FXML RadioButton radioSomething;
-    @FXML Button adminSearchButton;
+    @FXML Label searchFor;
+    @FXML ToggleButton searchUsers;
+    @FXML ToggleButton searchRooms;
+    
     
   
-//    @FXML Label location;
-//    @FXML ChoiceBox locationPick;
-//    @FXML Button searchButton;
-    
+
     public void initialize() {
 
 
@@ -217,80 +205,12 @@ public class AdminController {
     private int getElementsPerPage(){
         return 5;
     }
-   
-    @FXML public void Search(ActionEvent event) {
-        System.out.println("searching");
+    
+    @FXML public void makeChanges(ActionEvent event){
+        // 
+       
 
-
-//        Format Hours
-//        String fromHour = formatHour(fromTimeInput.getLocalTime().getHour());
-//        String toHour = formatHour(toTimeInput.getLocalTime().getHour());
-//
-//
-//        System.out.println(fromHour+" : "+toHour);
-
-
-//        System.out.println(toString());
-          SearchService searchService = new SearchService(
-        		radioID.isSelected(),
-                radioUserName.isSelected(),
-                radioName.isSelected(),
-                radioType.isSelected(),
-                radioPnumber.isSelected(),
-                radioRoomID.isSelected(),
-                radioSomething.isSelected()
-                );
-       	
-            	
-        searchService.start();
-        searchService.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
-            @Override
-            public void handle(WorkerStateEvent event) {
-
-                searchResult = (ArrayList<Room>) searchService.getValue();
-
-                if (searchResult != null) {
-
-                    Pagination pagination = initPagination();
-
-
-                    System.out.println(searchResult.size());
-                    if (searchResult.size() <= 5) {
-                        System.out.println("if happened");
-
-                        pagination.setPageCount(1);
-                        pagination.setCurrentPageIndex(0);
-                        paginationBox.getChildren().clear();
-                        paginationBox.getChildren().add(pagination);
-
-
-                    } else {
-                        pagination.setPageCount((int) (Math.ceil(searchResult.size() / 5.0)));
-                        pagination.setCurrentPageIndex(0);
-                        paginationBox.getChildren().clear();
-                        paginationBox.getChildren().add(pagination);
-                    }
-    			}
-                else {
-                    System.out.println("no result");
-                }
-
-
-            }
-        });
-        searchService.setOnFailed(new EventHandler<WorkerStateEvent>() {
-            @Override
-            public void handle(WorkerStateEvent event) {
-                searchResult = new ArrayList<Room>();
-                Pagination pagination = initPagination();
-                pagination.setPageCount(1);
-                pagination.setCurrentPageIndex(0);
-                paginationBox.getChildren().clear();
-                paginationBox.getChildren().add(pagination);
-            }
-        });
+        }
     }
-
-}
-}
+   
 }
