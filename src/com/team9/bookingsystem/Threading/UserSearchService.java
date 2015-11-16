@@ -31,7 +31,9 @@ public class UserSearchService extends ThreadService {
 //  variables for room searching  
     String roomID;
     String roomSize;
-    String roomFeatures;
+    boolean hasWhiteboard;
+    boolean hasProjector;
+    boolean hasCoffeMachine;
     
    
 
