@@ -19,12 +19,20 @@ public class UserSearchService extends ThreadService {
 //    private String roomSearchText;
 //    private String toTime;
 //    private String size;
-    String ID;
+    
+//	variables for user searching
+    String userID;
     String userName;
     String name;
     String userType;
     String pNumber;
     String zipCode;
+
+//  variables for room searching  
+    String roomID;
+    String roomSize;
+    String roomFeatures;
+    
    
 
 
@@ -50,16 +58,19 @@ public class UserSearchService extends ThreadService {
      * @param size Desired Size property
      * @see String
      */
-    public UserSearchService(String ID,
+        
+    public UserSearchService(String userID,
     		String userName,
     		String name,
     		String userType,
     		String pNumber,
     		String zipCode
                         )
+    
+    
     {
         super();
-        this.ID = ID;
+        this.userID = userID;
         this.userName = userName;
         this.name = name;
         this.userType = userType;
