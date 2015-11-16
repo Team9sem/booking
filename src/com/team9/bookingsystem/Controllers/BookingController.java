@@ -121,7 +121,7 @@ public class BookingController {
             }
         };
         datePicker.setDayCellFactory(dayCellFactory);
-
+        datePicker.
 
     }
 

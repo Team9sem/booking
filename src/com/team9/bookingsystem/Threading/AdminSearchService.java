@@ -69,6 +69,7 @@ public class AdminSearchService extends ThreadService {
         this.isPnumber = isPnumber;
         this.isRoomID = isRoomID;
         this.isSomething = isSomething;
+
     }
 
     /**
