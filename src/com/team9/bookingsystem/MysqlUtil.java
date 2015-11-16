@@ -674,19 +674,23 @@ public class MysqlUtil {
      *Created by iso on 12/11/15
      */
 
-    public void editUser(User user){
+    public void updateUser(ArrayList<User> users){
         try(Connection connection = getConnection()){
 
             System.out.println("\nUser Connection Established\n");
+            connection.setAutoCommit(false);
+            for(User user : users) {
 
-            Statement statement = connection.createStatement();
-            statement.executeUpdate(
-                    "UPDATE User SET alias = '"+user.getUserName()+"',passwd ='"+user.getPassword()+
-                            "',firstname = '"+user.getFirstName()+"',lastname = '"+user.getLastName()+
-                            "',pNumber = '"+user.getpNumber()+"',usertype = '"+user.getUserType()+
-                            "',street = '"+user.getStreet()+"',zip = '"+user.getZip()+
-                            "' WHERE userID= '"+user.getUserID()+"'"
-            );
+                Statement statement = connection.createStatement();
+                statement.executeUpdate(
+                        "UPDATE User SET alias = '" + user.getUserName() + "',passwd ='" + user.getPassword() +
+                                "',firstname = '" + user.getFirstName() + "',lastname = '" + user.getLastName() +
+                                "',pNumber = '" + user.getpNumber() + "',usertype = '" + user.getUserType() +
+                                "',street = '" + user.getStreet() + "',zip = '" + user.getZip() +
+                                "' WHERE userID= '" + user.getUserID() + "'"
+                );
+            }
+            connection.commit();
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -710,9 +714,10 @@ public class MysqlUtil {
 
     /**
      * Searching through users, rooms and bookings in the database
+     * Created by iso on 13/11/15
      */
 
-    public ArrayList<User> getUser(String column, String searchString){
+    public ArrayList<User> getUsers(User user){
         ArrayList<User> userArrayList = new ArrayList<>();
         try(Connection connection = getConnection()){
 
@@ -720,11 +725,15 @@ public class MysqlUtil {
 
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(
-                    "SELECT * FROM User WHERE "+ column +" LIKE '%%"+searchString+"%%'"
+                    "SELECT * FROM User WHERE userID LIKE '%%"+user.getUserID()+"%%' AND alias LIKE '%%"+
+                            user.getUserName()+"%%' AND passwd LIKE '%%"+user.getPassword()+"%%' AND firstname LIKE '%%"+
+                            user.getFirstName()+"%%' AND lastname LIKE '%%"+ user.getLastName()+"%%' AND pNumber LIKE '%%"
+                            +user.getpNumber()+"%%' AND usertype LIKE '%%"+user.getUserType()+"%%' AND street LIKE '%%"
+                            +user.getStreet()+"%%' AND zip LIKE '%%"+user.getZip()+"%%'"
             );
 
             while (rs.next()) {
-                User user = new User();
+                User tmpUser = new User();
 
                 user.setUserID(rs.getInt("userID"));
                 user.setUserName(rs.getString("alias"));
@@ -736,7 +745,7 @@ public class MysqlUtil {
                 user.setStreet(rs.getString("street"));
                 user.setZip(rs.getInt("zip"));
 
-                userArrayList.add(user);
+                userArrayList.add(tmpUser);
             }
 
         }catch(SQLException e){
@@ -749,7 +758,7 @@ public class MysqlUtil {
         return userArrayList;
     }
 
-    public ArrayList<Room> getRoom(String column, String searchString){
+    public ArrayList<Room> getRooms(Room room){
         ArrayList<Room> roomArrayList = new ArrayList<>();
 
         try(Connection connection = getConnection()){
@@ -758,11 +767,14 @@ public class MysqlUtil {
 
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(
-                    "SELECT * FROM Room WHERE "+ column +" LIKE '%%"+searchString+"%%'"
+                    "SELECT * FROM Room WHERE roomID LIKE '%%"+room.getRoomID()+"%%' AND roomSize LIKE '%%" +
+                            room.getRoomSize()+"%%' AND location LIKE '%%"+room.getLocation()+"%%' AND hasProjector LIKE '%%"
+                            +room.getHasProjector()+"%%' AND hasWhiteboard LIKE '%%" + room.getHasWhiteboard() +
+                            "%%' AND hasCoffeeMachine LIKE '%%"+room.getHasCoffeeMachine()+"%%'"
             );
 
             while (rs.next()) {
-                Room room = new Room();
+                Room tmpRoom = new Room();
 
                 room.setRoomSize(rs.getString("roomSize"));
                 room.setLocation(rs.getString("location"));
@@ -771,7 +783,7 @@ public class MysqlUtil {
                 room.setHasCoffeeMachine(rs.getInt("hasCoffeeMachine"));
                 room.setRoomID(rs.getInt("roomID"));
 
-                roomArrayList.add(room);
+                roomArrayList.add(tmpRoom);
             }
 
         }catch(SQLException e){
@@ -781,7 +793,7 @@ public class MysqlUtil {
         return roomArrayList;
     }
 
-    public ArrayList<Booking> getBooking(String column, String searchString){
+    public ArrayList<Booking> getBookings(Booking booking){
         ArrayList<Booking> bookingArrayList = new ArrayList<>();
 
         try(Connection connection = getConnection()){
@@ -790,7 +802,42 @@ public class MysqlUtil {
 
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(
-                    "SELECT * FROM Bookings WHERE "+ column +" LIKE '%%"+searchString+"%%'"
+                    "SELECT * FROM Bookings WHERE bID LIKE '%%"+booking.getbID()+"%%' AND userid LIKE '%%" +
+                            booking.getuserid()+"%%' AND roomID LIKE '%%"+booking.getroomID()+"%%' AND bdate LIKE '%%"
+                            +booking.getbdate()+"%%' AND bstart LIKE '%%"+booking.getbStart()+"%%' AND bEnd LIKE '%%"
+                            +booking.getbEnd()+"%%'"
+            );
+
+            while (rs.next()) {
+                Booking tmpBooking = new Booking();
+
+                booking.setbID(rs.getInt("bID"));
+                booking.setuserid(rs.getInt("userid"));
+                booking.setroomID(rs.getInt("roomID"));
+                booking.setbdate(rs.getString("bdate"));
+                booking.setbStart(rs.getString("bStart"));
+                booking.setbEnd(rs.getString("bEnd"));
+
+                bookingArrayList.add(tmpBooking);
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        return bookingArrayList;
+    }
+
+    public ArrayList<Booking> getBookings(User user){
+        ArrayList<Booking> bookingArrayList = new ArrayList<>();
+
+        try(Connection connection = getConnection()){
+
+            System.out.println("\nUser Connection Established\n");
+
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(
+                    "SELECT * FROM Bookings WHERE userID = "+user.getUserID() +""
             );
 
             while (rs.next()) {
@@ -806,6 +853,11 @@ public class MysqlUtil {
                 bookingArrayList.add(booking);
             }
 
+            for(Booking booking : bookingArrayList){
+                booking.setUser(getUser(booking.getuserid()));
+                booking.setRoom(getRoom(booking.getroomID()));
+            }
+
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -813,6 +865,103 @@ public class MysqlUtil {
         return bookingArrayList;
     }
 
+    public ArrayList<Booking> getBookings(Room room){
+        ArrayList<Booking> bookingArrayList = new ArrayList<>();
+
+        try(Connection connection = getConnection()){
+
+            System.out.println("\nUser Connection Established\n");
+
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(
+                    "SELECT * FROM Bookings WHERE roomID = " + room.getRoomID() + ""
+            );
+
+            while (rs.next()) {
+                Booking booking = new Booking();
+
+                booking.setbID(rs.getInt("bID"));
+                booking.setuserid(rs.getInt("userid"));
+                booking.setroomID(rs.getInt("roomID"));
+                booking.setbdate(rs.getString("bdate"));
+                booking.setbStart(rs.getString("bStart"));
+                booking.setbEnd(rs.getString("bEnd"));
+
+                bookingArrayList.add(booking);
+            }
+
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        for(Booking booking : bookingArrayList){
+            booking.setUser(getUser(booking.getuserid()));
+            booking.setRoom(getRoom(booking.getroomID()));
+        }
+
+        return bookingArrayList;
+    }
+
+    public User getUser(int userID){
+        User user = new User();
+
+        try(Connection connection = getConnection()){
+
+            System.out.println("\nUser Connection Established\n");
+
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(
+                    "SELECT * FROM User WHERE userID ="+userID+""
+            );
+
+            while (rs.next()) {
+                user.setUserID(rs.getInt("userID"));
+                user.setUserName(rs.getString("alias"));
+                user.setPassword(rs.getString("passwd"));
+                user.setFirstName(rs.getString("firstname"));
+                user.setLastName(rs.getString("lastname"));
+                user.setpNumber(rs.getInt("pNumber"));
+                user.setUserType(rs.getString("usertype"));
+                user.setStreet(rs.getString("street"));
+                user.setZip(rs.getInt("zip"));
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        return user;
+    }
+
+    public Room getRoom(int roomID){
+
+        Room room = new Room();
+
+        try(Connection connection = getConnection()){
+
+            System.out.println("\nUser Connection Established\n");
+
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(
+                    "SELECT * FROM Room WHERE roomID = "+roomID+""
+            );
+
+            while (rs.next()) {
+                room.setRoomSize(rs.getString("roomSize"));
+                room.setLocation(rs.getString("location"));
+                room.setHasProjector(rs.getInt("hasProjector"));
+                room.setHasWhiteboard(rs.getInt("hasWhiteboard"));
+                room.setHasCoffeeMachine(rs.getInt("hasCoffeeMachine"));
+                room.setRoomID(rs.getInt("roomID"));
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        return room;
+    }
     //END OF SEARCHING USER, ROOM AND BOOKING METHODS
 
   }
