@@ -125,6 +125,38 @@ public class BookingController {
         };
         datePicker.setDayCellFactory(dayCellFactory);
 
+
+        datePicker.setConverter(new StringConverter<LocalDate>() {
+
+            String pattern = "yyyy-MM-dd";
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(pattern);
+
+            {
+                datePicker.setPromptText(pattern);
+            }
+
+            @Override
+            public String toString(LocalDate date) {
+                if(date != null){
+                    return dateTimeFormatter.format(date);
+                }
+                else{
+                    return "";
+                }
+            }
+
+            @Override
+            public LocalDate fromString(String string) {
+                if(string != null && !string.isEmpty()){
+                    return LocalDate.parse(string,dateTimeFormatter);
+                }
+                else{
+                    return null;
+                }
+            }
+        });
+
+
         final StringConverter<LocalDate> defaultConverter = datePicker.getConverter();
         datePicker.setConverter(new StringConverter<LocalDate>() {
             @Override
