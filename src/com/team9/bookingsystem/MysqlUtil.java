@@ -438,7 +438,7 @@ public class MysqlUtil {
                                    String timeStart,
                                    String timeEnd){
 
-        System.out.println("inside composemethod");
+//        System.out.println("inside composemethod");
 
         String query = "SELECT * FROM Room WHERE Room.roomID> 0 ";
 
@@ -460,13 +460,13 @@ public class MysqlUtil {
 
 
         if(location != null && !location.isEmpty()){query += " AND location = " + "'"+location+"'";}
-        System.out.println(query);
+//        System.out.println(query);
         if(hasProjector){query += " AND hasProjector = 1 ";}
         if(hasWhiteboard){query += " AND hasWhiteboard = 1 ";}
         if(hasCoffeeMachine){query += " AND hasCoffeeMachine = 1 ";}
-        System.out.println(query);
+//        System.out.println(query);
 
-        System.out.println(query);
+//        System.out.println(query);
         query += "AND Room.roomID NOT IN(SELECT Bookings.roomID FROM Bookings WHERE Bookings.bdate = '" + bookingDate +
                 "' AND ( " +
                 "('"+timeStart+"' BETWEEN Bookings.bStart AND Bookings.bEnd or '" + timeEnd + "' BETWEEN Bookings.bStart " +
@@ -474,7 +474,7 @@ public class MysqlUtil {
 
 
 
-        System.out.println(query);
+//        System.out.println(query);
         return query + ";";
     }
 
@@ -482,7 +482,7 @@ public class MysqlUtil {
         // returns string for now, just for testing
 
 
-        int roomsNumber = totalNumberOfRooms();
+
 
 //        BookedRoom[] bridgeRooms = new BookedRoom[roomsNumber];
         ArrayList<Room> bridgeRooms = new ArrayList<>();
@@ -490,7 +490,7 @@ public class MysqlUtil {
 
         try(Connection connection = getConnection()){
 
-            System.out.println("\nConnection Established\n");
+//            System.out.println("\nConnection Established\n");
 
             String locationOfRoom = "", sizeOfRoom = "";
             int projector = 0, whiteboard = 0, coffee = 0, rID = 0, bID=0, uID=0;
@@ -502,12 +502,13 @@ public class MysqlUtil {
             ResultSetMetaData rsMetaData = rs.getMetaData();
             int columnsNumber = rsMetaData.getColumnCount();
 
-            BookedRoom[] hlpRooms = new BookedRoom[roomsNumber];
+//            BookedRoom[] hlpRooms = new BookedRoom[roomsNumber];
 
             int k = 0;
             System.out.println(query);
 
             if (!rs.isBeforeFirst() ) {
+                System.out.println("returning null");
                 return null;
 
             }
@@ -670,7 +671,94 @@ public class MysqlUtil {
     }
 
 
+    public ArrayList<BookedRoom> getBookings(Room room){
 
+
+        try(Connection connection = getConnection()){
+
+            Statement statement = connection.createStatement();
+            ResultSet rs =
+                    statement.executeQuery
+                            ("Select * FROM Bookings Where Bookings.roomId = '"+room.getRoomID()+"'");
+            ResultSetMetaData rsmd = rs.getMetaData();
+
+            if (!rs.isBeforeFirst() ) {
+                System.out.println("returning null");
+                return null;
+
+            }
+            ArrayList<BookedRoom> bookings = new ArrayList<>();
+
+
+            while(rs.next()){
+                BookedRoom booking = new BookedRoom();
+                booking.setBookID(rs.getInt("bID"));
+                booking.setRoomId(rs.getInt("roomID"));
+                booking.setUserID(rs.getInt("userid"));
+                booking.setDate(rs.getString("bdate"));
+                booking.setStartTime(rs.getString("bStart"));
+                booking.setEndTime(rs.getString("bEnd"));
+                bookings.add(booking);
+
+
+            }
+                return bookings;
+
+
+
+        }catch(Exception e){
+            e.getStackTrace();
+        }
+
+        return null;
+
+    }
+
+    public User getUserFromId(int id){
+
+
+        try(Connection connection = getConnection()){
+
+
+            Statement statement = connection.createStatement();
+            ResultSet rs =
+                    statement.executeQuery
+                            ("Select * FROM User Where User.userID = "+id+";");
+            ResultSetMetaData rsmd = rs.getMetaData();
+
+            if (!rs.isBeforeFirst() ) {
+                System.out.println("returning null");
+                return null;
+
+            }
+
+
+
+            while(rs.next()){
+                User user = new User();
+                user.setUserID(rs.getInt("userID"));
+                user.setFirstName(rs.getString("firstname"));
+                user.setLastName(rs.getString("lastname"));
+                user.setPassword(rs.getString("passwd"));
+                user.setpNumber(rs.getLong("pNumber"));
+                user.setUserName(rs.getString("alias"));
+                user.setStreet(rs.getString("street"));
+                user.setZip(rs.getInt("zip"));
+                return user;
+
+
+            }
+
+
+
+
+
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
 

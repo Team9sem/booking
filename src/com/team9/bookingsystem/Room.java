@@ -3,7 +3,7 @@ package com.team9.bookingsystem;
 /**
  * Created by iso.f on 28/10/15.
  */
-public class Room {
+public class Room implements ScheduledObject {
 
     private MysqlUtil _db;
 
@@ -94,6 +94,9 @@ public class Room {
         this.hasCoffeeMachine = hasCoffeeMachine;
     }
 
+    public String getType(){
+        return "Room";
+    }
 
 
 
@@ -114,6 +117,7 @@ public class Room {
 
     public String toString(){
         String toReturn = "";
+        toReturn += String.format("Id:  %s\n",getRoomID());
         toReturn += String.format("\n//- %s \n",getLocation());
         toReturn += String.format("//- %s \n",getRoomSize());
         toReturn += String.format("//- %s \n",getHasProjector());

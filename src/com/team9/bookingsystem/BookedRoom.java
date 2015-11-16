@@ -5,13 +5,17 @@ import java.util.Date;
 /**
  * Created by Iso on 31-Oct-15.
  */
-public class BookedRoom extends Room{
-    private Room room;
+public class BookedRoom {
+
+
     private int bookID;
     private int userID;
-    private Date date;
-    private Date startTime;
-    private Date endTime;
+    private int roomId;
+
+
+    private String date;
+    private String startTime;
+    private String endTime;
 
     public BookedRoom (){
     }
@@ -19,11 +23,11 @@ public class BookedRoom extends Room{
     public BookedRoom(Room room,
                       int bookID,
                       int userID,
-                      Date date,
-                      Date startTime,
-                      Date endTime){
+                      String date,
+                      String startTime,
+                      String endTime){
 
-        this.room = room;
+
         this.bookID = bookID;
         this.userID = userID;
         this.date = date;
@@ -33,7 +37,7 @@ public class BookedRoom extends Room{
 
     public BookedRoom(BookedRoom bookedRoom){
 
-        this.room = bookedRoom.room;
+
         this.bookID = bookedRoom.bookID;
         this.userID = bookedRoom.userID;
         this.date = bookedRoom.date;
@@ -41,12 +45,43 @@ public class BookedRoom extends Room{
         this.endTime = bookedRoom.endTime;
     }
 
-    public Room getRoom(){ return room; }
+    public int getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(int roomId) {
+        this.roomId = roomId;
+    }
+
+
+
     public int getBookID(){ return bookID; }
     public int getUserID(){ return userID; }
-    public Date getDate(){ return date; }
-    public Date getStartTime(){ return startTime; }
-    public Date getEndTime(){ return endTime; }
+    public String getDate(){ return date; }
+    public String getStartTime(){ return startTime; }
+    public String getEndTime(){ return endTime; }
+
+
+
+    public void setBookID(int bookID) {
+        this.bookID = bookID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
 
 
     public static boolean isValidInput(int room,
@@ -62,12 +97,13 @@ public class BookedRoom extends Room{
     public String toString(){
         String toReturn = "";
 
-        toReturn += String.format("//- %s \n", getRoom());
-        toReturn += String.format("//- %s \n", getBookID());
-        toReturn += String.format("//- %s \n", getUserID());
-        toReturn += String.format("//- %s \n",getDate());
-        toReturn += String.format("//- %s \n",getStartTime());
-        toReturn += String.format("//- %s \n",getEndTime());
+
+        toReturn += String.format("\n// BookingID - %s \n", getBookID());
+        toReturn += String.format("// UserID - %s \n", getUserID());
+        toReturn += String.format("// RoomID - %s \n", getRoomId());
+        toReturn += String.format("// Date - %s \n",getDate());
+        toReturn += String.format("// StartTime - %s \n",getStartTime());
+        toReturn += String.format("// EndTime - %s \n",getEndTime());
         return toReturn;
     }
 

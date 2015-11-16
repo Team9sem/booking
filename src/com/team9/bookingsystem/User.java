@@ -3,7 +3,7 @@ package com.team9.bookingsystem;
 /**
  * Created by pontuspohl on 12/10/15.
  */
-public class User {
+public class User implements ScheduledObject{
 
     private MysqlUtil _db;
 
@@ -114,6 +114,9 @@ public class User {
         this.zip = zip;
     }
 
+    public String getType(){
+        return "User";
+    }
 
 
     public static boolean isValidInput(String userName,

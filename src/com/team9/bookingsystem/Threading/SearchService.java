@@ -85,10 +85,10 @@ public class SearchService extends ThreadService{
             protected Object call() throws Exception {
 
 
-                System.out.println("in call method");
+
                 MysqlUtil util = new MysqlUtil();
 
-                System.out.println("before util.composeQuery");
+//                System.out.println("before util.composeQuery");
                 String query = util.composeRoomQuery(
                         location,
                         isSmall,
@@ -100,9 +100,13 @@ public class SearchService extends ThreadService{
                         date,
                         fromTime,
                         toTime);
-                System.out.println("after util.composeQuery");
+//                System.out.println("after util.composeQuery");
                 ArrayList<Room> searchResult =  util.getRooms(query);
-                searchResult.forEach(element -> System.out.println(element.getLocation()));
+                if(searchResult == null) {
+                    return null;
+                }
+
+
                 updateProgress(10, 10);
 
 

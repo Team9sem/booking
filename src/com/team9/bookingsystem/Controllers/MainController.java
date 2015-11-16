@@ -1,5 +1,6 @@
 package com.team9.bookingsystem.Controllers;
 
+import com.team9.bookingsystem.ScheduledObject;
 import com.team9.bookingsystem.User;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
@@ -9,6 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.fxml.FXMLLoader;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by pontuspohl on 13/10/15.
@@ -113,10 +115,36 @@ public class MainController {
             System.out.println(this.toString());
             Ui.getChildren().clear();
             Ui.getChildren().add(borderPane);
-            Ui.setBottomAnchor(borderPane,0.0);
-            Ui.setTopAnchor(borderPane,0.0);
-            Ui.setLeftAnchor(borderPane,0.0);
-            Ui.setRightAnchor(borderPane,0.0);
+            Ui.setBottomAnchor(borderPane, 0.0);
+            Ui.setTopAnchor(borderPane, 0.0);
+            Ui.setLeftAnchor(borderPane, 0.0);
+            Ui.setRightAnchor(borderPane, 0.0);
+
+//            welcomeArea.getChildren().clear();
+//            welcomeArea.getChildren().addAll(borderPane.getChildren());
+
+        } // got to catch any IOExceptions when loading fxml files
+        catch(IOException e){
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public void showSchedule(ScheduledObject obj,User loggedinUser){
+
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/schedule.fxml"));
+            AnchorPane borderPane = loader.load();
+            ScheduleController scheduleController = loader.getController();
+            scheduleController.init(this,obj,loggedinUser);
+            System.out.println(this.toString());
+            Ui.getChildren().clear();
+            Ui.getChildren().add(borderPane);
+            Ui.setBottomAnchor(borderPane, 0.0);
+            Ui.setTopAnchor(borderPane, 0.0);
+            Ui.setLeftAnchor(borderPane, 0.0);
+            Ui.setRightAnchor(borderPane, 0.0);
 
 //            welcomeArea.getChildren().clear();
 //            welcomeArea.getChildren().addAll(borderPane.getChildren());
