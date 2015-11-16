@@ -1,15 +1,13 @@
 package com.team9.bookingsystem.Controllers;
 
-import java.awt.*;
 import java.awt.Button;
 import java.awt.TextField;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import com.team9.bookingsystem.MysqlUtil;
 import com.team9.bookingsystem.Room;
 import com.team9.bookingsystem.User;
-import com.team9.bookingsystem.Threading.SearchService;
+import com.team9.bookingsystem.Threading.FindRoomService;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -25,7 +23,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
-import jfxtras.scene.control.LocalTimePicker;
 
 public class AdminController {
 	
@@ -231,7 +228,7 @@ public class AdminController {
 
 
 //        System.out.println(toString());
-          SearchService searchService = new SearchService(
+          FindRoomService findRoomService = new FindRoomService(
         		radioID.isSelected(),
                 radioUserName.isSelected(),
                 radioName.isSelected(),
@@ -242,12 +239,12 @@ public class AdminController {
                 );
        	
             	
-        searchService.start();
-        searchService.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+        findRoomService.start();
+        findRoomService.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
             @Override
             public void handle(WorkerStateEvent event) {
 
-                searchResult = (ArrayList<Room>) searchService.getValue();
+                searchResult = (ArrayList<Room>) findRoomService.getValue();
 
                 if (searchResult != null) {
 
@@ -278,7 +275,7 @@ public class AdminController {
 
             }
         });
-        searchService.setOnFailed(new EventHandler<WorkerStateEvent>() {
+        findRoomService.setOnFailed(new EventHandler<WorkerStateEvent>() {
             @Override
             public void handle(WorkerStateEvent event) {
                 searchResult = new ArrayList<Room>();
@@ -291,6 +288,4 @@ public class AdminController {
         });
     }
 
-}
-}
 }

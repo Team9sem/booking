@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane id="borderPane" fx:id="borderPane" prefHeight="600.0" prefWidth="1000.0" styleClass="borderPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team9.bookingsystem.Controllers.BookingController">
+<BorderPane id="borderPane" fx:id="borderPane" prefHeight="600.0" prefWidth="1000.0" styleClass="borderPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team9.bookingsystem.Controllers.AdminController">
    <left>
       <AnchorPane fx:id="searchAnchorPane" styleClass="options-area" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -17,6 +17,7 @@
                <children>
                   <GridPane hgap="10.0" vgap="10.0">
                      <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="307.0" minWidth="10.0" prefWidth="56.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="307.0" minWidth="10.0" prefWidth="56.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="0.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="206.0" minWidth="10.0" prefWidth="82.0" />
@@ -53,9 +54,9 @@
                               </Label>
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="2">
+                        <HBox alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.columnSpan="4" GridPane.rowIndex="2">
                            <children>
-                              <Label fx:id="features" prefWidth="238.0" styleClass="options-area-labels" text="Search for user" />
+                              <Label fx:id="searchForUser" prefWidth="238.0" styleClass="options-area-labels" text="What do you want to search for?" />
                            </children>
                         </HBox>
                         <HBox alignment="BOTTOM_LEFT" GridPane.columnIndex="0" GridPane.columnSpan="1" GridPane.rowIndex="3">
@@ -66,7 +67,7 @@
                               <Insets />
                            </GridPane.margin>
                         </HBox>
-                        <HBox alignment="BOTTOM_LEFT" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
+                        <HBox alignment="BOTTOM_LEFT" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="3">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -74,7 +75,7 @@
                               <Insets />
                            </GridPane.margin>
                         </HBox>
-                        <HBox alignment="BOTTOM_LEFT" GridPane.columnSpan="1" GridPane.rowIndex="5">
+                        <HBox alignment="BOTTOM_LEFT" GridPane.columnSpan="1" GridPane.rowIndex="7">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -82,60 +83,38 @@
                               <Insets />
                            </GridPane.margin>
                         </HBox>
-                        <HBox alignment="CENTER_LEFT" GridPane.columnSpan="3" GridPane.rowIndex="7">
-                           <children>
-                              <Label fx:id="roomSize" styleClass="options-area-labels" text="Search for room">
-                                 <HBox.margin>
-                                    <Insets top="5.0" />
-                                 </HBox.margin>
-                              </Label>
-                           </children>
-                        </HBox>
-                        <HBox GridPane.rowIndex="8" />
-                        <HBox GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                        <HBox GridPane.columnIndex="2" GridPane.rowIndex="8" />
-                        <HBox GridPane.rowIndex="10" />
-                        <HBox GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="10" />
-                        <HBox GridPane.rowIndex="12" />
-                        <HBox GridPane.columnSpan="3" GridPane.rowIndex="13" GridPane.rowSpan="4">
+                        <HBox alignment="CENTER_LEFT" GridPane.columnSpan="3" GridPane.rowIndex="10" />
+                        <HBox GridPane.rowIndex="11" />
+                        <HBox GridPane.columnIndex="2" GridPane.rowIndex="11" />
+                        <HBox GridPane.columnIndex="3" GridPane.rowIndex="11" />
+                        <HBox GridPane.rowIndex="13" />
+                        <HBox GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="13" />
+                        <HBox GridPane.rowIndex="15" />
+                        <HBox GridPane.columnSpan="3" GridPane.rowIndex="16" GridPane.rowSpan="4">
                            <children>
                               <LocalTimePicker fx:id="fromTimeInput" prefHeight="300" prefWidth="400" />
-                              <Button fx:id="searchButton" mnemonicParsing="false" onAction="#Search" styleClass="search-button" text="Search" />
                               <!--<TextField fx:id="fromTimeInput" promptText="i.e. 12:00" />-->
                            </children>
                         </HBox>
-                        <HBox GridPane.rowIndex="18" />
-                        <HBox GridPane.columnSpan="3" GridPane.rowIndex="19" GridPane.rowSpan="4">
+                        <HBox GridPane.rowIndex="21" />
+                        <HBox GridPane.columnSpan="3" GridPane.rowIndex="22" GridPane.rowSpan="4">
                            <children>
                               <!--<TextField fx:id="toTimeInput" promptText="i.e. 14:00" />-->
                               <LocalTimePicker fx:id="toTimeInput" prefHeight="300" prefWidth="400" style="-fx-progress-color: crimson" />
                            </children>
                         </HBox>
-                        <HBox GridPane.rowIndex="23" />
-                        <HBox GridPane.rowIndex="24" />
-                        <HBox alignment="CENTER_LEFT" GridPane.columnSpan="3" GridPane.rowIndex="25" />
-                        <TextField GridPane.columnSpan="2" GridPane.rowIndex="4" />
-                        <TextField GridPane.columnSpan="2" GridPane.rowIndex="9" />
-                        <RadioButton mnemonicParsing="false" text="ID" GridPane.rowIndex="6" />
-                        <RadioButton mnemonicParsing="false" text="Username" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <RadioButton mnemonicParsing="false" text="Name" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-                        <RadioButton mnemonicParsing="false" text="Usertype" GridPane.columnIndex="3" GridPane.rowIndex="6" />
-                        <RadioButton mnemonicParsing="false" text="Pnumber" GridPane.columnIndex="4" GridPane.rowIndex="6" />
-                        <RadioButton mnemonicParsing="false" text="RoomID" GridPane.columnSpan="2" GridPane.rowIndex="11" />
-                        <RadioButton mnemonicParsing="false" text="RadioButton" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="11">
-                           <padding>
-                              <Insets left="30.0" />
-                           </padding>
-                        </RadioButton>
-                        <RadioButton mnemonicParsing="false" text="Features" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="11">
-                           <padding>
-                              <Insets left="40.0" />
-                           </padding>
-                        </RadioButton>
+                        <HBox GridPane.rowIndex="26" />
+                        <HBox GridPane.rowIndex="27" />
+                        <HBox alignment="CENTER_LEFT" GridPane.columnSpan="3" GridPane.rowIndex="28" />
+                        <ToggleButton mnemonicParsing="false" text="Users" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+                        <ToggleButton mnemonicParsing="false" text="Rooms" GridPane.columnSpan="2" GridPane.rowIndex="4" />
                      </children>
                      <rowConstraints>
                         <RowConstraints maxHeight="36.0" minHeight="36.0" prefHeight="36.0" />
                         <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
                         <RowConstraints />
                         <RowConstraints />
                         <RowConstraints />

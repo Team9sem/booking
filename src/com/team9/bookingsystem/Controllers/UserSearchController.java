@@ -1,21 +1,15 @@
 package com.team9.bookingsystem.Controllers;
 
-import java.awt.*;
 import java.awt.Button;
 import java.awt.TextField;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import com.team9.bookingsystem.MysqlUtil;
 import com.team9.bookingsystem.Room;
 import com.team9.bookingsystem.User;
-import com.team9.bookingsystem.Threading.SearchService;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.concurrent.WorkerStateEvent;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -25,7 +19,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
-import jfxtras.scene.control.LocalTimePicker;
 
 public class UserSearchController {
 	

@@ -3,18 +3,14 @@ package com.team9.bookingsystem.Controllers;
 import com.team9.bookingsystem.MysqlUtil;
 
 import com.team9.bookingsystem.Room;
-import com.team9.bookingsystem.Threading.LoginService;
-import com.team9.bookingsystem.Threading.SearchService;
+import com.team9.bookingsystem.Threading.FindRoomService;
 import com.team9.bookingsystem.User;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -23,19 +19,12 @@ import javafx.scene.layout.*;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
-import jfxtras.animation.Timer;
-import jfxtras.internal.scene.control.skin.LocalTimePickerSkin;
 import jfxtras.scene.control.LocalTimePicker;
 
-import javax.jws.soap.SOAPBinding;
-import java.io.IOException;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.format.FormatStyle;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Controller for booking.fxml
@@ -360,7 +349,7 @@ public class BookingController {
 
 
         System.out.println(datePicker.getValue().toString());
-        SearchService searchService = new SearchService(
+        FindRoomService findRoomService = new FindRoomService(
         		datePicker.getValue().toString(),
                 fromTimeInput.getLocalTime().format(DateTimeFormatter.ofPattern(fromHour+":m"))+":00",
                 toTimeInput.getLocalTime().format(DateTimeFormatter.ofPattern(toHour+":m"))+":00",
@@ -371,12 +360,12 @@ public class BookingController {
                 whiteboard.isSelected(),
                 projector.isSelected()
         );
-        searchService.start();
-        searchService.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+        findRoomService.start();
+        findRoomService.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
             @Override
             public void handle(WorkerStateEvent event) {
 
-                searchResult = (ArrayList<Room>) searchService.getValue();
+                searchResult = (ArrayList<Room>) findRoomService.getValue();
 
                 if (searchResult != null) {
 
@@ -407,7 +396,7 @@ public class BookingController {
 
             }
         });
-        searchService.setOnFailed(new EventHandler<WorkerStateEvent>() {
+        findRoomService.setOnFailed(new EventHandler<WorkerStateEvent>() {
             @Override
             public void handle(WorkerStateEvent event) {
                 searchResult = new ArrayList<Room>();
