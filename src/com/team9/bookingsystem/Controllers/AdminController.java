@@ -1,12 +1,17 @@
 package com.team9.bookingsystem.Controllers;
 
-import com.team9.bookingsystem.MysqlUtil;
+import java.awt.Button;
+import java.awt.TextField;
+import java.util.ArrayList;
 
+import com.team9.bookingsystem.MysqlUtil;
 import com.team9.bookingsystem.Room;
-import com.team9.bookingsystem.Threading.FindRoomService;
 import com.team9.bookingsystem.User;
+import com.team9.bookingsystem.Threading.FindRoomService;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -15,26 +20,14 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
-import javafx.util.StringConverter;
-import jfxtras.scene.control.LocalTimePicker;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-
-/**
- * Controller for booking.fxml
- *
- */
-
-public class BookingController {
-
-
-    //Logged in user
+public class AdminController {
+	
+	//Logged in user
     User loggedInUser;
     // Parent Controller
     private MainController mainController;
@@ -44,43 +37,38 @@ public class BookingController {
     private ArrayList<Room> searchResult;
     private Room selectedRoom;
 
-    // ContainerElements
+ // ContainerElements
     @FXML AnchorPane topAnchorPane;
     @FXML AnchorPane searchAnchorPane;
     @FXML BorderPane borderPane;
     @FXML HBox paginationBox;
     @FXML AnchorPane resultAnchorPane;
     
-    //SearchAnchorPaneElements
+    
     @FXML Label searchPreferences;
-    @FXML Label features;
-    @FXML CheckBox coffeMachine;
-    @FXML CheckBox whiteboard;
-    @FXML CheckBox projector;
-    @FXML Label roomSize;
-    @FXML CheckBox small;
-    @FXML CheckBox medium;
-    @FXML CheckBox large;
-    @FXML Label date;
-    @FXML DatePicker datePicker;
-    @FXML Label fromTime;
-    @FXML LocalTimePicker fromTimeInput;
-    @FXML Label toTime;
-    @FXML LocalTimePicker toTimeInput;
+    @FXML Label searchForUser;
+    @FXML Label adminRoomLabel;
+    @FXML TextField userTextField; 
+    @FXML TextField roomTextField;
+//    @FXML Label features;
+    @FXML RadioButton radioID;
+    @FXML RadioButton radioUserName;
+    @FXML RadioButton radioName;
+    @FXML RadioButton radioType;
+    @FXML RadioButton radioPnumber;
+    @FXML RadioButton radioRoomID;
+    @FXML RadioButton radioSomething;
+    @FXML Button adminSearchButton;
+    
+  
 //    @FXML Label location;
-    @FXML ChoiceBox locationPick;
-    @FXML Button searchButton;
-
+//    @FXML ChoiceBox locationPick;
+//    @FXML Button searchButton;
     
-    
-
-
-
-    // this method runs when controller is started
     public void initialize() {
 
 
-        setupDatePicker();
+//        setupDatePicker();
     	util = new MysqlUtil();
         paginationBox.setAlignment(Pos.CENTER);
 //        ObservableList<String> choices= FXCollections.observableArrayList();
@@ -89,94 +77,13 @@ public class BookingController {
 
 
     }
-
-    private void setupDatePicker(){
-        datePicker.setShowWeekNumbers(true);
-
-
-        LocalDate localDate = LocalDate.now();
-        datePicker.setValue(localDate);
-        Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
-            @Override
-            public DateCell call(final DatePicker datePicker) {
-                return new DateCell() {
-                    @Override
-                    public void updateItem(LocalDate item, boolean empty) {
-                        super.updateItem(item, empty);
-
-                        if (item.isBefore(localDate)) {
-                            setDisable(true);
-                            setStyle("-fx-background-color: rgba(238, 51, 60, 0.67);");
-                        }
-                    }
-                };
-            }
-        };
-        datePicker.setDayCellFactory(dayCellFactory);
-
-
-        datePicker.setConverter(new StringConverter<LocalDate>() {
-
-            String pattern = "yyyy-MM-dd";
-            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(pattern);
-
-            {
-                datePicker.setPromptText(pattern);
-            }
-
-            @Override
-            public String toString(LocalDate date) {
-                if(date != null){
-                    return dateTimeFormatter.format(date);
-                }
-                else{
-                    return "";
-                }
-            }
-
-            @Override
-            public LocalDate fromString(String string) {
-                if(string != null && !string.isEmpty()){
-                    return LocalDate.parse(string,dateTimeFormatter);
-                }
-                else{
-                    return null;
-                }
-            }
-        });
-
-
-        final StringConverter<LocalDate> defaultConverter = datePicker.getConverter();
-        datePicker.setConverter(new StringConverter<LocalDate>() {
-            @Override
-            public String toString(LocalDate value) {
-                return defaultConverter.toString(value);
-            }
-
-            @Override
-            public LocalDate fromString(String value) {
-                try{
-                    return defaultConverter.fromString(value);
-                }catch (DateTimeParseException e){
-                    e.printStackTrace();
-                    throw e;
-                }
-
-            }
-        });
-
-    }
-
-    // takes a reference to the controller of the parent
-    public void init(MainController mainController,User user){
+   
+    public void init(MainController mainController,User admin){
         this.mainController = mainController;
-        this.loggedInUser = user;
+        this.loggedInUser = admin;
 
     }
-
-    /* Initialize Pagination method
-
-     */
+    
     public Pagination initPagination(){
 
         Pagination pagination = new Pagination();
@@ -198,7 +105,7 @@ public class BookingController {
         });
         return pagination;
     }
-
+    
     public VBox createPage(int pageIndex){
 
         VBox vBox = new VBox(5);
@@ -304,63 +211,33 @@ public class BookingController {
         }
         return vBox;
     }
+    
     private int getElementsPerPage(){
         return 5;
     }
-
-
-    /**
-     * Hour formatter that adds a zero if hour is in AM: format.
-     * i.e 7 -> 07,
-     * @param hour hour to analyze
-     * @return formatted hour as String
-     */
-    private String formatHour(int hour){
-
-        if(hour < 10) {
-            return String.format("0%d",hour);
-        }
-
-        return ""+hour;
-
-    }
-
-
-    // Todo: add method to handle search button
-
-    /**
-     *
-     * Called when searchbutton is clicked, Starts a new thread that querys the database for rooms that
-     * correspond to search criterias and that are not already booked. It then populates the result Area
-     * of the Gui with the results.
-     *
-     * @param event
-     */
+   
     @FXML public void Search(ActionEvent event) {
         System.out.println("searching");
 
 
-        // Format Hours
-        String fromHour = formatHour(fromTimeInput.getLocalTime().getHour());
-        String toHour = formatHour(toTimeInput.getLocalTime().getHour());
+//        Format Hours
+//        String fromHour = formatHour(fromTimeInput.getLocalTime().getHour());
+//        String toHour = formatHour(toTimeInput.getLocalTime().getHour());
+//
+//
+//        System.out.println(fromHour+" : "+toHour);
 
 
-        System.out.println(fromHour+" : "+toHour);
+//        System.out.println(toString());
+          FindRoomService findRoomService = new FindRoomService(new Task() {
+              @Override
+              protected Object call() throws Exception {
+                  return null;
+              }
+          });
 
 
-        System.out.println(datePicker.getValue().toString());
-        FindRoomService findRoomService = new FindRoomService(
-        		datePicker.getValue().toString(),
-                fromTimeInput.getLocalTime().format(DateTimeFormatter.ofPattern(fromHour+":m"))+":00",
-                toTimeInput.getLocalTime().format(DateTimeFormatter.ofPattern(toHour+":m"))+":00",
-                small.isSelected(),
-                medium.isSelected(),
-                large.isSelected(),
-                coffeMachine.isSelected(),
-                whiteboard.isSelected(),
-                projector.isSelected()
-        );
-        findRoomService.start();
+                  findRoomService.start();
         findRoomService.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
             @Override
             public void handle(WorkerStateEvent event) {
@@ -388,7 +265,7 @@ public class BookingController {
                         paginationBox.getChildren().clear();
                         paginationBox.getChildren().add(pagination);
                     }
-                }
+    			}
                 else {
                     System.out.println("no result");
                 }
@@ -409,13 +286,4 @@ public class BookingController {
         });
     }
 
-
-
-
-    @FXML public void bookRoom(ActionEvent event){
-        // Todo: book a room
-        if(selectedRoom != null && loggedInUser != null){
-
-        }
-    }
 }

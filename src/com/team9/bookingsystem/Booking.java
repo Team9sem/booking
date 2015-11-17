@@ -13,7 +13,7 @@ public class Booking {
 
     private MysqlUtil _db;
     private int bID;
-    private int userid; 
+    private int userid;
     private int roomID;
     private String bdate;
     private String bStart;
