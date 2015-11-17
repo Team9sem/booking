@@ -9,7 +9,7 @@ import java.util.ArrayList;
 /**
  * Created by pontuspohl on 01/11/15.
  */
-public class SearchService extends ThreadService{
+public class FindRoomService extends ThreadService{
 
 
     /**
@@ -36,7 +36,7 @@ public class SearchService extends ThreadService{
      * @param task custom Task object
      * @see Task
      */
-    public SearchService(Task task){
+    public FindRoomService(Task task){
         super(task);
         System.out.println(this.task);
     }
@@ -50,15 +50,15 @@ public class SearchService extends ThreadService{
      * @param size Desired Size property
      * @see String
      */
-    public SearchService(String date,
-                         String fromTime,
-                         String toTime,
-                         boolean isSmall,
-                         boolean isMedium,
-                         boolean isLarge,
-                         boolean hasCoffeemachine,
-                         boolean hasWhiteBoard,
-                         boolean hasProjector)
+    public FindRoomService(String date,
+                           String fromTime,
+                           String toTime,
+                           boolean isSmall,
+                           boolean isMedium,
+                           boolean isLarge,
+                           boolean hasCoffeemachine,
+                           boolean hasWhiteBoard,
+                           boolean hasProjector)
     {
         super();
         this.date = date;
@@ -82,6 +82,7 @@ public class SearchService extends ThreadService{
      * @return Returns a Task Object which returns the Rooms meeting search criteria as ArrayList<Room>
      * @see Object
      */
+    @Override
     protected Task<Object> createTask(){
         return new Task<Object>() {
             @Override

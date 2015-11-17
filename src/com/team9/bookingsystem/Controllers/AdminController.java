@@ -1,18 +1,17 @@
 package com.team9.bookingsystem.Controllers;
 
-import java.awt.*;
 import java.awt.Button;
 import java.awt.TextField;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import com.team9.bookingsystem.MysqlUtil;
 import com.team9.bookingsystem.Room;
 import com.team9.bookingsystem.User;
-import com.team9.bookingsystem.Threading.SearchService;
+import com.team9.bookingsystem.Threading.FindRoomService;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -25,7 +24,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
-import jfxtras.scene.control.LocalTimePicker;
 
 public class AdminController {
 	
@@ -48,13 +46,25 @@ public class AdminController {
     
     
     @FXML Label searchPreferences;
-    @FXML Label searchFor;
-    @FXML ToggleButton searchUsers;
-    @FXML ToggleButton searchRooms;
-    
+    @FXML Label searchForUser;
+    @FXML Label adminRoomLabel;
+    @FXML TextField userTextField; 
+    @FXML TextField roomTextField;
+//    @FXML Label features;
+    @FXML RadioButton radioID;
+    @FXML RadioButton radioUserName;
+    @FXML RadioButton radioName;
+    @FXML RadioButton radioType;
+    @FXML RadioButton radioPnumber;
+    @FXML RadioButton radioRoomID;
+    @FXML RadioButton radioSomething;
+    @FXML Button adminSearchButton;
     
   
-
+//    @FXML Label location;
+//    @FXML ChoiceBox locationPick;
+//    @FXML Button searchButton;
+    
     public void initialize() {
 
 
@@ -205,12 +215,75 @@ public class AdminController {
     private int getElementsPerPage(){
         return 5;
     }
-    
-    @FXML public void makeChanges(ActionEvent event){
-        // 
-       
-
-        }
-    }
    
+    @FXML public void Search(ActionEvent event) {
+        System.out.println("searching");
+
+
+//        Format Hours
+//        String fromHour = formatHour(fromTimeInput.getLocalTime().getHour());
+//        String toHour = formatHour(toTimeInput.getLocalTime().getHour());
+//
+//
+//        System.out.println(fromHour+" : "+toHour);
+
+
+//        System.out.println(toString());
+          FindRoomService findRoomService = new FindRoomService(new Task() {
+              @Override
+              protected Object call() throws Exception {
+                  return null;
+              }
+          });
+
+
+                  findRoomService.start();
+        findRoomService.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+
+                searchResult = (ArrayList<Room>) findRoomService.getValue();
+
+                if (searchResult != null) {
+
+                    Pagination pagination = initPagination();
+
+
+                    System.out.println(searchResult.size());
+                    if (searchResult.size() <= 5) {
+                        System.out.println("if happened");
+
+                        pagination.setPageCount(1);
+                        pagination.setCurrentPageIndex(0);
+                        paginationBox.getChildren().clear();
+                        paginationBox.getChildren().add(pagination);
+
+
+                    } else {
+                        pagination.setPageCount((int) (Math.ceil(searchResult.size() / 5.0)));
+                        pagination.setCurrentPageIndex(0);
+                        paginationBox.getChildren().clear();
+                        paginationBox.getChildren().add(pagination);
+                    }
+    			}
+                else {
+                    System.out.println("no result");
+                }
+
+
+            }
+        });
+        findRoomService.setOnFailed(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+                searchResult = new ArrayList<Room>();
+                Pagination pagination = initPagination();
+                pagination.setPageCount(1);
+                pagination.setCurrentPageIndex(0);
+                paginationBox.getChildren().clear();
+                paginationBox.getChildren().add(pagination);
+            }
+        });
+    }
+
 }

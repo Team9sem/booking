@@ -6,6 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
+<?import jfxtras.scene.control.LocalTimePicker?>
 <BorderPane id="borderPane" fx:id="borderPane" prefHeight="600.0" prefWidth="1000.0" styleClass="borderPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team9.bookingsystem.Controllers.AdminController">
    <left>
       <AnchorPane fx:id="searchAnchorPane" styleClass="options-area" BorderPane.alignment="CENTER">
@@ -56,11 +57,57 @@
                         </HBox>
                         <HBox alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.columnSpan="4" GridPane.rowIndex="2">
                            <children>
-                              <Label fx:id="searchFor" prefWidth="238.0" styleClass="options-area-labels" text="What do you want to search for?" />
+                              <Label fx:id="searchForUser" prefWidth="238.0" styleClass="options-area-labels" text="What do you want to search for?" />
                            </children>
                         </HBox>
-                        <ToggleButton fx:id= "searchUsers" mnemonicParsing="false" text="Users" GridPane.columnSpan="2" GridPane.rowIndex="3" />
-                        <ToggleButton fx:id= "searchRooms" amnemonicParsing="false" text="Rooms" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+                        <HBox alignment="BOTTOM_LEFT" GridPane.columnIndex="0" GridPane.columnSpan="1" GridPane.rowIndex="3">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                        </HBox>
+                        <HBox alignment="BOTTOM_LEFT" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="3">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                        </HBox>
+                        <HBox alignment="BOTTOM_LEFT" GridPane.columnSpan="1" GridPane.rowIndex="7">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" GridPane.columnSpan="3" GridPane.rowIndex="10" />
+                        <HBox GridPane.rowIndex="11" />
+                        <HBox GridPane.columnIndex="2" GridPane.rowIndex="11" />
+                        <HBox GridPane.columnIndex="3" GridPane.rowIndex="11" />
+                        <HBox GridPane.rowIndex="13" />
+                        <HBox GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="13" />
+                        <HBox GridPane.rowIndex="15" />
+                        <HBox GridPane.columnSpan="3" GridPane.rowIndex="16" GridPane.rowSpan="4">
+                           <children>
+
+
+                           </children>
+                        </HBox>
+                        <HBox GridPane.rowIndex="21" />
+                        <HBox GridPane.columnSpan="3" GridPane.rowIndex="22" GridPane.rowSpan="4">
+                           <children>
+
+                           </children>
+                        </HBox>
+                        <HBox GridPane.rowIndex="26" />
+                        <HBox GridPane.rowIndex="27" />
+                        <HBox alignment="CENTER_LEFT" GridPane.columnSpan="3" GridPane.rowIndex="28" />
+                        <ToggleButton mnemonicParsing="false" text="Users" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+                        <ToggleButton mnemonicParsing="false" text="Rooms" GridPane.columnSpan="2" GridPane.rowIndex="4" />
                      </children>
                      <rowConstraints>
                         <RowConstraints maxHeight="36.0" minHeight="36.0" prefHeight="36.0" />
@@ -133,7 +180,7 @@
                      <children>
 
 
-                           <Label alignment="TOP_LEFT" styleClass="options-area-labels" text="Administrator Console" textAlignment="CENTER">
+                           <Label fx:id="loginLabel" alignment="TOP_LEFT" styleClass="options-area-labels" text="Administrator Console" textAlignment="CENTER">
                               <font>
                                  <Font name="Infinity" size="50.0" />
                               </font>
@@ -186,7 +233,7 @@
                   <HBox fx:id="paginationBox" GridPane.rowIndex="1" />
                   <HBox alignment="CENTER" GridPane.rowIndex="2">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#makeChanges" text="Confirm" />
+                        <Button mnemonicParsing="false"  text="Confirm" />
                      </children>
                   </HBox>
                </children>
