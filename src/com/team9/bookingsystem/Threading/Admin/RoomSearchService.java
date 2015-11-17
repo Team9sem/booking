@@ -4,6 +4,8 @@ import com.team9.bookingsystem.MysqlUtil;
 import com.team9.bookingsystem.Room;
 import javafx.concurrent.Task;
 
+import java.util.ArrayList;
+
 /**
  * Created by pontuspohl on 16/11/15.
  */
@@ -78,10 +80,10 @@ public class RoomSearchService extends AdminSearchService {
 
                 MysqlUtil util = new MysqlUtil();
                 Room room = new Room(roomID,location,roomSize,hasProjector,hasWhiteboard,hasCoffeMachine);
-                util.getRooms(room);
+                ArrayList<Room> result = util.getRooms(room);
 
 
-                return null;
+                return result;
             }
         };
 }

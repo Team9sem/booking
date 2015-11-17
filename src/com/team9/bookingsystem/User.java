@@ -29,7 +29,7 @@ public class User {
                 String lastName,
                 String userType,
                 String street,
-                int zip)
+                int zip, Long pNumber)
     {
         _db = new MysqlUtil();
         this.userName  = userName;
