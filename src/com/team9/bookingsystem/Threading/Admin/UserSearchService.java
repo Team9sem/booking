@@ -1,9 +1,4 @@
-package com.team9.bookingsystem.Threading;
-
-import java.util.ArrayList;
-
-import com.team9.bookingsystem.MysqlUtil;
-import com.team9.bookingsystem.Room;
+package com.team9.bookingsystem.Threading.Admin;
 
 import javafx.concurrent.Task;
 

@@ -1,5 +1,7 @@
-package com.team9.bookingsystem.Threading;
+package com.team9.bookingsystem.Threading.Admin;
 
+import com.team9.bookingsystem.MysqlUtil;
+import com.team9.bookingsystem.Room;
 import javafx.concurrent.Task;
 
 /**
@@ -9,12 +11,12 @@ public class RoomSearchService extends AdminSearchService {
 
     private Task task;
 
-    private String roomID;
+    private int roomID;
     private String roomSize;
     private String location;
-    private boolean hasWhiteboard;
-    private boolean hasProjector;
-    private boolean hasCoffeMachine;
+    private int hasWhiteboard;
+    private int hasProjector;
+    private int hasCoffeMachine;
 
 
 
@@ -42,19 +44,25 @@ public class RoomSearchService extends AdminSearchService {
      * @see String
      */
 
-    public RoomSearchService(String roomID,
+    public RoomSearchService(int roomID,
             String roomSize, String location,
             boolean hasWhiteboard,
             boolean hasProjector,
             boolean hasCoffeMachine)
     {
         super();
+
         this.roomID = roomID;
         this.roomSize = roomSize;
         this.location =location;
-        this.hasCoffeMachine = hasCoffeMachine;
-        this.hasProjector = hasProjector;
-        this.hasWhiteboard = hasWhiteboard;
+        if(hasWhiteboard) this.hasWhiteboard = 1;
+        else this.hasWhiteboard = 0;
+        if(hasProjector) this.hasProjector = 1;
+        else this.hasProjector = 0;
+        if(hasCoffeMachine) this.hasCoffeMachine = 1;
+        else this.hasCoffeMachine = 0;
+
+
 
     }
 
@@ -68,6 +76,9 @@ public class RoomSearchService extends AdminSearchService {
             @Override
             protected Object call() throws Exception {
 
+                MysqlUtil util = new MysqlUtil();
+                Room room = new Room(roomID,location,roomSize,hasProjector,hasWhiteboard,hasCoffeMachine);
+                util.getRooms(room);
 
 
                 return null;
