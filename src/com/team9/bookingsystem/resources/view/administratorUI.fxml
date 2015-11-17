@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.*?>
 
 <?import jfxtras.scene.control.LocalTimePicker?>
+
 <BorderPane id="borderPane" fx:id="borderPane" prefHeight="600.0" prefWidth="1000.0" styleClass="borderPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team9.bookingsystem.Controllers.AdminController">
    <left>
       <AnchorPane fx:id="searchAnchorPane" styleClass="options-area" BorderPane.alignment="CENTER">
@@ -16,11 +17,12 @@
          <children>
             <VBox id="options-area" layoutX="8.0" layoutY="14.0" prefHeight="490.0" prefWidth="490.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                <children>
-               <ToggleButton fx:id="userToggle" mnemonicParsing="false" text="Users" GridPane.columnSpan="2" GridPane.rowIndex="3" onAction="#getUserSearch" />
-               <ToggleButton fx:id="roomToggle" mnemonicParsing="false" text="Rooms" GridPane.columnSpan="2" GridPane.rowIndex="4" />
-              	<fx:include fx:id="searchOptions" source= "userSearch.fxml"/>	
-              	
-                 
+
+                  <ToggleButton fx:id="userToggle" mnemonicParsing="false" text="Users" GridPane.columnSpan="2" GridPane.rowIndex="3" onAction="#getUserSearch" />
+                  <ToggleButton fx:id="roomToggle" mnemonicParsing="false" text="Rooms" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+                  <fx:include fx:id="searchOptions" source= "userSearch.fxml"/>
+
+
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -53,17 +55,17 @@
 
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="237.0" GridPane.columnIndex="0">
                      <children>
-                        <Label styleClass="top-anchorpanetext" text="Logged in as: Admin" />
+                        <Label styleClass="top-anchorpanetext" text="Logged in as: Team9"></Label>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="0">
                      <children>
 
 
-                           <Label fx:id="loginLabel" alignment="TOP_LEFT" styleClass="options-area-labels" text="Administrator Console" textAlignment="CENTER">
-                              <font>
-                                 <Font name="Infinity" size="50.0" />
-                              </font>
+                        <Label fx:id="loginLabel"  alignment="TOP_LEFT"  styleClass="options-area-labels" text="Book a room!" textAlignment="CENTER">
+                           <font>
+                              <Font name="Infinity" size="50.0" />
+                           </font>
 
 
                            <padding>
@@ -82,6 +84,57 @@
             </GridPane>
          </children>
       </AnchorPane>
+
+
+
+
+
+   </top>
+   <center>
+      <AnchorPane fx:id="resultAnchorPane" minHeight="100.0" minWidth="100.0" BorderPane.alignment="CENTER" styleClass="result-area">
+         <children>
+            <GridPane  AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints maxHeight="75.33334350585938" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="365.3333282470703" minHeight="10.0" prefHeight="334.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="141.33334350585938" minHeight="0.0" prefHeight="52.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="23.0" prefWidth="172.0" styleClass="options-area-labels" text="Search Results">
+                           <font>
+                              <Font name="Infinity" size="30.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox fx:id="paginationBox" GridPane.rowIndex="1" />
+                  <HBox alignment="CENTER" GridPane.rowIndex="2">
+                     <children>
+                        <Button mnemonicParsing="false"  text="Confirm" />
+                     </children>
+                  </HBox>
+               </children>
+            </GridPane>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" />
+         </BorderPane.margin></AnchorPane>
+   </center>
+</BorderPane>
+
+
+
+
+
+
+
+
+
 
 
 

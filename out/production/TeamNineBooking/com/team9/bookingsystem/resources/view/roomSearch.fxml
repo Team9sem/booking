@@ -103,7 +103,7 @@
                            </children></HBox>
                         <HBox GridPane.columnSpan="3" GridPane.rowIndex="8">
                            <children>
-                              <CheckBox mnemonicParsing="false" text="Whiteboard" />
+                              <CheckBox fx:id="hasWhiteboard" mnemonicParsing="false" text="Whiteboard" />
                            </children></HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="9">
                            <children>
@@ -115,15 +115,27 @@
                               <CheckBox mnemonicParsing="false" text="Coffe machine" />
                            </children>
                         </HBox>
-                        <HBox GridPane.columnSpan="2" GridPane.rowIndex="12">
+                        <HBox GridPane.columnSpan="2" GridPane.rowIndex="16">
                            <children>
                               <Button mnemonicParsing="false" text="Search" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="4" GridPane.rowIndex="13">
+                           <children>
+                              <TextField />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="12">
+                           <children>
+                              <Label text="Location" />
                            </children>
                         </HBox>
                      </children>
                      <rowConstraints>
                         <RowConstraints maxHeight="36.0" minHeight="36.0" prefHeight="36.0" />
                         <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+                        <RowConstraints />
+                        <RowConstraints />
                         <RowConstraints />
                         <RowConstraints />
                         <RowConstraints />
