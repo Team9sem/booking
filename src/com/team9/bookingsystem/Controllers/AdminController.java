@@ -11,6 +11,7 @@ import com.team9.bookingsystem.Threading.FindRoomService;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -228,18 +229,15 @@ public class AdminController {
 
 
 //        System.out.println(toString());
-          FindRoomService findRoomService = new FindRoomService(
-        		radioID.isSelected(),
-                radioUserName.isSelected(),
-                radioName.isSelected(),
-                radioType.isSelected(),
-                radioPnumber.isSelected(),
-                radioRoomID.isSelected(),
-                radioSomething.isSelected()
-                );
-       	
-            	
-        findRoomService.start();
+          FindRoomService findRoomService = new FindRoomService(new Task() {
+              @Override
+              protected Object call() throws Exception {
+                  return null;
+              }
+          });
+
+
+                  findRoomService.start();
         findRoomService.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
             @Override
             public void handle(WorkerStateEvent event) {

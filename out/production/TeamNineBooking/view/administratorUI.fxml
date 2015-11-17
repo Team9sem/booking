@@ -6,6 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
+<?import jfxtras.scene.control.LocalTimePicker?>
 <BorderPane id="borderPane" fx:id="borderPane" prefHeight="600.0" prefWidth="1000.0" styleClass="borderPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team9.bookingsystem.Controllers.AdminController">
    <left>
       <AnchorPane fx:id="searchAnchorPane" styleClass="options-area" BorderPane.alignment="CENTER">
@@ -92,15 +93,14 @@
                         <HBox GridPane.rowIndex="15" />
                         <HBox GridPane.columnSpan="3" GridPane.rowIndex="16" GridPane.rowSpan="4">
                            <children>
-                              <LocalTimePicker fx:id="fromTimeInput" prefHeight="300" prefWidth="400" />
-                              <!--<TextField fx:id="fromTimeInput" promptText="i.e. 12:00" />-->
+
+
                            </children>
                         </HBox>
                         <HBox GridPane.rowIndex="21" />
                         <HBox GridPane.columnSpan="3" GridPane.rowIndex="22" GridPane.rowSpan="4">
                            <children>
-                              <!--<TextField fx:id="toTimeInput" promptText="i.e. 14:00" />-->
-                              <LocalTimePicker fx:id="toTimeInput" prefHeight="300" prefWidth="400" style="-fx-progress-color: crimson" />
+
                            </children>
                         </HBox>
                         <HBox GridPane.rowIndex="26" />
@@ -233,7 +233,7 @@
                   <HBox fx:id="paginationBox" GridPane.rowIndex="1" />
                   <HBox alignment="CENTER" GridPane.rowIndex="2">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#bookRoom" text="Confirm" />
+                        <Button mnemonicParsing="false"  text="Confirm" />
                      </children>
                   </HBox>
                </children>
