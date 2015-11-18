@@ -47,15 +47,15 @@ public class Main {
     	userObj.setpNumber(pnumber);
     	userObj.setUserID(3);
     	
-    	Room roomObj 	= new Room(18, "Alfons", "M", 0, 0, 0);
+    	Room roomObj 	= new Room(18, "MsTestRoom", "L", 0, 1, 0);
     
     	//util.editRoom(roomObj);
     	//util.deleteRoom(roomObj);
     	//BookedRoom bRoom = new BookedRoom();
     	Booking book = new Booking();
-    	book = util.Booking(userObj, roomObj, "2015-10-11", "9:15", "11:15");
+    	//book = util.Booking(userObj, roomObj, "2015-10-11", "9:15", "11:15");
     	System.out.println(book.toString());
-    	
+    	util.RegisterRoom(roomObj);
     	//BookedRoom bRoom = util.BookRoom(userObj, roomObj, bDateIn, bStartIn, bEndIn);
     	//BookedRoom bRoom = util.Booking(userObj, roomObj, "2015-10-21", "9:15", "10:30");
     	

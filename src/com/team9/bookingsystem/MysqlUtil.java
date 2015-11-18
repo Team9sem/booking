@@ -418,7 +418,7 @@ public class MysqlUtil {
 
     }//end public User RegisterUser
     
-  public boolean RegisterRoom(String location, String roomSize, int hasProjector, int hasWhiteBoard, int hasCoffeeMachine) throws Exception
+  public boolean RegisterRoom(Room roomObj) throws Exception
   {
 	  	//Created by Mayra Soliz.
 	  	//roomID int(11)
@@ -427,6 +427,11 @@ public class MysqlUtil {
 	    //hasProjector int
 	    //hasWhiteBoard int
 	    //hasCoffeMachine int
+	  String location = roomObj.getLocation();
+	  String roomSize= roomObj.getRoomSize();
+	  int hasProjector=roomObj.getHasProjector();
+	  int hasWhiteBoard=roomObj.getHasWhiteboard();
+	  int hasCoffeeMachine=roomObj.getHasCoffeeMachine();
           
 	  // we have to catch potential SQLExceptions
       try(Connection connection = getConnection()){
