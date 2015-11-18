@@ -14,31 +14,27 @@
          <BorderPane.margin>
             <Insets bottom="5.0" left="5.0" />
          </BorderPane.margin>
-         <children>
-            <VBox id="options-area"
-             layoutX="8.0" 
-             layoutY="14.0" 
-             prefHeight="490.0" 
-             prefWidth="490.0" 
-             AnchorPane.bottomAnchor="20.0" 
-             AnchorPane.leftAnchor="20.0" 
-             AnchorPane.rightAnchor="20.0" 
-             AnchorPane.topAnchor="20.0">
-               <children>
-               
-               	
+             <children>
 
-                  <ToggleButton fx:id="userToggle" mnemonicParsing="false" text="Users" GridPane.columnSpan="2" GridPane.rowIndex="3" />
-                  <ToggleButton fx:id="roomToggle" mnemonicParsing="false" text="Rooms" GridPane.columnSpan="2" GridPane.rowIndex="4" />
-                  <fx:include fx:id="searchOptions" source= "userSearch.fxml"/>
+                   <VBox id="options-area"
+                   layoutX="8.0"
+                   layoutY="14.0"
+                   prefHeight="490.0"
+                   prefWidth="490.0">
+                  <children>
+                     <GridPane  vgap="10" hgap="10">
+                     <ToggleButton fx:id="userToggle" prefWidth="70" mnemonicParsing="false" text="Users" GridPane.columnSpan="2" GridPane.rowIndex="0" />
+                     <ToggleButton fx:id="roomToggle" prefWidth="70" mnemonicParsing="false" text="Rooms" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+                     <fx:include GridPane.rowIndex="3" fx:id="searchOptions" source= "userSearch.fxml"/>
 
-				
-               </children>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </VBox>
-         </children>
+                     </GridPane>
+                  </children>
+                      <padding>
+                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                      </padding>
+
+                 </VBox>
+             </children>
       </GridPane>
    </left>
 
