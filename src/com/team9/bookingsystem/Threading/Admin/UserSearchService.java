@@ -1,11 +1,10 @@
-package com.team9.bookingsystem.Threading;
-
-import java.util.ArrayList;
+package com.team9.bookingsystem.Threading.Admin;
 
 import com.team9.bookingsystem.MysqlUtil;
-import com.team9.bookingsystem.Room;
-
+import com.team9.bookingsystem.User;
 import javafx.concurrent.Task;
+
+import java.util.ArrayList;
 
 public class UserSearchService extends AdminSearchService {
 
@@ -22,12 +21,14 @@ public class UserSearchService extends AdminSearchService {
 //    private String size;
     
 //	variables for user searching
-    private String userID;
+    private int userID;
     private String userName;
-    private String name;
+    private String firstName;
+    private String lastName;
     private String userType;
-    private String pNumber;
-    private String zipCode;
+    private String street;
+    private long pNumber;
+    private int zipCode;
 
     
    
@@ -56,24 +57,21 @@ public class UserSearchService extends AdminSearchService {
      * @see String
      */
         
-    public UserSearchService(String userID,
+    public UserSearchService(int userID,
     		String userName,
-    		String name,
+    		String firstName, String lastName,
+                             String street,
     		String userType,
-    		String pNumber,
-    		String zipCode
-                        )
-    
-    
+    		long pNumber,
+    		int zipCode)
     {
         super();
         this.userID = userID;
         this.userName = userName;
-        this.name = name;
+        this.firstName = firstName;
         this.userType = userType;
         this.pNumber = pNumber;
         this.zipCode = zipCode;
-     
     }
 
     /**
@@ -85,15 +83,16 @@ public class UserSearchService extends AdminSearchService {
         return new Task<Object>() {
             @Override
             protected Object call() throws Exception {
-
-
-                return null;
+                MysqlUtil util = new MysqlUtil();
+                User user = new User(userName,"",firstName,lastName,userType,street,zipCode,pNumber);
+                ArrayList<User> users = util.getUsers(user);
+                return users;
 
             }
         };
     }
 }
-//}
+
 
 
 

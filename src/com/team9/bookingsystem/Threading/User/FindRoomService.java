@@ -1,7 +1,8 @@
-package com.team9.bookingsystem.Threading;
+package com.team9.bookingsystem.Threading.User;
 
 import com.team9.bookingsystem.MysqlUtil;
 import com.team9.bookingsystem.Room;
+import com.team9.bookingsystem.Threading.ThreadService;
 import javafx.concurrent.Task;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Created by pontuspohl on 01/11/15.
  */
-public class FindRoomService extends ThreadService{
+public class FindRoomService extends ThreadService {
 
 
     /**

@@ -668,17 +668,302 @@ public class MysqlUtil {
         return jsonArray;
     }
 
+    /**
+     *Editing and removing a user from the database
+     *Created by iso on 12/11/15
+     */
 
+    public void updateUser(ArrayList<User> users){
+        try(Connection connection = getConnection()){
 
+            System.out.println("\nUser Connection Established\n");
+            connection.setAutoCommit(false);
+            for(User user : users) {
 
-
-
-
-
-
-
+                Statement statement = connection.createStatement();
+                statement.executeUpdate(
+                        "UPDATE User SET alias = '" + user.getUserName() + "',passwd ='" + user.getPassword() +
+                                "',firstname = '" + user.getFirstName() + "',lastname = '" + user.getLastName() +
+                                "',pNumber = '" + user.getpNumber() + "',usertype = '" + user.getUserType() +
+                                "',street = '" + user.getStreet() + "',zip = '" + user.getZip() +
+                                "' WHERE userID= '" + user.getUserID() + "'"
+                );
+            }
+            connection.commit();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
 
     }
+
+    public void deleteUser(User user){
+        try(Connection connection = getConnection()){
+
+            System.out.println("\nUser Connection Established\n");
+
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(
+                    "DELETE FROM User WHERE userID= '"+user.getUserID()+"'"
+            );
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+    //END OF EDITING AND REMOVING USER OPERATIONS
+
+    /**
+     * Searching through users, rooms and bookings in the database
+     * Created by iso on 13/11/15
+     */
+
+    public ArrayList<User> getUsers(User user){
+        ArrayList<User> userArrayList = new ArrayList<>();
+        try(Connection connection = getConnection()){
+
+            System.out.println("\nUser Connection Established\n");
+
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(
+                    "SELECT * FROM User WHERE userID LIKE '%%"+user.getUserID()+"%%' AND alias LIKE '%%"+
+                            user.getUserName()+"%%' AND passwd LIKE '%%"+user.getPassword()+"%%' AND firstname LIKE '%%"+
+                            user.getFirstName()+"%%' AND lastname LIKE '%%"+ user.getLastName()+"%%' AND pNumber LIKE '%%"
+                            +user.getpNumber()+"%%' AND usertype LIKE '%%"+user.getUserType()+"%%' AND street LIKE '%%"
+                            +user.getStreet()+"%%' AND zip LIKE '%%"+user.getZip()+"%%'"
+            );
+
+            while (rs.next()) {
+                User tmpUser = new User();
+
+                user.setUserID(rs.getInt("userID"));
+                user.setUserName(rs.getString("alias"));
+                user.setPassword(rs.getString("passwd"));
+                user.setFirstName(rs.getString("firstname"));
+                user.setLastName(rs.getString("lastname"));
+                user.setpNumber(rs.getInt("pNumber"));
+                user.setUserType(rs.getString("usertype"));
+                user.setStreet(rs.getString("street"));
+                user.setZip(rs.getInt("zip"));
+
+                userArrayList.add(tmpUser);
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        //list of columns in the USER table
+        //userID, alias, passwd, firstname, lastname, pNumber, usertype, street, zip
+
+        return userArrayList;
+    }
+
+    public ArrayList<Room> getRooms(Room room){
+        ArrayList<Room> roomArrayList = new ArrayList<>();
+
+        try(Connection connection = getConnection()){
+
+            System.out.println("\nUser Connection Established\n");
+
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(
+                    "SELECT * FROM Room WHERE roomID LIKE '%%"+room.getRoomID()+"%%' AND roomSize LIKE '%%" +
+                            room.getRoomSize()+"%%' AND location LIKE '%%"+room.getLocation()+"%%' AND hasProjector LIKE '%%"
+                            +room.getHasProjector()+"%%' AND hasWhiteboard LIKE '%%" + room.getHasWhiteboard() +
+                            "%%' AND hasCoffeeMachine LIKE '%%"+room.getHasCoffeeMachine()+"%%'"
+            );
+
+            while (rs.next()) {
+                Room tmpRoom = new Room();
+
+                room.setRoomSize(rs.getString("roomSize"));
+                room.setLocation(rs.getString("location"));
+                room.setHasProjector(rs.getInt("hasProjector"));
+                room.setHasWhiteboard(rs.getInt("hasWhiteboard"));
+                room.setHasCoffeeMachine(rs.getInt("hasCoffeeMachine"));
+                room.setRoomID(rs.getInt("roomID"));
+
+                roomArrayList.add(tmpRoom);
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        return roomArrayList;
+    }
+
+    public ArrayList<Booking> getBookings(Booking booking){
+        ArrayList<Booking> bookingArrayList = new ArrayList<>();
+
+        try(Connection connection = getConnection()){
+
+            System.out.println("\nUser Connection Established\n");
+
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(
+                    "SELECT * FROM Bookings WHERE bID LIKE '%%"+booking.getbID()+"%%' AND userid LIKE '%%" +
+                            booking.getuserid()+"%%' AND roomID LIKE '%%"+booking.getroomID()+"%%' AND bdate LIKE '%%"
+                            +booking.getbdate()+"%%' AND bstart LIKE '%%"+booking.getbStart()+"%%' AND bEnd LIKE '%%"
+                            +booking.getbEnd()+"%%'"
+            );
+
+            while (rs.next()) {
+                Booking tmpBooking = new Booking();
+
+                booking.setbID(rs.getInt("bID"));
+                booking.setuserid(rs.getInt("userid"));
+                booking.setroomID(rs.getInt("roomID"));
+                booking.setbdate(rs.getString("bdate"));
+                booking.setbStart(rs.getString("bStart"));
+                booking.setbEnd(rs.getString("bEnd"));
+
+                bookingArrayList.add(tmpBooking);
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        return bookingArrayList;
+    }
+
+    public ArrayList<Booking> getBookings(User user){
+        ArrayList<Booking> bookingArrayList = new ArrayList<>();
+
+        try(Connection connection = getConnection()){
+
+            System.out.println("\nUser Connection Established\n");
+
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(
+                    "SELECT * FROM Bookings WHERE userID = "+user.getUserID() +""
+            );
+
+            while (rs.next()) {
+                Booking booking = new Booking();
+
+                booking.setbID(rs.getInt("bID"));
+                booking.setuserid(rs.getInt("userid"));
+                booking.setroomID(rs.getInt("roomID"));
+                booking.setbdate(rs.getString("bdate"));
+                booking.setbStart(rs.getString("bStart"));
+                booking.setbEnd(rs.getString("bEnd"));
+
+                bookingArrayList.add(booking);
+            }
+
+            for(Booking booking : bookingArrayList){
+                booking.setUser(getUser(booking.getuserid()));
+                booking.setRoom(getRoom(booking.getroomID()));
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        return bookingArrayList;
+    }
+
+    public ArrayList<Booking> getBookings(Room room){
+        ArrayList<Booking> bookingArrayList = new ArrayList<>();
+
+        try(Connection connection = getConnection()){
+
+            System.out.println("\nUser Connection Established\n");
+
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(
+                    "SELECT * FROM Bookings WHERE roomID = " + room.getRoomID() + ""
+            );
+
+            while (rs.next()) {
+                Booking booking = new Booking();
+
+                booking.setbID(rs.getInt("bID"));
+                booking.setuserid(rs.getInt("userid"));
+                booking.setroomID(rs.getInt("roomID"));
+                booking.setbdate(rs.getString("bdate"));
+                booking.setbStart(rs.getString("bStart"));
+                booking.setbEnd(rs.getString("bEnd"));
+
+                bookingArrayList.add(booking);
+            }
+
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        for(Booking booking : bookingArrayList){
+            booking.setUser(getUser(booking.getuserid()));
+            booking.setRoom(getRoom(booking.getroomID()));
+        }
+
+        return bookingArrayList;
+    }
+
+    public User getUser(int userID){
+        User user = new User();
+
+        try(Connection connection = getConnection()){
+
+            System.out.println("\nUser Connection Established\n");
+
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(
+                    "SELECT * FROM User WHERE userID ="+userID+""
+            );
+
+            while (rs.next()) {
+                user.setUserID(rs.getInt("userID"));
+                user.setUserName(rs.getString("alias"));
+                user.setPassword(rs.getString("passwd"));
+                user.setFirstName(rs.getString("firstname"));
+                user.setLastName(rs.getString("lastname"));
+                user.setpNumber(rs.getInt("pNumber"));
+                user.setUserType(rs.getString("usertype"));
+                user.setStreet(rs.getString("street"));
+                user.setZip(rs.getInt("zip"));
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        return user;
+    }
+
+    public Room getRoom(int roomID){
+
+        Room room = new Room();
+
+        try(Connection connection = getConnection()){
+
+            System.out.println("\nUser Connection Established\n");
+
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(
+                    "SELECT * FROM Room WHERE roomID = "+roomID+""
+            );
+
+            while (rs.next()) {
+                room.setRoomSize(rs.getString("roomSize"));
+                room.setLocation(rs.getString("location"));
+                room.setHasProjector(rs.getInt("hasProjector"));
+                room.setHasWhiteboard(rs.getInt("hasWhiteboard"));
+                room.setHasCoffeeMachine(rs.getInt("hasCoffeeMachine"));
+                room.setRoomID(rs.getInt("roomID"));
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        return room;
+    }
+    //END OF SEARCHING USER, ROOM AND BOOKING METHODS
+
+  }
 
 
 

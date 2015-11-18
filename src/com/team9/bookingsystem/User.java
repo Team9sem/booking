@@ -15,6 +15,7 @@ public class User {
     private String password;
     private String firstName;
     private String lastName;
+    private String userType;
     private String street;
     private int    zip;
 
@@ -27,9 +28,9 @@ public class User {
                 String password,
                 String firstName,
                 String lastName,
+                String userType,
                 String street,
                 long pNumber,
-                int zip)
     {
         _db = new MysqlUtil();
         this.userID = userID;
@@ -37,6 +38,7 @@ public class User {
         this.password  = password;
         this.firstName = firstName;
         this.lastName  = lastName;
+        this.userType  = userType;
         this.street    = street;
         this.zip       = zip;
         this.pNumber = pNumber;
@@ -51,6 +53,7 @@ public class User {
         this.password  = user.password;
         this.firstName = user.firstName;
         this.lastName  = user.lastName;
+        this.userType  = user.userType;
         this.street    = user.street;
         this.zip       = user.zip;
     }
@@ -86,13 +89,11 @@ public class User {
         return lastName;
     }
 
-    public String getStreet() {
-        return street;
-    }
+    public String getUserType() { return userType; }
 
-    public int getZip() {
-        return zip;
-    }
+    public String getStreet() { return street; }
+
+    public int getZip() { return zip; }
 
     public void setUserName(String userName) {
         this.userName = userName;
@@ -110,6 +111,10 @@ public class User {
         this.lastName = lastName;
     }
 
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
     public void setStreet(String street) {
         this.street = street;
     }
@@ -124,6 +129,7 @@ public class User {
                                       String password,
                                       String firstName,
                                       String lastName,
+                                      String userType,
                                       String street,
                                       int zip)
     {
@@ -144,6 +150,7 @@ public class User {
         toReturn += String.format("//- %s \n",getUserName());
         toReturn += String.format("//- %s \n",getPassword());
         toReturn += String.format("//- %s \n",getpNumber());
+        toReturn += String.format("//- %s \n",getUserType());
         toReturn += String.format("//- %s \n",getStreet());
         toReturn += String.format("//- %s \n",getZip());
         toReturn += String.format("//- %s \n",getUserID());

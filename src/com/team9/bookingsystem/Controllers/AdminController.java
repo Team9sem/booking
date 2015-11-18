@@ -11,7 +11,7 @@ import com.team9.bookingsystem.MysqlUtil;
 import com.team9.bookingsystem.Room;
 import com.team9.bookingsystem.Threading.UserSearchService;
 import com.team9.bookingsystem.User;
-import com.team9.bookingsystem.Threading.FindRoomService;
+import com.team9.bookingsystem.Threading.User.FindRoomService;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
