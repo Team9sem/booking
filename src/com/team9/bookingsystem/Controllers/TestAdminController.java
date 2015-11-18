@@ -123,7 +123,10 @@ public class TestAdminController {
     private void setupTableView(){
 
         TableColumn roomid = new TableColumn("ID");
+
         roomid.setCellValueFactory(new PropertyValueFactory<Room,Integer>("roomID"));
+        roomid.setPrefWidth(10.0);
+
 
         TableColumn location = new TableColumn("Location");
         location.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -150,10 +153,12 @@ public class TestAdminController {
         });
 
         location.setCellValueFactory(new PropertyValueFactory<Room,String>("location"));
-
+        location.setPrefWidth(30.0);
 
         TableColumn size = new TableColumn("Size");
         size.setCellValueFactory(new PropertyValueFactory<Room,String>("roomSize"));
+        size.setPrefWidth(10.0);
+
 
         TableColumn projector = new TableColumn("Projector");
         projector.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
@@ -188,7 +193,7 @@ public class TestAdminController {
         });
 
         projector.setCellValueFactory(new PropertyValueFactory<Room,Integer>("hasProjector"));
-
+        projector.setPrefWidth(10.0);
 
         TableColumn whiteboard = new TableColumn("WhiteBoard");
         whiteboard.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
@@ -226,7 +231,7 @@ public class TestAdminController {
             }
         });
         whiteboard.setCellValueFactory(new PropertyValueFactory<Room,Integer>("hasWhiteboard"));
-
+        whiteboard.setPrefWidth(10.0);
 
         TableColumn coffeMachine = new TableColumn("CoffeeMachine");
         coffeMachine.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
@@ -260,6 +265,7 @@ public class TestAdminController {
             }
         });
         coffeMachine.setCellValueFactory(new PropertyValueFactory<Room,Integer>("hasCoffeeMachine"));
+        coffeMachine.setPrefWidth(10.0);
 
         TableColumn buttons = new TableColumn();
         buttons.setSortable(false);
@@ -281,14 +287,24 @@ public class TestAdminController {
         });
 
         table.getColumns().addAll(roomid,location,size,projector,whiteboard,coffeMachine,buttons);
+//        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        table.setColumnResizePolicy(new Callback<TableView.ResizeFeatures, Boolean>() {
+            @Override
+            public Boolean call(TableView.ResizeFeatures param) {
+                param.getColumn().prefWidthProperty().bind(table.widthProperty().multiply(0.1));
+                return true;
+            }
+        });
         table.setEditable(true);
+
 
 
     }
 
     private class ButtonCell extends TableCell<Room,Boolean>{
-        final Button cellButton = new Button("Show Schedule");
+        Button cellButton = new Button("Show Schedule");
         private Room rowRoom;
+
             ButtonCell(){
 //                System.out.println( this.getTableView().getItems().get(this.getTableRow().getIndex()).toString());
 
@@ -311,12 +327,11 @@ public class TestAdminController {
             protected void updateItem(Boolean t, boolean empty){
                 super.updateItem(t,empty);
                 if(!empty){
+                    System.out.println(table.getWidth());
+                    cellButton.setStyle("-fx-font-size: 9px");
                     setGraphic(cellButton);
                 }
             }
-
-
-
     }
 
 
@@ -364,6 +379,7 @@ public class TestAdminController {
 
 
         pagination.setPageFactory(this::createPage);
+
         return pagination;
     }
 
@@ -464,6 +480,8 @@ public class TestAdminController {
                         pagination.setCurrentPageIndex(0);
                         paginationBox.getChildren().clear();
                         paginationBox.getChildren().add(pagination);
+                        paginationBox.setHgrow(pagination,Priority.SOMETIMES);
+
 
 
                     } else {
@@ -472,6 +490,7 @@ public class TestAdminController {
                         pagination.setCurrentPageIndex(0);
                         paginationBox.getChildren().clear();
                         paginationBox.getChildren().add(pagination);
+
                     }
                 }
                 else if(searchResult == null){

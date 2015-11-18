@@ -14,7 +14,7 @@
                 <Insets bottom="5.0" left="5.0" />
             </BorderPane.margin>
             <children>
-                <VBox id="options-area" layoutX="8.0" layoutY="14.0" prefHeight="490.0" prefWidth="490.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                <VBox id="options-area" layoutX="8.0" layoutY="14.0" prefHeight="490.0" prefWidth="300.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                     <children>
                         <GridPane  hgap="10.0" vgap="10.0">
                             <columnConstraints>
@@ -262,19 +262,20 @@
 
     </top>
     <center>
-        <AnchorPane fx:id="resultAnchorPane" minHeight="100.0" minWidth="100.0" BorderPane.alignment="CENTER" styleClass="result-area">
+        <AnchorPane fx:id="resultAnchorPane" minHeight="100.0" minWidth="100.0" BorderPane.alignment="CENTER" styleClass="result-area" >
             <children>
-                <GridPane  AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                <GridPane gridLinesVisible="true" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" >
                     <columnConstraints>
                         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints maxHeight="75.33334350585938" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="365.3333282470703" minHeight="10.0" prefHeight="334.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="141.33334350585938" minHeight="0.0" prefHeight="52.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="75.33334350585938" minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                        <RowConstraints maxHeight="70.3333282470703" minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                        <RowConstraints maxHeight="350.33334350585938" minHeight="0.0" prefHeight="300.0" vgrow="ALWAYS" />
+                        <RowConstraints maxHeight="141.33334350585938" minHeight="0.0" prefHeight="52.0" vgrow="ALWAYS" />
                     </rowConstraints>
                     <children>
-                        <HBox alignment="CENTER">
+                        <HBox GridPane.rowIndex="0" alignment="CENTER">
                             <children>
                                 <Label alignment="CENTER" prefHeight="23.0" prefWidth="172.0" styleClass="options-area-labels" text="Search Results">
                                     <font>
@@ -283,10 +284,27 @@
                                 </Label>
                             </children>
                         </HBox>
-                        <HBox fx:id="paginationBox" GridPane.rowIndex="1" />
-                        <HBox alignment="CENTER" GridPane.rowIndex="2">
+                        <HBox alignment="TOP_CENTER" GridPane.rowIndex="1">
+                            <Label text="Hint:">
+                                <font>
+                                    <Font name="Avant-Garde" style="-fx-text-fill: black" size="12"></Font>
+                                </font>
+                            </Label>
+                        </HBox>
+                        <HBox alignment="CENTER" GridPane.rowIndex="1">
                             <children>
-                                <Button mnemonicParsing="false" onAction="#bookRoom" text="Confirm" />
+                                <Label text="Edit any values and sumbit your change by pressing Commit Changes Button">
+                                    <font>
+                                        <Font name="Avant Garde" style="-fx-text-fill: black" size="12"></Font>
+                                    </font>
+                                </Label>
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER" fx:id="paginationBox" GridPane.rowIndex="2"/>
+                        <HBox alignment="CENTER" GridPane.rowIndex="3">
+                            <children>
+                                <Button text="Delete Selected"></Button>
+                                <Button mnemonicParsing="false" onAction="#bookRoom" text="Commit Changes" />
                             </children>
                         </HBox>
                     </children>
