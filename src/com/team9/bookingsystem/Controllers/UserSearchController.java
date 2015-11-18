@@ -1,6 +1,7 @@
 package com.team9.bookingsystem.Controllers;
 
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import com.team9.bookingsystem.MysqlUtil;
@@ -64,20 +65,46 @@ public class UserSearchController {
 
     @FXML public void Search(ActionEvent event){
 
-        User user = new User(Integer.parseInt(ID.getText()),
-                userName.getText(),
-                "",
-                firstName.getText(),
-                lastName.getText(),
-                "",
-                Long.parseLong(pNumber.getText()),
-                Integer.parseInt(zipCode.getText()));
+        int id = 0;
+        long pNumberValue = 0;
+        int zip = 0;
+        try{
+            if(!ID.getText().isEmpty()){
+                id = Integer.parseInt(ID.getText());
+            }
+            if(!pNumber.getText().isEmpty()){
+                pNumberValue = Long.parseLong(pNumber.getText());
+            }
+            if(!zipCode.getText().isEmpty()){
+                zip = Integer.parseInt(zipCode.getText());
+            }
 
-        System.out.println("Clicked searchbutton");
-        adminController.searchForUsers(user);
+
+        }catch(NumberFormatException e){
+            e.printStackTrace();
+        }
+
+
+
+            User user = new User(id,
+                    userName.getText(),
+                    "",
+                    firstName.getText(),
+                    lastName.getText(),
+                    "","",
+                    pNumberValue,
+                    zip);
+
+            System.out.println("Clicked searchbutton");
+            adminController.searchForUsers(user);
+
+
+
+
 
 
     }
+
 
 
 

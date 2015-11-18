@@ -9,7 +9,8 @@ import java.util.ResourceBundle;
 
 import com.team9.bookingsystem.MysqlUtil;
 import com.team9.bookingsystem.Room;
-import com.team9.bookingsystem.Threading.UserSearchService;
+import com.team9.bookingsystem.Threading.Admin.UserSearchService;
+
 import com.team9.bookingsystem.User;
 import com.team9.bookingsystem.Threading.User.FindRoomService;
 
@@ -50,13 +51,14 @@ public class AdminController{
     @FXML private HBox paginationBox;
     @FXML private AnchorPane resultAnchorPane;
     @FXML private GridPane searchOptions;
+    @FXML private UserSearchController searchOptionsController;
     @FXML private Label loginLabel;
     @FXML private Label searchPreferences;
     @FXML private Label searchFor;
     @FXML private ToggleButton userToggle;
     @FXML private ToggleButton roomToggle;
     @FXML private GridPane userSearchGridPane;
-    
+
 
 
     
@@ -70,6 +72,7 @@ public class AdminController{
         userToggle.setToggleGroup(toggleGroup);
         roomToggle.setToggleGroup(toggleGroup);
         userToggle.setSelected(true);
+        searchOptionsController.init(mainController,this,loggedInUser);
 
     }
 
@@ -81,7 +84,20 @@ public class AdminController{
 
     public void searchForUsers(User user){
 
-        UserSearchService userSearchService = new UserSearchService()
+        UserSearchService userSearchService = new UserSearchService(user);
+        userSearchService.start();
+        userSearchService.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+
+                ArrayList<User> searchResult = (ArrayList<User>)userSearchService.getValue();
+                if(searchResult != null){
+                    System.out.println(searchResult);
+                }
+
+
+            }
+        });
 
 
     }

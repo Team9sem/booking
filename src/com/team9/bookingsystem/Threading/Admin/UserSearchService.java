@@ -15,6 +15,7 @@ public class UserSearchService extends AdminSearchService {
      * variables needed to Perform Database Operation
      */
     private Task task;
+    private User user;
 //    private String userSearchText;
 //    private String roomSearchText;
 //    private String toTime;
@@ -49,29 +50,13 @@ public class UserSearchService extends AdminSearchService {
 
     /**
      * Class Constructor
-     *
-     * @param date Desired date to book a room on
-     * @param fromTime Desired startTime
-     * @param toTime Desired EndTime
-     * @param size Desired Size property
-     * @see String
+     * @param user
      */
         
-    public UserSearchService(int userID,
-    		String userName,
-    		String firstName, String lastName,
-                             String street,
-    		String userType,
-    		long pNumber,
-    		int zipCode)
+    public UserSearchService(User user)
     {
         super();
-        this.userID = userID;
-        this.userName = userName;
-        this.firstName = firstName;
-        this.userType = userType;
-        this.pNumber = pNumber;
-        this.zipCode = zipCode;
+        this.user = user;
     }
 
     /**
@@ -84,7 +69,7 @@ public class UserSearchService extends AdminSearchService {
             @Override
             protected Object call() throws Exception {
                 MysqlUtil util = new MysqlUtil();
-                User user = new User(userName,"",firstName,lastName,userType,street,zipCode,pNumber);
+
                 ArrayList<User> users = util.getUsers(user);
                 return users;
 

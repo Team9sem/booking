@@ -718,35 +718,55 @@ public class MysqlUtil {
 
     public ArrayList<User> getUsers(User user){
         ArrayList<User> userArrayList = new ArrayList<>();
+        System.out.println(user.toString());
+
+        String zip = "";
+        String pNumber  = "";
+        String id = "";
+        if(user.getZip() != 0){
+            zip = "" + user.getZip();
+        }
+        if(user.getpNumber() != 0){
+            pNumber = "" + user.getpNumber();
+        }
+        if(user.getUserID() != 0){
+            id = "" + user.getUserID();
+        }
+
+
+
+
         try(Connection connection = getConnection()){
 
             System.out.println("\nUser Connection Established\n");
 
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(
-                    "SELECT * FROM User WHERE userID LIKE '%%"+user.getUserID()+"%%' AND alias LIKE '%%"+
+                    "SELECT * FROM User WHERE userID LIKE '%%"+id+"%%' AND alias LIKE '%%"+
                             user.getUserName()+"%%' AND passwd LIKE '%%"+user.getPassword()+"%%' AND firstname LIKE '%%"+
                             user.getFirstName()+"%%' AND lastname LIKE '%%"+ user.getLastName()+"%%' AND pNumber LIKE '%%"
-                            +user.getpNumber()+"%%' AND usertype LIKE '%%"+user.getUserType()+"%%' AND street LIKE '%%"
-                            +user.getStreet()+"%%' AND zip LIKE '%%"+user.getZip()+"%%'"
+                            +pNumber+"%%' AND usertype LIKE '%%"+user.getUserType()+"%%' AND street LIKE '%%"
+                            +user.getStreet()+"%%' AND zip LIKE '%%"+zip+"%%';"
             );
 
             while (rs.next()) {
                 User tmpUser = new User();
 
-                user.setUserID(rs.getInt("userID"));
-                user.setUserName(rs.getString("alias"));
-                user.setPassword(rs.getString("passwd"));
-                user.setFirstName(rs.getString("firstname"));
-                user.setLastName(rs.getString("lastname"));
-                user.setpNumber(rs.getInt("pNumber"));
-                user.setUserType(rs.getString("usertype"));
-                user.setStreet(rs.getString("street"));
-                user.setZip(rs.getInt("zip"));
+
+
+                tmpUser.setUserID(rs.getInt("userID"));
+                tmpUser.setUserName(rs.getString("alias"));
+                tmpUser.setPassword(rs.getString("passwd"));
+                tmpUser.setFirstName(rs.getString("firstname"));
+                tmpUser.setLastName(rs.getString("lastname"));
+                tmpUser.setpNumber(rs.getLong("pNumber"));
+                tmpUser.setUserType(rs.getString("usertype"));
+                tmpUser.setStreet(rs.getString("street"));
+                tmpUser.setZip(rs.getInt("zip"));
 
                 userArrayList.add(tmpUser);
             }
-
+            return userArrayList;
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -775,12 +795,12 @@ public class MysqlUtil {
             while (rs.next()) {
                 Room tmpRoom = new Room();
 
-                room.setRoomSize(rs.getString("roomSize"));
-                room.setLocation(rs.getString("location"));
-                room.setHasProjector(rs.getInt("hasProjector"));
-                room.setHasWhiteboard(rs.getInt("hasWhiteboard"));
-                room.setHasCoffeeMachine(rs.getInt("hasCoffeeMachine"));
-                room.setRoomID(rs.getInt("roomID"));
+                tmpRoom.setRoomSize(rs.getString("roomSize"));
+                tmpRoom.setLocation(rs.getString("location"));
+                tmpRoom.setHasProjector(rs.getInt("hasProjector"));
+                tmpRoom.setHasWhiteboard(rs.getInt("hasWhiteboard"));
+                tmpRoom.setHasCoffeeMachine(rs.getInt("hasCoffeeMachine"));
+                tmpRoom.setRoomID(rs.getInt("roomID"));
 
                 roomArrayList.add(tmpRoom);
             }

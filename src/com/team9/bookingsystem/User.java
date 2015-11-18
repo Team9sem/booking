@@ -30,7 +30,7 @@ public class User {
                 String lastName,
                 String userType,
                 String street,
-                long pNumber,
+                long pNumber,int zip)
     {
         _db = new MysqlUtil();
         this.userID = userID;
