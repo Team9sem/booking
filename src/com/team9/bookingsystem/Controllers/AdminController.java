@@ -2,7 +2,10 @@ package com.team9.bookingsystem.Controllers;
 
 import java.awt.Button;
 import java.awt.TextField;
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import com.team9.bookingsystem.MysqlUtil;
 import com.team9.bookingsystem.Room;
@@ -16,6 +19,7 @@ import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -24,7 +28,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
 
-public class AdminController {
+public class AdminController{
 	
 	//Logged in user
     User loggedInUser;
@@ -50,6 +54,8 @@ public class AdminController {
     @FXML Label searchFor;
     @FXML ToggleButton userToggle;
     @FXML ToggleButton roomToggle;
+    @FXML GridPane userSearchGridPane;
+    
 
 //    @FXML Label features;
 
@@ -86,9 +92,7 @@ public class AdminController {
         VBox vBox = new VBox(5);
 
         vBox.setAlignment(Pos.CENTER);
-        
-        GridPane grid =new GridPane();
- 
+         
        
         toggleGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             @Override
@@ -111,12 +115,7 @@ public class AdminController {
     private int getElementsPerPage(){
         return 5;
     }
+    
+    
    
-    @FXML public void getUserSearch(ActionEvent event){
-    	
-    	if (selectedButton == userToggle) {
-    		
-    	}
-    	
-    }
 }

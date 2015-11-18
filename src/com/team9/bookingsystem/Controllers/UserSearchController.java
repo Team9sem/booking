@@ -34,20 +34,17 @@ public class UserSearchController {
     private Button selectedButton;
 
  // ContainerElements
-    @FXML AnchorPane topAnchorPane;
-    @FXML AnchorPane searchAnchorPane;
-    @FXML BorderPane borderPane;
-    @FXML HBox paginationBox;
-    @FXML AnchorPane resultAnchorPane;
+    @FXML GridPane userSearchGridPane;
     
     
     @FXML Label searchPreferences;
     @FXML Label searchForUser;
     @FXML Label adminRoomLabel;
-    @FXML TextField ID; 
+    @FXML TextField userID; 
     @FXML TextField userName;
     @FXML TextField firstName;
     @FXML TextField lastName;
+    @FXML TextField userType;
 //    @FXML Label features;
    
     @FXML Button adminSearchButton;
@@ -71,6 +68,16 @@ public class UserSearchController {
 
    }
  
+   public GridPane createPage(){
+	   
+	   GridPane grid = new GridPane();
+	   
+	   grid.setAlignment(Pos.CENTER);
+	   
+   return grid;
+	   
+	   
+   }
    
 
 }

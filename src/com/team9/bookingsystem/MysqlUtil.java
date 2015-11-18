@@ -481,7 +481,6 @@ public class MysqlUtil {
     public ArrayList<Room> getRooms(String query){ 	//or maybe it should accept a booking class, or room+time+date
         // returns string for now, just for testing
 
-
         int roomsNumber = totalNumberOfRooms();
 
 //        BookedRoom[] bridgeRooms = new BookedRoom[roomsNumber];

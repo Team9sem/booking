@@ -5,36 +5,45 @@
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-
-<?import jfxtras.scene.control.LocalTimePicker?>
+<?import javafx.scene.layout.GridPane?>
 
 <BorderPane id="borderPane" fx:id="borderPane" prefHeight="600.0" prefWidth="1000.0" styleClass="borderPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team9.bookingsystem.Controllers.AdminController">
    <left>
-      <AnchorPane fx:id="searchAnchorPane" styleClass="options-area" BorderPane.alignment="CENTER">
+   
+      <GridPane fx:id="searchGridPane" styleClass="options-area" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="5.0" left="5.0" />
          </BorderPane.margin>
          <children>
-            <VBox id="options-area" layoutX="8.0" layoutY="14.0" prefHeight="490.0" prefWidth="490.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <VBox id="options-area"
+             layoutX="8.0" 
+             layoutY="14.0" 
+             prefHeight="490.0" 
+             prefWidth="490.0" 
+             AnchorPane.bottomAnchor="20.0" 
+             AnchorPane.leftAnchor="20.0" 
+             AnchorPane.rightAnchor="20.0" 
+             AnchorPane.topAnchor="20.0">
                <children>
+               
+               	
 
-                  <ToggleButton fx:id="userToggle" mnemonicParsing="false" text="Users" GridPane.columnSpan="2" GridPane.rowIndex="3" onAction="#getUserSearch" />
+                  <ToggleButton fx:id="userToggle" mnemonicParsing="false" text="Users" GridPane.columnSpan="2" GridPane.rowIndex="3" />
                   <ToggleButton fx:id="roomToggle" mnemonicParsing="false" text="Rooms" GridPane.columnSpan="2" GridPane.rowIndex="4" />
                   <fx:include fx:id="searchOptions" source= "userSearch.fxml"/>
 
-
+				
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </VBox>
          </children>
-      </AnchorPane>
+      </GridPane>
    </left>
+
+
    <top>
-
-
-
       <AnchorPane id="top-area" fx:id="topAnchorPane" prefHeight="103.0" prefWidth="1000.0" styleClass="top-area" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets />
@@ -84,11 +93,8 @@
             </GridPane>
          </children>
       </AnchorPane>
-
-
-
-
-
+      
+      
    </top>
    <center>
       <AnchorPane fx:id="resultAnchorPane" minHeight="100.0" minWidth="100.0" BorderPane.alignment="CENTER" styleClass="result-area">
@@ -126,18 +132,4 @@
          </BorderPane.margin></AnchorPane>
    </center>
 </BorderPane>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
    
