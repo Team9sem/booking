@@ -67,7 +67,7 @@
                   <Insets />
                </GridPane.margin>
                <children>
-                  <TextField />
+                  <TextField fx:id= "userID" />
                </children>
             </HBox>
             <HBox alignment="BOTTOM_LEFT" GridPane.columnSpan="2" GridPane.rowIndex="5">

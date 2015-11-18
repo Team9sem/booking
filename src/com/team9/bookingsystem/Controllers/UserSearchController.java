@@ -44,10 +44,11 @@ public class UserSearchController {
     @FXML Label searchPreferences;
     @FXML Label searchForUser;
     @FXML Label adminRoomLabel;
-    @FXML TextField ID; 
+    @FXML TextField userID; 
     @FXML TextField userName;
     @FXML TextField firstName;
     @FXML TextField lastName;
+    @FXML TextField userType;
 //    @FXML Label features;
    
     @FXML Button adminSearchButton;
