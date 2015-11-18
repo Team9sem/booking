@@ -688,16 +688,15 @@ public class MysqlUtil {
     	//static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
     	//static final String DB_URL = "jdbc:mysql://sql.smallwhitebird.com:3306/BookingSystem";
 	 
+    	System.out.println("Inside editBooking");
+    	//Connection connection = null;
  
-    	Connection connection = null;
- 
-    	try{
+    	try(Connection connection = getConnection()){
     		// Register JDBC driver
     		Class.forName("com.mysql.jdbc.Driver");
-    		
+    	
     		// Open a connection
     		System.out.println("Connecting to a selected database...");
-    		connection = DriverManager.getConnection(path, user, pass);
     		System.out.println("Connected database successfully...");
                
     		// statement
@@ -705,9 +704,9 @@ public class MysqlUtil {
         
     		// Execute a query     
     		System.out.println("Creating statement...");
-    		statement = connection.createStatement();
+    		//statement = connection.createStatement();
     		
-    		String sql = "UPDATE Booking SET roomID = '"+booking.getroomID()+
+    		String sql = "UPDATE Bookings SET roomID = '"+booking.getroomID()+
     				"', bdate= '"+booking.getbdate()+"', bStart='"+booking.getbStart()+
     				"',bEnd='"+booking.getbEnd()+"', userid='"+booking.getuserid()+"' WHERE bid="+booking.getbID();
     		statement.executeUpdate(sql);
