@@ -1010,8 +1010,57 @@ public class MysqlUtil {
 
     }
 
+    /**
+     *
+     *
+     * Created by Alemeseged
+     *
+     * Edits the bookings inside of the database
+     *
+     *
+     */
+    public void editBooking(Booking booking){
+        // JDBC driver name and database URL
+        //static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+        //static final String DB_URL = "jdbc:mysql://sql.smallwhitebird.com:3306/BookingSystem";
 
-  }
+        System.out.println("Inside editBooking");
+        //Connection connection = null;
+
+        try(Connection connection = getConnection()){
+            // Register JDBC driver
+            Class.forName("com.mysql.jdbc.Driver");
+
+            // Open a connection
+            System.out.println("Connecting to a selected database...");
+            System.out.println("Connected database successfully...");
+
+            // statement
+            Statement statement = connection.createStatement();
+
+            // Execute a query
+            System.out.println("Creating statement...");
+            //statement = connection.createStatement();
+
+            String sql = "UPDATE Bookings SET roomID = '"+booking.getroomID()+
+                    "', bdate= '"+booking.getbdate()+"', bStart='"+booking.getbStart()+
+                    "',bEnd='"+booking.getbEnd()+"', userid='"+booking.getuserid()+"' WHERE bid="+booking.getbID();
+            statement.executeUpdate(sql);
+
+        }catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }
+        System.out.println("Team9 Goodbye!");
+        //END OF EDIT BOOKING FUNCTION
+    }
+
+}
+
+
+
+
+
 
 
 
