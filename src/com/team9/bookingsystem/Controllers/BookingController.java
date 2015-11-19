@@ -3,7 +3,7 @@ package com.team9.bookingsystem.Controllers;
 import com.team9.bookingsystem.MysqlUtil;
 
 import com.team9.bookingsystem.Room;
-import com.team9.bookingsystem.Threading.FindRoomService;
+import com.team9.bookingsystem.Threading.User.FindRoomService;
 import com.team9.bookingsystem.User;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;

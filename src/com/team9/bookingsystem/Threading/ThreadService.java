@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * Basic ThreadService that extends Service<Object>
  * @see Service
  */
-public class ThreadService extends Service<Object> {
+public  class ThreadService extends Service<Object> {
 
     /**
      *
