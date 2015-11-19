@@ -2,16 +2,14 @@ package com.team9.bookingsystem.Controllers;
 
 
 import java.lang.reflect.Array;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 
+import com.team9.bookingsystem.*;
 import com.team9.bookingsystem.Components.CustomColumnResizePolicy;
-import com.team9.bookingsystem.MysqlUtil;
-import com.team9.bookingsystem.Room;
 import com.team9.bookingsystem.Threading.Admin.RoomSearchService;
 import com.team9.bookingsystem.Threading.Admin.UserSearchService;
-
-import com.team9.bookingsystem.User;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
@@ -100,7 +98,81 @@ public class AdminController{
     }
 
     @FXML public void commitChanges(ActionEvent event){
-            // Todo: update database
+            if(!updatedUsers.isEmpty()){
+
+                Service<Boolean> updateUsers = new Service<Boolean>() {
+                    @Override
+                    protected Task<Boolean> createTask() {
+                        Task<Boolean> task = new Task<Boolean>() {
+                            @Override
+                            protected Boolean call() throws Exception {
+                                MysqlUtil util = new MysqlUtil();
+                                try{
+                                   util.updateUser(updatedUsers);
+
+                                }catch(SQLException e){
+                                    e.printStackTrace();
+                                }
+                                return true;
+                            }
+                        };
+                        return task;
+                    }
+                };
+                updateUsers.start();
+                updateUsers.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+                    @Override
+                    public void handle(WorkerStateEvent event) {
+                        if(updateUsers.getValue()){
+                            System.out.println("updated Sucessfully");
+                        }
+                    }
+                });
+                updateUsers.setOnFailed(new EventHandler<WorkerStateEvent>() {
+                    @Override
+                    public void handle(WorkerStateEvent event) {
+                        System.out.println("Update Failed");
+                    }
+                });
+
+            }
+        else if(!updatedRooms.isEmpty()){
+
+                Service<Boolean> updateRooms = new Service<Boolean>() {
+                    @Override
+                    protected Task<Boolean> createTask() {
+                        Task<Boolean> task = new Task<Boolean>() {
+                            @Override
+                            protected Boolean call() throws Exception {
+                                MysqlUtil util = new MysqlUtil();
+                                try{
+                                    // Todo: wait for Mayra
+
+                                }catch(Exception e){
+                                    e.printStackTrace();
+                                }
+                                return true;
+                            }
+                        };
+                        return task;
+                    }
+                };
+                updateRooms.start();
+                updateRooms.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+                    @Override
+                    public void handle(WorkerStateEvent event) {
+                        if(updateRooms.getValue()){
+                            System.out.println("updated Sucessfully");
+                        }
+                    }
+                });
+                updateRooms.setOnFailed(new EventHandler<WorkerStateEvent>() {
+                    @Override
+                    public void handle(WorkerStateEvent event) {
+                        System.out.println("Update Failed");
+                    }
+                });
+            }
     }
 
 
@@ -458,7 +530,7 @@ public class AdminController{
                 if(!updatedUsers.contains(updatedUser)){
                     System.out.println("in first if,\n this is updatedRooms");
                     updatedUsers.add(updatedUser);
-                    System.out.println(updatedRooms.toString());
+                    System.out.println(updatedUsers.toString());
                 }
                 else{
                     for(User user: updatedUsers){

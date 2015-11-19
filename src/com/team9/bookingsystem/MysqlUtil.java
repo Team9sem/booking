@@ -673,7 +673,7 @@ public class MysqlUtil {
      *Created by iso on 12/11/15
      */
 
-    public void updateUser(ArrayList<User> users){
+    public void updateUser(ArrayList<User> users) throws SQLException{
         try(Connection connection = getConnection()){
 
             System.out.println("\nUser Connection Established\n");
@@ -692,6 +692,7 @@ public class MysqlUtil {
             connection.commit();
         }catch(SQLException e){
             e.printStackTrace();
+            throw e;
         }
 
     }
@@ -1053,6 +1054,148 @@ public class MysqlUtil {
         }
         System.out.println("Team9 Goodbye!");
         //END OF EDIT BOOKING FUNCTION
+    }
+
+
+    public boolean BookRoom(Room roomObj) throws Exception
+    {
+        //Created by Mayra Soliz.
+        //roomID int(11)
+        //location char(30)
+        //roomSize char(30)
+        //hasProjector int
+        //hasWhiteBoard int
+        //hasCoffeMachine int
+        String location = roomObj.getLocation();
+        String roomSize= roomObj.getRoomSize();
+        int hasProjector=roomObj.getHasProjector();
+        int hasWhiteBoard=roomObj.getHasWhiteboard();
+        int hasCoffeeMachine=roomObj.getHasCoffeeMachine();
+
+        // we have to catch potential SQLExceptions
+        try(Connection connection = getConnection()){
+
+
+            System.out.println("User resister room Connection Established");
+
+            // statement
+            Statement statement = connection.createStatement();
+
+            String sql = "INSERT INTO Room " +
+                    "(location, roomSize, hasProjector, hasWhiteBoard, hasCoffeeMachine)" +
+                    " Values ('"+location+ "','"+roomSize+"','"+hasProjector+"','"+hasWhiteBoard+"','"+hasCoffeeMachine+"')";
+
+            System.out.println("SQL string: "+sql);
+
+            statement.executeUpdate(sql);
+
+            statement.close();
+            connection.close();
+            return true;
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        return false;
+
+    }//end public User RegisterUser
+
+    public boolean updateRoom(Room room) throws SQLException{
+        //Created by Mayra Soliz 16 Nov 2015.
+        //This method takes the data in the room object and updates the database with the data in the room object
+
+        //SQL ROOM structure
+        //roomID int(11)
+        //location char(30)
+        //roomSize char(30)
+        //hasProjector int
+        //hasWhiteBoard int
+        //hasCoffeMachine int
+
+        int roomID = room.getRoomID();
+        int hasCoffeeMachine = room.getHasCoffeeMachine();
+        int hasProjector = room.getHasProjector();
+        int hasWhiteBoard = room.getHasWhiteboard();
+        String roomSize = room.getRoomSize();
+        String location = room.getLocation();
+
+        // we have to catch potential SQLExceptions
+        try(Connection connection = getConnection()){
+
+            System.out.println("Edit room Connection Established");
+
+            Statement statement = connection.createStatement();
+
+
+            String sql = "UPDATE Room " +
+                    "SET " +
+                    "location='"+location+"',roomSize='"+roomSize+"',hasProjector='"+hasProjector+"'"
+                    +",hasWhiteBoard='"+hasWhiteBoard+"',hasCoffeeMachine='"+hasCoffeeMachine+"' "+
+                    "WHERE roomID='"+roomID+"'";
+
+            System.out.println("SQL string: "+sql);
+
+            statement.executeUpdate(sql);
+
+            statement.close();
+            connection.close();
+            return true;
+        }catch(SQLException e){
+            e.printStackTrace();
+            throw e;
+        }
+
+//        return false;
+    }
+
+    public boolean deleteRoom(Room room) {
+        //Created by Mayra Soliz 16 Nov 2015.
+        //This method deletes the Room using the roomID.
+        //It also deletes all booking related to this roomID to retain database integrity
+        //Note that the bookings have to be deleted before the room is delete due to the
+        //foreign key restraints
+
+        //SQL ROOM structure
+        //roomID int(11)
+        //location char(30)
+        //roomSize char(30)
+        //hasProjector int
+        //hasWhiteBoard int
+        //hasCoffeMachine int
+
+        int roomID = room.getRoomID();
+        String sql = "";
+
+        // we have to catch potential SQLExceptions
+        try(Connection connection = getConnection()){
+
+            System.out.println("Delete room Connection Established");
+
+            Statement statement = connection.createStatement();
+
+            //Delete all booking with this roomID from SQL Database to retain integrity
+            sql = "DELETE FROM Bookings "+
+                    "WHERE roomID='"+roomID+"';";
+
+            System.out.println("SQL string: "+sql);
+            statement.executeUpdate(sql);
+
+            //Delete room from SQL Database
+            sql = "DELETE FROM Room "+
+                    "WHERE roomID='"+roomID+"';";
+
+            System.out.println("SQL string: "+sql);
+
+            statement.executeUpdate(sql);
+
+            statement.close();
+            connection.close();
+            return true;
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
 }
