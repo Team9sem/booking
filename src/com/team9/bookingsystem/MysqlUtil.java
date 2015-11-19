@@ -418,7 +418,7 @@ public class MysqlUtil {
 
     }//end public User RegisterUser
     
-  public boolean BookRoom(Room roomObj) throws Exception
+  public boolean addRoom(Room roomObj) throws Exception
   {
 	  	//Created by Mayra Soliz.
 	  	//roomID int(11)
@@ -754,9 +754,7 @@ public class MysqlUtil {
 
     return null;
     }
-
-
-
+    
     //prototype using JSONArray
     private JSONArray resultSetToJson(ResultSet rs) throws SQLException,JSONException {
 
@@ -822,7 +820,6 @@ public class MysqlUtil {
         System.out.println(jsonArray.toString());
         return jsonArray;
     }
-
 
 
 
