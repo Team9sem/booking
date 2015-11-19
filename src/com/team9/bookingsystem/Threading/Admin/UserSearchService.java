@@ -6,6 +6,10 @@ import javafx.concurrent.Task;
 
 import java.util.ArrayList;
 
+/**
+ * By Pontus
+ */
+
 public class UserSearchService extends AdminSearchService {
 
 

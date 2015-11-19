@@ -30,6 +30,10 @@ import javafx.util.Callback;
 import javafx.util.converter.IntegerStringConverter;
 import javafx.util.converter.LongStringConverter;
 
+/**
+ * Controller class for administratorUI.fxml
+ * Created by Pontus and Nima
+ */
 public class AdminController{
 	
 	//Logged in user
@@ -72,8 +76,11 @@ public class AdminController{
     @FXML private Label loggedInAs;
 
 
-
-    
+    /**
+     * Works as Constructor for Controller Class
+     * Created by Nima and Pontus
+     *
+     */
     public void initialize() {
 
 
@@ -89,14 +96,22 @@ public class AdminController{
     }
 
 
-
-
+    /**
+     * set this controller up with references to parent controller and loggedInUser.
+     * @param mainController
+     * @param admin
+     */
     public void init(MainController mainController,User admin){
         this.mainController = mainController;
         this.loggedInUser = admin;
         loggedInAs.setText("Logged in as: "+loggedInUser.getUserName());
     }
 
+    /**
+     * By Pontus Pohl
+     * Called when user commits changes
+     * @param event
+     */
     @FXML public void commitChanges(ActionEvent event){
             if(!updatedUsers.isEmpty()){
 
@@ -175,7 +190,11 @@ public class AdminController{
             }
     }
 
-
+    /**
+     * By Pontus Pohl
+     * Called when user Searches for User
+     * @param user
+     */
     public void searchForUsers(User user){
 
         System.out.println("Searching in AdminController");
@@ -245,6 +264,12 @@ public class AdminController{
     private void showSchedule(){
 
     }
+
+    /**
+     * By Nima
+     * ToggleButton setup
+     *
+     */
     private void setupToggleButtons(){
         toggleGroup = new ToggleGroup();
         userToggle.setToggleGroup(toggleGroup);
@@ -252,7 +277,10 @@ public class AdminController{
         userToggle.setSelected(true);
     }
 
-
+    /**
+     * By Pontus
+     * Creates the tableView of Rooms
+     */
     private void setupRoomTableView(){
 
         TableColumn roomid = new TableColumn("ID");
@@ -428,7 +456,9 @@ public class AdminController{
     }
 
 
-
+    /**
+     * By Pontus
+     */
     private void setupUserTableView(){
 
         TableColumn userId = new TableColumn("ID");
@@ -872,6 +902,9 @@ public class AdminController{
 
     }
 
+    /**
+     * By Pontus
+     */
     private class UserTableButtonCell extends TableCell<User,Boolean>{
         Button cellButton = new Button("Show Schedule");
         private Room rowRoom;
@@ -912,6 +945,10 @@ public class AdminController{
             }
         }
     }
+
+    /**
+     * By Pontus
+     */
     private class RoomTableButtonCell extends TableCell<Room,Boolean>{
         Button cellButton = new Button("Show Schedule");
         private Room rowRoom;
@@ -949,7 +986,10 @@ public class AdminController{
         }
     }
 
-
+    /**
+     * By Pontus
+     * @return pagination
+     */
     private Pagination getRoomPagination(){
         Pagination pagination = new Pagination();
         pagination.getStyleClass().add("pagination");
@@ -961,6 +1001,11 @@ public class AdminController{
 
 
     }
+
+    /**
+     * by Pontus
+     * @return
+     */
     private Pagination getUserPagination(){
 
         Pagination pagination = new Pagination();
@@ -971,6 +1016,12 @@ public class AdminController{
 
         return pagination;
     }
+
+    /**
+     * By Pontus
+     * @param pageIndex
+     * @return
+     */
     private VBox createRoomPage(int pageIndex){
         VBox vBox = new VBox(5);
 
@@ -985,6 +1036,12 @@ public class AdminController{
         vBox.getChildren().add(roomTableView);
         return vBox;
     }
+
+    /**
+     * by Pontus
+     * @param pageIndex
+     * @return
+     */
     private VBox createUserPage(int pageIndex){
 
         VBox vBox = new VBox(5);
@@ -1000,6 +1057,11 @@ public class AdminController{
         vBox.getChildren().add(userTableView);
         return vBox;
     }
+
+    /**
+     * by Pontus
+     * @return
+     */
     private int getElementsPerPage(){
         return 20;
     }

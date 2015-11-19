@@ -6,6 +6,8 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
+<!--by Pontus, Nima, Olle-->
+
 <?import jfxtras.scene.control.LocalTimePicker?>
 <BorderPane id="borderPane" fx:id="borderPane" prefHeight="600.0" prefWidth="1000.0" styleClass="borderPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team9.bookingsystem.Controllers.BookingController">
    <left>

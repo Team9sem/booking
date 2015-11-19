@@ -52,7 +52,13 @@ public class MysqlUtil {
 
     }
 
-    // accepts username and pass, returns user
+    /**
+     * by Pontus
+     * @param username
+     * @param password
+     * @return
+     * @throws Exception
+     */
     public User loginAndGetUser(String username,String password) throws Exception
     {
         username = "'"+username+"'";
@@ -579,8 +585,10 @@ public class MysqlUtil {
     }
 
 
-
-    // prototype using HashMap
+    /**
+     * by Pontus
+     * @return
+     */
     public HashMap getAllUsers(){
         HashMap<Integer,User> users = new HashMap<>();
 
@@ -602,7 +610,13 @@ public class MysqlUtil {
     return null;
     }
 
-    //prototype using JSONArray
+    /**
+     * by Pontus
+     * @param rs
+     * @return
+     * @throws SQLException
+     * @throws JSONException
+     */
     private JSONArray resultSetToJson(ResultSet rs) throws SQLException,JSONException {
 
         JSONArray jsonArray = new JSONArray();
@@ -985,6 +999,11 @@ public class MysqlUtil {
     }
     //END OF SEARCHING USER, ROOM AND BOOKING METHODS
 
+    /**
+     * by Pontus
+     * @param username
+     * @return
+     */
     public boolean isUsernameAvailable(String username){
 
         try(Connection connection = getConnection()){

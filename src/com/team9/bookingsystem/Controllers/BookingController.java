@@ -27,6 +27,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 /**
+ *
  * Controller for booking.fxml
  *
  */
@@ -76,7 +77,9 @@ public class BookingController {
 
 
 
-    // this method runs when controller is started
+    /**
+     * this method runs when controller is started
+     */
     public void initialize() {
 
 
@@ -90,6 +93,9 @@ public class BookingController {
 
     }
 
+    /**
+     * by Pontus
+     */
     private void setupDatePicker(){
         datePicker.setShowWeekNumbers(true);
 
@@ -174,8 +180,9 @@ public class BookingController {
 
     }
 
-    /* Initialize Pagination method
-
+    /**
+     * By Pontus
+     * @return
      */
     public Pagination initPagination(){
 
@@ -199,6 +206,11 @@ public class BookingController {
         return pagination;
     }
 
+    /**
+     * By Pontus
+     * @param pageIndex
+     * @return
+     */
     public VBox createPage(int pageIndex){
 
         VBox vBox = new VBox(5);
@@ -304,12 +316,18 @@ public class BookingController {
         }
         return vBox;
     }
+
+    /**
+     * By Pontus
+     * @return
+     */
     private int getElementsPerPage(){
         return 5;
     }
 
 
     /**
+     * By Pontus
      * Hour formatter that adds a zero if hour is in AM: format.
      * i.e 7 -> 07,
      * @param hour hour to analyze
@@ -329,7 +347,7 @@ public class BookingController {
     // Todo: add method to handle search button
 
     /**
-     *
+     * by Pontus
      * Called when searchbutton is clicked, Starts a new thread that querys the database for rooms that
      * correspond to search criterias and that are not already booked. It then populates the result Area
      * of the Gui with the results.
@@ -410,8 +428,10 @@ public class BookingController {
     }
 
 
-
-
+    /**
+     * by Pontus
+     * @param event
+     */
     @FXML public void bookRoom(ActionEvent event){
         // Todo: book a room
         if(selectedRoom != null && loggedInUser != null){
