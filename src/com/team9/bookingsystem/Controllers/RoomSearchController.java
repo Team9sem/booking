@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
 public class RoomSearchController {
@@ -27,12 +28,8 @@ public class RoomSearchController {
 	private Room selectedRoom;
 	private Button selectedButton;
 
-	// ContainerElements
-	@FXML AnchorPane topAnchorPane;
-	@FXML AnchorPane searchAnchorPane;
-	@FXML BorderPane borderPane;
-	@FXML HBox paginationBox;
-	@FXML AnchorPane resultAnchorPane;
+	// ContainerElement
+	@FXML GridPane roomSearchGridPane;
 
 	@FXML Label searchPreferences;
 	@FXML Label searchForUser;
