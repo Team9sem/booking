@@ -989,13 +989,15 @@ public class MysqlUtil {
         try(Connection connection = getConnection()){
 
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("Select alias FROM User WHERE alias ='"+username+"';");
+            ResultSet rs = statement.executeQuery("Select * FROM User WHERE alias ='"+username+"';");
 
             if (!rs.isBeforeFirst() ) {
-                return false;
+                System.out.println("true");
+                return true;
             }
             else {
-                return true;
+                System.out.println("false");
+                return false;
             }
 
 
