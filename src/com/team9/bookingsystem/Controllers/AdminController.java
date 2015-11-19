@@ -385,8 +385,10 @@ public class AdminController{
                             @Override
                             protected Boolean call() throws Exception {
                                 MysqlUtil util = new MysqlUtil();
-                                return util.isUsernameAvailable(event.getTableView().getItems().get(event.getTablePosition()
-                                        .getRow()).getUserName());
+                                System.out.println(event.getNewValue());
+//                                event.getTableView().getItems().get(event.getTablePosition()
+//                                        .getRow()).getUserName();
+                                return util.isUsernameAvailable(event.getNewValue());
                             }
                         };
                     return task;
@@ -395,37 +397,45 @@ public class AdminController{
                 getIsAvailable.start();
                 getIsAvailable.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
                     @Override
-                    public void handle(WorkerStateEvent event) {
+                    public void handle(WorkerStateEvent serviceEvent) {
+                        System.out.println(getIsAvailable.getValue());
                         isAvailableUserName = getIsAvailable.getValue();
+
+
+                        if(isAvailableUserName){
+
+                                User updatedUser = event.getTableView().getItems().get(event.getTablePosition()
+                                        .getRow());
+                                updatedUser.setUserName(event.getNewValue());
+
+                            if(!updatedUsers.contains(updatedUser)){
+                                System.out.println("in first if,\n this is updatedUsers");
+                                updatedUsers.add(updatedUser);
+                                System.out.println(updatedUsers.toString());
+                            }
+                            else{
+                                for(User user: updatedUsers){
+                                    if(user.getUserID() == updatedUser.getUserID()){
+                                        user.setUserName(updatedUser.getUserName());
+                                    }
+                                }
+                                System.out.println("in else,\n this is updatedUsers");
+                                System.out.println(updatedUsers.toString());
+                            }
+                            System.out.println("this is tableview ArrayList:");
+                            System.out.println(userTableViewData.toString());
+                        }
+                        else{
+                            event.getTableColumn().setVisible(false);
+                            event.getTableColumn().setVisible(true);
+                        }
+
+
+
+
                     }
                 });
-                if(isAvailableUserName){
 
-                    User updatedUser = event.getTableView().getItems().get(event.getTablePosition()
-                            .getRow());
-                    updatedUser.setUserName(event.getNewValue());
-
-                    if(!updatedUsers.contains(updatedUser)){
-                        System.out.println("in first if,\n this is updatedUsers");
-                        updatedUsers.add(updatedUser);
-                        System.out.println(updatedUsers.toString());
-                    }
-                    else{
-                        for(User user: updatedUsers){
-                            if(user.getUserID() == updatedUser.getUserID()){
-                                user.setUserName(updatedUser.getUserName());
-                            }
-                        }
-                        System.out.println("in else,\n this is updatedUsers");
-                        System.out.println(updatedUsers.toString());
-                    }
-                    System.out.println("this is tableview ArrayList:");
-                    System.out.println(userTableViewData.toString());
-                }
-                else{
-                    event.getTableColumn().setVisible(false);
-                    event.getTableColumn().setVisible(true);
-                }
 
 
             }
@@ -616,13 +626,13 @@ public class AdminController{
         zip.setCellValueFactory(new PropertyValueFactory<User,Integer>("zip"));
 
 
-        TableColumn pNumber = new TableColumn("PNR");
-        pNumber.setCellFactory(TextFieldTableCell.forTableColumn(new LongStringConverter()));
-        pNumber.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<User,Long>>() {
+        TableColumn pNumberCol = new TableColumn("PNR");
+        pNumberCol.setCellFactory(TextFieldTableCell.forTableColumn(new LongStringConverter()));
+        pNumberCol.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<User,Long>>() {
             @Override
             public void handle(TableColumn.CellEditEvent<User, Long> event) {
 
-
+                System.out.println(event.getNewValue());
                 User updatedUser = event.getTableView().getItems().get(event.getTablePosition()
                         .getRow());
                 updatedUser.setpNumber(event.getNewValue());
@@ -643,7 +653,8 @@ public class AdminController{
                 }
             }
         });
-        pNumber.setCellValueFactory(new PropertyValueFactory<User,Long>("pNumber"));
+
+        pNumberCol.setCellValueFactory(new PropertyValueFactory<User,Long>("pNumber"));
 
 
 
@@ -776,7 +787,7 @@ public class AdminController{
             }
         });
 
-        userTableView.getColumns().addAll(userId,username,firstName,lastName,passWord,userType,street,zip,pNumber,buttons);
+        userTableView.getColumns().addAll(userId,username,firstName,lastName,passWord,userType,street,zip,pNumberCol,buttons);
         userTableView.setColumnResizePolicy(new CustomColumnResizePolicy());
 //        userTableView.setColumnResizePolicy(new Callback<TableView.ResizeFeatures, Boolean>() {
 //            @Override
@@ -786,6 +797,7 @@ public class AdminController{
 //            }
 //        });
         userTableView.setEditable(true);
+
     }
 
     private class UserTableButtonCell extends TableCell<User,Boolean>{

@@ -5,6 +5,7 @@ import javafx.scene.control.TableView;
 import javafx.util.Callback;
 
 import java.util.ArrayList;
+import java.util.DoubleSummaryStatistics;
 
 /**
  * Created by pontuspohl on 18/11/15.
@@ -50,7 +51,9 @@ public class CustomColumnResizePolicy implements Callback<TableView.ResizeFeatur
             }
         }
         if(last != null){
-            Double borderWidth = ((tableView.getBoundsInLocal().getWidth()-tableView.getWidth())*2);
+            Double borderWidth = ( (tableView.getBoundsInLocal().getWidth()-tableView.widthProperty().doubleValue()) ) ;
+
+//            Double borderWidth = tableView.widthProperty().doubleValue() - 2.0;
             last.setPrefWidth(last.getPrefWidth()-borderWidth);
         }
 
