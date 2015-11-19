@@ -1,7 +1,6 @@
 package com.team9.bookingsystem.Controllers;
 
-import java.awt.Button;
-import java.awt.TextField;
+
 import java.util.ArrayList;
 
 import com.team9.bookingsystem.MysqlUtil;
@@ -10,6 +9,7 @@ import com.team9.bookingsystem.User;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -27,28 +27,24 @@ public class UserSearchController {
     // Parent Controller
     private MainController mainController;
     // Mysqlutil for Database Operations
-    private MysqlUtil util;
-    // ArrayList Storing the most recent searchResult;
-    private ArrayList<Room> searchResult;
-    private Room selectedRoom;
-    private Button selectedButton;
+    private AdminController adminController;
+
+
 
  // ContainerElements
-    @FXML AnchorPane topAnchorPane;
-    @FXML AnchorPane searchAnchorPane;
-    @FXML BorderPane borderPane;
-    @FXML HBox paginationBox;
-    @FXML AnchorPane resultAnchorPane;
+    @FXML GridPane userSearchGridPane;
     
     
     @FXML Label searchPreferences;
     @FXML Label searchForUser;
-    @FXML Label adminRoomLabel;
-    @FXML TextField userID; 
+
+    @FXML TextField ID;
     @FXML TextField userName;
     @FXML TextField firstName;
     @FXML TextField lastName;
     @FXML TextField userType;
+    @FXML TextField pNumber;
+    @FXML TextField zipCode;
 //    @FXML Label features;
    
     @FXML Button adminSearchButton;
@@ -56,22 +52,34 @@ public class UserSearchController {
 	 public void initialize() {
 
 
-//       setupDatePicker();
-   	
-      
-//       ObservableList<String> choices= FXCollections.observableArrayList();
-//       choices.addAll("OneChoice");
-//       locationPick.setItems(choices);
-
 
  }
   
-   public void init(MainController mainController,User admin){
+   public void init(MainController mainController,AdminController adminController,User admin){
        this.mainController = mainController;
        this.loggedInUser = admin;
+       this.adminController = adminController;
 
    }
- 
-   
+
+    @FXML public void Search(ActionEvent event){
+
+        User user = new User(Integer.parseInt(ID.getText()),
+                userName.getText(),
+                "",
+                firstName.getText(),
+                lastName.getText(),
+                "",
+                Long.parseLong(pNumber.getText()),
+                Integer.parseInt(zipCode.getText()));
+
+        System.out.println("Clicked searchbutton");
+        adminController.searchForUsers(user);
+
+
+    }
+
+
+
 
 }

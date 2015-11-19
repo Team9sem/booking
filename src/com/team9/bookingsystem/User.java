@@ -22,20 +22,24 @@ public class User {
     public User(){}
 
     // New User with Parameters
-    public User(String userName,
+    public User(int userID,
+                String userName,
                 String password,
                 String firstName,
                 String lastName,
                 String street,
+                long pNumber,
                 int zip)
     {
         _db = new MysqlUtil();
+        this.userID = userID;
         this.userName  = userName;
         this.password  = password;
         this.firstName = firstName;
         this.lastName  = lastName;
         this.street    = street;
         this.zip       = zip;
+        this.pNumber = pNumber;
     }
 
     // Copy Constructor

@@ -6,19 +6,14 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
- <GridPane fx:id="userSearchGridPane" gridLinesVisible="true" 
-      prefWidth="200.0"
-      xmlns="http://javafx.com/javafx/8.0.40" 
-      xmlns:fx="http://javafx.com/fxml/1" 
-      fx:controller="com.team9.bookingsystem.Controllers.UserSearchController">
+<GridPane fx:id="userSearchGridPane" vgap="1" hgap="10" prefWidth="432.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team9.bookingsystem.Controllers.UserSearchController">
          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="307.0" minWidth="10.0" prefWidth="56.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="307.0" minWidth="10.0" prefWidth="56.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="0.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="206.0" minWidth="10.0" prefWidth="82.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="227.0" minWidth="10.0" prefWidth="89.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="285.0" minWidth="10.0" prefWidth="166.0" />
+            <ColumnConstraints hgrow="ALWAYS" maxWidth="307.0" minWidth="10.0" prefWidth="56.0" />
+            <ColumnConstraints hgrow="ALWAYS" maxWidth="307.0" minWidth="10.0" prefWidth="56.0" />
+            <ColumnConstraints hgrow="ALWAYS" maxWidth="300.0" minWidth="0.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="ALWAYS" maxWidth="206.0" minWidth="10.0" prefWidth="82.0" />
+            <ColumnConstraints hgrow="ALWAYS" maxWidth="227.0" minWidth="10.0" prefWidth="89.0" />
+            <ColumnConstraints hgrow="ALWAYS" maxWidth="285.0" minWidth="10.0" prefWidth="166.0" />
          </columnConstraints>
          <!--<rowConstraints>-->
             <!--<RowConstraints minHeight="10.0" vgrow="SOMETIMES" />-->
@@ -41,7 +36,7 @@
             <!--<RowConstraints minHeight="10.0" vgrow="SOMETIMES" />-->
          <!--</rowConstraints>-->
          <children>
-            <HBox alignment="CENTER" GridPane.columnSpan="3">
+            <HBox alignment="CENTER_LEFT" GridPane.columnSpan="5">
                <children>
                   <Label fx:id="searchPreferences" alignment="TOP_LEFT" styleClass="options-area-labels" text="Search Preferences" textAlignment="CENTER">
                      <font>
@@ -59,7 +54,11 @@
                   </Label>
                </children>
             </HBox>
-            <Label text="ID:" GridPane.rowIndex="3" />
+      <HBox GridPane.rowIndex="3">
+         <children>
+                  <Label text="ID:" />
+         </children>
+      </HBox>
             <HBox alignment="BOTTOM_LEFT" GridPane.columnSpan="3" GridPane.rowIndex="4">
                <opaqueInsets>
                   <Insets />
@@ -68,7 +67,7 @@
                   <Insets />
                </GridPane.margin>
                <children>
-                  <TextField />
+                  <TextField/>
                </children>
             </HBox>
             <HBox alignment="BOTTOM_LEFT" GridPane.columnSpan="2" GridPane.rowIndex="5">
@@ -95,7 +94,7 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" GridPane.columnSpan="3" GridPane.rowIndex="7">
                <children>
-                  <Label text="Name:" />
+                  <Label text="First Name:" />
                </children>
             </HBox>
             <HBox GridPane.columnSpan="3" GridPane.rowIndex="8">
@@ -103,19 +102,19 @@
                   <TextField />
                </children>
             </HBox>
-            <HBox GridPane.columnSpan="2" GridPane.rowIndex="9">
-               <children>
-                  <Label text="Usertype:" />
-               </children>
-            </HBox>
-            <HBox GridPane.columnSpan="3" GridPane.rowIndex="10">
-               <children>
-                  <TextField />
-               </children>
-            </HBox>
+      <HBox GridPane.columnSpan="3" GridPane.rowIndex="9">
+         <children>
+            <Label text="Last Name:" />
+         </children>
+      </HBox>
+      <HBox GridPane.columnSpan="3" GridPane.rowIndex="10">
+         <children>
+            <TextField />
+         </children>
+      </HBox>
             <HBox GridPane.columnSpan="2" GridPane.rowIndex="11">
                <children>
-                  <Label text="Pnumber:" />
+                  <Label text="Usertype:" />
                </children>
             </HBox>
             <HBox GridPane.columnSpan="3" GridPane.rowIndex="12">
@@ -123,7 +122,17 @@
                   <TextField />
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="13">
+            <HBox GridPane.columnSpan="2" GridPane.rowIndex="13">
+               <children>
+                  <Label text="Pnumber:" />
+               </children>
+            </HBox>
+            <HBox GridPane.columnSpan="3" GridPane.rowIndex="14">
+               <children>
+                  <TextField />
+               </children>
+            </HBox>
+            <HBox GridPane.columnSpan="3" GridPane.rowIndex="15">
                <children>
                   <Label text="Zip Code:" />
                </children>
@@ -133,7 +142,7 @@
                   <Button mnemonicParsing="false" text="Search" />
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="4" GridPane.rowIndex="14">
+            <HBox GridPane.columnSpan="3" GridPane.rowIndex="16">
                <children>
                   <TextField />
                </children>
@@ -174,4 +183,3 @@
             <RowConstraints />
          </rowConstraints>
       </GridPane>
-  

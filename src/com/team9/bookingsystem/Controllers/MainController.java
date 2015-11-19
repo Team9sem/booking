@@ -154,8 +154,29 @@ public class MainController {
     	}
     	catch(IOException e){
             e.printStackTrace();
+    	}
     	 
      }
-    }
+//    	public void showUserSearch(User admin){
+//        	try{
+//                System.out.println("in showUserSearch");
+//                FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/userSearch.fxml"));
+//        		GridPane gridPane = loader.load();
+//        		System.out.println(this.toString());
+//        		Ui.getChildren().clear();
+//        		Ui.getChildren().add(gridPane);
+//        		Ui.setBottomAnchor(gridPane, 0.0);
+////                Ui.setTopAnchor(gridPane, 0.0);
+////                Ui.setLeftAnchor(gridPane, 0.0);
+////                Ui.setRightAnchor(gridPane,0.0);
+//
+//        		
+//        	}
+//        	catch(IOException e){
+//                e.printStackTrace();
+//        	 
+//         }
+//    
+//    }
 
 }
