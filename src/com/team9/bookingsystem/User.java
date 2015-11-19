@@ -57,23 +57,16 @@ public class User {
         this.street    = user.street;
         this.zip       = user.zip;
     }
-    public void setUserID(int userID) {   	
-    	this.userID = userID;
-    }
-    
-    public int getUserID(){
-    	return userID;
+
+    public int getUserID() {
+        return userID;
     }
 
     public long getpNumber() {
         return pNumber;
     }
 
-    public void setpNumber(long pNumber) {
-        this.pNumber = pNumber;
-    }
-
-    public String getUserName () {
+    public String getUserName() {
         return userName;
     }
 
@@ -89,11 +82,25 @@ public class User {
         return lastName;
     }
 
-    public String getUserType() { return userType; }
+    public String getUserType() {
+        return userType;
+    }
 
-    public String getStreet() { return street; }
+    public String getStreet() {
+        return street;
+    }
 
-    public int getZip() { return zip; }
+    public int getZip() {
+        return zip;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
+    public void setpNumber(long pNumber) {
+        this.pNumber = pNumber;
+    }
 
     public void setUserName(String userName) {
         this.userName = userName;
@@ -122,6 +129,7 @@ public class User {
     public void setZip(int zip) {
         this.zip = zip;
     }
+
 
 
 

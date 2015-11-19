@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class RoomSearchService extends AdminSearchService {
 
     private Task task;
-
+    private Room room;
     private int roomID;
     private String roomSize;
     private String location;

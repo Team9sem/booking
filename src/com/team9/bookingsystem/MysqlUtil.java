@@ -766,6 +766,7 @@ public class MysqlUtil {
 
                 userArrayList.add(tmpUser);
             }
+
             return userArrayList;
         }catch(SQLException e){
             e.printStackTrace();
@@ -963,7 +964,7 @@ public class MysqlUtil {
 
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(
-                    "SELECT * FROM Room WHERE roomID = "+roomID+""
+                    "SELECT * FROM Room WHERE roomID = " + roomID + ""
             );
 
             while (rs.next()) {
@@ -982,6 +983,31 @@ public class MysqlUtil {
         return room;
     }
     //END OF SEARCHING USER, ROOM AND BOOKING METHODS
+
+    public boolean isUsernameAvailable(String username){
+
+        try(Connection connection = getConnection()){
+
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery("Select alias FROM User WHERE alias ='"+username+"';");
+
+            if (!rs.isBeforeFirst() ) {
+                return false;
+            }
+            else {
+                return true;
+            }
+
+
+
+
+        }catch(SQLException e){
+
+        }
+        return false;
+
+    }
+
 
   }
 

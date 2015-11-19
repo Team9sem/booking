@@ -142,6 +142,8 @@ public class MainController {
             System.out.println("in showAdmin");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/administratorUI.fxml"));
     		BorderPane borderPane = loader.load();
+            AdminController adminController = loader.getController();
+            adminController.init(this,admin);
     		System.out.println(this.toString());
     		Ui.getChildren().clear();
     		Ui.getChildren().add(borderPane);
@@ -157,26 +159,7 @@ public class MainController {
     	}
     	 
      }
-//    	public void showUserSearch(User admin){
-//        	try{
-//                System.out.println("in showUserSearch");
-//                FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/userSearch.fxml"));
-//        		GridPane gridPane = loader.load();
-//        		System.out.println(this.toString());
-//        		Ui.getChildren().clear();
-//        		Ui.getChildren().add(gridPane);
-//        		Ui.setBottomAnchor(gridPane, 0.0);
-////                Ui.setTopAnchor(gridPane, 0.0);
-////                Ui.setLeftAnchor(gridPane, 0.0);
-////                Ui.setRightAnchor(gridPane,0.0);
-//
-//        		
-//        	}
-//        	catch(IOException e){
-//                e.printStackTrace();
-//        	 
-//         }
-//    
-//    }
+
+
 
 }
