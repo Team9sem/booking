@@ -215,7 +215,8 @@ public class AdminController {
 					FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/userSearch.fxml"));
 					GridPane grid = loader.load();
 					UserSearchController userController = loader.getController();
-					userController.init(mainController, null, loggedInUser);
+					AdminController admincont = new AdminController();
+					userController.init(mainController, admincont, loggedInUser);
 					searchOptions.getChildren().clear();
 					searchOptions.getChildren().addAll(grid);
 					System.out.println(userController.toString());
