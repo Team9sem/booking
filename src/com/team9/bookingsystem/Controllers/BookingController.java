@@ -1,6 +1,7 @@
 package com.team9.bookingsystem.Controllers;
 
 import com.sun.javafx.scene.control.skin.SpinnerSkin;
+import com.team9.bookingsystem.Booking;
 import com.team9.bookingsystem.Components.CustomDatePicker;
 import com.team9.bookingsystem.Components.CustomDatePickerSkin;
 import com.team9.bookingsystem.MysqlUtil;
@@ -52,7 +53,7 @@ public class BookingController {
     // ArrayList Storing the most recent searchResult;
     private ArrayList<Room> searchResult;
     private Room selectedRoom;
-
+    private Booking latestSearch;
 
 
     // ContainerElements
@@ -557,6 +558,13 @@ public class BookingController {
                 formatHourOrMinute((int)toMinuteSlider.getValue()));
         System.out.println(fromTime);
 
+        latestSearch = new Booking();
+            latestSearch.setbdate(datePicker.getValue().toString());
+            latestSearch.setbStart(fromTime);
+            latestSearch.setbEnd(toTime);
+            latestSearch.setUser(loggedInUser);
+
+
 
 
 //        format(DateTimeFormatter.ofPattern(toHour+":m"))+":00",
@@ -636,30 +644,38 @@ public class BookingController {
 
         System.out.println("booking");
 
-        if(selectedRoom != null && loggedInUser != null){
+        if(selectedRoom != null && loggedInUser != null && latestSearch!=null){
 
-//            Service<Boolean> bookRoomService = new Service<Boolean>() {
-//                @Override
-//                protected Task<Boolean> createTask() {
-//                    Task<Boolean> task = new Task<Boolean>() {
-//                        @Override
-//                        protected Boolean call() throws Exception {
-//                            MysqlUtil util = new MysqlUtil();
-//                            return util.BookRoom(selectedRoom);
-//
-//                        }
-//
-//                    };
-//                    return task;
-//                }
-//            };
-//            bookRoomService.start();
-//        bookRoomService.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
-//            @Override
-//            public void handle(WorkerStateEvent event) {
-//                System.out.println("Booked Successfully");
-//            }
-//        });
+            latestSearch.setRoom(selectedRoom);
+
+            Service<Booking> bookRoomService = new Service<Booking>() {
+                @Override
+                protected Task<Booking> createTask() {
+                    Task<Booking> task = new Task<Booking>() {
+                        @Override
+                        protected Booking call() throws Exception
+                        {
+                            MysqlUtil util = new MysqlUtil();
+                            return util.BookRoomNew(latestSearch.getUser(),
+                                    latestSearch.getRoom(),
+                                    latestSearch.getbdate()
+                                    , latestSearch.getbStart(),
+                                    latestSearch.getbEnd()
+                            );
+                        }
+
+                    };
+                    return task;
+                }
+            };
+            bookRoomService.start();
+        bookRoomService.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+                System.out.println("Booked Successfully");
+                System.out.println(bookRoomService.getValue().toString());
+            }
+        });
 
         }
     }

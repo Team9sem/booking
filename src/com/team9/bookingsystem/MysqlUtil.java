@@ -1,9 +1,8 @@
 package com.team9.bookingsystem;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.sql.Date;
+import java.util.*;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -1216,6 +1215,92 @@ public class MysqlUtil {
 
         return false;
     }
+
+
+    public Booking BookRoomNew(User userObj, Room roomObj, String bDate, String bStart, String bEnd) throws Exception
+    {
+        //Created by Mayra Soliz. Modified 15 November 2015
+        //Note that using strings to transfer date information can cause SQL errors if the strings are not formatted
+        //correctly.
+
+        //TODO How should a series of bookings be handled? BookedRoom[] BookedRoom(roomObj, intbID, userId, date, start, stop, Xtimes)??
+        //TODO There should only be one booking with the same Date. needs to be checked, until then use the final intbID
+
+        int iBid = 0;
+        int intbID = 0;
+        int userId = userObj.getUserID();
+        int roomId = roomObj.getRoomID();
+        java.util.Date date;
+        java.util.Date start;
+        java.util.Date stop;
+
+        //creating Date objects so that a BookedRoom object can be returned
+        //Warnings suppressed due to Date methods being needed due to the Object definition
+        //BookedRoom(roomObj, int, int, date, date, date);
+
+        //try{
+        //	DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        //	date = format.parse(bDate);
+        //System.out.println(date);
+        //    @SuppressWarnings("deprecation")
+        //	DateFormat formatTime = new SimpleDateFormat("H:m");
+        //	start = date;
+        //	start = formatTime.parse(bStart);
+        //	start.setDate(date.getDate());
+        //	start.setMonth(date.getMonth());
+        //	start.setYear(date.getYear());
+
+        //	stop = date;
+        //	stop = formatTime.parse(bEnd);
+        //	stop.setDate(date.getDate());
+        //	stop.setMonth(date.getMonth());
+        //	stop.setYear(date.getYear());
+        //} catch(ParseException e){
+        //        e.printStackTrace();
+        //        System.out.println("Wrong date format for SQL");
+        //        throw new RuntimeException(e);
+        //}
+        //END creating Date objects so that a BookedRoom object can be returned
+
+
+        try(Connection connection = getConnection()){
+
+            System.out.println("Room Registration Connection Established");
+
+            // statement
+            Statement statement = connection.createStatement();
+
+            String sql = "INSERT INTO Bookings " +
+                    "(userId, roomId, bDate, bStart, bEnd)" +
+                    " Values ('"+userId+ "','"+roomId+"','"+bDate+"','"+bStart+"','"+bEnd+"')";
+
+            System.out.println("SQL string: "+sql);
+            statement.executeUpdate(sql);
+
+            String bID = "SELECT bID FROM Bookings WHERE " +
+                    "userId = '"+userId+"' AND roomId = '"+roomId+"' AND bDate = '"+bDate+"' AND bStart = '"+bStart+"' AND bEnd = '"+bEnd+"';";
+
+            System.out.println("SQL string: "+bID);
+
+            ResultSet rs = statement.executeQuery(bID);
+            while(rs.next()){
+                String tmp = rs.getString("bID");
+                intbID = Integer.parseInt(tmp);
+                System.out.println(intbID);
+            }
+
+            Booking toReturn = new Booking(intbID, userObj.getUserID(), roomObj.getRoomID(), bDate, bStart, bEnd);
+            rs.close();
+            statement.close();
+            connection.close();
+
+            return toReturn;
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    } //end public BookedRoom
 
 }
 
