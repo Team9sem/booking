@@ -1066,7 +1066,9 @@ public class AdminController{
         return 20;
     }
 
-
+    @FXML public void SignOut(ActionEvent event){
+        mainController.showStartScreen();
+    }
     
 
 
