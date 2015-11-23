@@ -275,7 +275,7 @@
 
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="237.0" GridPane.columnIndex="0">
                      <children>
-                        <Label styleClass="top-anchorpanetext" text="Logged in as: Team9"></Label>
+                        <Label fx:id="loggedInAs" styleClass="top-anchorpanetext" text="Logged in as: Team9"></Label>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="0">

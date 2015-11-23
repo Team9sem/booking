@@ -96,7 +96,7 @@ public class BookingController {
     @FXML Label  searchErrorLabel;
     @FXML Label  bookingResultLabel;
     @FXML ProgressIndicator bookingProgress;
-
+    @FXML Label  loggedInAs;
     
     
 
@@ -351,6 +351,7 @@ public class BookingController {
     public void init(MainController mainController,User user){
         this.mainController = mainController;
         this.loggedInUser = user;
+        loggedInAs.setText("Logged in as: "+loggedInUser.getUserName());
 
     }
 
