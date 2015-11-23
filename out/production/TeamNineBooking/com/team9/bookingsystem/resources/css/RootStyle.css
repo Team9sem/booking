@@ -92,8 +92,28 @@
 	
 }
 
+.search-button{
+    -fx-font-size: 12pt;
+    -fx-background-color: rgb(255, 255, 255);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+.search-button:pressed{
+    -fx-background-color: rgb(226, 226, 226);
+}
+.check-box .box{
+    -fx-background-color: rgb(255, 255, 255);
+    /*-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);*/
+}
+.timeBox .timeText{
+    -fx-text-fill: white;
+    -fx-font-size: 15pt;
+}
 .result-element-label{
     -fx-text-fill: white;
+}
+.error-message{
+    -fx-text-fill: #83161a;
+    -fx-font-size: 12pt;
 }
 /*.pagination{*/
 
@@ -115,11 +135,15 @@
 /*}*/
 
 .element-toggle-button{
-    -fx-background-color: rgba(30, 68, 34, 0.76);
+    -fx-background-color: rgba(169, 172, 171, 0.31);
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
     -fx-text-fill: white;
 
 }
 .element-toggle-button:selected{
-    -fx-background-color: #3c50ee;
-    -fx-border-color: black;
+    -fx-background-color: rgba(212, 47, 57, 0.65);
+
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
 }
