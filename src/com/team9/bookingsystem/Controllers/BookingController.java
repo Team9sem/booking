@@ -94,6 +94,8 @@ public class BookingController {
     @FXML Label  fromAmPm;
     @FXML Label  toAmPm;
     @FXML Label  searchErrorLabel;
+    @FXML Label  bookingResultLabel;
+    @FXML ProgressIndicator bookingProgress;
 
     
     
@@ -477,6 +479,7 @@ public class BookingController {
             else{
                 HBox element = new HBox();
                 Region region = new Region();
+                region.setPrefHeight(100);
                 element.getChildren().add(region);
                 element.setAlignment(Pos.CENTER);
                 element.setHgrow(region,Priority.ALWAYS);
@@ -669,14 +672,61 @@ public class BookingController {
                 }
             };
             bookRoomService.start();
+            bookingProgress.setVisible(true);
         bookRoomService.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
             @Override
             public void handle(WorkerStateEvent event) {
+                bookingProgress.setVisible(false);
+                bookingResultLabel.setText("Room Booked Successfully!");
+                bookingResultLabel.setVisible(true);
                 System.out.println("Booked Successfully");
                 System.out.println(bookRoomService.getValue().toString());
+                System.out.println(searchResult.toString());
+
+                // Rebuild Pagination so that i doesn't show the bookedRoom any more
+                Room toRemove = null;
+                for (Room room : searchResult) {
+                    if (room.getRoomID() == bookRoomService.getValue().getroomID()) {
+                        toRemove = room;
+                    }
+                    System.out.println(room.getRoomID());
+                }
+                if(toRemove != null){
+                    searchResult.remove(toRemove);
+                }
+
+
+                Pagination pagination = initPagination();
+
+
+                System.out.println(searchResult.size());
+                if (searchResult.size() <= 5) {
+                    System.out.println("if happened");
+
+                    pagination.setPageCount(1);
+                    pagination.setCurrentPageIndex(0);
+                    paginationBox.getChildren().clear();
+                    paginationBox.getChildren().add(pagination);
+
+
+                } else {
+                    pagination.setPageCount((int) (Math.ceil(searchResult.size() / 5.0)));
+                    pagination.setCurrentPageIndex(0);
+                    paginationBox.getChildren().clear();
+                    paginationBox.getChildren().add(pagination);
+                }
             }
         });
+        bookRoomService.setOnFailed(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+                bookingProgress.setVisible(false);
+                bookingResultLabel.setText("Booking Failed");
+                bookingResultLabel.setStyle("-fx-text-fill: #83161a");
+                bookingResultLabel.setVisible(true);
 
+            }
+        });
         }
     }
 }
