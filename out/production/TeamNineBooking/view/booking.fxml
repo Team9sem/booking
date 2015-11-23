@@ -297,7 +297,7 @@
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="237.0" GridPane.columnIndex="4">
                      <children>
 
-                        <Button mnemonicParsing="false" text="Sign Out" />
+                        <Button onAction="#SignOut" mnemonicParsing="false" text="Sign Out" />
                      </children>
                   </HBox>
                </children>

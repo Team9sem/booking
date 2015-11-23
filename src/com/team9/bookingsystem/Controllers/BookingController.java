@@ -730,4 +730,8 @@ public class BookingController {
         });
         }
     }
+
+    @FXML public void SignOut(ActionEvent event){
+        mainController.showStartScreen();
+    }
 }
