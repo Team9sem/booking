@@ -53,7 +53,7 @@
       <HBox alignment="CENTER_LEFT" GridPane.rowIndex="4">
          <children>
               
-         <Label styleClass="register-labels" text="Last Name"/>
+         <Label styleClass="register-labels" text="Last Name" />
          </children>
          <padding>
             <Insets left="90.0" />
@@ -93,7 +93,7 @@
                 <Insets bottom="10" left="10" right="10" top="10" />
             </GridPane.margin>
 
-            <TextField fx:id="username"  promptText="Enter Username" />
+            <TextField fx:id="username" promptText="Enter Username" />
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
@@ -127,7 +127,7 @@
                 <Insets bottom="10" left="10" right="10" top="10" />
             </GridPane.margin>
 
-            <TextField fx:id="lastname" promptText="Enter Last Name"/>
+            <TextField fx:id="lastname" promptText="Enter Last Name" />
 
 
         </HBox>
@@ -139,7 +139,7 @@
                 <Insets bottom="10" left="10" right="10" top="10" />
             </GridPane.margin>
 
-            <TextField fx:id="personnumber" promptText="Enter SSN"/>
+            <TextField fx:id="personnumber" promptText="Enter SSN" />
             
             </HBox>
      
@@ -150,7 +150,7 @@
                 <Insets bottom="10" left="10" right="10" top="10" />
             </GridPane.margin>
 
-            <TextField fx:id="adress" promptText="Enter Adress"/>
+            <TextField fx:id="adress" promptText="Enter Adress" />
             
         </HBox>
 
@@ -160,7 +160,7 @@
                 <Insets bottom="10" left="10" right="10" top="10" />
             </GridPane.margin>
 
-            <TextField fx:id="zip"  promptText="Enter Zip Code" />
+            <TextField fx:id="zip" promptText="Enter Zip Code" />
         </HBox>
        
         <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="1" GridPane.rowIndex="8">
@@ -186,6 +186,48 @@
             
 
         </HBox>
+      <HBox alignment="CENTER"  GridPane.columnIndex="3" GridPane.rowIndex="1">
+         <children>
+            <Label visible="false" fx:id="userNameProgressLabel" text="Label" />
+            <ProgressIndicator visible="false" fx:id="usernameProgress" progress="0.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER"  GridPane.columnIndex="3" GridPane.rowIndex="2">
+         <children>
+            <Label visible="false" fx:id="passwordProgressLabel" text="Label" />
+            <ProgressIndicator visible="false" fx:id="passwordProgress" progress="0.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER"  GridPane.columnIndex="3" GridPane.rowIndex="3">
+         <children>
+            <ProgressIndicator visible="false" fx:id="firstnameProgress" progress="0.0" />
+            <Label visible="false" fx:id="firstnameProgressLabel" text="Label" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER"  GridPane.columnIndex="3" GridPane.rowIndex="4">
+         <children>
+            <Label visible="false" fx:id="lastnameProgressLabel" text="Label" />
+            <ProgressIndicator visible="false" fx:id="lastnameProgress" progress="0.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER"  GridPane.columnIndex="3" GridPane.rowIndex="5">
+         <children>
+            <Label visible="false" fx:id="pNumberProgressLabel" text="Label" />
+            <ProgressIndicator visible="false" fx:id="pNumberProgress" progress="0.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER"  GridPane.columnIndex="3" GridPane.rowIndex="6">
+         <children>
+            <Label visible="false" fx:id="streetProgressLabel" text="Label" />
+            <ProgressIndicator visible="false" fx:id="streetProgress" progress="0.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="7">
+         <children>
+            <Label visible="false" fx:id="zipCodeProgressLabel" text="Label" />
+            <ProgressIndicator visible="false" fx:id="zipCodeProgress" progress="0.0" />
+         </children>
+      </HBox>
 
 
 
@@ -196,6 +238,7 @@
       <ColumnConstraints maxWidth="245.0" minWidth="220.0" prefWidth="223.0" />
       <ColumnConstraints maxWidth="212.0" minWidth="187.0" prefWidth="209.0" />
       <ColumnConstraints />
+      <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
    </columnConstraints>
    <rowConstraints>
       <RowConstraints />

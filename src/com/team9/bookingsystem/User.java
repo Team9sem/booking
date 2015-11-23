@@ -17,6 +17,7 @@ public class User {
     private String lastName;
     private String userType;
     private String street;
+    private String email;
     private int    zip;
 
     // Default Constructor
@@ -88,6 +89,14 @@ public class User {
 
     public String getStreet() {
         return street;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public int getZip() {

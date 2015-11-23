@@ -355,9 +355,9 @@ public class MysqlUtil {
     	  // statement
     	  Statement statement = connection.createStatement();
 
-    	  String sql = "INSERT INTO User " +
+    	  String sql = "INSERT INTO User" +
                    	"(alias, passwd, firstname, lastname, pNumber, usertype, street, zip)" +
-                   	" Values ('"+alias+ "','"+passwd+"','"+firstname+"','"+lastname+"','"+pNumber+"','"+usertype+"','"+street+"','"+zip+"')";
+                   	" Values ('"+alias+ "','"+passwd+"','"+firstname+"','"+lastname+"',"+pNumber+",'"+usertype+"','"+street+"',"+zip+")";
       
     	  //System.out.println("SQL string: "+sql); 
            
@@ -365,6 +365,7 @@ public class MysqlUtil {
                
           statement.close();
           connection.close();
+          System.out.println("true");
           return true;
        }catch(SQLException e){
             e.printStackTrace();
@@ -1301,6 +1302,8 @@ public class MysqlUtil {
         }
         return null;
     } //end public BookedRoom
+
+
 
 }
 
