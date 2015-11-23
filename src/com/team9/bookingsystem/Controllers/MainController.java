@@ -38,6 +38,30 @@ public class MainController {
 
     }
 
+    public void showStartScreen(){
+
+        try{
+            System.out.println("in showAdmin");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/Root.fxml"));
+            AnchorPane anchorPane = loader.load();
+            loader.setController(this);
+            Ui.getChildren().clear();
+            Ui.getChildren().add(anchorPane);
+            Ui.setBottomAnchor(anchorPane, 0.0);
+            Ui.setTopAnchor(anchorPane, 0.0);
+            Ui.setLeftAnchor(anchorPane, 0.0);
+            Ui.setRightAnchor(anchorPane,0.0);
+
+
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+
+
+
+    }
+
     /**
      * Clears out welcomeArea Pane and loads login.fxml into it. Also gives loginController instance
      * a reference to this instance.
