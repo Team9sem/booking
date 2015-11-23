@@ -1,6 +1,7 @@
 package com.team9.bookingsystem.Controllers;
 
 
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,7 +22,9 @@ import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -66,6 +69,9 @@ public class AdminController{
     @FXML private HBox paginationBox;
     @FXML private AnchorPane resultAnchorPane;
     @FXML private GridPane searchOptions;
+    @FXML private GridPane searchOptions2;
+    @FXML private GridPane switchPane;
+    @FXML private GridPane searchGridPane;
     @FXML private UserSearchController searchOptionsController;
     @FXML private Label loginLabel;
     @FXML private Label searchPreferences;
@@ -92,6 +98,7 @@ public class AdminController{
 
         paginationBox.setAlignment(Pos.CENTER);
         searchOptionsController.init(mainController,this,loggedInUser);
+
 
     }
 
@@ -275,6 +282,62 @@ public class AdminController{
         userToggle.setToggleGroup(toggleGroup);
         roomToggle.setToggleGroup(toggleGroup);
         userToggle.setSelected(true);
+//        searchOptions2.getChildren().clear();
+//        searchOptions.getChildren().clear();
+        searchOptions.setVisible(false);
+        searchOptions2.setVisible(false);
+//        
+        roomToggle.setOnAction(new EventHandler <ActionEvent>() {
+
+        	  
+			@Override
+			public void handle (ActionEvent event) {
+				
+				try {
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/roomSearch.fxml"));
+					GridPane grid = loader.load();
+					RoomSearchController roomController = loader.getController();
+					roomController.init(mainController, loggedInUser);
+//					searchOptions2.getChildren().clear();
+//					searchOptions2.getChildren().addAll(grid);
+					searchOptions.setVisible(false);
+					searchOptions2.setVisible(true);
+//					switchPane.getChildren().setAll(searchOptions2);
+//					grid.setAlignment(Pos.BOTTOM_LEFT);
+					System.out.println(roomController.toString());
+				
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+        	
+        });
+        
+        userToggle.setOnAction(new EventHandler <ActionEvent>() {
+        	
+			@Override
+			public void handle (ActionEvent event) {
+				
+				try {
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/userSearch.fxml"));
+					GridPane grid = loader.load();
+					UserSearchController userController = loader.getController();
+					AdminController admincont = new AdminController();
+					userController.init(mainController, admincont, loggedInUser);
+//					searchOptions.getChildren().clear();
+//					searchOptions.getChildren().addAll(grid);
+					searchOptions2.setVisible(false);
+					searchOptions.setVisible(true);
+					System.out.println(userController.toString());
+				
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+        });
     }
 
     /**
@@ -1070,7 +1133,6 @@ public class AdminController{
         mainController.showStartScreen();
     }
     
-
 
     
     

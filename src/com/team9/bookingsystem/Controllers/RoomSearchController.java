@@ -12,6 +12,7 @@ import com.team9.bookingsystem.MysqlUtil;
 import com.team9.bookingsystem.Room;
 import com.team9.bookingsystem.User;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -63,5 +64,13 @@ public class RoomSearchController {
 		this.loggedInUser = admin;
 
 	}
-
+	
+    @FXML public void Search(ActionEvent event){
+    	
+    }
+    
+    
+	   @FXML public void ShowAdminConsole(ActionEvent event){
+	        mainController.showAdminConsole(loggedInUser);
+	    }
 }
