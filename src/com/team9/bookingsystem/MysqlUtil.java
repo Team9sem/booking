@@ -53,7 +53,7 @@ public class MysqlUtil {
         }
 
     }
-
+    //created by Mayra Soliz
     // accepts username and pass, returns user
     public User loginAndGetUser(String username,String password) throws Exception
     {
@@ -155,10 +155,10 @@ public class MysqlUtil {
             }
 
         }
-        
+        //Created by Mayra Soliz 
     public Booking[] GetUserBookings(int userId) throws Exception
     {
-    		//Created by Mayra Soliz.
+    		
     		Booking[] BookObj = new Booking[100];
         	String bID;
         	//Method that prints all Bookings
@@ -197,10 +197,10 @@ public class MysqlUtil {
             return BookObj;
 
         }
-        
+        // created by Mayra Soliz
     public String GetRoomLocation(int roomID) throws Exception
     {
-    		//Created by Mayra Soliz.
+    	
     		//Method get the location using the roomID
         	String toReturn = "";
             // we have to catch potential SQLExceptions
@@ -229,10 +229,11 @@ public class MysqlUtil {
             }
             return toReturn;
         }
-        
+    
+    //created  by Mayra Soliz    
     public int GetRoomID(String location) throws Exception
     {
-    		//Created by Mayra Soliz.
+    		
     		//Method that prints all rooms 
         	int roomID = 0;
             // we have to catch potential SQLExceptions
@@ -350,11 +351,12 @@ public class MysqlUtil {
         } 
      return null;   
   } //end public BookedRoom
-
+    
+    //Created by Mayra Soliz
     public boolean removeRoomBooking(int bID) throws Exception
     {
       
-    	//Created by Mayra Soliz.
+    	
     	// we have to catch potential SQLExceptions
         try(Connection connection = getConnection()){
 
@@ -387,9 +389,10 @@ public class MysqlUtil {
   //street		varchar(30)
   //zip			int(11)
         
+    //created by Mayra Soliz
   public boolean RegisterUser(String alias, String passwd, String firstname, String lastname, long pNumber, String usertype, String street, int zip) throws Exception
   {
-          
+       // Register the user DB
 	  // we have to catch potential SQLExceptions
       try(Connection connection = getConnection()){
     	  
@@ -417,10 +420,10 @@ public class MysqlUtil {
     return false;
 
     }//end public User RegisterUser
-    
+  
+  //Created by Mayra Soliz
   public boolean addRoom(Room roomObj) throws Exception
   {
-	  	//Created by Mayra Soliz.
 	  	//roomID int(11)
 	    //location char(30)
 	    //roomSize char(30)
@@ -461,8 +464,9 @@ public class MysqlUtil {
 
     }//end public User RegisterUser
   
-  	public boolean editRoom(Room room) {
   	//Created by Mayra Soliz 16 Nov 2015.
+  	public boolean editRoom(Room room) {
+  	
   	//This method takes the data in the room object and updates the database with the data in the room object
   		
   	//SQL ROOM structure
@@ -508,8 +512,9 @@ public class MysqlUtil {
   	    return false;
   	}
   	
+	//Created by Mayra Soliz 16 Nov 2015
   	public boolean deleteRoom(Room room) {
-  	  	//Created by Mayra Soliz 16 Nov 2015.
+  	  
   	  	//This method deletes the Room using the roomID.
   		//It also deletes all booking related to this roomID to retain database integrity
   		//Note that the bookings have to be deleted before the room is delete due to the
