@@ -540,7 +540,6 @@ public class BookingController {
         LocalDate fromLocalDate = datePicker.getValue();
         if(fromLocalDate.isBefore(currentDate)){
             throw new Exception("The date that you picked is before todays date!");
-
         }
 
         LocalTime currentTime = LocalTime.now();

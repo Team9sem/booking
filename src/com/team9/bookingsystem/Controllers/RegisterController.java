@@ -2,6 +2,7 @@ package com.team9.bookingsystem.Controllers;
 
 import com.team9.bookingsystem.MysqlUtil;
 import com.team9.bookingsystem.User;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Service;
@@ -10,6 +11,12 @@ import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Created by Olle Renard and Nima Fard 22 October 2015
@@ -25,6 +32,8 @@ public class RegisterController
     private MainController mainController;
     // Mysqlutil for Database Operations
     private MysqlUtil util;
+
+    private ArrayList<ProgressIndicator> progressIndicators;
     // Variables mapped to fxml elements
     @FXML Label registerLabel;
     @FXML TextField username;
@@ -50,10 +59,12 @@ public class RegisterController
     @FXML ProgressIndicator streetProgress;
     @FXML ProgressIndicator pNumberProgress;
     @FXML ProgressIndicator zipCodeProgress;
+    @FXML ProgressBar passwordSecurityProgress;
+    @FXML Label             passwordErrorLabel;
 
     // this method runs when controller is started
     public void initialize() {
-        util = new MysqlUtil();
+
 
     }
 
@@ -64,6 +75,26 @@ public class RegisterController
     public void init(MainController mainController){
         this.mainController = mainController;
         setupErrorChecking();
+        progressIndicators = new ArrayList<>();
+        Stream<ProgressIndicator> indicators = Stream.of(usernameProgress,
+                passwordProgress,firstnameProgress,lastnameProgress
+                ,pNumberProgress,streetProgress,zipCodeProgress);
+        indicators.forEach(indicator -> progressIndicators.add(indicator));
+        progressIndicators.forEach(element -> element.setVisible(false));
+        userNameProgressLabel.setVisible(false);
+        firstnameProgressLabel.setVisible(false);
+        lastnameProgressLabel.setVisible(false);
+        passwordProgressLabel.setVisible(false);
+        pNumberProgressLabel.setVisible(false);
+        streetProgressLabel.setVisible(false);
+        zipCodeProgressLabel.setVisible(false);
+        passwordSecurityProgress.setVisible(false);
+        passwordErrorLabel.setVisible(false);
+        passwordSecurityProgress.setStyle("-fx-box-border: goldenrod;");
+
+
+
+
     }
     //  Method that displays welcomeArea
     @FXML public void showWelcomeArea(){
@@ -76,15 +107,11 @@ public class RegisterController
     // Validate user input with the database.
     @FXML public void register(){
 
-        boolean isValid;
 
-        for(Character character: firstname.getText().toCharArray() ){
-
-
-
-        }
-
-
+        System.out.println( progressIndicators.stream().filter(indicator -> indicator.getProgress() == 1.0).count());
+        if( progressIndicators.stream().filter(indicator -> indicator.getProgress() == 1.0).count() ==
+                progressIndicators.size())
+        {
 
 
 
@@ -136,6 +163,7 @@ public class RegisterController
             // Todo: show error message in GUI
         }
 
+        }
     }
 
     private void setupErrorChecking(){
@@ -144,12 +172,14 @@ public class RegisterController
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 
+                usernameProgress.setProgress(-1.0);
                 if(userNameProgressLabel.isVisible()){
                     userNameProgressLabel.setVisible(false);
                 }
                 if(!newValue.isEmpty()){
 
-
+                usernameProgress.setProgress(-1.0);
+                    usernameProgress.setVisible(true);
                 Service<Boolean> getIsAvailable = new Service<Boolean>() {
                     @Override
                     protected Task<Boolean> createTask() {
@@ -167,14 +197,15 @@ public class RegisterController
                     }
                 };
                 getIsAvailable.start();
-                usernameProgress.setVisible(true);
+
                 getIsAvailable.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
                     @Override
                     public void handle(WorkerStateEvent event) {
 
                         if(getIsAvailable.getValue()) {
                             System.out.println("is available");
-                            
+                            usernameProgress.setProgress(1.0);
+
                         }
                         else{
                             usernameProgress.setVisible(false);
@@ -194,74 +225,257 @@ public class RegisterController
             }
                 else{
                     usernameProgress.setVisible(false);
+                    userNameProgressLabel.setVisible(true);
+                    userNameProgressLabel.setText("This field cannot be empty!");
                 }
+            }
+        });
+
+        password.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                passwordProgress.setProgress(-1.0);
+                if (passwordProgressLabel.isVisible()) {
+                    passwordProgressLabel.setVisible(false);
+                }
+                if(passwordSecurityProgress.isVisible()){
+                    passwordSecurityProgress.setVisible(false);
+                }
+                if(passwordErrorLabel.isVisible()){
+                    passwordErrorLabel.setVisible(false);
+                }
+                if (!newValue.isEmpty())
+                {
+                    if(newValue.length() >= 6)
+                    {
+
+                        passwordProgress.setVisible(true);
+                        passwordProgress.setProgress(-1.0);
+                        boolean hasDigit   = false;
+                        boolean hasCapital = false;
+                        boolean hasLower   = false;
+                        for (Character character : newValue.toCharArray())
+                        {
+                            if (Character.isDigit(character))
+                            {
+                                hasDigit = true;
+                            }
+                            if(Character.isLowerCase(character)){
+                                hasLower = true;
+                            }
+                            if(Character.isUpperCase(character)){
+                                hasCapital = true;
+                            }
+                        }
+
+                        List<Boolean> safetys = Stream.of(hasCapital,hasDigit,hasLower)
+                                .filter(aBoolean -> aBoolean)
+                                    .collect(Collectors.toList());
+                        System.out.println(safetys.size());
+
+                        if(safetys.size() == 3){
+                            passwordProgress.setProgress(1.0);
+                            passwordProgress.setVisible(false);
+                            passwordProgressLabel.setVisible(true);
+                            passwordProgressLabel.setText("Security: High");
+                            passwordSecurityProgress.setProgress(1.0f);
+                            passwordSecurityProgress.setStyle("-fx-accent: green;");
+                            passwordSecurityProgress.setVisible(true);
+                        }
+                        else if(safetys.size() == 2){
+                            passwordProgress.setProgress(1.0);
+                            passwordProgress.setVisible(false);
+                            passwordProgressLabel.setVisible(true);
+                            passwordProgressLabel.setText("Security: Medium");
+                            passwordSecurityProgress.setProgress(0.6f);
+                            passwordSecurityProgress.setStyle("-fx-accent: orange;");
+                            passwordSecurityProgress.setVisible(true);
+                        }
+                        else{
+                            passwordProgress.setProgress(1.0);
+                            passwordProgress.setVisible(false);
+                            passwordProgressLabel.setVisible(true);
+                            passwordProgressLabel.setText("Security: Low");
+                            passwordSecurityProgress.setStyle("-fx-accent: red;");
+                            passwordSecurityProgress.setProgress(0.3f);
+                            passwordSecurityProgress.setVisible(true);
+                        }
+                    }
+                    else{
+                        passwordProgress.setVisible(false);
+                        passwordErrorLabel.setVisible(true);
+                        passwordErrorLabel.setText("Please pick a password with at least 6 characters");
+                    }
+                    }
+                    else
+                    {
+                        passwordProgress.setVisible(false);
+                        passwordErrorLabel.setVisible(true);
+                        passwordErrorLabel.setText("This field cannot be empty!");
+                    }
             }
         });
 
         firstname.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                for(Character character: newValue.toCharArray() )
-                {
-                    if(Character.isDigit(character)){
-                        // Todo: output error
-                        System.out.println("First Name is Numeric");
-                    }
-                    else{
-                        System.out.println("First name is not numeric");
+                firstnameProgress.setProgress(-1.0);
+                if(firstnameProgressLabel.isVisible()){
+                    firstnameProgressLabel.setVisible(false);
+                }
+                if(!newValue.isEmpty()) {
+
+                    firstnameProgress.setVisible(true);
+                    firstnameProgress.setProgress(-1.0);
+
+                    for (Character character : newValue.toCharArray()) {
+                        if (Character.isDigit(character)) {
+                            // Todo: output error
+                            firstnameProgress.setVisible(false);
+                            firstnameProgressLabel.setText("Name Contains Numbers!");
+                            firstnameProgressLabel.setVisible(true);
+                            System.out.println("First Name is Numeric");
+                            break;
+                        } else {
+                            firstnameProgress.setProgress(1.0);
+                            System.out.println("First name is not numeric");
+                        }
                     }
                 }
-
+                else{
+                    firstnameProgress.setVisible(false);
+                    firstnameProgressLabel.setVisible(true);
+                    firstnameProgressLabel.setText("This field cannot be empty!");
+                }
             }
         });
         lastname.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                for(Character character: newValue.toCharArray() )
-                {
-                    if(Character.isDigit(character)){
-                        // Todo: output error
-                        System.out.println("last Name is Numeric");
-                    }
-                    else{
-                        System.out.println("last name is not numeric");
+                lastnameProgress.setProgress(-1.0);
+
+                if(lastnameProgressLabel.isVisible()){
+                    lastnameProgressLabel.setVisible(false);
+                }
+                if(!newValue.isEmpty()) {
+
+                    lastnameProgress.setVisible(true);
+                    lastnameProgress.setProgress(-1.0);
+
+                    for (Character character : newValue.toCharArray()) {
+                        if (Character.isDigit(character)) {
+                            // Todo: output error
+                            lastnameProgress.setVisible(false);
+                            lastnameProgressLabel.setText("Name Contains Numbers!");
+                            lastnameProgressLabel.setVisible(true);
+                            System.out.println("First Name is Numeric");
+                            break;
+                        } else {
+                            lastnameProgress.setProgress(1.0);
+                            System.out.println("First name is not numeric");
+                        }
                     }
                 }
-
+                else{
+                    lastnameProgress.setVisible(false);
+                    lastnameProgressLabel.setVisible(true);
+                    lastnameProgressLabel.setText("This field cannot be empty!");
+                }
             }
         });
         personnumber.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                for(Character character: newValue.toCharArray() )
-                {
-                    if(!Character.isDigit(character)){
+                pNumberProgress.setProgress(-1.0);
+                if(pNumberProgressLabel.isVisible()){
+                    pNumberProgressLabel.setVisible(false);
+                }
+                if(!newValue.isEmpty()) {
 
-                        System.out.println("socialSec is not numeric");
-                    }
-                    else{
-                        // Todo: output error
-                        System.out.println("Social Sec is  numeric");
+                    pNumberProgress.setVisible(true);
+                    pNumberProgress.setProgress(-1.0);
+
+                    for (Character character : newValue.toCharArray()) {
+                        if (!Character.isDigit(character)) {
+                            // Todo: output error
+                            pNumberProgress.setVisible(false);
+                            pNumberProgressLabel.setText("Social Security Number must be all digits!");
+                            pNumberProgressLabel.setVisible(true);
+                            break;
+                        } else {
+                            pNumberProgress.setProgress(1.0);
+
+                        }
                     }
                 }
-
+                else{
+                    pNumberProgress.setVisible(false);
+                    pNumberProgressLabel.setVisible(true);
+                    pNumberProgressLabel.setText("This field cannot be empty!");
+                }
             }
         });
+
+        adress.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+
+                streetProgress.setProgress(-1.0);
+                if(streetProgressLabel.isVisible()){
+                    streetProgressLabel.setVisible(false);
+                }
+                if(!newValue.isEmpty()) {
+
+                    streetProgress.setVisible(true);
+                    streetProgress.setProgress(1.0);
+
+
+                }
+                else{
+                    streetProgress.setVisible(false);
+                    streetProgressLabel.setVisible(true);
+                    streetProgressLabel.setText("This field cannot be empty!");
+                }
+            }
+        });
+
         zip.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                for(Character character: newValue.toCharArray() )
-                {
-                    if(!Character.isDigit(character)){
 
-                        System.out.println("Zip is not numeric");
-                    }
-                    else{
-                        // Todo: output error
-                        System.out.println("Social Sec is  numeric");
+                zipCodeProgress.setProgress(-1.0);
+                if(zipCodeProgressLabel.isVisible()){
+                    zipCodeProgressLabel.setVisible(false);
+                }
+                if(!newValue.isEmpty()) {
+
+                    zipCodeProgress.setVisible(true);
+                    zipCodeProgress.setProgress(-1.0);
+
+                    for (Character character : newValue.toCharArray()) {
+                        if (!Character.isDigit(character)) {
+
+
+                            // Todo: output error
+                            zipCodeProgress.setVisible(false);
+                            zipCodeProgressLabel.setText("Your zip code can only contain numbers!");
+                            zipCodeProgressLabel.setVisible(true);
+//                            if(zip.getText().)
+                            break;
+
+                        }
+                        else
+                        {
+                            zipCodeProgress.setProgress(1.0);
+
+                        }
                     }
                 }
-
+                else{
+                    zipCodeProgress.setVisible(false);
+                    zipCodeProgressLabel.setVisible(true);
+                    zipCodeProgressLabel.setText("This field cannot be empty!");
+                }
             }
         });
 

@@ -93,7 +93,7 @@ public class MainController {
             registerController.init(this);
             System.out.println(this.toString());
             welcomeArea.getChildren().clear();
-            welcomeArea.getChildren().addAll(gridPane.getChildren());
+            welcomeArea.getChildren().add(gridPane);
         }// got to catch any IOExceptions when loading fxml files
         catch(IOException e){
             e.printStackTrace();
