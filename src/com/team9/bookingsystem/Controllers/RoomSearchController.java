@@ -11,8 +11,14 @@ import java.util.ArrayList;
 import com.team9.bookingsystem.MysqlUtil;
 import com.team9.bookingsystem.Room;
 import com.team9.bookingsystem.User;
+import com.team9.bookingsystem.Threading.Admin.AdminSearchService;
+import com.team9.bookingsystem.Threading.Admin.RoomSearchService;
+import com.team9.bookingsystem.Threading.User.FindRoomService;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -31,6 +37,7 @@ public class RoomSearchController {
 	private ArrayList<Room> searchResult;
 	private Room selectedRoom;
 	private Button selectedButton;
+	private AdminController adminController;
 
 	// ContainerElement
 	@FXML GridPane roomSearchGridPane;
@@ -38,11 +45,13 @@ public class RoomSearchController {
 	@FXML Label searchPreferences;
 	@FXML Label searchForUser;
 	@FXML Label adminRoomLabel;
-	@FXML TextField userID;
-	@FXML TextField userName;
-	@FXML TextField firstName;
-	@FXML TextField lastName;
-	@FXML TextField userType;
+	@FXML TextField roomID;
+	@FXML TextField roomSize;
+	@FXML TextField roomLocation;
+	@FXML DatePicker date;
+	@FXML CheckBox hasWhiteboard;
+	@FXML CheckBox hasCoffeMachine;
+	@FXML CheckBox hasProjector;
 	// @FXML Label features;
 
 	@FXML
@@ -58,10 +67,46 @@ public class RoomSearchController {
 
 	}
 
-	public void init(MainController mainController, User admin) {
+	public void init(MainController mainController, AdminController adminController, User admin) {
 		this.mainController = mainController;
 		this.loggedInUser = admin;
+		this.adminController = adminController;
 
 	}
+	
+    @FXML public void Search(ActionEvent event){
+    	
+    	int id = 0;
+    	
+    	try{
+            if(!roomID.getText().isEmpty()){
+                id = Integer.parseInt(roomID.getText());
+              
+            }
+          
 
+        }catch(NumberFormatException e){
+            e.printStackTrace();
+        }
+    	 
+    	RoomSearchService room = new RoomSearchService(id,
+    			 roomSize.getText(),
+    			 roomLocation.getText(),
+    			 hasWhiteboard.isSelected(),
+    			 hasCoffeMachine.isSelected(),
+    			 hasProjector.isSelected()
+    			 );
+    	 System.out.println("Clicked searchbutton");
+         adminController.searchForRooms(room);
+
+    	 
+    	 
+    	 
+    	
+    }
+    
+    
+	   @FXML public void ShowAdminConsole(ActionEvent event){
+	        mainController.showAdminConsole(loggedInUser);
+	    }
 }

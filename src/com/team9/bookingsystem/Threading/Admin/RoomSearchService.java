@@ -46,27 +46,32 @@ public class RoomSearchService extends AdminSearchService {
      * @see String
      */
 
-    public RoomSearchService(int roomID,
-            String roomSize, String location,
-            boolean hasWhiteboard,
-            boolean hasProjector,
-            boolean hasCoffeMachine)
+//    public RoomSearchService(int roomID,
+//            String roomSize, String location,
+//            boolean hasWhiteboard,
+//            boolean hasProjector,
+//            boolean hasCoffeMachine)
+//    {
+//        super();
+//
+//        this.roomID = roomID;
+//        this.roomSize = roomSize;
+//        this.location =location;
+//        if(hasWhiteboard) this.hasWhiteboard = 1;
+//        else this.hasWhiteboard = 0;
+//        if(hasProjector) this.hasProjector = 1;
+//        else this.hasProjector = 0;
+//        if(hasCoffeMachine) this.hasCoffeMachine = 1;
+//        else this.hasCoffeMachine = 0;
+//    }
+    public RoomSearchService(Room room)
     {
         super();
 
-        this.roomID = roomID;
-        this.roomSize = roomSize;
-        this.location =location;
-        if(hasWhiteboard) this.hasWhiteboard = 1;
-        else this.hasWhiteboard = 0;
-        if(hasProjector) this.hasProjector = 1;
-        else this.hasProjector = 0;
-        if(hasCoffeMachine) this.hasCoffeMachine = 1;
-        else this.hasCoffeMachine = 0;
-
-
-
+        this.room = room;
     }
+
+
 
     /**
      * Overriden protected Method from com.team9.bookingsystem.Threading.ThreadService
@@ -79,7 +84,6 @@ public class RoomSearchService extends AdminSearchService {
             protected Object call() throws Exception {
 
                 MysqlUtil util = new MysqlUtil();
-                Room room = new Room(roomID,location,roomSize,hasProjector,hasWhiteboard,hasCoffeMachine);
                 ArrayList<Room> result = util.getRooms(room);
 
 
