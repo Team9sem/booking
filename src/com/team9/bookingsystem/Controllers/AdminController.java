@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.Loader;
 import com.team9.bookingsystem.*;
 import com.team9.bookingsystem.Components.CustomColumnResizePolicy;
 import com.team9.bookingsystem.Threading.Admin.RoomSearchService;
@@ -44,6 +45,7 @@ public class AdminController {
     private User loggedInUser;
     // Parent Controller
     private MainController mainController;
+	private AdminController adminController;
     // Mysqlutil for Database Operations
     private MysqlUtil util;
     // ArrayList Storing the most recent searchResult;
@@ -69,10 +71,10 @@ public class AdminController {
     @FXML private BorderPane borderPane;
     @FXML private HBox paginationBox;
     @FXML private AnchorPane resultAnchorPane;
-    @FXML private GridPane  userSearchOptions;
-	@FXML private GridPane  roomSearchOptions;
-    @FXML private UserSearchController userSearchOptionsController;
-	@FXML private RoomSearchController roomSearchOptionsController;
+    @FXML private GridPane  searchOptions;
+//	@FXML private GridPane  roomSearchOptions;
+//    @FXML private UserSearchController SearchOptionsController;
+//	@FXML private RoomSearchController roomSearchOptionsController;
     @FXML private Label loginLabel;
     @FXML private Label searchPreferences;
     @FXML private Label searchFor;
@@ -97,8 +99,8 @@ public class AdminController {
 
 
         paginationBox.setAlignment(Pos.CENTER);
-        userSearchOptionsController.init(mainController,this,loggedInUser);
-		roomSearchOptionsController.init(mainController,this,loggedInUser);
+//        SearchOptionsController.init(mainController,this,loggedInUser);
+		adminController = this;
     }
 
 
@@ -357,17 +359,26 @@ public class AdminController {
         roomToggle.setToggleGroup(toggleGroup);
 
 
-		userSearchOptions.setVisible(false);
-		roomSearchOptions.setVisible(false);
-//
+
+
 		roomToggle.setOnAction(new EventHandler <ActionEvent>() {
 
 
 			@Override
 			public void handle (ActionEvent event) {
+				try{
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/roomSearch.fxml"));
+					GridPane gridPane = loader.load();
+					RoomSearchController roomSearchController = loader.getController();
+					roomSearchController.init(mainController,adminController,loggedInUser);
+					System.out.println(this.toString());
+					searchOptions.getChildren().clear();
+					searchOptions.getChildren().add(gridPane);
+				}catch(IOException e){
+					e.printStackTrace();
+				}
 
-				userSearchOptions.setVisible(false);
-				roomSearchOptions.setVisible(true);
+
 
 
 
@@ -381,8 +392,18 @@ public class AdminController {
 
 			@Override
 			public void handle (ActionEvent event) {
-				roomSearchOptions.setVisible(false);
-				userSearchOptions.setVisible(true);
+
+				try{
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/userSearch.fxml"));
+					GridPane gridPane = loader.load();
+					UserSearchController userSearchController = loader.getController();
+					userSearchController.init(mainController,adminController,loggedInUser);
+					System.out.println(this.toString());
+					searchOptions.getChildren().clear();
+					searchOptions.getChildren().add(gridPane);
+				}catch(IOException e){
+					e.printStackTrace();
+				}
 
 			}
 
