@@ -292,12 +292,7 @@ public class AdminController {
             e.printStackTrace();
         }
     	
-        RoomSearchService searchForRoom = new RoomSearchService(id,
-   			 roomSize.getText(),
-   			 roomLocation.getText(),
-   			 hasWhiteboard.isSelected(),
-   			 hasCoffeMachine.isSelected(),
-   			 hasProjector.isSelected());
+        RoomSearchService searchForRoom = new RoomSearchService(new Room());
         searchForRoom.start();
         searchForRoom.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
             @Override
@@ -1223,9 +1218,7 @@ public class AdminController {
 		mainController.showStartScreen();
 	}
 
-    @FXML public void SignOut(ActionEvent event){
-        mainController.showStartScreen();
-    }
+
     
 
     
