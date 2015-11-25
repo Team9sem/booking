@@ -10,10 +10,8 @@ import java.util.ArrayList;
 
 import com.team9.bookingsystem.MysqlUtil;
 import com.team9.bookingsystem.Room;
-import com.team9.bookingsystem.User;
-import com.team9.bookingsystem.Threading.Admin.AdminSearchService;
 import com.team9.bookingsystem.Threading.Admin.RoomSearchService;
-import com.team9.bookingsystem.Threading.User.FindRoomService;
+import com.team9.bookingsystem.User;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,15 +29,17 @@ public class RoomSearchController {
 	User loggedInUser;
 	// Parent Controller
 	private MainController mainController;
+	private AdminController adminController;
 	// Mysqlutil for Database Operations
 	private MysqlUtil util;
 	// ArrayList Storing the most recent searchResult;
 	private ArrayList<Room> searchResult;
 	private Room selectedRoom;
 	private Button selectedButton;
-	private AdminController adminController;
 
 	// ContainerElement
+
+
 	@FXML GridPane roomSearchGridPane;
 
 	@FXML Label searchPreferences;
@@ -54,59 +54,41 @@ public class RoomSearchController {
 	@FXML CheckBox hasProjector;
 	// @FXML Label features;
 
+
+
 	@FXML
 	Button adminSearchButton;
 
 	public void initialize() {
 
-		// setupDatePicker();
-
-		// ObservableList<String> choices= FXCollections.observableArrayList();
-		// choices.addAll("OneChoice");
-		// locationPick.setItems(choices);
 
 	}
 
-	public void init(MainController mainController, AdminController adminController, User admin) {
+	public void init(MainController mainController,AdminController adminController,User admin){
 		this.mainController = mainController;
 		this.loggedInUser = admin;
 		this.adminController = adminController;
 
 	}
-	
-    @FXML public void Search(ActionEvent event){
-    	
-    	int id = 0;
-    	
-    	try{
-            if(!roomID.getText().isEmpty()){
-                id = Integer.parseInt(roomID.getText());
-              
-            }
-          
 
-        }catch(NumberFormatException e){
-            e.printStackTrace();
-        }
-    	 
-    	RoomSearchService room = new RoomSearchService(id,
-    			 roomSize.getText(),
-    			 roomLocation.getText(),
-    			 hasWhiteboard.isSelected(),
-    			 hasCoffeMachine.isSelected(),
-    			 hasProjector.isSelected()
-    			 );
-    	 System.out.println("Clicked searchbutton");
-         adminController.searchForRooms(room);
+	@FXML public void Search(ActionEvent event){
 
-    	 
-    	 
-    	 
-    	
-    }
-    
-    
-	   @FXML public void ShowAdminConsole(ActionEvent event){
-	        mainController.showAdminConsole(loggedInUser);
-	    }
+		int id = 0;
+
+		try{
+			if(!roomID.getText().isEmpty()){
+				id = Integer.parseInt(roomID.getText());
+
+			}
+
+
+		}catch(NumberFormatException e){
+			e.printStackTrace();
+		}
+
+		RoomSearchService room = new RoomSearchService(new Room());
+		System.out.println("Clicked searchbutton");
+//         adminController.searchForRooms(room);
+	}
+
 }

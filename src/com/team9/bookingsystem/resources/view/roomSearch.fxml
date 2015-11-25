@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane fx:id="roomSearchGridPane" hgap="10.0" vgap="10.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team9.bookingsystem.Controllers.RoomSearchController">
+<GridPane fx:id="roomSearchGridPane" hgap="3.0" vgap="3.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team9.bookingsystem.Controllers.RoomSearchController">
 	<columnConstraints>
 		<ColumnConstraints hgrow="SOMETIMES" maxWidth="307.0" minWidth="10.0" prefWidth="56.0" />
 		<ColumnConstraints hgrow="SOMETIMES" maxWidth="307.0" minWidth="10.0" prefWidth="56.0" />
 		<ColumnConstraints hgrow="SOMETIMES" maxWidth="307.0" minWidth="10.0" prefWidth="56.0" />
-      <ColumnConstraints />
+		<ColumnConstraints hgrow="SOMETIMES" maxWidth="307.0" minWidth="10.0" prefWidth="56.0" />
+		<ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="0.0" prefWidth="100.0" />
+		<ColumnConstraints hgrow="SOMETIMES" maxWidth="206.0" minWidth="10.0" prefWidth="82.0" />
 	</columnConstraints>
 	<!--<rowConstraints> -->
 	<!--<RowConstraints minHeight="10.0" vgrow="SOMETIMES" /> -->
@@ -34,7 +37,7 @@
 	<!--<RowConstraints minHeight="10.0" vgrow="SOMETIMES" /> -->
 	<!--</rowConstraints> -->
 	<children>
-		<HBox alignment="CENTER" GridPane.columnSpan="4">
+		<HBox alignment="CENTER_LEFT" GridPane.columnSpan="5">
 			<children>
 				<Label fx:id="searchPreferences" alignment="TOP_LEFT" styleClass="options-area-labels" text="Search Preferences" textAlignment="CENTER">
 					<font>
@@ -45,24 +48,28 @@
 		</HBox>
 		<HBox alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.columnSpan="4" GridPane.rowIndex="2">
 			<children>
-				<Label fx:id="searchForUser" prefWidth="238.0" styleClass="options-area-labels" text="Search for rooms:">
+				<Label fx:id="searchForUser" prefWidth="238.0" styleClass="options-area-labels" text="Search for room:">
 					<font>
 						<Font name="System Bold" size="13.0" />
 					</font>
 				</Label>
 			</children>
 		</HBox>
-		<Label text="ID:" GridPane.rowIndex="3" />
-		<HBox alignment="BOTTOM_LEFT" GridPane.columnSpan="3" GridPane.rowIndex="4">
+		<HBox GridPane.rowIndex="3">
+			<children>
+				<Label text="ID:" />
+			</children>
+		</HBox>
+		<HBox alignment="BOTTOM_LEFT" GridPane.columnSpan="4" GridPane.rowIndex="4">
 			<opaqueInsets>
 				<Insets />
 			</opaqueInsets>
 			<GridPane.margin>
 				<Insets />
 			</GridPane.margin>
-         <children>
-            <TextField />
-         </children>
+			<children>
+				<TextField />
+			</children>
 		</HBox>
 		<HBox alignment="BOTTOM_LEFT" GridPane.columnSpan="2" GridPane.rowIndex="5">
 			<opaqueInsets>
@@ -95,46 +102,36 @@
 				<CheckBox mnemonicParsing="false" text="Coffe machine" />
 			</children>
 		</HBox>
-		<HBox GridPane.columnSpan="2" GridPane.rowIndex="18">
+		<HBox GridPane.columnSpan="2" GridPane.rowIndex="19">
 			<children>
-				<Button mnemonicParsing="false" text="Search" />
+				<Button mnemonicParsing="false" onAction="#Search" text="Search" />
+			</children>
+		</HBox>
+		<HBox GridPane.columnSpan="4" GridPane.rowIndex="16">
+			<children>
+				<TextField />
 			</children>
 		</HBox>
 		<HBox GridPane.columnSpan="3" GridPane.rowIndex="15">
 			<children>
-				<TextField>
-               <HBox.margin>
-                  <Insets top="10.0" />
-               </HBox.margin></TextField>
-			</children>
-         <GridPane.margin>
-            <Insets />
-         </GridPane.margin>
-         <padding>
-            <Insets top="10.0" />
-         </padding>
-		</HBox>
-		<HBox GridPane.columnSpan="3" GridPane.rowIndex="14">
-			<children>
 				<Label text="Location:" />
 			</children>
 		</HBox>
-      <HBox GridPane.columnSpan="3" GridPane.rowIndex="11" />
-      <HBox GridPane.columnSpan="2" GridPane.rowIndex="6">
-         <children>
-            <CheckBox fx:id="isSmall" mnemonicParsing="false" text="Small" />
-         </children>
-      </HBox>
-      <HBox GridPane.columnSpan="2" GridPane.rowIndex="7">
-         <children>
-            <CheckBox fx:id="isMedium" mnemonicParsing="false" text="Medium" />
-         </children>
-      </HBox>
-      <HBox GridPane.columnSpan="2" GridPane.rowIndex="8">
-         <children>
-            <CheckBox fx:id="isLarge" mnemonicParsing="false" text="Large" />
-         </children>
-      </HBox>
+		<HBox GridPane.columnSpan="2" GridPane.rowIndex="6">
+			<children>
+				<CheckBox mnemonicParsing="false" text="Small" />
+			</children>
+		</HBox>
+		<HBox GridPane.columnSpan="2" GridPane.rowIndex="7">
+			<children>
+				<CheckBox mnemonicParsing="false" text="Medium" />
+			</children>
+		</HBox>
+		<HBox GridPane.columnSpan="2" GridPane.rowIndex="8">
+			<children>
+				<CheckBox mnemonicParsing="false" text="Large" />
+			</children>
+		</HBox>
 	</children>
 	<rowConstraints>
 		<RowConstraints maxHeight="36.0" minHeight="36.0" prefHeight="36.0" />
@@ -152,9 +149,6 @@
 		<RowConstraints />
 		<RowConstraints />
 		<RowConstraints />
-		<RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
-		<RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
-		<RowConstraints maxHeight="17.0" minHeight="17.0" prefHeight="17.0" />
 		<RowConstraints />
 		<RowConstraints />
 		<RowConstraints />
@@ -170,15 +164,12 @@
 		<RowConstraints />
 		<RowConstraints />
 		<RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
+		<RowConstraints />
+		<RowConstraints />
+		<RowConstraints />
+		<RowConstraints />
+		<RowConstraints />
+		<RowConstraints />
 	</rowConstraints>
 </GridPane>
+             
