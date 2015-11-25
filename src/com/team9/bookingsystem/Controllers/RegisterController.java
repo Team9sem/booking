@@ -1,6 +1,7 @@
 package com.team9.bookingsystem.Controllers;
 
 import com.team9.bookingsystem.MysqlUtil;
+import com.team9.bookingsystem.Threading.LoginService;
 import com.team9.bookingsystem.User;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ChangeListener;
@@ -117,8 +118,9 @@ public class RegisterController
 
         try{
         	// Perform Register logic
-           username.getText();
-           System.out.println(username);
+
+           User registered = new User();
+
            Service<Boolean> registerService = new Service<Boolean>() {
                @Override
                protected Task<Boolean> createTask() {
@@ -127,6 +129,13 @@ public class RegisterController
                        protected Boolean call() throws Exception {
 
                            MysqlUtil util = new MysqlUtil();
+                           registered.setUserName(username.getText());
+                           registered.setFirstName(firstname.getText());
+                           registered.setLastName(lastname.getText());
+                           registered.setPassword(password.getText());
+                           registered.setpNumber(Long.parseLong(personnumber.getText()));
+                           registered.setStreet(adress.getText());
+                           registered.setZip(Integer.parseInt(zip.getText()));
                            return util.RegisterUser(username.getText(),
                                    password.getText(),
                                    firstname.getText(),
@@ -134,7 +143,9 @@ public class RegisterController
                                    Long.parseLong(personnumber.getText())
                                    ,"",adress.getText()
                                    ,Integer.parseInt(zip.getText()));
+
                        }
+
 
                    };
                    return task;
@@ -144,6 +155,17 @@ public class RegisterController
             registerService.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
                 @Override
                 public void handle(WorkerStateEvent event) {
+                    if(registered != null){
+                        LoginService loginService = new LoginService(registered.getUserName(), registered.getPassword());
+                        loginService.start();
+                        loginService.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+                            @Override
+                            public void handle(WorkerStateEvent event) {
+                                User loggedInUser = (User)loginService.getValue();
+                                mainController.showBookingInterface(loggedInUser);
+                            }
+                        });
+                    }
                     System.out.println("Successfully registered");
 
                 }

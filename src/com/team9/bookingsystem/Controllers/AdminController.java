@@ -34,7 +34,7 @@ import javafx.util.converter.LongStringConverter;
  * Controller class for administratorUI.fxml
  * Created by Pontus and Nima
  */
-public class AdminController{
+public class AdminController {
 	
 	//Logged in user
     private User loggedInUser;
@@ -1065,6 +1065,14 @@ public class AdminController{
     private int getElementsPerPage(){
         return 20;
     }
+
+	/**
+	 * by Pontus
+	 * @param event
+	 */
+	@FXML public void SignOut(ActionEvent event){
+		mainController.showStartScreen();
+	}
 
 
     

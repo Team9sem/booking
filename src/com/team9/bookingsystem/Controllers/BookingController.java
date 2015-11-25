@@ -643,7 +643,6 @@ public class BookingController {
      * @param event
      */
     @FXML public void bookRoom(ActionEvent event){
-        // Todo: Commented code can be used once the MysqlUtil method to book a room works....
 
         System.out.println("booking");
 

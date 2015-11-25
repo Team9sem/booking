@@ -1304,6 +1304,24 @@ public class MysqlUtil {
     } //end public BookedRoom
 
 
+        public void uploadPicture(String image){
+
+
+            try(Connection connection = getConnection()){
+
+
+                Statement statement = connection.createStatement();
+                statement.executeUpdate("Update User SET User.picture ='"+image+"' WHERE User.alias = 'team9'");
+
+
+
+
+            }catch(SQLException e){
+                    e.printStackTrace();
+            }
+
+        }
+
 
 }
 

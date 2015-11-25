@@ -81,10 +81,10 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="237.0" GridPane.columnIndex="4">
+                  <HBox alignment="CENTER"  prefHeight="100.0" prefWidth="237.0" GridPane.columnIndex="4">
                      <children>
 
-                        <Button mnemonicParsing="false" text="Sign Out" />
+                        <Button mnemonicParsing="false" onAction="#SignOut" text="Sign Out" />
                      </children>
                   </HBox>
                </children>
@@ -126,7 +126,7 @@
                   </HBox>
                   <HBox alignment="CENTER" GridPane.rowIndex="1">
                      <children>
-                        <Label styleClass="top-anchorpanetext" text="Edit any values and sumbit your change by pressing Commit Changes Button">
+                        <Label styleClass="top-anchorpanetext" text="Edit any values and submit your changes by pressing Commit Changes Button">
                            <font>
                               <Font name="Avant Garde" size="12"></Font>
                            </font>
@@ -134,9 +134,15 @@
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" fx:id="paginationBox" GridPane.rowIndex="2"/>
-                  <HBox alignment="CENTER" GridPane.rowIndex="3">
+                  <HBox spacing="10" alignment="CENTER" GridPane.rowIndex="3">
                      <children>
-                        <Button text="Delete Selected"></Button>
+                        <Button text="Add new"></Button>
+                        <Button text="Delete Selected">
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_RIGHT" spacing="10" GridPane.rowIndex="3">
+                     <children>
                         <Button mnemonicParsing="false" onAction="#commitChanges" text="Commit Changes" />
                      </children>
                   </HBox>

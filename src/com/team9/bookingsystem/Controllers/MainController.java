@@ -62,6 +62,12 @@ public class MainController {
 
     }
 
+
+    public void changeMidContent(){
+
+
+    }
+
     /**
      * Clears out welcomeArea Pane and loads login.fxml into it. Also gives loginController instance
      * a reference to this instance.
