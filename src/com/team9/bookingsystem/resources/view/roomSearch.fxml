@@ -34,7 +34,7 @@
 	<!--<RowConstraints minHeight="10.0" vgrow="SOMETIMES" /> -->
 	<!--</rowConstraints> -->
 	<children>
-		<HBox alignment="CENTER" GridPane.columnSpan="3">
+		<HBox alignment="CENTER" GridPane.columnSpan="4">
 			<children>
 				<Label fx:id="searchPreferences" alignment="TOP_LEFT" styleClass="options-area-labels" text="Search Preferences" textAlignment="CENTER">
 					<font>
@@ -60,9 +60,9 @@
 			<GridPane.margin>
 				<Insets />
 			</GridPane.margin>
-			<children>
-				<TextField />
-			</children>
+         <children>
+            <TextField />
+         </children>
 		</HBox>
 		<HBox alignment="BOTTOM_LEFT" GridPane.columnSpan="2" GridPane.rowIndex="5">
 			<opaqueInsets>
@@ -75,52 +75,66 @@
 				<Label text="Size:" />
 			</children>
 		</HBox>
-		<HBox alignment="BOTTOM_LEFT" GridPane.columnSpan="3" GridPane.rowIndex="6">
-			<opaqueInsets>
-				<Insets />
-			</opaqueInsets>
-			<GridPane.margin>
-				<Insets />
-			</GridPane.margin>
-			<children>
-				<TextField />
-			</children>
-		</HBox>
-		<HBox alignment="CENTER_LEFT" GridPane.columnSpan="3" GridPane.rowIndex="7">
+		<HBox alignment="CENTER_LEFT" GridPane.columnSpan="3" GridPane.rowIndex="10">
 			<children>
 				<Label text="Features:" />
 			</children>
 		</HBox>
-		<HBox GridPane.columnSpan="3" GridPane.rowIndex="8">
+		<HBox GridPane.columnSpan="3" GridPane.rowIndex="11">
 			<children>
 				<CheckBox fx:id="hasWhiteboard" mnemonicParsing="false" text="Whiteboard" />
 			</children>
 		</HBox>
-		<HBox GridPane.columnSpan="3" GridPane.rowIndex="9">
+		<HBox GridPane.columnSpan="3" GridPane.rowIndex="12">
 			<children>
 				<CheckBox mnemonicParsing="false" text="Projector" />
 			</children>
 		</HBox>
-		<HBox GridPane.columnSpan="3" GridPane.rowIndex="10">
+		<HBox GridPane.columnSpan="3" GridPane.rowIndex="13">
 			<children>
 				<CheckBox mnemonicParsing="false" text="Coffe machine" />
 			</children>
 		</HBox>
-		<HBox GridPane.columnSpan="2" GridPane.rowIndex="16">
+		<HBox GridPane.columnSpan="2" GridPane.rowIndex="18">
 			<children>
 				<Button mnemonicParsing="false" text="Search" />
 			</children>
 		</HBox>
-		<HBox GridPane.columnSpan="3" GridPane.rowIndex="13">
+		<HBox GridPane.columnSpan="3" GridPane.rowIndex="15">
 			<children>
-				<TextField />
+				<TextField>
+               <HBox.margin>
+                  <Insets top="10.0" />
+               </HBox.margin></TextField>
+			</children>
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
+		</HBox>
+		<HBox GridPane.columnSpan="3" GridPane.rowIndex="14">
+			<children>
+				<Label text="Location:" />
 			</children>
 		</HBox>
-		<HBox GridPane.columnSpan="3" GridPane.rowIndex="12">
-			<children>
-				<Label text="Location" />
-			</children>
-		</HBox>
+      <HBox GridPane.columnSpan="3" GridPane.rowIndex="11" />
+      <HBox GridPane.columnSpan="2" GridPane.rowIndex="6">
+         <children>
+            <CheckBox fx:id="isSmall" mnemonicParsing="false" text="Small" />
+         </children>
+      </HBox>
+      <HBox GridPane.columnSpan="2" GridPane.rowIndex="7">
+         <children>
+            <CheckBox fx:id="isMedium" mnemonicParsing="false" text="Medium" />
+         </children>
+      </HBox>
+      <HBox GridPane.columnSpan="2" GridPane.rowIndex="8">
+         <children>
+            <CheckBox fx:id="isLarge" mnemonicParsing="false" text="Large" />
+         </children>
+      </HBox>
 	</children>
 	<rowConstraints>
 		<RowConstraints maxHeight="36.0" minHeight="36.0" prefHeight="36.0" />
@@ -138,6 +152,9 @@
 		<RowConstraints />
 		<RowConstraints />
 		<RowConstraints />
+		<RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+		<RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+		<RowConstraints maxHeight="17.0" minHeight="17.0" prefHeight="17.0" />
 		<RowConstraints />
 		<RowConstraints />
 		<RowConstraints />
@@ -153,8 +170,15 @@
 		<RowConstraints />
 		<RowConstraints />
 		<RowConstraints />
-		<RowConstraints />
-		<RowConstraints />
-		<RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
 	</rowConstraints>
 </GridPane>
