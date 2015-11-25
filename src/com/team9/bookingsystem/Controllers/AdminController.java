@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.Loader;
 import com.team9.bookingsystem.*;
 import com.team9.bookingsystem.Components.CustomColumnResizePolicy;
 import com.team9.bookingsystem.Threading.Admin.RoomSearchService;
@@ -32,6 +33,8 @@ import javafx.util.Callback;
 import javafx.util.converter.IntegerStringConverter;
 import javafx.util.converter.LongStringConverter;
 
+import javax.swing.*;
+
 /**
  * Controller class for administratorUI.fxml
  * Created by Pontus and Nima
@@ -42,6 +45,7 @@ public class AdminController {
     private User loggedInUser;
     // Parent Controller
     private MainController mainController;
+	private AdminController adminController;
     // Mysqlutil for Database Operations
     private MysqlUtil util;
     // ArrayList Storing the most recent searchResult;
@@ -67,9 +71,10 @@ public class AdminController {
     @FXML private BorderPane borderPane;
     @FXML private HBox paginationBox;
     @FXML private AnchorPane resultAnchorPane;
-    @FXML private GridPane searchOptions;
-    @FXML private GridPane searchOptions2;
-    @FXML private UserSearchController searchOptionsController;
+    @FXML private GridPane  searchOptions;
+//	@FXML private GridPane  roomSearchOptions;
+//    @FXML private UserSearchController SearchOptionsController;
+//	@FXML private RoomSearchController roomSearchOptionsController;
     @FXML private Label loginLabel;
     @FXML private Label searchPreferences;
     @FXML private Label searchFor;
@@ -94,8 +99,8 @@ public class AdminController {
 
 
         paginationBox.setAlignment(Pos.CENTER);
-        searchOptionsController.init(mainController,this,loggedInUser);
-
+//        SearchOptionsController.init(mainController,this,loggedInUser);
+		adminController = this;
     }
 
 
@@ -264,21 +269,21 @@ public class AdminController {
     }
 
 
-		public void searchForRooms(RoomSearchService room){
+		public void searchForRooms(Room room){
 
 			System.out.println("Searching in AdminController");
 
-//			int id = 0;
+			int id = 0;
+
+//			try {
+//				if (!roomID.getText().isEmpty()) {
+//					id = Integer.parseInt(roomID.getText());
+//				}
 //
-////			try {
-////				if (!roomID.getText().isEmpty()) {
-////					id = Integer.parseInt(roomID.getText());
-////				}
-////
-////
-////			} catch (NumberFormatException e) {
-////				e.printStackTrace();
-////			}
+//
+//			} catch (NumberFormatException e) {
+//				e.printStackTrace();
+//			}
 
 			RoomSearchService searchForRoom = new RoomSearchService(new Room());
 			searchForRoom.start();
@@ -352,31 +357,30 @@ public class AdminController {
         toggleGroup = new ToggleGroup();
         userToggle.setToggleGroup(toggleGroup);
         roomToggle.setToggleGroup(toggleGroup);
-        userToggle.setSelected(true);
 
-		searchOptions.setVisible(false);
-		searchOptions2.setVisible(false);
-//
+
+
+
 		roomToggle.setOnAction(new EventHandler <ActionEvent>() {
 
 
 			@Override
 			public void handle (ActionEvent event) {
-
-				try {
+				try{
 					FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/roomSearch.fxml"));
-					GridPane grid = loader.load();
-					RoomSearchController roomController = loader.getController();
-					AdminController adminController = new AdminController();
-					roomController.init(mainController,adminController, loggedInUser);
-					searchOptions.setVisible(false);
-					searchOptions2.setVisible(true);
-					System.out.println(roomController.toString());
-
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
+					GridPane gridPane = loader.load();
+					RoomSearchController roomSearchController = loader.getController();
+					roomSearchController.init(mainController,adminController,loggedInUser);
+					System.out.println(this.toString());
+					searchOptions.getChildren().clear();
+					searchOptions.getChildren().add(gridPane);
+				}catch(IOException e){
 					e.printStackTrace();
 				}
+
+
+
+
 
 			}
 
@@ -384,28 +388,30 @@ public class AdminController {
 
 		userToggle.setOnAction(new EventHandler <ActionEvent>() {
 
+
+
 			@Override
 			public void handle (ActionEvent event) {
 
-				try {
+				try{
 					FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/userSearch.fxml"));
-					GridPane grid = loader.load();
-					UserSearchController userController = loader.getController();
-					AdminController admincont = new AdminController();
-					userController.init(mainController, admincont, loggedInUser);
-					searchOptions2.setVisible(false);
-					searchOptions.setVisible(true);
-					System.out.println(userController.toString());
-
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
+					GridPane gridPane = loader.load();
+					UserSearchController userSearchController = loader.getController();
+					userSearchController.init(mainController,adminController,loggedInUser);
+					System.out.println(this.toString());
+					searchOptions.getChildren().clear();
+					searchOptions.getChildren().add(gridPane);
+				}catch(IOException e){
 					e.printStackTrace();
 				}
+
 			}
+
 		});
 
-
+		userToggle.fire();
 	}
+
 
     /**
      * By Pontus
