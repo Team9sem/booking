@@ -89,15 +89,9 @@ public class RoomSearchController {
             e.printStackTrace();
         }
     	 
-    	RoomSearchService room = new RoomSearchService(id,
-    			 roomSize.getText(),
-    			 roomLocation.getText(),
-    			 hasWhiteboard.isSelected(),
-    			 hasCoffeMachine.isSelected(),
-    			 hasProjector.isSelected()
-    			 );
+    	RoomSearchService room = new RoomSearchService(new Room());
     	 System.out.println("Clicked searchbutton");
-         adminController.searchForRooms(room);
+//         adminController.searchForRooms(room);
 
     	 
     	 
