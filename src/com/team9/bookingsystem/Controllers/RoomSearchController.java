@@ -73,22 +73,22 @@ public class RoomSearchController {
 
 	@FXML public void Search(ActionEvent event){
 
-		int id = 0;
+//		int id = 0;
+//
+//		try{
+//			if(!roomID.getText().isEmpty()){
+//				id = Integer.parseInt(roomID.getText());
+//
+//			}
+//
+//
+//		}catch(NumberFormatException e){
+//			e.printStackTrace();
+//		}
 
-		try{
-			if(!roomID.getText().isEmpty()){
-				id = Integer.parseInt(roomID.getText());
-
-			}
-
-
-		}catch(NumberFormatException e){
-			e.printStackTrace();
-		}
-
-		RoomSearchService room = new RoomSearchService(new Room());
+		Room room = new Room(new Room());
 		System.out.println("Clicked searchbutton");
-//         adminController.searchForRooms(room);
+        adminController.searchForRooms(room);
 	}
 
 }
