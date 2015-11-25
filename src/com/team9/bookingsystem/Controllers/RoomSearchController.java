@@ -38,6 +38,7 @@ public class RoomSearchController {
 	private Room selectedRoom;
 	private Button selectedButton;
 	private AdminController adminController;
+	private RoomSearchService roomSearch;
 
 	// ContainerElement
 	@FXML GridPane roomSearchGridPane;
@@ -49,6 +50,9 @@ public class RoomSearchController {
 	@FXML TextField roomSize;
 	@FXML TextField roomLocation;
 	@FXML DatePicker date;
+	@FXML CheckBox isSmall;
+	@FXML CheckBox isMedium;
+	@FXML CheckBox isLarge;
 	@FXML CheckBox hasWhiteboard;
 	@FXML CheckBox hasCoffeMachine;
 	@FXML CheckBox hasProjector;
@@ -72,36 +76,16 @@ public class RoomSearchController {
 		this.loggedInUser = admin;
 		this.adminController = adminController;
 
+
 	}
 	
     @FXML public void Search(ActionEvent event){
     	
-    	int id = 0;
+    	Room roomSearch = new Room();
     	
-    	try{
-            if(!roomID.getText().isEmpty()){
-                id = Integer.parseInt(roomID.getText());
-              
-            }
-          
-
-        }catch(NumberFormatException e){
-            e.printStackTrace();
-        }
-    	 
-    	RoomSearchService room = new RoomSearchService(id,
-    			 roomSize.getText(),
-    			 roomLocation.getText(),
-    			 hasWhiteboard.isSelected(),
-    			 hasCoffeMachine.isSelected(),
-    			 hasProjector.isSelected()
-    			 );
+        
     	 System.out.println("Clicked searchbutton");
          adminController.searchForRooms(room);
-
-    	 
-    	 
-    	 
     	
     }
     
