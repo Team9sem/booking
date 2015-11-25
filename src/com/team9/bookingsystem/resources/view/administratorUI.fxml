@@ -28,6 +28,8 @@
                      <ToggleButton fx:id="userToggle" prefWidth="70" mnemonicParsing="false" text="Users" GridPane.columnSpan="2" GridPane.rowIndex="0" />
                      <ToggleButton fx:id="roomToggle" prefWidth="70" mnemonicParsing="false" text="Rooms" GridPane.columnSpan="2" GridPane.rowIndex="1" />
                      <fx:include GridPane.rowIndex="3" GridPane.rowSpan="3" fx:id="searchOptions" source= "userSearch.fxml"/>
+                     <fx:include GridPane.rowIndex="3" GridPane.rowSpan="3" fx:id="searchOptions2" source= "roomSearch.fxml"/>
+                     
 
                      </GridPane>
                   </children>

@@ -68,6 +68,7 @@ public class AdminController {
     @FXML private HBox paginationBox;
     @FXML private AnchorPane resultAnchorPane;
     @FXML private GridPane searchOptions;
+    @FXML private GridPane searchOptions2;
     @FXML private UserSearchController searchOptionsController;
     @FXML private Label loginLabel;
     @FXML private Label searchPreferences;
@@ -263,21 +264,21 @@ public class AdminController {
     }
 
 
-		public void searchForRooms(Room room){
+		public void searchForRooms(RoomSearchService room){
 
 			System.out.println("Searching in AdminController");
 
-			int id = 0;
-
-//			try {
-//				if (!roomID.getText().isEmpty()) {
-//					id = Integer.parseInt(roomID.getText());
-//				}
+//			int id = 0;
 //
-//
-//			} catch (NumberFormatException e) {
-//				e.printStackTrace();
-//			}
+////			try {
+////				if (!roomID.getText().isEmpty()) {
+////					id = Integer.parseInt(roomID.getText());
+////				}
+////
+////
+////			} catch (NumberFormatException e) {
+////				e.printStackTrace();
+////			}
 
 			RoomSearchService searchForRoom = new RoomSearchService(new Room());
 			searchForRoom.start();
@@ -354,7 +355,7 @@ public class AdminController {
         userToggle.setSelected(true);
 
 		searchOptions.setVisible(false);
-//		searchOptions2.setVisible(false);
+		searchOptions2.setVisible(false);
 //
 		roomToggle.setOnAction(new EventHandler <ActionEvent>() {
 
@@ -367,9 +368,9 @@ public class AdminController {
 					GridPane grid = loader.load();
 					RoomSearchController roomController = loader.getController();
 					AdminController adminController = new AdminController();
-//					roomController.init(mainController,adminController, loggedInUser);
+					roomController.init(mainController,adminController, loggedInUser);
 					searchOptions.setVisible(false);
-//					searchOptions2.setVisible(true);
+					searchOptions2.setVisible(true);
 					System.out.println(roomController.toString());
 
 				} catch (IOException e) {
@@ -392,7 +393,7 @@ public class AdminController {
 					UserSearchController userController = loader.getController();
 					AdminController admincont = new AdminController();
 					userController.init(mainController, admincont, loggedInUser);
-//					searchOptions2.setVisible(false);
+					searchOptions2.setVisible(false);
 					searchOptions.setVisible(true);
 					System.out.println(userController.toString());
 

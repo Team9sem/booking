@@ -35,6 +35,7 @@ public class RoomSearchController {
 	private ArrayList<Room> searchResult;
 	private Room selectedRoom;
 	private Button selectedButton;
+	private AdminController adminController;
 
 	// ContainerElement
 
@@ -68,9 +69,10 @@ public class RoomSearchController {
 
 	}
 
-	public void init(MainController mainController, User admin) {
+	public void init(MainController mainController,AdminController adminController, User admin) {
 		this.mainController = mainController;
 		this.loggedInUser = admin;
+		this.adminController = adminController;
 
 	}
 
@@ -91,7 +93,7 @@ public class RoomSearchController {
 
 		RoomSearchService room = new RoomSearchService(new Room());
 		System.out.println("Clicked searchbutton");
-//         adminController.searchForRooms(room);
+        adminController.searchForRooms(room);
 	}
 
 }
