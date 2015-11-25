@@ -275,23 +275,9 @@ public class AdminController {
 
 
     }
-    public void searchForRooms(Room room){
+    public void searchForRooms(RoomSearchService room){
     	
         System.out.println("Searching in AdminController");
-        
-	int id = 0;
-    	
-    	try{
-            if(!roomID.getText().isEmpty()){
-                id = Integer.parseInt(roomID.getText());
-            }
-            
-          
-
-        }catch(NumberFormatException e){
-            e.printStackTrace();
-        }
-    	
         RoomSearchService searchForRoom = new RoomSearchService(new Room());
         searchForRoom.start();
         searchForRoom.setOnSucceeded(new EventHandler<WorkerStateEvent>() {

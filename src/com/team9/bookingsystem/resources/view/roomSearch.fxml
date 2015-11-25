@@ -97,7 +97,7 @@
 		</HBox>
 		<HBox GridPane.columnSpan="2" GridPane.rowIndex="18">
 			<children>
-				<Button mnemonicParsing="false" text="Search" />
+				<Button onAction="#Search" mnemonicParsing="false" text="Search" />
 			</children>
 		</HBox>
 		<HBox GridPane.columnSpan="3" GridPane.rowIndex="15">
@@ -119,7 +119,6 @@
 				<Label text="Location:" />
 			</children>
 		</HBox>
-      <HBox GridPane.columnSpan="3" GridPane.rowIndex="11" />
       <HBox GridPane.columnSpan="2" GridPane.rowIndex="6">
          <children>
             <CheckBox fx:id="isSmall" mnemonicParsing="false" text="Small" />
