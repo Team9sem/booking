@@ -29,6 +29,7 @@ public class RoomSearchController {
 	User loggedInUser;
 	// Parent Controller
 	private MainController mainController;
+	private AdminController adminController;
 	// Mysqlutil for Database Operations
 	private MysqlUtil util;
 	// ArrayList Storing the most recent searchResult;
@@ -60,17 +61,13 @@ public class RoomSearchController {
 
 	public void initialize() {
 
-		// setupDatePicker();
-
-		// ObservableList<String> choices= FXCollections.observableArrayList();
-		// choices.addAll("OneChoice");
-		// locationPick.setItems(choices);
 
 	}
 
-	public void init(MainController mainController, User admin) {
+	public void init(MainController mainController,AdminController adminController,User admin){
 		this.mainController = mainController;
 		this.loggedInUser = admin;
+		this.adminController = adminController;
 
 	}
 

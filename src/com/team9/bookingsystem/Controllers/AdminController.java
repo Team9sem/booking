@@ -32,6 +32,8 @@ import javafx.util.Callback;
 import javafx.util.converter.IntegerStringConverter;
 import javafx.util.converter.LongStringConverter;
 
+import javax.swing.*;
+
 /**
  * Controller class for administratorUI.fxml
  * Created by Pontus and Nima
@@ -67,8 +69,10 @@ public class AdminController {
     @FXML private BorderPane borderPane;
     @FXML private HBox paginationBox;
     @FXML private AnchorPane resultAnchorPane;
-    @FXML private GridPane searchOptions;
-    @FXML private UserSearchController searchOptionsController;
+    @FXML private GridPane  userSearchOptions;
+	@FXML private GridPane  roomSearchOptions;
+    @FXML private UserSearchController userSearchOptionsController;
+	@FXML private RoomSearchController roomSearchOptionsController;
     @FXML private Label loginLabel;
     @FXML private Label searchPreferences;
     @FXML private Label searchFor;
@@ -93,8 +97,8 @@ public class AdminController {
 
 
         paginationBox.setAlignment(Pos.CENTER);
-        searchOptionsController.init(mainController,this,loggedInUser);
-
+        userSearchOptionsController.init(mainController,this,loggedInUser);
+		roomSearchOptionsController.init(mainController,this,loggedInUser);
     }
 
 
@@ -351,10 +355,10 @@ public class AdminController {
         toggleGroup = new ToggleGroup();
         userToggle.setToggleGroup(toggleGroup);
         roomToggle.setToggleGroup(toggleGroup);
-        userToggle.setSelected(true);
 
-		searchOptions.setVisible(false);
-//		searchOptions2.setVisible(false);
+
+		userSearchOptions.setVisible(false);
+		roomSearchOptions.setVisible(false);
 //
 		roomToggle.setOnAction(new EventHandler <ActionEvent>() {
 
@@ -362,20 +366,10 @@ public class AdminController {
 			@Override
 			public void handle (ActionEvent event) {
 
-				try {
-					FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/roomSearch.fxml"));
-					GridPane grid = loader.load();
-					RoomSearchController roomController = loader.getController();
-					AdminController adminController = new AdminController();
-//					roomController.init(mainController,adminController, loggedInUser);
-					searchOptions.setVisible(false);
-//					searchOptions2.setVisible(true);
-					System.out.println(roomController.toString());
+				userSearchOptions.setVisible(false);
+				roomSearchOptions.setVisible(true);
 
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+
 
 			}
 
@@ -383,28 +377,20 @@ public class AdminController {
 
 		userToggle.setOnAction(new EventHandler <ActionEvent>() {
 
+
+
 			@Override
 			public void handle (ActionEvent event) {
+				roomSearchOptions.setVisible(false);
+				userSearchOptions.setVisible(true);
 
-				try {
-					FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/userSearch.fxml"));
-					GridPane grid = loader.load();
-					UserSearchController userController = loader.getController();
-					AdminController admincont = new AdminController();
-					userController.init(mainController, admincont, loggedInUser);
-//					searchOptions2.setVisible(false);
-					searchOptions.setVisible(true);
-					System.out.println(userController.toString());
-
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 			}
+
 		});
 
-
+		userToggle.fire();
 	}
+
 
     /**
      * By Pontus
