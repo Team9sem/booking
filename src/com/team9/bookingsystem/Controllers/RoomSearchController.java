@@ -10,9 +10,13 @@ import java.util.ArrayList;
 
 import com.team9.bookingsystem.MysqlUtil;
 import com.team9.bookingsystem.Room;
+import com.team9.bookingsystem.Threading.Admin.RoomSearchService;
 import com.team9.bookingsystem.User;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -33,17 +37,23 @@ public class RoomSearchController {
 	private Button selectedButton;
 
 	// ContainerElement
+
+
 	@FXML GridPane roomSearchGridPane;
 
 	@FXML Label searchPreferences;
 	@FXML Label searchForUser;
 	@FXML Label adminRoomLabel;
-	@FXML TextField userID;
-	@FXML TextField userName;
-	@FXML TextField firstName;
-	@FXML TextField lastName;
-	@FXML TextField userType;
+	@FXML TextField roomID;
+	@FXML TextField roomSize;
+	@FXML TextField roomLocation;
+	@FXML DatePicker date;
+	@FXML CheckBox hasWhiteboard;
+	@FXML CheckBox hasCoffeMachine;
+	@FXML CheckBox hasProjector;
 	// @FXML Label features;
+
+
 
 	@FXML
 	Button adminSearchButton;
@@ -62,6 +72,26 @@ public class RoomSearchController {
 		this.mainController = mainController;
 		this.loggedInUser = admin;
 
+	}
+
+	@FXML public void Search(ActionEvent event){
+
+		int id = 0;
+
+		try{
+			if(!roomID.getText().isEmpty()){
+				id = Integer.parseInt(roomID.getText());
+
+			}
+
+
+		}catch(NumberFormatException e){
+			e.printStackTrace();
+		}
+
+		RoomSearchService room = new RoomSearchService(new Room());
+		System.out.println("Clicked searchbutton");
+//         adminController.searchForRooms(room);
 	}
 
 }

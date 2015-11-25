@@ -2,6 +2,7 @@ package com.team9.bookingsystem.Threading.Admin;
 
 import com.team9.bookingsystem.MysqlUtil;
 import com.team9.bookingsystem.Room;
+import com.team9.bookingsystem.User;
 import javafx.concurrent.Task;
 
 import java.util.ArrayList;
@@ -64,8 +65,10 @@ public class RoomSearchService extends AdminSearchService {
         if(hasCoffeMachine) this.hasCoffeMachine = 1;
         else this.hasCoffeMachine = 0;
 
+    }
+    public RoomSearchService(Room room){
 
-
+        this.room = room;
     }
 
     /**

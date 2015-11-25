@@ -1,6 +1,7 @@
 package com.team9.bookingsystem.Controllers;
 
 
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -259,7 +261,82 @@ public class AdminController {
 
 
     }
-    public void searchForRooms(Room room) {}
+
+
+		public void searchForRooms(Room room){
+
+			System.out.println("Searching in AdminController");
+
+			int id = 0;
+
+//			try {
+//				if (!roomID.getText().isEmpty()) {
+//					id = Integer.parseInt(roomID.getText());
+//				}
+//
+//
+//			} catch (NumberFormatException e) {
+//				e.printStackTrace();
+//			}
+
+			RoomSearchService searchForRoom = new RoomSearchService(new Room());
+			searchForRoom.start();
+			searchForRoom.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+				@Override
+				public void handle(WorkerStateEvent event) {
+
+
+					roomSearchResult = (ArrayList<Room>) searchForRoom.getValue();
+
+					if (roomSearchResult == null) System.out.println("is null");
+
+					if (roomSearchResult != null) {
+
+						if (!roomTableViewData.isEmpty()) {
+							roomTableViewData.clear();
+						}
+						roomTableViewData.addAll(roomSearchResult);
+						Pagination pagination = getRoomPagination();
+
+
+						System.out.println(roomSearchResult.size());
+						if (roomSearchResult.size() <= 20) {
+
+							System.out.println("creating page");
+							pagination.setPageCount(1);
+							pagination.setCurrentPageIndex(0);
+							paginationBox.getChildren().clear();
+							paginationBox.getChildren().add(pagination);
+							paginationBox.setHgrow(pagination, Priority.SOMETIMES);
+
+
+						} else {
+
+							pagination.setPageCount((int) (Math.ceil(roomSearchResult.size() / 20.0)));
+							pagination.setCurrentPageIndex(0);
+							paginationBox.getChildren().clear();
+							paginationBox.getChildren().add(pagination);
+
+						}
+					} else if (roomSearchResult == null) {
+
+						roomTableViewData.clear();
+						Pagination pagination = getRoomPagination();
+						pagination.setPageCount(1);
+						pagination.setCurrentPageIndex(0);
+						paginationBox.getChildren().clear();
+						paginationBox.getChildren().add(pagination);
+
+
+					}
+
+
+				}
+			});
+
+
+
+	}
 
     private void showSchedule(){
 
@@ -275,7 +352,59 @@ public class AdminController {
         userToggle.setToggleGroup(toggleGroup);
         roomToggle.setToggleGroup(toggleGroup);
         userToggle.setSelected(true);
-    }
+
+		searchOptions.setVisible(false);
+//		searchOptions2.setVisible(false);
+//
+		roomToggle.setOnAction(new EventHandler <ActionEvent>() {
+
+
+			@Override
+			public void handle (ActionEvent event) {
+
+				try {
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/roomSearch.fxml"));
+					GridPane grid = loader.load();
+					RoomSearchController roomController = loader.getController();
+					AdminController adminController = new AdminController();
+//					roomController.init(mainController,adminController, loggedInUser);
+					searchOptions.setVisible(false);
+//					searchOptions2.setVisible(true);
+					System.out.println(roomController.toString());
+
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
+
+		});
+
+		userToggle.setOnAction(new EventHandler <ActionEvent>() {
+
+			@Override
+			public void handle (ActionEvent event) {
+
+				try {
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/userSearch.fxml"));
+					GridPane grid = loader.load();
+					UserSearchController userController = loader.getController();
+					AdminController admincont = new AdminController();
+					userController.init(mainController, admincont, loggedInUser);
+//					searchOptions2.setVisible(false);
+					searchOptions.setVisible(true);
+					System.out.println(userController.toString());
+
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+
+
+	}
 
     /**
      * By Pontus
