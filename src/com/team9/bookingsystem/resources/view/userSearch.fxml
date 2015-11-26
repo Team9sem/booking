@@ -6,6 +6,8 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
+<!--by Nima, Pontus-->
+
 <GridPane fx:id="userSearchGridPane" gridLinesVisible="false" vgap="1" hgap="10" prefWidth="432.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team9.bookingsystem.Controllers.UserSearchController">
          <columnConstraints>
             <ColumnConstraints hgrow="ALWAYS" maxWidth="307.0" minWidth="10.0" prefWidth="200.0" />
