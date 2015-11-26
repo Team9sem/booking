@@ -1,12 +1,16 @@
 package com.team9.bookingsystem.Controllers;
 
+import com.team9.bookingsystem.DialogCallback;
+import com.team9.bookingsystem.PopupController;
 import com.team9.bookingsystem.User;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.fxml.FXMLLoader;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -18,7 +22,7 @@ import java.io.IOException;
 public class MainController {
 
 
-
+    private Stage primaryStage;
     // Variables mapped to fxml elements
     @FXML private AnchorPane Ui;
     @FXML private Pane welcomeArea;
@@ -35,6 +39,21 @@ public class MainController {
 
         welcomeAreaController.init(this);
         System.out.println(welcomeAreaController.toString());
+
+    }
+    public void init(Stage primaryStage){
+        this.primaryStage = primaryStage;
+    }
+
+    public boolean showPopup(Stage popupStage, PopupController popupController,DialogCallback callback){
+        popupStage.initOwner(primaryStage);
+        popupController.setStage(popupStage);
+        popupController.setCallBack(callback);
+        popupStage.showAndWait();
+
+        return popupController.isOkClicked();
+
+
 
     }
 

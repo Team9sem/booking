@@ -53,10 +53,7 @@ public class UserSearchController {
     @FXML Button adminSearchButton;
 	
 	 public void initialize() {
-
-
-
- }
+     }
   
    public void init(MainController mainController,AdminController adminController,User admin){
        this.mainController = mainController;

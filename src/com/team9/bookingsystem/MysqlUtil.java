@@ -1,5 +1,8 @@
 package com.team9.bookingsystem;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.*;
 import java.sql.Date;
 import java.util.*;
@@ -1304,14 +1307,25 @@ public class MysqlUtil {
     } //end public BookedRoom
 
 
-        public void uploadPicture(String image){
+        public void uploadPicture(File img){
 
 
             try(Connection connection = getConnection()){
 
 
-                Statement statement = connection.createStatement();
-                statement.executeUpdate("Update User SET User.picture ='"+image+"' WHERE User.alias = 'team9'");
+                PreparedStatement ps = null;
+                String insertPicture = "Update User SET User.picture = ?  WHERE User.alias = 'team9'";
+            try{
+                connection.setAutoCommit(false);
+                FileInputStream fileInputStream = new FileInputStream(img);
+                ps = connection.prepareStatement(insertPicture);
+                ps.setBinaryStream(1,fileInputStream,(int)img.length());
+                ps.executeUpdate();
+                connection.commit();
+
+            }catch(FileNotFoundException e){
+                e.printStackTrace();
+            }
 
 
 
@@ -1319,6 +1333,7 @@ public class MysqlUtil {
             }catch(SQLException e){
                     e.printStackTrace();
             }
+
 
         }
 

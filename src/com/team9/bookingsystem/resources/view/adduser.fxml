@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
+
+
+        
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team9.bookingsystem.Controllers.AddUserController" styleClass="popup-root">
+<GridPane style="-fx-background-color: rgba(212, 218, 255, 0.38);"  fx:id="registerPane" gridLinesVisible="true" prefWidth="432.0"
+        AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+        >
+    <children>
+
+
+
+
+
+        <HBox alignment="CENTER_LEFT" GridPane.rowIndex="0">
+            <children>
+
+                <Label styleClass="register-labels" text="Username" />
+            </children>
+            <padding>
+                <Insets left="90.0" />
+            </padding>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" GridPane.rowIndex="1">
+            <children>
+
+                <Label styleClass="register-labels" text="Password" />
+            </children>
+            <padding>
+                <Insets left="90.0" />
+            </padding>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" GridPane.rowIndex="2">
+            <children>
+
+                <Label styleClass="register-labels" text="First Name" />
+            </children>
+            <padding>
+                <Insets left="90.0" />
+            </padding>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" GridPane.rowIndex="3">
+            <children>
+
+                <Label styleClass="register-labels" text="Last Name" />
+            </children>
+            <padding>
+                <Insets left="90.0" />
+            </padding>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" GridPane.rowIndex="4">
+            <children>
+
+                <Label styleClass="register-labels" text="Social Security Number" />
+            </children>
+            <padding>
+                <Insets left="90.0" />
+            </padding>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" GridPane.rowIndex="5">
+            <children>
+
+                <Label styleClass="register-labels" text="Adress" />
+            </children>
+            <padding>
+                <Insets left="90.0" />
+            </padding>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" GridPane.rowIndex="6">
+            <children>
+
+                <Label styleClass="register-labels" text="Zip Code" />
+            </children>
+            <padding>
+                <Insets left="90.0" />
+            </padding>
+        </HBox>
+
+        <HBox alignment="CENTER_LEFT" prefWidth="223.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="0">
+
+            <GridPane.margin>
+                <Insets bottom="10" left="10" right="10" top="10" />
+            </GridPane.margin>
+
+            <TextField fx:id="username" promptText="Enter Username" />
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+
+        </HBox>
+
+        <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
+
+            <GridPane.margin>
+                <Insets bottom="10" left="10" right="10" top="10" />
+            </GridPane.margin>
+
+            <PasswordField fx:id="password" promptText="Enter Password" />
+
+        </HBox>
+
+        <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
+
+            <GridPane.margin>
+                <Insets bottom="10" left="10" right="10" top="10" />
+            </GridPane.margin>
+
+            <TextField fx:id="firstname" promptText="Enter First Name" />
+
+
+        </HBox>
+
+        <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
+
+            <GridPane.margin>
+                <Insets bottom="10" left="10" right="10" top="10" />
+            </GridPane.margin>
+
+            <TextField fx:id="lastname" promptText="Enter Last Name" />
+
+
+        </HBox>
+
+        <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4">
+
+
+            <GridPane.margin>
+                <Insets bottom="10" left="10" right="10" top="10" />
+            </GridPane.margin>
+
+            <TextField fx:id="personnumber" promptText="Enter SSN" />
+
+        </HBox>
+
+
+        <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5">
+
+            <GridPane.margin>
+                <Insets bottom="10" left="10" right="10" top="10" />
+            </GridPane.margin>
+
+            <TextField fx:id="adress" promptText="Enter Adress" />
+
+        </HBox>
+
+        <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="6">
+
+            <GridPane.margin>
+                <Insets bottom="10" left="10" right="10" top="10" />
+            </GridPane.margin>
+
+            <TextField fx:id="zip" promptText="Enter Zip Code" />
+        </HBox>
+
+        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="1" GridPane.rowIndex="7">
+
+            <GridPane.margin>
+                <Insets bottom="10" left="10" right="10" top="10" />
+            </GridPane.margin>
+
+            <Button fx:id="register" onAction="#addUser"  text="Add User" />
+
+        </HBox>
+
+        <HBox alignment="CENTER" GridPane.columnIndex="0" GridPane.columnSpan="1" GridPane.rowIndex="7">
+
+            <GridPane.margin>
+                <Insets bottom="10" left="10" right="10" top="10" />
+            </GridPane.margin>
+
+            <Button fx:id="cancel"  onAction="#cancel" text="Cancel" />
+            <padding>
+                <Insets left="30.0" />
+            </padding>
+
+
+        </HBox>
+        <HBox alignment="CENTER" prefWidth="200"  GridPane.columnIndex="2" GridPane.rowIndex="0">
+            <children>
+                <Label styleClass="register-labels"  fx:id="userNameProgressLabel" text="Label" />
+            </children>
+        </HBox>
+        <HBox  alignment="CENTER" prefWidth="200" GridPane.columnIndex="2" GridPane.rowIndex="0">
+            <GridPane.margin>
+                <Insets top="15"></Insets>
+            </GridPane.margin>
+            <children>
+                <ProgressIndicator  fx:id="usernameProgress"  />
+
+            </children>
+        </HBox>
+        <HBox alignment="CENTER" prefWidth="100"  GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <children>
+                <VBox alignment="CENTER">
+                    <HBox.margin>
+                        <Insets bottom="20"></Insets>
+                    </HBox.margin>
+                    <children>
+                        <Label styleClass="register-labels" fx:id="passwordProgressLabel" text="Label" />
+                        <ProgressBar fx:id="passwordSecurityProgress"></ProgressBar>
+
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+        <HBox alignment="CENTER" prefWidth="150"  GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <children>
+
+                <Label fx:id="passwordErrorLabel" styleClass="register-labels">
+
+                </Label>
+            </children>
+        </HBox>
+        <HBox alignment="CENTER" prefWidth="150"  GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <children>
+
+                <ProgressIndicator  fx:id="passwordProgress" progress="0.0" />
+            </children>
+
+        </HBox>
+
+        <HBox alignment="CENTER" prefWidth="100"  GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <GridPane.margin>
+                <Insets top="15"></Insets>
+            </GridPane.margin>
+            <children>
+                <ProgressIndicator  fx:id="firstnameProgress" progress="0.0" />
+
+            </children>
+        </HBox>
+        <HBox alignment="CENTER" prefWidth="100"  GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <children>
+                <Label styleClass="register-labels"  fx:id="firstnameProgressLabel" text="Label" />
+            </children>
+        </HBox>
+        <HBox alignment="CENTER"  GridPane.columnIndex="2" GridPane.rowIndex="3">
+            <GridPane.margin>
+                <Insets top="15"></Insets>
+            </GridPane.margin>
+            <children>
+
+                <ProgressIndicator  fx:id="lastnameProgress" progress="0.0" />
+            </children>
+        </HBox>
+        <HBox alignment="CENTER"  GridPane.columnIndex="2" GridPane.rowIndex="3">
+            <children>
+                <Label styleClass="register-labels"  fx:id="lastnameProgressLabel" text="Label" />
+
+            </children>
+        </HBox>
+        <HBox alignment="CENTER"  GridPane.columnIndex="2" GridPane.rowIndex="4">
+            <GridPane.margin>
+                <Insets top="15"></Insets>
+            </GridPane.margin>
+            <children>
+                <ProgressIndicator  fx:id="pNumberProgress" progress="0.0" />
+            </children>
+        </HBox>
+        <HBox alignment="CENTER"  GridPane.columnIndex="2" GridPane.rowIndex="4">
+            <children>
+                <Label styleClass="register-labels"  fx:id="pNumberProgressLabel" text="Label" />
+            </children>
+        </HBox>
+        <HBox alignment="CENTER"  GridPane.columnIndex="2" GridPane.rowIndex="5">
+            <GridPane.margin>
+                <Insets top="15"></Insets>
+            </GridPane.margin>
+            <children>
+                <ProgressIndicator fx:id="streetProgress" progress="0.0" />
+            </children>
+        </HBox>
+        <HBox alignment="CENTER"  GridPane.columnIndex="2" GridPane.rowIndex="5">
+            <children>
+                <Label styleClass="register-labels"  fx:id="streetProgressLabel" text="Label" />
+
+            </children>
+        </HBox>
+        <HBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="6">
+            <GridPane.margin>
+                <Insets top="15"></Insets>
+            </GridPane.margin>
+            <children>
+                <ProgressIndicator  fx:id="zipCodeProgress" progress="0.0" />
+            </children>
+        </HBox>
+        <HBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="6">
+            <children>
+                <Label styleClass="register-labels"  fx:id="zipCodeProgressLabel" text="Label" />
+
+            </children>
+        </HBox>
+
+
+
+
+
+    </children>
+    <columnConstraints>
+        <ColumnConstraints maxWidth="245.0" minWidth="220.0" prefWidth="223.0" />
+        <ColumnConstraints maxWidth="212.0" minWidth="187.0" prefWidth="209.0" />
+        <ColumnConstraints minWidth="230" prefWidth="230"/>
+
+    </columnConstraints>
+    <rowConstraints>
+        <!--<RowConstraints minHeight="70"/>-->
+        <!--<RowConstraints minHeight="70"/>-->
+        <!--<RowConstraints minHeight="70"/>-->
+        <!--<RowConstraints minHeight="70"/>-->
+        <!--<RowConstraints minHeight="70" />-->
+        <!--<RowConstraints minHeight="70"/>-->
+        <!--<RowConstraints minHeight="70"/>-->
+        <!--<RowConstraints minHeight="70"/>-->
+        <!--<RowConstraints minHeight="30"/>-->
+    </rowConstraints>
+    <opaqueInsets>
+        <Insets />
+    </opaqueInsets>
+
+</GridPane>
+
+    <stylesheets>
+        <URL value="@../css/RootStyle.css" />
+    </stylesheets>
+</AnchorPane>

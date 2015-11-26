@@ -11,6 +11,9 @@
     -fx-background-image: url("../img/background-twitter-images-1920x1080.png");
 	-fx-font-family: Infinity;
 }
+.popup-root{
+    -fx-background-image: url("../img/background-twitter-images-1920x1080.png");
+}
 
 .welcome-area{
 
@@ -68,7 +71,7 @@
 	
 }
 .register-labels{
-	
+    -fx-font-family: Arial;
 	-fx-text-fill: white;
 
 }
@@ -147,3 +150,12 @@
     -fx-border-radius: 5;
     -fx-background-radius: 5;
 }
+
+.table-view .column-header  {
+    -fx-background-color: white;
+    -fx-border-color: #a9acab;
+    -fx-border-width: 0.5px;
+
+}
+
+
