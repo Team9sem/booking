@@ -21,7 +21,7 @@ import java.util.stream.Stream;
 
 /**
  * Created by Olle Renard and Nima Fard 22 October 2015
- * Controller for login.fxml
+ * Controller for register.fxml
  */
 
 
