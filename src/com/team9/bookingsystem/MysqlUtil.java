@@ -1,5 +1,10 @@
 package com.team9.bookingsystem;
 
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,6 +13,8 @@ import java.util.Iterator;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONException;
+
+import javax.imageio.ImageIO;
 
 /**
  * Created by pontuspohl on 12/10/15.
@@ -406,6 +413,10 @@ public class MysqlUtil {
 
     }//end public User RegisterUser
 
+    /**
+     * Returns a natural join of the tables Room and Bookings
+     */
+
     public int totalNumberOfRooms(){
         int j = 0;
         try(Connection connection = getConnection()){
@@ -426,6 +437,11 @@ public class MysqlUtil {
         }
         return j;
     }
+
+    /**
+     * Composes a query for the getRooms method
+     * Queries all unbooked rooms from the DB
+     */
 
     public String composeRoomQuery(String location,
                                    boolean isSmall,
@@ -478,13 +494,14 @@ public class MysqlUtil {
         return query + ";";
     }
 
-    public ArrayList<Room> getRooms(String query){ 	//or maybe it should accept a booking class, or room+time+date
-        // returns string for now, just for testing
-
+    /**
+     * Gets rooms from the DB according to the SQL string from the method ComposeRoomQuery()
+     * Stores them in an ArrayList of Rooms
+     */
+    public ArrayList<Room> getRooms(String query){
 
         int roomsNumber = totalNumberOfRooms();
 
-//        BookedRoom[] bridgeRooms = new BookedRoom[roomsNumber];
         ArrayList<Room> bridgeRooms = new ArrayList<>();
 
 
@@ -492,19 +509,9 @@ public class MysqlUtil {
 
             System.out.println("\nConnection Established\n");
 
-            String locationOfRoom = "", sizeOfRoom = "";
-            int projector = 0, whiteboard = 0, coffee = 0, rID = 0, bID=0, uID=0;
-            Date date = null, startTime= null, endTime = null;
-
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(query);
 
-            ResultSetMetaData rsMetaData = rs.getMetaData();
-            int columnsNumber = rsMetaData.getColumnCount();
-
-            BookedRoom[] hlpRooms = new BookedRoom[roomsNumber];
-
-            int k = 0;
             System.out.println(query);
 
             if (!rs.isBeforeFirst() ) {
@@ -525,61 +532,14 @@ public class MysqlUtil {
                 rs.getInt("roomId");
             }
             return bridgeRooms;
-//                for (int i = 1; i <= columnsNumber; i++) {
-//
-//                    String columnValue = rs.getString(i);
-//                    char c;
-//                    if(i==1 || i==7 || i==8) {
-//                        if(i==1){ rID = Integer.parseInt(columnValue); }
-//                        if(i==7){ bID = Integer.parseInt(columnValue); }
-//                        if(i==8){ uID = Integer.parseInt(columnValue); }
-//                    }
-//                    if(i==2) {
-//                        locationOfRoom = columnValue;
-//                    }
-//                    if(i==3) {
-//                        sizeOfRoom = columnValue;
-//                    }
-//                    if(i==4 || i == 5 || i == 6){
-//                        c = columnValue.charAt(0);
-//                        if(i==4) { projector = Character.getNumericValue(c); }
-//                        if(i==5) { whiteboard = Character.getNumericValue(c); }
-//                        if(i==6) { coffee = Character.getNumericValue(c); }
-//                    }
-//                    if(i==9){  }
-//                    if(i==10){  }
-//                    if(i==11){  }
-
-
-//                Room tmpRoom = new Room(rID, locationOfRoom, sizeOfRoom, projector, whiteboard, coffee);
-//                hlpRooms[k] = new BookedRoom(tmpRoom, bID, uID, date, startTime, endTime);
-//                k++;
-//                availableRoomsNo++;
-//
-//            //testing purposes - counts results
-//            System.out.println("Rooms total:"+availableRoomsNo);
-//
-//            bridgeRooms = hlpRooms;
-//
-//            rs.close();
-//            statement.close();
-//            connection.close();
 
         }catch(SQLException e){
             e.printStackTrace();
         }
-
-//        Room[] rooms = new Room[availableRoomsNo];
-//
-//        for(int i=0; i<availableRoomsNo; i++){
-//            rooms[i] = bridgeRooms[i];
-//        }
-//
-//        return rooms;
         return null;
     }
 
-
+    //END OF GETTING ROOMS PART
 
     // prototype using HashMap
     public HashMap getAllUsers(){
@@ -741,7 +701,7 @@ public class MysqlUtil {
                 user.setFirstName(rs.getString("firstname"));
                 user.setLastName(rs.getString("lastname"));
                 user.setpNumber(rs.getInt("pNumber"));
-                user.setUserType(rs.getString("usertype"));
+                user.setUserType(rs.getInt("usertype"));
                 user.setStreet(rs.getString("street"));
                 user.setZip(rs.getInt("zip"));
 
@@ -922,7 +882,7 @@ public class MysqlUtil {
                 user.setFirstName(rs.getString("firstname"));
                 user.setLastName(rs.getString("lastname"));
                 user.setpNumber(rs.getInt("pNumber"));
-                user.setUserType(rs.getString("usertype"));
+                user.setUserType(rs.getInt("usertype"));
                 user.setStreet(rs.getString("street"));
                 user.setZip(rs.getInt("zip"));
             }
@@ -963,6 +923,41 @@ public class MysqlUtil {
         return room;
     }
     //END OF SEARCHING USER, ROOM AND BOOKING METHODS
+
+    /**
+     * Getting a User avatar from the DB
+     */
+
+    public BufferedImage getUserAvatar(User user){
+        BufferedImage avatar = null;
+        byte[] preDoneAvatar = null;
+
+        try(Connection connection = getConnection()){
+
+            System.out.println("\nUser Connection Established\n");
+
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(
+                    "SELECT picture FROM User WHERE userID ='"+user.getUserID()+"'"
+            );
+
+            while (rs.next()) {
+                preDoneAvatar = rs.getBytes("picture");
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        try {
+            InputStream in = new ByteArrayInputStream(preDoneAvatar);
+            avatar = ImageIO.read(in);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return avatar;
+    }
 
   }
 

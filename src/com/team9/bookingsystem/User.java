@@ -1,5 +1,8 @@
 package com.team9.bookingsystem;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+
 /**
  * Created by pontuspohl on 12/10/15.
  */
@@ -15,9 +18,10 @@ public class User {
     private String password;
     private String firstName;
     private String lastName;
-    private String userType;
+    private int userType;
     private String street;
     private int    zip;
+    private BufferedImage avatar;
 
     // Default Constructor
     public User(){}
@@ -27,9 +31,10 @@ public class User {
                 String password,
                 String firstName,
                 String lastName,
-                String userType,
+                int userType,
                 String street,
-                int zip)
+                int zip,
+                BufferedImage avatar) //Or type File - read up on that
     {
         _db = new MysqlUtil();
         this.userName  = userName;
@@ -39,6 +44,7 @@ public class User {
         this.userType  = userType;
         this.street    = street;
         this.zip       = zip;
+        this.avatar    = avatar;
     }
 
     // Copy Constructor
@@ -53,6 +59,7 @@ public class User {
         this.userType  = user.userType;
         this.street    = user.street;
         this.zip       = user.zip;
+        this.avatar    = user.avatar;
     }
     public void setUserID(int userID) {   	
     	this.userID = userID;
@@ -86,11 +93,13 @@ public class User {
         return lastName;
     }
 
-    public String getUserType() { return userType; }
+    public int getUserType() { return userType; }
 
     public String getStreet() { return street; }
 
     public int getZip() { return zip; }
+
+    public BufferedImage getAvatar(){ return this.avatar; }
 
     public void setUserName(String userName) {
         this.userName = userName;
@@ -108,7 +117,7 @@ public class User {
         this.lastName = lastName;
     }
 
-    public void setUserType(String userType) {
+    public void setUserType(int userType) {
         this.userType = userType;
     }
 
@@ -120,15 +129,17 @@ public class User {
         this.zip = zip;
     }
 
+    public void setAvatar(BufferedImage avatar){ this.avatar = avatar; }
 
 
     public static boolean isValidInput(String userName,
                                       String password,
                                       String firstName,
                                       String lastName,
-                                      String userType,
+                                      int userType,
                                       String street,
-                                      int zip)
+                                      int zip,
+                                      BufferedImage avatar)
     {
         if(userName.length() > 20) return false;
         for(char c:firstName.toCharArray()){

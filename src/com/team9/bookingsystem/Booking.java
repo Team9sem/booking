@@ -1,5 +1,7 @@
 package com.team9.bookingsystem;
 
+import java.awt.image.BufferedImage;
+
 /**
  * Created by Mayra Soliz on 01/11/15.
  */
@@ -94,14 +96,86 @@ public class Booking {
         this.bEnd = bEnd;
     }
 
+    /**
+     * User setters/getters
+     */
     public User getUser(){ return this.user; }
 
     public void setUser(User user){ this.user = user; }
 
+    public int getUserUserID(){ return user.getUserID(); }
+
+    public void setUserUserID(int userID){ this.user.setUserID(userID); }
+
+    public long getUserPNumber(){ return this.user.getpNumber(); }
+
+    public void setUserPNumber(long pNumber){ this.user.setpNumber(pNumber); }
+
+    public String getUserName(){ return this.user.getUserName(); }
+
+    public void setUserName(String userName){ this.user.setUserName(userName); }
+
+    public String getUserPassword(){ return user.getPassword(); }
+
+    public void setUserPassword(String userPassword){ this.user.setPassword(userPassword); }
+
+    public String getUserFirstName(){ return this.user.getFirstName(); }
+
+    public void setUserFirstname(String userFirstname){ this.user.setFirstName(userFirstname); }
+
+    public String getUserLastName(){ return this.user.getLastName(); }
+
+    public void setUserLastName(String userLastName){ this.user.setLastName(userLastName); }
+
+    public int getUserType(){ return this.user.getUserType(); }
+
+    public void setUserType(int userType){ this.user.setUserType(userType); }
+
+    public String getUserStreet(){ return this.user.getStreet(); }
+
+    public void setUserStreet(String street){ this.user.setStreet(street); }
+
+    public int getUserZip(){ return this.user.getZip(); }
+
+    public void setUserZip(int zip){ this.user.setZip(zip); }
+
+    public BufferedImage getUserAvatar(){ return this.user.getAvatar(); }
+
+    public void setUserAvatar(BufferedImage avatar){ this.user.setAvatar(avatar); }
+    //END OF USER SETTING/GETTING
+
+    /**
+     * Room setters/getters
+     */
     public Room getRoom(){ return this.room; }
 
     public void setRoom(Room room){ this.room = room; }
-    
+
+    public int getRoomRoomID(){ return this.room.getRoomID(); }
+
+    public void setRoomRoomID(int roomID){ this.room.setRoomID(room.getRoomID()); }
+
+    public String getRoomLocation(){ return this.room.getLocation(); }
+
+    public void setRoomLocation(String location){ this.room.setLocation(location); }
+
+    public String getRoomSize(){ return this.room.getRoomSize(); }
+
+    public void setRoomSize(String roomSize){ this.room.setRoomSize(roomSize); }
+
+    public int getRoomHasWhiteboard(){ return this.room.getHasWhiteboard(); }
+
+    public void setRoomHasWhiteboard(int hasWhiteboard){ this.room.setHasWhiteboard(hasWhiteboard); }
+
+    public int getRoomHasProjector(){ return this.room.getHasProjector(); }
+
+    public void setRoomHasProjector(int hasProjector){ this.room.setHasProjector(hasProjector); }
+
+    public int getRoomHasCoffeeMachine(){ return this.room.getHasCoffeeMachine(); }
+
+    public void setRoomHasCoffeeMachine(int hasCoffeeMachine){ this.room.setHasCoffeeMachine(hasCoffeeMachine); }
+    //END OF ROOM SETTING/GETTING
+
 
     public static boolean isValidInput(int bID, int userid, String roomID, String bdate, String bStart, String bEnd)
     {
