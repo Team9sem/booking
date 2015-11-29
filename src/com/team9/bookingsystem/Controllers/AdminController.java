@@ -132,44 +132,97 @@ public class AdminController {
      * @param event
      */
     @FXML public void commitChanges(ActionEvent event){
-            if(searchedForObject == searchedFor.user && userTableView != null){
-
-                Service<Boolean> updateUsers = new Service<Boolean>() {
+        if(searchedForObject == searchedFor.user && userTableView != null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/reviewChanges.fxml"));
+                AnchorPane anchorPane = loader.load();
+                ReviewChangesController reviewChangesController = loader.getController();
+                reviewChangesController.setAddedItems(userTableView.getAddedUsers());
+                reviewChangesController.setUpdatedItems(userTableView.getUpdatedUsers());
+                reviewChangesController.populate();
+                Stage popupStage = new Stage();
+                popupStage.setTitle("Review Changes");
+                popupStage.initModality(Modality.WINDOW_MODAL);
+                Scene scene = new Scene(anchorPane);
+                popupStage.setScene(scene);
+                mainController.showPopup(popupStage, reviewChangesController, new DialogCallback() {
                     @Override
-                    protected Task<Boolean> createTask() {
-                        Task<Boolean> task = new Task<Boolean>() {
-                            @Override
-                            protected Boolean call() throws Exception {
-                                MysqlUtil util = new MysqlUtil();
-                                try{
-                                   util.updateUser(userTableView.getUpdatedUsers());
+                    public void onSuccess(Object param) {
 
-                                }catch(SQLException e){
-                                    e.printStackTrace();
+                        // push changes
+
+                            Service<Boolean> pushChanges = new Service<Boolean>() {
+                                @Override
+                                protected Task<Boolean> createTask() {
+                                    Task<Boolean> task = new Task<Boolean>() {
+                                        @Override
+                                        protected Boolean call() throws Exception {
+                                            MysqlUtil util = new MysqlUtil();
+                                            try {
+                                                if (userTableView.getUpdatedUsers() != null && !userTableView.getUpdatedUsers().isEmpty()) {
+                                                    util.updateUser(userTableView.getUpdatedUsers());
+                                                }
+                                                if (userTableView.getAddedUsers() != null && !userTableView.getAddedUsers().isEmpty()) {
+                                                    userTableView.getAddedUsers()
+                                                            .forEach(
+                                                                    element -> util.
+                                                                            RegisterUser(element.getUserName(),
+                                                                                    element.getPassword(),
+                                                                                    element.getFirstName(),
+                                                                                    element.getLastName(),
+                                                                                    element.getpNumber(),
+                                                                                    element.getUserType(),
+                                                                                    element.getStreet(),
+                                                                                    element.getZip()));
+                                                }
+                                                if (userTableView.getDeletedUsers() != null && !userTableView.getDeletedUsers().isEmpty())
+                                                {
+                                                    userTableView.getDeletedUsers().forEach(element -> util.deleteUser(element));
+                                                }
+
+                                            } catch (SQLException e) {
+                                                e.printStackTrace();
+                                                return false;
+                                            }
+                                            return true;
+                                        }
+                                    };
+                                    return task;
                                 }
-                                return true;
-                            }
-                        };
-                        return task;
-                    }
-                };
-                updateUsers.start();
-                updateUsers.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
-                    @Override
-                    public void handle(WorkerStateEvent event) {
-                        if(updateUsers.getValue()){
-                            System.out.println("updated Sucessfully");
-                        }
-                    }
-                });
-                updateUsers.setOnFailed(new EventHandler<WorkerStateEvent>() {
-                    @Override
-                    public void handle(WorkerStateEvent event) {
-                        System.out.println("Update Failed");
-                    }
-                });
+                            };
+                            pushChanges.start();
+                            pushChanges.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+                                @Override
+                                public void handle(WorkerStateEvent event) {
+                                    if (pushChanges.getValue()) {
+                                        System.out.println("updated Sucessfully");
+                                    }
+                                }
+                            });
+                            pushChanges.setOnFailed(new EventHandler<WorkerStateEvent>() {
+                                @Override
+                                public void handle(WorkerStateEvent event) {
+                                    System.out.println("Update Failed");
+                                }
+                            });
 
+
+                    }
+
+                    @Override
+                    public void onFailure() {
+
+                    }
+                });
+            } catch (IOException e) {
+                // Trown if fxml is not read properly
             }
+            // TODO: Show Review popup
+
+
+
+
+        }
         else if(searchedForObject == searchedFor.room){
 
                 Service<Boolean> updateRooms = new Service<Boolean>() {
@@ -236,43 +289,26 @@ public class AdminController {
 
 
 
-                    if(!userTableViewData.isEmpty()){
-                        userTableViewData.clear();
+                    if(!userTableView.getItems().isEmpty()){
+                        userTableView.getItems().clear();
                     }
-                    userTableViewData.addAll(userSearchResult);
-                    Pagination pagination = getUserPagination();
+                    userTableView.getItems().addAll(userSearchResult);
+                    userTableView.getTableviewData().addAll(userSearchResult);
+
 
 
                     System.out.println(userSearchResult.size());
-                    if (userSearchResult.size() <= 20) {
-
-                        System.out.println("creating page");
-                        pagination.setPageCount(1);
-                        pagination.setCurrentPageIndex(0);
-                        paginationBox.getChildren().clear();
-                        paginationBox.getChildren().add(pagination);
-                        paginationBox.setHgrow(pagination,Priority.SOMETIMES);
-
-
-
-                    } else {
-
-                        pagination.setPageCount((int) (Math.ceil(userSearchResult.size() / 20.0)));
-                        pagination.setCurrentPageIndex(0);
-                        paginationBox.getChildren().clear();
-                        paginationBox.getChildren().add(pagination);
-
-                    }
+                    paginationBox.getChildren().clear();
+                    paginationBox.getChildren().add(userTableView);
+                    paginationBox.setHgrow(userTableView,Priority.SOMETIMES);
                 }
                 else if(userSearchResult == null){
 
 
-                    userTableViewData.clear();
-                    Pagination pagination = getUserPagination();
-                    pagination.setPageCount(1);
-                    pagination.setCurrentPageIndex(0);
+                    userTableView.getItems().clear();
+
                     paginationBox.getChildren().clear();
-                    paginationBox.getChildren().add(pagination);
+                    paginationBox.getChildren().add(userTableView);
 
 
 
@@ -307,40 +343,23 @@ public class AdminController {
 
 					if (roomSearchResult != null) {
 
-						if (!roomTableViewData.isEmpty()) {
-							roomTableViewData.clear();
+						if (!roomTableView.getItems().isEmpty()) {
+							roomTableView.getItems().clear();
 						}
-						roomTableViewData.addAll(roomSearchResult);
-						Pagination pagination = getRoomPagination();
+						roomTableView.getItems().addAll(roomSearchResult);
+                        roomTableView.getTableviewData().addAll(roomSearchResult);
+
 
 
 						System.out.println(roomSearchResult.size());
-						if (roomSearchResult.size() <= 20) {
-
-							System.out.println("creating page");
-							pagination.setPageCount(1);
-							pagination.setCurrentPageIndex(0);
-							paginationBox.getChildren().clear();
-							paginationBox.getChildren().add(pagination);
-							paginationBox.setHgrow(pagination, Priority.SOMETIMES);
-
-
-						} else {
-
-							pagination.setPageCount((int) (Math.ceil(roomSearchResult.size() / 20.0)));
-							pagination.setCurrentPageIndex(0);
-							paginationBox.getChildren().clear();
-							paginationBox.getChildren().add(pagination);
-
-						}
+                        paginationBox.getChildren().clear();
+                        paginationBox.getChildren().add(roomTableView);
+                        paginationBox.setHgrow(roomTableView, Priority.SOMETIMES);
 					} else if (roomSearchResult == null) {
 
-						roomTableViewData.clear();
-						Pagination pagination = getRoomPagination();
-						pagination.setPageCount(1);
-						pagination.setCurrentPageIndex(0);
-						paginationBox.getChildren().clear();
-						paginationBox.getChildren().add(pagination);
+						roomTableView.getItems().clear();
+                        paginationBox.getChildren().clear();
+                        paginationBox.getChildren().add(roomTableView);
 
 
 					}
@@ -1067,73 +1086,73 @@ public class AdminController {
      * By Pontus
      * @return pagination
      */
-    private Pagination getRoomPagination(){
-        Pagination pagination = new Pagination();
-        pagination.getStyleClass().add("pagination");
-
-
-        pagination.setPageFactory(this::createRoomPage);
-
-        return pagination;
-
-
-    }
+//    private Pagination getRoomPagination(){
+//        Pagination pagination = new Pagination();
+//        pagination.getStyleClass().add("pagination");
+//
+//
+//        pagination.setPageFactory(this::createRoomPage);
+//
+//        return pagination;
+//
+//
+//    }
 
     /**
      * by Pontus
      * @return
      */
-    private Pagination getUserPagination(){
-
-        Pagination pagination = new Pagination();
-        pagination.getStyleClass().add("pagination");
-
-
-        pagination.setPageFactory(this::createUserPage);
-
-        return pagination;
-    }
+//    private Pagination getUserPagination(){
+//
+//        Pagination pagination = new Pagination();
+//        pagination.getStyleClass().add("pagination");
+//
+//
+//        pagination.setPageFactory(this::createUserPage);
+//
+//        return pagination;
+//    }
 
     /**
      * By Pontus
      * @param pageIndex
      * @return
      */
-    private VBox createRoomPage(int pageIndex){
-        VBox vBox = new VBox(5);
-
-        vBox.setAlignment(Pos.CENTER);
-
-
-        int fromIndex = pageIndex * getElementsPerPage();
-        int toIndex = Math.min(pageIndex + getElementsPerPage(),roomTableViewData.size());
-
-        roomTableView.setItems(FXCollections.observableArrayList(roomTableViewData.subList(fromIndex, toIndex)));
-
-        vBox.getChildren().add(roomTableView);
-        return vBox;
-    }
+//    private VBox createRoomPage(int pageIndex){
+//        VBox vBox = new VBox(5);
+//
+//        vBox.setAlignment(Pos.CENTER);
+//
+//
+//        int fromIndex = pageIndex * getElementsPerPage();
+//        int toIndex = Math.min(pageIndex + getElementsPerPage(),roomTableViewData.size());
+//
+//        roomTableView.setItems(FXCollections.observableArrayList(roomTableViewData.subList(fromIndex, toIndex)));
+//
+//        vBox.getChildren().add(roomTableView);
+//        return vBox;
+//    }
 
     /**
      * by Pontus
      * @param pageIndex
      * @return
      */
-    private VBox createUserPage(int pageIndex){
-
-        VBox vBox = new VBox(5);
-
-        vBox.setAlignment(Pos.CENTER);
-
-
-        int fromIndex = pageIndex * getElementsPerPage();
-        int toIndex = Math.min(pageIndex + getElementsPerPage(),userTableViewData.size());
-
-        userTableView.setItems(FXCollections.observableArrayList(userTableViewData.subList(fromIndex, toIndex)));
-
-        vBox.getChildren().add(userTableView);
-        return vBox;
-    }
+//    private VBox createUserPage(int pageIndex){
+//
+//        VBox vBox = new VBox(5);
+//
+//        vBox.setAlignment(Pos.CENTER);
+//
+//
+//        int fromIndex = pageIndex * getElementsPerPage();
+//        int toIndex = Math.min(pageIndex + getElementsPerPage(),userTableViewData.size());
+//
+//        userTableView.setItems(FXCollections.observableArrayList(userTableViewData.subList(fromIndex, toIndex)));
+//
+//        vBox.getChildren().add(userTableView);
+//        return vBox;
+//    }
 
     /**
      * by Pontus
@@ -1169,7 +1188,7 @@ public class AdminController {
                     @Override
                     public void onSuccess(User added) {
                         System.out.println(added.toString());
-                        addedUsers.add(added);
+                        userTableView.getAddedUsers().add(added);
 
 
                         if (userSearchResult != null) {
@@ -1177,36 +1196,29 @@ public class AdminController {
                             userSearchResult.add(added);
 
 
-                            if(!userTableViewData.isEmpty()){
-                                userTableViewData.clear();
+                            if(!userTableView.getItems().isEmpty()){
+                                userTableView.getItems().clear();
                             }
-                            userTableViewData.addAll(userSearchResult);
-                            Pagination pagination = getUserPagination();
+                            userTableView.getItems().addAll(userSearchResult);
 
 
                             System.out.println(userSearchResult.size());
-                            if (userSearchResult.size() <= 20) {
-
-                                System.out.println("creating page");
-                                pagination.setPageCount(1);
-                                pagination.setCurrentPageIndex(0);
-                                paginationBox.getChildren().clear();
-                                paginationBox.getChildren().add(pagination);
-                                paginationBox.setHgrow(pagination,Priority.SOMETIMES);
-
-
-
-                            } else {
-
-                                pagination.setPageCount((int) (Math.ceil(userSearchResult.size() / 20.0)));
-                                pagination.setCurrentPageIndex(0);
-                                paginationBox.getChildren().clear();
-                                paginationBox.getChildren().add(pagination);
-
-                            }
+                            System.out.println(userSearchResult.size());
+                            paginationBox.getChildren().clear();
+                            paginationBox.getChildren().add(userTableView);
+                            paginationBox.setHgrow(userTableView,Priority.SOMETIMES);
                         }
+                        else if(userSearchResult == null){
 
+
+                            userTableView.getItems().clear();
+
+                            paginationBox.getChildren().clear();
+                            paginationBox.getChildren().add(userTableView);
+                        }
                     }
+
+
 
                     @Override
                     public void onFailure() {
@@ -1257,6 +1269,7 @@ public class AdminController {
         }
 
 	}
+
 
 
     

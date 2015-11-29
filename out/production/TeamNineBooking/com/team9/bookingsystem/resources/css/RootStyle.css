@@ -103,6 +103,10 @@
 .search-button:pressed{
     -fx-background-color: rgb(226, 226, 226);
 }
+.search-button:hover{
+    -fx-background-color: rgb(228, 228, 228);
+
+}
 .check-box .box{
     -fx-background-color: rgb(255, 255, 255);
     /*-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);*/
@@ -152,7 +156,8 @@
 }
 
 .table-view .column-header  {
-    -fx-background-color: white;
+    -fx-background-color: rgb(228, 228, 228);
+
     -fx-border-color: #a9acab;
     -fx-border-width: 0.5px;
 

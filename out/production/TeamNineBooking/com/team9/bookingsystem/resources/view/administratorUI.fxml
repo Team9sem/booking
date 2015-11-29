@@ -9,7 +9,7 @@
 
 <!--by Pontus, Nima, Olle-->
 
-<BorderPane id="borderPane" fx:id="borderPane" prefHeight="600.0" prefWidth="1000.0" styleClass="borderPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team9.bookingsystem.Controllers.AdminController">
+<BorderPane id="borderPane"  fx:id="borderPane" prefHeight="600.0" prefWidth="1000.0" styleClass="borderPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team9.bookingsystem.Controllers.AdminController">
    <left>
    
       <GridPane fx:id="searchGridPane" styleClass="options-area" BorderPane.alignment="CENTER">
@@ -97,8 +97,9 @@
    <center>
       <AnchorPane fx:id="resultAnchorPane" minHeight="100.0" minWidth="100.0" BorderPane.alignment="CENTER" styleClass="result-area">
          <children>
-            <GridPane gridLinesVisible="false" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" >
+            <GridPane gridLinesVisible="true" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" >
                <columnConstraints>
+                  <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
                   <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
                </columnConstraints>
                <rowConstraints>
@@ -108,7 +109,7 @@
                   <RowConstraints maxHeight="141.33334350585938" minHeight="0.0" prefHeight="52.0" vgrow="ALWAYS" />
                </rowConstraints>
                <children>
-                  <HBox GridPane.rowIndex="0" alignment="CENTER">
+                  <HBox GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="2" alignment="CENTER">
                      <children>
                         <Label alignment="CENTER" prefHeight="23.0" prefWidth="172.0" styleClass="options-area-labels" text="Search Results">
                            <font>
@@ -117,14 +118,14 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="TOP_CENTER" GridPane.rowIndex="1">
+                  <HBox alignment="TOP_CENTER" GridPane.rowIndex="1" GridPane.columnSpan="2" GridPane.columnIndex="0">
                      <Label styleClass="top-anchorpanetext" text="Hint:">
                         <font>
                            <Font name="Avant-Garde" style="-fx-text-fill: white;" size="12"></Font>
                         </font>
                      </Label>
                   </HBox>
-                  <HBox alignment="CENTER" GridPane.rowIndex="1">
+                  <HBox alignment="CENTER" GridPane.rowIndex="1" GridPane.columnSpan="2" GridPane.columnIndex="0">
                      <children>
                         <Label styleClass="top-anchorpanetext" text="Edit any values and submit your changes by pressing Commit Changes Button">
                            <font>
@@ -133,20 +134,23 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" fx:id="paginationBox" GridPane.rowIndex="2"/>
-                  <HBox spacing="10" alignment="CENTER" GridPane.rowIndex="3">
+                  <HBox alignment="CENTER" fx:id="paginationBox" GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.columnSpan="2"/>
+
+                  <HBox spacing="10" alignment="CENTER" GridPane.rowIndex="3" GridPane.columnIndex="0">
                      <children>
 
-                        <Button text="Delete Selected"></Button>
-                        <Button text="Show Schedule"></Button>
+                        <Button prefWidth="100" styleClass="search-button" text="Delete"></Button>
+                        <Button prefWidth="100" styleClass="search-button" text="Show Schedule"></Button>
+                        <Button prefWidth="100" styleClass="search-button" text="Add New" onAction="#displayAddItemPopup"></Button>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_RIGHT" spacing="10" GridPane.rowIndex="3">
+                  <HBox alignment="CENTER_RIGHT" spacing="10" GridPane.rowIndex="3" GridPane.columnIndex="1">
                      <children>
-                        <Button text="Add New" onAction="#displayAddItemPopup"></Button>
-                        <Button mnemonicParsing="false" onAction="#commitChanges" text="Commit Changes" />
+
+                        <Button mnemonicParsing="false" styleClass="search-button" onAction="#commitChanges" text="Commit Changes" />
                      </children>
                   </HBox>
+
                </children>
             </GridPane>
          </children>

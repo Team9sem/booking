@@ -5,6 +5,8 @@ import com.team9.bookingsystem.Room;
 import com.team9.bookingsystem.User;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
@@ -30,8 +32,10 @@ public class UserTableView extends TableView<User> {
 
 
 
+    private ObservableList<User> tableviewData = FXCollections.observableArrayList();
     private ArrayList<User> updatedUsers = new ArrayList<>();
-
+    private ArrayList<User> deletedUsers = new ArrayList<>();
+    private ArrayList<User> addedUsers   = new ArrayList<>();
     private ArrayList<Button> tableButtons = new ArrayList<>();
 
 
@@ -39,6 +43,31 @@ public class UserTableView extends TableView<User> {
 
         setupTable();
     }
+
+    public ArrayList<User> getDeletedUsers() {
+        return deletedUsers;
+    }
+
+    public void setDeletedUsers(ArrayList<User> deletedUsers) {
+        this.deletedUsers = deletedUsers;
+    }
+
+    public ObservableList<User> getTableviewData() {
+        return tableviewData;
+    }
+
+    public void setTableviewData(ObservableList<User> tableviewData) {
+        this.tableviewData = tableviewData;
+    }
+
+    public ArrayList<User> getAddedUsers() {
+        return addedUsers;
+    }
+
+    public void setAddedUsers(ArrayList<User> addedUsers) {
+        this.addedUsers = addedUsers;
+    }
+
 
     public ArrayList<Button> getTableButtons() {
 
@@ -347,6 +376,7 @@ public class UserTableView extends TableView<User> {
 
 
         TableColumn buttons = new TableColumn();
+
         buttons.setSortable(false);
         buttons.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<User,Boolean>,
                 ObservableValue<Boolean>>() {

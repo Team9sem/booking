@@ -4,6 +4,8 @@ import com.team9.bookingsystem.Room;
 import com.team9.bookingsystem.User;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -22,6 +24,9 @@ import java.util.ArrayList;
  */
 public class RoomTableView extends TableView<Room> {
 
+
+
+    private ObservableList<Room> tableviewData = FXCollections.observableArrayList();
     private ArrayList<Room> updatedRooms = new ArrayList<>();
 
     private ArrayList<Button> tableButtons = new ArrayList<>();
@@ -33,6 +38,16 @@ public class RoomTableView extends TableView<Room> {
     public ArrayList<Button> getTableButtons() {
         return tableButtons;
     }
+
+    public ObservableList<Room> getTableviewData() {
+        return tableviewData;
+    }
+
+    public void setTableviewData(ObservableList<Room> tableviewData) {
+        this.tableviewData = tableviewData;
+    }
+
+
     public ArrayList<Room> getUpdatedUsers() {
         return updatedRooms;
     }

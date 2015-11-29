@@ -49,6 +49,7 @@ public class MainController {
         popupStage.initOwner(primaryStage);
         popupController.setStage(popupStage);
         popupController.setCallBack(callback);
+        popupStage.setResizable(false);
         popupStage.showAndWait();
 
         return popupController.isOkClicked();

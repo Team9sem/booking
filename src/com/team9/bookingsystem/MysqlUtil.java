@@ -346,7 +346,7 @@ public class MysqlUtil {
   //street		varchar(30)
   //zip			int(11)
         
-  public boolean RegisterUser(String alias, String passwd, String firstname, String lastname, long pNumber, String usertype, String street, int zip) throws Exception
+  public boolean RegisterUser(String alias, String passwd, String firstname, String lastname, long pNumber, String usertype, String street, int zip)
   {
           
 	  // we have to catch potential SQLExceptions
