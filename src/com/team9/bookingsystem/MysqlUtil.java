@@ -3,6 +3,8 @@ package com.team9.bookingsystem;
 import java.sql.*;
 import java.sql.Date;
 import java.util.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -201,6 +203,7 @@ public class MysqlUtil {
         
     public String GetRoomLocation(int roomID) throws Exception
     {
+    		//Created by Mayra Soliz 26.10.15
         	//Method get the location using the roomID
         	String toReturn = "";
             // we have to catch potential SQLExceptions
@@ -232,7 +235,8 @@ public class MysqlUtil {
         
     public int GetRoomID(String location) throws Exception
     {
-        	//Method that prints all rooms 
+        	//Created by Mayra Soliz 26.10.15
+    		//Method that gets the room ID based on the location (room name)
         	int roomID = 0;
             // we have to catch potential SQLExceptions
             try(Connection connection = getConnection()){
@@ -283,7 +287,8 @@ public class MysqlUtil {
     //bEnd		NULL	time
     public boolean BookRoom(int userId, int roomId, String bDate, String bStart, String bEnd) throws Exception
     {
-      
+    	//Created by Mayra Soliz 04.11.15
+    	//Book a room based on user information
         // we have to catch potential SQLExceptions
         try(Connection connection = getConnection()){
 
@@ -1078,13 +1083,9 @@ public class MysqlUtil {
 
     public boolean BookRoom(Room roomObj) throws Exception
     {
-        //Created by Mayra Soliz.
-        //roomID int(11)
-        //location char(30)
-        //roomSize char(30)
-        //hasProjector int
-        //hasWhiteBoard int
-        //hasCoffeMachine int
+        //Created by Mayra Soliz 04.11.15
+    	//Book a room based on Room object
+
         String location = roomObj.getLocation();
         String roomSize= roomObj.getRoomSize();
         int hasProjector=roomObj.getHasProjector();
@@ -1303,25 +1304,174 @@ public class MysqlUtil {
         return null;
     } //end public BookedRoom
 
+    public Booking[] BookRoomNew(User userObj, Room roomObj, String bDate, String bStart, String bEnd, int noOfWeeks) throws Exception
+    {
+        //Created by Mayra Soliz. Modified 25 November 2015
+        //Note that using strings to transfer date information can cause SQL errors if the strings are not formatted
+        //correctly.
+    	Booking[] toReturn = new Booking[52];
+        int iBid = 0;
+        int intbID = 0;
+        int userId = userObj.getUserID();
+        int roomId = roomObj.getRoomID();
+        //java.util.Date date;
+        //java.util.Date start;
+        //java.util.Date stop;
+        
+        //Date 
+        
+        int i = 0;
 
-        public void uploadPicture(String image){
+        try(Connection connection = getConnection()){
+        	//avoid exceeding array and protect against excessive booking
+        	if(noOfWeeks>52){
+        		noOfWeeks = 52;
+        	}
+        	               
+            while(i<noOfWeeks) {
+
+        		System.out.println("Room Registration Connection Established");
+
+        		// statement
+        		Statement statement = connection.createStatement();
+            
+        		//Check that the room is not already booked
+        		boolean roomAvailable = isRoomAvailable(roomObj, bDate, bStart, bEnd);
+            
+        		if(roomAvailable == false){
+        			//if the room is not available then exit method 
+            	return null;
+        		}
+            
+        		//Checked that the room is available, so we can proceed to book it
+            
+        		String sql = "INSERT INTO Bookings " +
+        				"(userId, roomId, bDate, bStart, bEnd)" +
+        				" Values ('"+userId+ "','"+roomId+"','"+bDate+"','"+bStart+"','"+bEnd+"')";
+
+        		System.out.println("SQL string: "+sql);
+        		statement.executeUpdate(sql);
+
+        		//get the booking ID from the DB so that we can add it to the return type Booking
+        		String bID = "SELECT bID FROM Bookings WHERE " +
+        				"userId = '"+userId+"' AND roomId = '"+roomId+"' AND bDate = '"+bDate+"' AND bStart = '"+bStart+"' AND bEnd = '"+bEnd+"';";
+
+        		System.out.println("SQL string: "+bID);
+
+        		ResultSet rs = statement.executeQuery(bID);
+        		while(rs.next()){
+        			String tmp = rs.getString("bID");
+        			intbID = Integer.parseInt(tmp);
+        			System.out.println(intbID);
+        		}
+        		
+        		toReturn[i] = new Booking(intbID, userObj.getUserID(), roomObj.getRoomID(), bDate, bStart, bEnd);
+                rs.close();
+        		statement.close();
+        		
+        		//increment while counter;
+        		i=i+1;
+        		//increment date by one week
+        		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                java.util.Date date = sdf.parse(bDate);
+                Calendar c = Calendar.getInstance();
+                c.setTime(date);  
+                java.sql.Date startDate= new java.sql.Date(c.getTimeInMillis()); 
+                date = addWeek(startDate);       
+                System.out.println("New date :" + date);
+                bDate = date.toString();
+                System.out.println("New date bDate:" + bDate);
+            } //End while
+            connection.close();
+            return toReturn;
+
+        }catch(SQLException e){
+        	e.printStackTrace();
+        }	
+        	return null;
+    } //end public BookedRoom
+    
+    public boolean isRoomAvailable(Room roomObj, String bDate, String bStart, String bEnd) throws Exception
+    {
+    	//Created by Mayra Soliz 25.11.15
+    	//Method that checks if the room is booked on a given date. returns true if the room is availible else false
+    	//
+    	
+    	try(Connection connection = getConnection()){
+
+            System.out.println("Check if Room is availble Connection Established");
+            Statement statement = connection.createStatement();
+            String sql = "SELECT * FROM Bookings WHERE roomID = " + roomObj.getRoomID() + " AND bDate = '"+bDate+"';";
+            System.out.println(sql);
+            ResultSet rs = statement.executeQuery(sql);
+            while(rs.next()){     
+            	int ReqStartHour = Integer.parseInt(bStart.substring(0, 2));
+            	int ReqStartMin = Integer.parseInt(bStart.substring(3, 5));
+            	int ReqEndHour = Integer.parseInt(bEnd.substring(0, 2));
+            	int ReqEndMin = Integer.parseInt(bEnd.substring(3, 5));
+            	String StartTmp = rs.getString("bStart");
+            	int StartHourDB = Integer.parseInt(StartTmp.substring(0, 2));
+            	int StartMinDB = Integer.parseInt(StartTmp.substring(3, 5));
+            	String EndTmp = rs.getString("bEnd");
+            	int EndHourBD = Integer.parseInt(EndTmp.substring(0, 2));
+            	int EndMinDB = Integer.parseInt(EndTmp.substring(3, 5));
+            	//reg 9:15 - 12:10  DB 8:15-13:00
+            	//overlap for example 9:00 - 12:00 DB 8:15 - 13:00
+            	if((ReqStartHour>StartHourDB) && (ReqStartHour<EndHourBD)){
+            		System.out.println("Overlap case 1");
+            		System.out.println("ReqStartHour: "+ ReqStartHour + " StartHourDB: "+StartHourDB+" EndHourBD: "+EndHourBD);
+            		return false;
+            	}
+            	if((ReqEndHour>StartHourDB) && (ReqEndHour<EndHourBD)){
+            		System.out.println("Overlap case 2");
+            		System.out.println("ReqEndHour: "+ ReqEndHour + " StartHourDB: "+StartHourDB+" EndHourBD: "+EndHourBD);
+            		return false;
+            	}
+            	//reg 9:15 - 12:00 DB 9:00 - 9:16	
+            	if((ReqStartHour==StartHourDB) || (ReqEndHour==EndHourBD)) { 
+            		//check minutes
+            		System.out.println("Possible Overlap hours match");
+            		System.out.println("ReqStartHour: "+ ReqStartHour +" ReqEndHour: "+ ReqEndHour + " StartHourDB: "+StartHourDB+" EndHourBD: "+EndHourBD);
+            		if((ReqStartMin>=StartMinDB) && (ReqStartMin<=EndMinDB)){
+            			System.out.println("Overlap case 3");
+            			System.out.println("ReqStartMin: "+ ReqStartMin + " StartMinDB: "+StartMinDB+" EndMinDB: "+EndMinDB);
+            			return false;
+            		}
+            		if((ReqEndMin>=StartMinDB) && (ReqEndMin<=EndMinDB)){
+            			System.out.println("Overlap case 4");	
+            			System.out.println("ReqEndMin: "+ ReqEndMin + " StartMinDB: "+StartMinDB+" EndMinDB: "+EndMinDB);
+            			return false;
+            		}
+            	}  
+            } //END  while(rs.next()){ ...
+    	} //END Try..
+    	return true;
+    } //END isRoomAvailble
+    
+    public static Date addWeek(final Date date) {
+    	//Created by Mayra Soliz 25.11.15 used to add a week to a given date for booking a recurring weekly meeting
+        Date toReturn = new Date(date.getTime());
+        int noOfdays = 7; 
+        GregorianCalendar cal = new GregorianCalendar();
+        cal.setTime(toReturn);
+        cal.add(Calendar.DATE, noOfdays);
+        toReturn.setTime(cal.getTime().getTime());
+
+        return toReturn;
+    }
+
+    public void uploadPicture(String image){
 
 
-            try(Connection connection = getConnection()){
+    try(Connection connection = getConnection()){
 
-
-                Statement statement = connection.createStatement();
-                statement.executeUpdate("Update User SET User.picture ='"+image+"' WHERE User.alias = 'team9'");
-
-
-
-
-            }catch(SQLException e){
-                    e.printStackTrace();
-            }
-
+        Statement statement = connection.createStatement();
+        statement.executeUpdate("Update User SET User.picture ='"+image+"' WHERE User.alias = 'team9'");
+        }catch(SQLException e){
+            e.printStackTrace();
         }
 
+    }
 
 }
 
