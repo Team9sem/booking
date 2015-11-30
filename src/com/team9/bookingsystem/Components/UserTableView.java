@@ -33,6 +33,9 @@ public class UserTableView extends TableView<User> {
 
 
     private ObservableList<User> tableviewData = FXCollections.observableArrayList();
+
+
+
     private ArrayList<User> updatedUsers = new ArrayList<>();
     private ArrayList<User> deletedUsers = new ArrayList<>();
     private ArrayList<User> addedUsers   = new ArrayList<>();
@@ -46,6 +49,7 @@ public class UserTableView extends TableView<User> {
 
     public ArrayList<User> getDeletedUsers() {
         return deletedUsers;
+
     }
 
     public void setDeletedUsers(ArrayList<User> deletedUsers) {
@@ -67,7 +71,9 @@ public class UserTableView extends TableView<User> {
     public void setAddedUsers(ArrayList<User> addedUsers) {
         this.addedUsers = addedUsers;
     }
-
+    public void setUpdatedUsers(ArrayList<User> updatedUsers) {
+        this.updatedUsers = updatedUsers;
+    }
 
     public ArrayList<Button> getTableButtons() {
 
