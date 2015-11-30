@@ -212,7 +212,19 @@ public class MysqlUtil {
         return jsonArray;
     }
 
-
+    //TODO: BOOK A ROOM
+    public class bookingroom{
+    	 private final String roomID;
+    	    private final String userid;
+    	    private final String starttime;
+    	    private final String endtime;
+    	    private final String date;
+    	    private final String location;
+    	    
+    		
+    	}
+    }
+    
 
 
 
