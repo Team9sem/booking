@@ -1,6 +1,5 @@
 package com.team9.bookingsystem;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 
 /**
@@ -21,7 +20,7 @@ public class User {
     private int userType;
     private String street;
     private int    zip;
-    private BufferedImage avatar;
+    private File avatar;
 
     // Default Constructor
     public User(){}
@@ -34,7 +33,7 @@ public class User {
                 int userType,
                 String street,
                 int zip,
-                BufferedImage avatar) //Or type File - read up on that
+                File avatar) //Or type File - read up on that
     {
         _db = new MysqlUtil();
         this.userName  = userName;
@@ -99,7 +98,7 @@ public class User {
 
     public int getZip() { return zip; }
 
-    public BufferedImage getAvatar(){ return this.avatar; }
+    public File getAvatar(){ return this.avatar; }
 
     public void setUserName(String userName) {
         this.userName = userName;
@@ -129,7 +128,7 @@ public class User {
         this.zip = zip;
     }
 
-    public void setAvatar(BufferedImage avatar){ this.avatar = avatar; }
+    public void setAvatar(File avatar){ this.avatar = avatar; }
 
 
     public static boolean isValidInput(String userName,
@@ -139,7 +138,7 @@ public class User {
                                       int userType,
                                       String street,
                                       int zip,
-                                      BufferedImage avatar)
+                                      File avatar)
     {
         if(userName.length() > 20) return false;
         for(char c:firstName.toCharArray()){

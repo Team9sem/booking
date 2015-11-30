@@ -3,6 +3,7 @@ package com.team9.bookingsystem;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
@@ -13,6 +14,9 @@ import java.util.Iterator;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONException;
+
+import java.io.File;
+import java.io.FileOutputStream;
 
 import javax.imageio.ImageIO;
 
@@ -685,7 +689,7 @@ public class MysqlUtil {
 
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(
-                    "SELECT * FROM User WHERE userID LIKE '%%"+user.getUserID()+"%%' AND alias LIKE '%%"+
+                    "SELECT * FROM User WHERE userID = '"+user.getUserID()+"' AND alias LIKE '%%"+
                             user.getUserName()+"%%' AND passwd LIKE '%%"+user.getPassword()+"%%' AND firstname LIKE '%%"+
                             user.getFirstName()+"%%' AND lastname LIKE '%%"+ user.getLastName()+"%%' AND pNumber LIKE '%%"
                             +user.getpNumber()+"%%' AND usertype LIKE '%%"+user.getUserType()+"%%' AND street LIKE '%%"
@@ -718,20 +722,51 @@ public class MysqlUtil {
         return userArrayList;
     }
 
-    public ArrayList<Room> getRooms(Room room){
+    public ArrayList<Room> getRooms(Room room, boolean small, boolean medium, boolean large){
         ArrayList<Room> roomArrayList = new ArrayList<>();
+
+        String query="SELECT * FROM Room WHERE roomID = '"+room.getRoomID()+"' ";
+
+        query += " AND( ";
+        if(small && medium && large) query += "roomSize = 'S' OR roomSize = 'M' OR roomSize = 'L' )";
+        else if(small){
+            if(medium) query += "roomSize = 'S' OR roomSize = 'M' )";
+            else if(large) query += "roomSize = 'S' OR roomSize = 'L' )";
+            else  query += "roomSize = 'S')";
+        }
+        else if(medium){
+            if(large) query += "roomSize = 'M' OR roomSize = 'L')";
+            else query += "roomSize = 'M' )";
+        }
+        else if(large) query += "roomSize = 'L')";
+        else{
+            query = "SELECT * FROM Room WHERE Room.roomID> 0 ";
+        }
+
+        query += " AND( ";
+        if(room.getHasProjector()>0 && room.getHasWhiteboard()>0 && room.getHasCoffeeMachine()>0){
+            query += "hasProjector = '1' OR hasWhiteboard = '1' OR hasCoffeeMachine = '1' )";
+        }
+        else if(room.getHasProjector()>0){
+            if(room.getHasWhiteboard()>0) query += "hasProjector = '1' OR hasWhiteboard = '1' )";
+            else if(room.getHasCoffeeMachine()>0) query += "hasProjector = '1' OR hasCoffeeMachine = '1' )";
+            else  query += "hasProjector = '1')";
+        }
+        else if(room.getHasWhiteboard()>0){
+            if(room.getHasCoffeeMachine()>0) query += "hasWhiteboard = '1' OR hasCoffeeMachine = '1')";
+            else query += "hasWhiteboard = '1' )";
+        }
+        else if(room.getHasCoffeeMachine()>0) query += "hasCoffeeMachine = '1')";
+        else{
+            query = "SELECT * FROM Room WHERE Room.roomID> 0 ";
+        }
 
         try(Connection connection = getConnection()){
 
             System.out.println("\nUser Connection Established\n");
 
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery(
-                    "SELECT * FROM Room WHERE roomID LIKE '%%"+room.getRoomID()+"%%' AND roomSize LIKE '%%" +
-                            room.getRoomSize()+"%%' AND location LIKE '%%"+room.getLocation()+"%%' AND hasProjector LIKE '%%"
-                            +room.getHasProjector()+"%%' AND hasWhiteboard LIKE '%%" + room.getHasWhiteboard() +
-                            "%%' AND hasCoffeeMachine LIKE '%%"+room.getHasCoffeeMachine()+"%%'"
-            );
+            ResultSet rs = statement.executeQuery(query);
 
             while (rs.next()) {
                 Room tmpRoom = new Room();
@@ -762,7 +797,7 @@ public class MysqlUtil {
 
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(
-                    "SELECT * FROM Bookings WHERE bID LIKE '%%"+booking.getbID()+"%%' AND userid LIKE '%%" +
+                    "SELECT * FROM Bookings WHERE bID = '"+booking.getbID()+"' AND userid LIKE '%%" +
                             booking.getuserid()+"%%' AND roomID LIKE '%%"+booking.getroomID()+"%%' AND bdate LIKE '%%"
                             +booking.getbdate()+"%%' AND bstart LIKE '%%"+booking.getbStart()+"%%' AND bEnd LIKE '%%"
                             +booking.getbEnd()+"%%'"
@@ -928,8 +963,8 @@ public class MysqlUtil {
      * Getting a User avatar from the DB
      */
 
-    public BufferedImage getUserAvatar(User user){
-        BufferedImage avatar = null;
+    public File getUserAvatar(User user){
+        File avatar = null;
         byte[] preDoneAvatar = null;
 
         try(Connection connection = getConnection()){
@@ -949,9 +984,10 @@ public class MysqlUtil {
             e.printStackTrace();
         }
 
-        try {
-            InputStream in = new ByteArrayInputStream(preDoneAvatar);
-            avatar = ImageIO.read(in);
+        try(FileOutputStream outputStream = new FileOutputStream(avatar);) {
+            //InputStream in = new ByteArrayInputStream(preDoneAvatar);
+            //avatar = ImageIO.read(in);
+            outputStream.write(preDoneAvatar);
         } catch (IOException e) {
             e.printStackTrace();
         }
