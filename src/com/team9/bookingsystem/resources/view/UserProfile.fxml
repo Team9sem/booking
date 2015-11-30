@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
@@ -8,87 +9,106 @@
 
 <!--by Nima, Olle-->
 
-<AnchorPane fx:id="userProfileAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="709.0" prefWidth="806.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="userProfileAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="userAll" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fitHeight="159.0" fitWidth="193.0" layoutX="36.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@booking/src/com/team9/bookingsystem/resources/img/Death_to_stock_communicate_hands_2.jpg" />
          </image>
       </ImageView>
-      <TableView fx:id="currentBookings" editable="true" layoutX="403.0" layoutY="174.0" prefHeight="200.0" prefWidth="378.0">
-        <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
-        </columns>
-      </TableView>
-      <TableView fx:id="bookingHistory" layoutX="403.0" layoutY="450.0" prefHeight="200.0" prefWidth="378.0">
-        <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
-        </columns>
-      </TableView>
-      <TextField layoutX="535.0" layoutY="416.0" prefHeight="26.0" prefWidth="115.0" text="Booking History" />
-      <TextField layoutX="528.0" layoutY="140.0" prefHeight="26.0" prefWidth="129.0" text="Current Bookings" />
-      <HBox layoutX="10.0" layoutY="10.0" prefHeight="35.0" prefWidth="226.0" />
-      <VBox layoutX="36.0" layoutY="257.0" prefHeight="431.0" prefWidth="299.0">
+      <VBox layoutX="36.0" layoutY="257.0" prefHeight="431.0" prefWidth="299.0" styleClass="upVbox">
          <children>
+            <HBox alignment="TOP_CENTER" prefHeight="61.0" prefWidth="162.0">
+               <children>
+                  <Label fx:id="userInfo" prefHeight="61.0" prefWidth="160.0" styleClass="upBigLabels" text="User Info">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
             <HBox>
                <children>
-                  <Label prefHeight="41.0" prefWidth="212.0" text="Username:" />
-                  <Label fx:id="userName" prefHeight="41.0" prefWidth="281.0" text="Username input" />
+                  <Label prefHeight="41.0" prefWidth="212.0" styleClass="upLabels" text="Username:" />
+                  <Label fx:id="userName" prefHeight="41.0" prefWidth="281.0" styleClass="upLabels" text="Username input" />
                </children>
             </HBox>
             <HBox prefHeight="40.0" prefWidth="299.0">
                <children>
-                  <Label prefHeight="48.0" prefWidth="306.0" text="Password:" />
-                  <Label fx:id="passWord" prefHeight="41.0" prefWidth="378.0" text="Password input" />
+                  <Label prefHeight="48.0" prefWidth="306.0" styleClass="upLabels" text="Password:" />
+                  <Label fx:id="passWord" prefHeight="41.0" prefWidth="378.0" styleClass="upLabels" text="Password input" />
                </children>
             </HBox>
             <HBox prefHeight="40.0" prefWidth="299.0">
                <children>
-                  <Label prefHeight="41.0" prefWidth="299.0" text="Firstname:" />
-                  <Label fx:id="firstName" prefHeight="44.0" prefWidth="370.0" text="Firstname input" />
+                  <Label prefHeight="41.0" prefWidth="299.0" styleClass="upLabels" text="Firstname:" />
+                  <Label fx:id="firstName" prefHeight="44.0" prefWidth="370.0" styleClass="upLabels" text="Firstname input" />
                </children>
             </HBox>
             <HBox prefHeight="39.0" prefWidth="299.0">
                <children>
-                  <Label prefHeight="42.0" prefWidth="301.0" text="Lastname:" />
-                  <Label fx:id="lastName" prefHeight="51.0" prefWidth="374.0" text="Lastname input" />
+                  <Label prefHeight="42.0" prefWidth="301.0" styleClass="upLabels" text="Lastname:" />
+                  <Label fx:id="lastName" prefHeight="51.0" prefWidth="374.0" styleClass="upLabels" text="Lastname input" />
                </children>
             </HBox>
             <HBox prefHeight="40.0" prefWidth="299.0">
                <children>
-                  <Label prefHeight="46.0" prefWidth="309.0" text="Adress:" />
-                  <Label fx:id="adress" prefHeight="46.0" prefWidth="385.0" text="Adress input" />
+                  <Label prefHeight="46.0" prefWidth="309.0" styleClass="upLabels" text="Adress:" />
+                  <Label fx:id="adress" prefHeight="46.0" prefWidth="385.0" styleClass="upLabels" text="Adress input" />
                </children>
             </HBox>
             <HBox prefHeight="40.0" prefWidth="299.0">
                <children>
-                  <Label prefHeight="45.0" prefWidth="304.0" text="Zipcode:" />
-                  <Label fx:id="zipCode" prefHeight="57.0" prefWidth="380.0" text="Zipcode input" />
+                  <Label prefHeight="45.0" prefWidth="304.0" styleClass="upLabels" text="Zipcode:" />
+                  <Label fx:id="zipCode" prefHeight="57.0" prefWidth="380.0" styleClass="upLabels" text="Zipcode input" />
                </children>
             </HBox>
             <HBox prefHeight="40.0" prefWidth="299.0">
                <children>
-                  <Label prefHeight="49.0" prefWidth="299.0" text="SSN:" />
-                  <Label fx:id="ssn" prefHeight="40.0" prefWidth="375.0" text="SSN input" />
+                  <Label prefHeight="49.0" prefWidth="299.0" styleClass="upLabels" text="SSN:" />
+                  <Label fx:id="ssn" prefHeight="40.0" prefWidth="375.0" styleClass="upLabels" text="SSN input" />
                </children>
             </HBox>
          </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
       </VBox>
-      <HBox layoutX="74.0" layoutY="196.0" prefHeight="61.0" prefWidth="162.0">
+      <HBox alignment="TOP_CENTER" layoutX="271.0" layoutY="10.0">
          <children>
-            <Label fx:id="userInfo" prefHeight="61.0" prefWidth="160.0" text="User Info">
+            <Label fx:id="profileTitle" alignment="CENTER" prefHeight="35.0" prefWidth="265.0" styleClass="upBigLabels" text="User Profile">
                <font>
                   <Font size="25.0" />
                </font>
             </Label>
          </children>
       </HBox>
-      <Label fx:id="profileTitle" layoutX="271.0" layoutY="10.0" prefHeight="35.0" prefWidth="265.0" text="User Profile">
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Label>
+      <SplitPane dividerPositions="0.0705, 0.5, 0.4262" layoutX="342.0" layoutY="307.0" orientation="VERTICAL" prefHeight="300.0" prefWidth="300.0" styleClass="upSplit">
+        <items>
+            <Label text="Current Bookings" />
+            <TableView fx:id="currentBookings" editable="true" prefHeight="200.0" prefWidth="378.0">
+              <columns>
+                <TableColumn prefWidth="75.0" text="C1" />
+                <TableColumn prefWidth="75.0" text="C2" />
+              </columns>
+            </TableView>
+            <Label text="Booking History" />
+            <TableView fx:id="bookingHistory" prefHeight="500.0" prefWidth="500.0">
+              <columns>
+                <TableColumn prefWidth="75.0" text="C1" />
+                <TableColumn prefWidth="75.0" text="C2" />
+              </columns>
+            </TableView>
+        </items>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </SplitPane>
    </children>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
 </AnchorPane>

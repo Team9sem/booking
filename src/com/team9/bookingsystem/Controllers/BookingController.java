@@ -97,6 +97,7 @@ public class BookingController {
     @FXML Label  bookingResultLabel;
     @FXML ProgressIndicator bookingProgress;
     @FXML Label  loggedInAs;
+    @FXML Button userProfileButton;
     
     
 
@@ -731,5 +732,18 @@ public class BookingController {
 
     @FXML public void SignOut(ActionEvent event){
         mainController.showStartScreen();
+    }
+
+    public void showUserProfile(){
+    	
+    	userProfileButton.setOnAction(new EventHandler <ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				mainController.showUserProfile();
+				
+			}
+    
+    });
     }
 }

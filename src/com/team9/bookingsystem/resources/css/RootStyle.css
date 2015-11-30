@@ -149,5 +149,39 @@
 }
 .userprofile{
     -fx-font-family: Avant Garde;
-    
+}
+
+.signOutButton{
+	-fx-font-family: Avant Garde;
+}
+
+.userProfileButton{
+	-fx-font-family: Avant Garde;
+}
+
+.userAll{
+	-fx-font-family: Avant Garde;
+	-fx-text-fill: white;
+
+}
+
+.upLabels{
+	-fx-text-fill: white;
+}
+
+.upBigLabels{
+	-fx-font-family: Infinity;
+	-fx-text-fill: white;
+	
+}
+
+.upVbox{
+	-fx-border-style: solid;
+    -fx-border-radius: 10 10 10 10;
+	
+}
+
+.upSplit{
+	-fx-border-style: solid;
+    -fx-border-radius: 10 10 10 10;
 }
