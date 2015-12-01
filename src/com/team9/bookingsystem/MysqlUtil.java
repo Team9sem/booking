@@ -754,7 +754,7 @@ public ArrayList<Booking> getPastBookings(User user){
            Statement statement = connection.createStatement(); 
            ResultSet rs = statement.executeQuery( 
                   "SELECT * FROM Bookings WHERE userID = "+user.getUserID()+
-                  " AND bDate<'"+formattedDate+"' "
+                  " AND bDate<='"+formattedDate+"' AND bEnd < '"+formattedHour+"' "
         		   ); 
      
  
@@ -777,7 +777,7 @@ public ArrayList<Booking> getPastBookings(User user){
          
         return bookingArrayList; 
     } 
-//END OF Get user and return ArrayList of Todays and Past Bookings
+//END OF Get user and return ArrayList of  Past Bookings
     
     
                   
@@ -786,7 +786,7 @@ public ArrayList<Booking> getPastBookings(User user){
  * 
  * Created by Alemeseged Setie
  * 
- * Get user and return ArrayList of todays and Future Bookings
+ * Get user and return ArrayList of Future Bookings
  *   
  *   November 23, 2015
 
@@ -809,9 +809,13 @@ public ArrayList<Booking> getFutureBookings(User user){
  
            Statement statement = connection.createStatement(); 
            ResultSet rs = statement.executeQuery( 
-                  "SELECT * FROM Bookings WHERE userID = "+user.getUserID()+
-                  " AND bDate=>'"+formattedDate+"' "
-        		   ); 
+                //  "SELECT * FROM Bookings WHERE userID = "+user.getUserID()+
+                 // " AND bDate=>'"+formattedDate+"' "
+        		//   ); 
+        		   
+           "SELECT * FROM Bookings WHERE userID = "+user.getUserID()+
+           " AND bDate>='"+formattedDate+"' AND bEnd >= '"+formattedHour+"' "
+ 		   ); 
      
  
             while (rs.next()) { 
