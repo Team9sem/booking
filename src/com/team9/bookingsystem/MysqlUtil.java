@@ -721,7 +721,7 @@ public class MysqlUtil {
 
             Statement statement = connection.createStatement();
             statement.executeUpdate(
-                    "DELETE FROM User WHERE userID= '"+user.getUserID()+"'"
+                    "DELETE FROM User WHERE userID= '" + user.getUserID() + "'"
             );
         }catch(SQLException e){
             e.printStackTrace();
@@ -796,24 +796,51 @@ public class MysqlUtil {
         return userArrayList;
     }
 
-    public ArrayList<Room> getRooms(Room room){
+    public ArrayList<Room> getRooms(Room room, boolean small, boolean medium, boolean large){
         ArrayList<Room> roomArrayList = new ArrayList<>();
 
-        String id,whiteboard,coffeMachine, projector;
-        if(room.getRoomID() == 0) id = "";
-        if(room.getHasWhiteboard() == 0)
+        String query="SELECT * FROM Room WHERE roomID = '"+room.getRoomID()+"' ";
+
+        query += " AND( ";
+        if(small && medium && large) query += "roomSize = 'S' OR roomSize = 'M' OR roomSize = 'L' )";
+        else if(small){
+            if(medium) query += "roomSize = 'S' OR roomSize = 'M' )";
+            else if(large) query += "roomSize = 'S' OR roomSize = 'L' )";
+            else  query += "roomSize = 'S')";
+        }
+        else if(medium){
+            if(large) query += "roomSize = 'M' OR roomSize = 'L')";
+            else query += "roomSize = 'M' )";
+        }
+        else if(large) query += "roomSize = 'L')";
+        else{
+            query = "SELECT * FROM Room WHERE Room.roomID> 0 ";
+        }
+
+        query += " AND( ";
+        if(room.getHasProjector()>0 && room.getHasWhiteboard()>0 && room.getHasCoffeeMachine()>0){
+            query += "hasProjector = '1' OR hasWhiteboard = '1' OR hasCoffeeMachine = '1' )";
+        }
+        else if(room.getHasProjector()>0){
+            if(room.getHasWhiteboard()>0) query += "hasProjector = '1' OR hasWhiteboard = '1' )";
+            else if(room.getHasCoffeeMachine()>0) query += "hasProjector = '1' OR hasCoffeeMachine = '1' )";
+            else  query += "hasProjector = '1')";
+        }
+        else if(room.getHasWhiteboard()>0){
+            if(room.getHasCoffeeMachine()>0) query += "hasWhiteboard = '1' OR hasCoffeeMachine = '1')";
+            else query += "hasWhiteboard = '1' )";
+        }
+        else if(room.getHasCoffeeMachine()>0) query += "hasCoffeeMachine = '1')";
+        else{
+            query = "SELECT * FROM Room WHERE Room.roomID> 0 ";
+        }
 
         try(Connection connection = getConnection()){
 
             System.out.println("\nUser Connection Established\n");
 
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery(
-                    "SELECT * FROM Room WHERE roomID LIKE '%%"+room.getRoomID()+"%%' AND roomSize LIKE '%%" +
-                            room.getRoomSize()+"%%' AND location LIKE '%%"+room.getLocation()+"%%' AND hasProjector LIKE '%%"
-                            +room.getHasProjector()+"%%' AND hasWhiteboard LIKE '%%" + room.getHasWhiteboard() +
-                            "%%' AND hasCoffeeMachine LIKE '%%"+room.getHasCoffeeMachine()+"%%'"
-            );
+            ResultSet rs = statement.executeQuery(query);
 
             while (rs.next()) {
                 Room tmpRoom = new Room();
@@ -833,41 +860,6 @@ public class MysqlUtil {
         }
 
         return roomArrayList;
-    }
-
-    public ArrayList<Booking> getBookings(Booking booking){
-        ArrayList<Booking> bookingArrayList = new ArrayList<>();
-
-        try(Connection connection = getConnection()){
-
-            System.out.println("\nUser Connection Established\n");
-
-            Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery(
-                    "SELECT * FROM Bookings WHERE bID LIKE '%%"+booking.getbID()+"%%' AND userid LIKE '%%" +
-                            booking.getuserid()+"%%' AND roomID LIKE '%%"+booking.getroomID()+"%%' AND bdate LIKE '%%"
-                            +booking.getbdate()+"%%' AND bstart LIKE '%%"+booking.getbStart()+"%%' AND bEnd LIKE '%%"
-                            +booking.getbEnd()+"%%'"
-            );
-
-            while (rs.next()) {
-                Booking tmpBooking = new Booking();
-
-                booking.setbID(rs.getInt("bID"));
-                booking.setuserid(rs.getInt("userid"));
-                booking.setroomID(rs.getInt("roomID"));
-                booking.setbdate(rs.getString("bdate"));
-                booking.setbStart(rs.getString("bStart"));
-                booking.setbEnd(rs.getString("bEnd"));
-
-                bookingArrayList.add(tmpBooking);
-            }
-
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-
-        return bookingArrayList;
     }
 
     public ArrayList<Booking> getBookings(User user){
