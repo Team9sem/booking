@@ -1,5 +1,7 @@
 package com.team9.bookingsystem;
 
+import java.io.File;
+
 /**
  * Created by pontuspohl on 12/10/15.
  */
@@ -19,6 +21,7 @@ public class User implements SearchableObject {
     private String street;
     private String email;
     private int    zip;
+    private File avatar;
 
     // Default Constructor
     public User(){}
@@ -31,7 +34,7 @@ public class User implements SearchableObject {
                 String lastName,
                 String userType,
                 String street,
-                long pNumber,int zip)
+                long pNumber,int zip,File avatar)
     {
         _db = new MysqlUtil();
         this.userID = userID;
@@ -43,6 +46,7 @@ public class User implements SearchableObject {
         this.street    = street;
         this.zip       = zip;
         this.pNumber = pNumber;
+        this.avatar  = avatar;
     }
 
     // Copy Constructor
