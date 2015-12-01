@@ -634,8 +634,9 @@ public class MysqlUtil {
     }
 
     /**
-     *Editing and removing a user from the database
-     *Created by iso on 12/11/15
+     * Filip Isakovski
+     * Editing and removing a user from the database
+     * Created by iso on 12/11/15
      */
 
     public void updateUser(ArrayList<User> users){
@@ -677,22 +678,30 @@ public class MysqlUtil {
     //END OF EDITING AND REMOVING USER OPERATIONS
 
     /**
+     * Filip Isakovski
      * Searching through users, rooms and bookings in the database
      * Created by iso on 13/11/15
      */
 
     public ArrayList<User> getUsers(User user){
         ArrayList<User> userArrayList = new ArrayList<>();
+
+        String userID ="" + user.getUserID();
+        String userType = "" + user.getUserType();
+
+        if(user.getUserID()==0) { userID=""; }
+        if(user.getUserType()==15){ userType=""; }
+
         try(Connection connection = getConnection()){
 
             System.out.println("\nUser Connection Established\n");
 
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(
-                    "SELECT * FROM User WHERE userID = '"+user.getUserID()+"' AND alias LIKE '%%"+
+                    "SELECT * FROM User WHERE userID = '"+userID+"' AND alias LIKE '%%"+
                             user.getUserName()+"%%' AND passwd LIKE '%%"+user.getPassword()+"%%' AND firstname LIKE '%%"+
                             user.getFirstName()+"%%' AND lastname LIKE '%%"+ user.getLastName()+"%%' AND pNumber LIKE '%%"
-                            +user.getpNumber()+"%%' AND usertype LIKE '%%"+user.getUserType()+"%%' AND street LIKE '%%"
+                            +user.getpNumber()+"%%' AND usertype LIKE '%%"+userType+"%%' AND street LIKE '%%"
                             +user.getStreet()+"%%' AND zip LIKE '%%"+user.getZip()+"%%'"
             );
 
@@ -725,7 +734,10 @@ public class MysqlUtil {
     public ArrayList<Room> getRooms(Room room, boolean small, boolean medium, boolean large){
         ArrayList<Room> roomArrayList = new ArrayList<>();
 
-        String query="SELECT * FROM Room WHERE roomID = '"+room.getRoomID()+"' ";
+        String roomID = ""+room.getRoomID();
+        if(room.getRoomID()==0){ roomID = ""; }
+
+        String query="SELECT * FROM Room WHERE roomID = '"+roomID+"' ";
 
         query += " AND( ";
         if(small && medium && large) query += "roomSize = 'S' OR roomSize = 'M' OR roomSize = 'L' )";
@@ -791,13 +803,16 @@ public class MysqlUtil {
     public ArrayList<Booking> getBookings(Booking booking){
         ArrayList<Booking> bookingArrayList = new ArrayList<>();
 
+        String bID = ""+ booking.getbID();
+        if(booking.getbID()==0){ bID=""; }
+
         try(Connection connection = getConnection()){
 
             System.out.println("\nUser Connection Established\n");
 
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(
-                    "SELECT * FROM Bookings WHERE bID = '"+booking.getbID()+"' AND userid LIKE '%%" +
+                    "SELECT * FROM Bookings WHERE bID = '"+bID+"' AND userid LIKE '%%" +
                             booking.getuserid()+"%%' AND roomID LIKE '%%"+booking.getroomID()+"%%' AND bdate LIKE '%%"
                             +booking.getbdate()+"%%' AND bstart LIKE '%%"+booking.getbStart()+"%%' AND bEnd LIKE '%%"
                             +booking.getbEnd()+"%%'"
@@ -960,6 +975,7 @@ public class MysqlUtil {
     //END OF SEARCHING USER, ROOM AND BOOKING METHODS
 
     /**
+     * Filip Isakovski
      * Getting a User avatar from the DB
      */
 
