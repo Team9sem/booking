@@ -736,56 +736,35 @@ public class MysqlUtil {
 
     public ArrayList<User> getUsers(User user){
         ArrayList<User> userArrayList = new ArrayList<>();
-        System.out.println(user.toString());
-
-        String zip = "";
-        String pNumber  = "";
-        String id = "";
-        if(user.getZip() != 0){
-            zip = "" + user.getZip();
-        }
-        if(user.getpNumber() != 0){
-            pNumber = "" + user.getpNumber();
-        }
-        if(user.getUserID() != 0){
-            id = "" + user.getUserID();
-        }
-
-
-
-
         try(Connection connection = getConnection()){
 
             System.out.println("\nUser Connection Established\n");
 
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(
-                    "SELECT * FROM User WHERE userID LIKE '%%"+id+"%%' AND alias LIKE '%%"+
+                    "SELECT * FROM User WHERE userID = '"+user.getUserID()+"' AND alias LIKE '%%"+
                             user.getUserName()+"%%' AND passwd LIKE '%%"+user.getPassword()+"%%' AND firstname LIKE '%%"+
                             user.getFirstName()+"%%' AND lastname LIKE '%%"+ user.getLastName()+"%%' AND pNumber LIKE '%%"
-                            +pNumber+"%%' AND usertype LIKE '%%"+user.getUserType()+"%%' AND street LIKE '%%"
-                            +user.getStreet()+"%%' AND zip LIKE '%%"+zip+"%%';"
+                            +user.getpNumber()+"%%' AND usertype LIKE '%%"+user.getUserType()+"%%' AND street LIKE '%%"
+                            +user.getStreet()+"%%' AND zip LIKE '%%"+user.getZip()+"%%'"
             );
 
             while (rs.next()) {
                 User tmpUser = new User();
 
-
-
-                tmpUser.setUserID(rs.getInt("userID"));
-                tmpUser.setUserName(rs.getString("alias"));
-                tmpUser.setPassword(rs.getString("passwd"));
-                tmpUser.setFirstName(rs.getString("firstname"));
-                tmpUser.setLastName(rs.getString("lastname"));
-                tmpUser.setpNumber(rs.getLong("pNumber"));
-                tmpUser.setUserType(rs.getString("usertype"));
-                tmpUser.setStreet(rs.getString("street"));
-                tmpUser.setZip(rs.getInt("zip"));
+                user.setUserID(rs.getInt("userID"));
+                user.setUserName(rs.getString("alias"));
+                user.setPassword(rs.getString("passwd"));
+                user.setFirstName(rs.getString("firstname"));
+                user.setLastName(rs.getString("lastname"));
+                user.setpNumber(rs.getInt("pNumber"));
+                user.setUserType(rs.getInt("usertype"));
+                user.setStreet(rs.getString("street"));
+                user.setZip(rs.getInt("zip"));
 
                 userArrayList.add(tmpUser);
             }
 
-            return userArrayList;
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -795,6 +774,7 @@ public class MysqlUtil {
 
         return userArrayList;
     }
+
 
     public ArrayList<Room> getRooms(Room room, boolean small, boolean medium, boolean large){
         ArrayList<Room> roomArrayList = new ArrayList<>();
@@ -862,7 +842,7 @@ public class MysqlUtil {
         return roomArrayList;
     }
 
-    public ArrayList<Booking> getBookings(User user){
+    public ArrayList<Booking> getBookings(Booking booking){
         ArrayList<Booking> bookingArrayList = new ArrayList<>();
 
         try(Connection connection = getConnection()){
@@ -871,11 +851,14 @@ public class MysqlUtil {
 
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(
-                    "SELECT * FROM Bookings WHERE userID = "+user.getUserID() +""
+                    "SELECT * FROM Bookings WHERE bID = '"+booking.getbID()+"' AND userid LIKE '%%" +
+                            booking.getuserid()+"%%' AND roomID LIKE '%%"+booking.getroomID()+"%%' AND bdate LIKE '%%"
+                            +booking.getbdate()+"%%' AND bstart LIKE '%%"+booking.getbStart()+"%%' AND bEnd LIKE '%%"
+                            +booking.getbEnd()+"%%'"
             );
 
             while (rs.next()) {
-                Booking booking = new Booking();
+                Booking tmpBooking = new Booking();
 
                 booking.setbID(rs.getInt("bID"));
                 booking.setuserid(rs.getInt("userid"));
@@ -884,12 +867,7 @@ public class MysqlUtil {
                 booking.setbStart(rs.getString("bStart"));
                 booking.setbEnd(rs.getString("bEnd"));
 
-                bookingArrayList.add(booking);
-            }
-
-            for(Booking booking : bookingArrayList){
-                booking.setUser(getUser(booking.getuserid()));
-                booking.setRoom(getRoom(booking.getroomID()));
+                bookingArrayList.add(tmpBooking);
             }
 
         }catch(SQLException e){
@@ -898,6 +876,7 @@ public class MysqlUtil {
 
         return bookingArrayList;
     }
+
 
     public ArrayList<Booking> getBookings(Room room){
         ArrayList<Booking> bookingArrayList = new ArrayList<>();
@@ -1005,7 +984,7 @@ public class MysqlUtil {
      */
     public boolean isUsernameAvailable(String username){
 
-        try(Connection connection = getConnection()){
+        try(Connection connection = getConnection()) {
 
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery("Select * FROM User WHERE alias ='"+username+"';");
