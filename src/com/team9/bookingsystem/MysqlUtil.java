@@ -346,7 +346,7 @@ public class MysqlUtil {
   //street		varchar(30)
   //zip			int(11)
         
-  public boolean RegisterUser(String alias, String passwd, String firstname, String lastname, long pNumber, String usertype, String street, int zip)
+  public boolean RegisterUser(String alias, String passwd, String firstname, String lastname, long pNumber, int usertype, String street, int zip)
   {
           
 	  // we have to catch potential SQLExceptions
@@ -360,7 +360,7 @@ public class MysqlUtil {
 
     	  String sql = "INSERT INTO User" +
                    	"(alias, passwd, firstname, lastname, pNumber, usertype, street, zip)" +
-                   	" Values ('"+alias+ "','"+passwd+"','"+firstname+"','"+lastname+"',"+pNumber+",'"+usertype+"','"+street+"',"+zip+")";
+                   	" Values ('"+alias+ "','"+passwd+"','"+firstname+"','"+lastname+"',"+pNumber+","+usertype+",'"+street+"',"+zip+")";
       
     	  //System.out.println("SQL string: "+sql); 
            
@@ -730,37 +730,51 @@ public class MysqlUtil {
     //END OF EDITING AND REMOVING USER OPERATIONS
 
     /**
+     * Filip Isakovski
      * Searching through users, rooms and bookings in the database
      * Created by iso on 13/11/15
      */
 
     public ArrayList<User> getUsers(User user){
         ArrayList<User> userArrayList = new ArrayList<>();
+
+        String userIdQuery ="User.userID = " + user.getUserID()+" AND ";
+        String userTypeQuery = "AND usertype LIKE '%%" + user.getUserType()+"%%'";
+        String pNumberQuery  = "AND pNumber LIKE '%%"+user.getpNumber()+"%%'";
+        String zipQuery      = "AND zip LIKE '%%"+user.getZip()+"%%'";
+
+        if(user.getUserID()==0) { userIdQuery=""; }
+        if(user.getUserType()==15  ){ userTypeQuery=""; }
+        if(user.getpNumber() == 0) { pNumberQuery = "";}
+        if(user.getZip() == 0){zipQuery = "";}
+
         try(Connection connection = getConnection()){
 
             System.out.println("\nUser Connection Established\n");
 
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(
-                    "SELECT * FROM User WHERE userID = '"+user.getUserID()+"' AND alias LIKE '%%"+
+                    "SELECT * FROM User WHERE "+userIdQuery+" alias LIKE '%%"+
                             user.getUserName()+"%%' AND passwd LIKE '%%"+user.getPassword()+"%%' AND firstname LIKE '%%"+
-                            user.getFirstName()+"%%' AND lastname LIKE '%%"+ user.getLastName()+"%%' AND pNumber LIKE '%%"
-                            +user.getpNumber()+"%%' AND usertype LIKE '%%"+user.getUserType()+"%%' AND street LIKE '%%"
-                            +user.getStreet()+"%%' AND zip LIKE '%%"+user.getZip()+"%%'"
+                            user.getFirstName()+"%%' AND lastname LIKE '%%"+ user.getLastName()+"%%' AND street LIKE '%%"
+                            +user.getStreet()+"%%' "+zipQuery+" "+pNumberQuery+" "+userTypeQuery+";"
             );
-
+            System.out.println("SELECT * FROM User WHERE "+userIdQuery+" alias LIKE '%%"+
+                    user.getUserName()+"%%' AND passwd LIKE '%%"+user.getPassword()+"%%' AND firstname LIKE '%%"+
+                    user.getFirstName()+"%%' AND lastname LIKE '%%"+ user.getLastName()+"%%' AND street LIKE '%%"
+                    +user.getStreet()+"%%' "+zipQuery+" "+pNumberQuery+" "+userTypeQuery+";");
             while (rs.next()) {
                 User tmpUser = new User();
 
-                user.setUserID(rs.getInt("userID"));
-                user.setUserName(rs.getString("alias"));
-                user.setPassword(rs.getString("passwd"));
-                user.setFirstName(rs.getString("firstname"));
-                user.setLastName(rs.getString("lastname"));
-                user.setpNumber(rs.getInt("pNumber"));
-                user.setUserType(rs.getInt("usertype"));
-                user.setStreet(rs.getString("street"));
-                user.setZip(rs.getInt("zip"));
+                tmpUser.setUserID(rs.getInt("userID"));
+                tmpUser.setUserName(rs.getString("alias"));
+                tmpUser.setPassword(rs.getString("passwd"));
+                tmpUser.setFirstName(rs.getString("firstname"));
+                tmpUser.setLastName(rs.getString("lastname"));
+                tmpUser.setpNumber(rs.getLong("pNumber"));
+                tmpUser.setUserType(rs.getInt("usertype"));
+                tmpUser.setStreet(rs.getString("street"));
+                tmpUser.setZip(rs.getInt("zip"));
 
                 userArrayList.add(tmpUser);
             }
@@ -775,11 +789,13 @@ public class MysqlUtil {
         return userArrayList;
     }
 
-
     public ArrayList<Room> getRooms(Room room, boolean small, boolean medium, boolean large){
         ArrayList<Room> roomArrayList = new ArrayList<>();
 
-        String query="SELECT * FROM Room WHERE roomID = '"+room.getRoomID()+"' ";
+        String roomID = ""+room.getRoomID();
+        if(room.getRoomID()==0){ roomID = ""; }
+
+        String query="SELECT * FROM Room WHERE roomID = '"+roomID+"' ";
 
         query += " AND( ";
         if(small && medium && large) query += "roomSize = 'S' OR roomSize = 'M' OR roomSize = 'L' )";
@@ -845,13 +861,16 @@ public class MysqlUtil {
     public ArrayList<Booking> getBookings(Booking booking){
         ArrayList<Booking> bookingArrayList = new ArrayList<>();
 
+        String bID = ""+ booking.getbID();
+        if(booking.getbID()==0){ bID=""; }
+
         try(Connection connection = getConnection()){
 
             System.out.println("\nUser Connection Established\n");
 
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(
-                    "SELECT * FROM Bookings WHERE bID = '"+booking.getbID()+"' AND userid LIKE '%%" +
+                    "SELECT * FROM Bookings WHERE bID = '"+bID+"' AND userid LIKE '%%" +
                             booking.getuserid()+"%%' AND roomID LIKE '%%"+booking.getroomID()+"%%' AND bdate LIKE '%%"
                             +booking.getbdate()+"%%' AND bstart LIKE '%%"+booking.getbStart()+"%%' AND bEnd LIKE '%%"
                             +booking.getbEnd()+"%%'"
@@ -935,7 +954,7 @@ public class MysqlUtil {
                 user.setFirstName(rs.getString("firstname"));
                 user.setLastName(rs.getString("lastname"));
                 user.setpNumber(rs.getInt("pNumber"));
-                user.setUserType(rs.getString("usertype"));
+                user.setUserType(rs.getInt("usertype"));
                 user.setStreet(rs.getString("street"));
                 user.setZip(rs.getInt("zip"));
             }

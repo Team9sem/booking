@@ -141,7 +141,7 @@ public class RegisterController
                                    firstname.getText(),
                                    lastname.getText(),
                                    Long.parseLong(personnumber.getText())
-                                   ,"",adress.getText()
+                                   ,0,adress.getText()
                                    ,Integer.parseInt(zip.getText()));
 
                        }

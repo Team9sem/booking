@@ -242,11 +242,11 @@ public class UserTableView extends TableView<User> {
 
 
         TableColumn userType = new TableColumn("Type");
-        userType.setCellFactory(TextFieldTableCell.forTableColumn());
+        userType.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
 
-        userType.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<User,String>>() {
+        userType.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<User,Integer>>() {
             @Override
-            public void handle(TableColumn.CellEditEvent<User,String> event) {
+            public void handle(TableColumn.CellEditEvent<User,Integer> event) {
 
                 User updatedUser = event.getTableView().getItems().get(event.getTablePosition()
                         .getRow());

@@ -89,7 +89,7 @@ public class RoomSearchService extends AdminSearchService {
 
                 MysqlUtil util = new MysqlUtil();
 
-                ArrayList<Room> result = util.getRooms(room);
+                ArrayList<Room> result = util.getRooms(room,small,medium,large);
 
 
                 return result;

@@ -73,7 +73,8 @@ public class UserSearchService extends AdminSearchService {
             @Override
             protected Object call() throws Exception {
                 MysqlUtil util = new MysqlUtil();
-
+                System.out.println("Searching for user:");
+                System.out.println(user.toString());
                 ArrayList<User> users = util.getUsers(user);
                 return users;
 

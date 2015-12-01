@@ -17,7 +17,7 @@ public class User implements SearchableObject {
     private String password;
     private String firstName;
     private String lastName;
-    private String userType;
+    private int userType;
     private String street;
     private String email;
     private int    zip;
@@ -32,7 +32,7 @@ public class User implements SearchableObject {
                 String password,
                 String firstName,
                 String lastName,
-                String userType,
+                int userType,
                 String street,
                 long pNumber,int zip,File avatar)
     {
@@ -87,7 +87,7 @@ public class User implements SearchableObject {
         return lastName;
     }
 
-    public String getUserType() {
+    public int getUserType() {
         return userType;
     }
 
@@ -131,7 +131,7 @@ public class User implements SearchableObject {
         this.lastName = lastName;
     }
 
-    public void setUserType(String userType) {
+    public void setUserType(int userType) {
         this.userType = userType;
     }
 
