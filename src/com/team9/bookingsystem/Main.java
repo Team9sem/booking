@@ -15,7 +15,13 @@ public class Main {
 
 	public static void main(String[] args) {
         // Mysql tool
-        MysqlUtil util = new MysqlUtil();
+//        MysqlUtil util = new MysqlUtil();
+		Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate = sdf.format(date);
+        SimpleDateFormat currentHour = new SimpleDateFormat("HH:mm:ss");
+        String formattedHour = currentHour.format(date);
+        System.out.println(formattedDate + " ---- "+formattedHour);
 
         // get some input
 //        Scanner scanner = new Scanner(System.in);
@@ -41,13 +47,14 @@ public class Main {
         //testing time
         //Scanner scanner = new Scanner(System.in);
         
-        String bookingDate = "2015-11-07", timeStart = "", timeEnd="";
-        
-        Booking booking = new Booking(111, 9, 3, "2015-11-19", "09:00:00", "12:00:00");
-        
-        util.editBooking(booking);
-        
-        System.out.println("Successfull!");
+//        String bookingDate = "2015-11-07", timeStart = "", timeEnd="";
+//        
+//       // Booking booking = new Booking(111, 9, 3, "2015-11-19", "09:00:00", "12:00:00");
+//        Booking booking = new Booking(110, 9, 3, "2015-11-20", "09:00:00", "12:00:00");
+//        
+//        util.editBooking(booking);
+//        
+//        System.out.println("Successfull!");
 
 	}
 }

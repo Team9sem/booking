@@ -1,6 +1,7 @@
 package com.team9.bookingsystem;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -8,6 +9,10 @@ import java.util.Iterator;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONException;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * Created by pontuspohl on 12/10/15.
@@ -718,8 +723,120 @@ public class MysqlUtil {
     		System.out.println("Team9 Goodbye!");
     }
     //END OF EDIT BOOKING FUNCTION
+
+
+/**
+ * 
+ * 
+ * Created by Alemeseged Setie
+ * 
+ * Get user and return ArrayList of Past Bookings
+ *   
+ *   November 23, 2015
+
+ */
+
+public ArrayList<Booking> getPastBookings(User user){ 
+         ArrayList<Booking> bookingArrayList = new ArrayList<>(); 
+ 
+         Date date = new Date();
+         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+         SimpleDateFormat currentHour = new SimpleDateFormat("HH:mm:ss");
+         String formattedDate = sdf.format(date);
+         String formattedHour = currentHour.format(date);
+ 
+         try(Connection connection = getConnection()){ 
+
+ 
+            System.out.println("\nUser Connection Established\n"); 
+
+ 
+           Statement statement = connection.createStatement(); 
+           ResultSet rs = statement.executeQuery( 
+                  "SELECT * FROM Bookings WHERE userID = "+user.getUserID()+
+                  " AND bDate<'"+formattedDate+"' "
+        		   ); 
+     
+ 
+            while (rs.next()) { 
+	            Booking booking = new Booking();
+	            
+                booking.setbID(rs.getInt("bID")); 
+                booking.setuserid(rs.getInt("userid")); 
+                booking.setroomID(rs.getInt("roomID")); 
+                booking.setbdate(rs.getString("bdate")); 
+                booking.setbStart(rs.getString("bStart")); 
+                booking.setbEnd(rs.getString("bEnd")); 
+
+                bookingArrayList.add(booking); 
+             }
+ 
+        }catch(SQLException e){ 
+            e.printStackTrace(); 
+        }          
+         
+        return bookingArrayList; 
+    } 
+//END OF Get user and return ArrayList of Todays and Past Bookings
+    
+    
+                  
+/**
+ * 
+ * 
+ * Created by Alemeseged Setie
+ * 
+ * Get user and return ArrayList of todays and Future Bookings
+ *   
+ *   November 23, 2015
+
+ */
+
+public ArrayList<Booking> getFutureBookings(User user){ 
+         ArrayList<Booking> bookingArrayList = new ArrayList<>(); 
+ 
+         Date date = new Date();
+         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+         String formattedDate = sdf.format(date);
+         SimpleDateFormat currentHour = new SimpleDateFormat("HH:mm:ss");
+         String formattedHour = currentHour.format(date);
+ 
+         try(Connection connection = getConnection()){ 
+
+ 
+            System.out.println("\nUser Connection Established\n"); 
+
+ 
+           Statement statement = connection.createStatement(); 
+           ResultSet rs = statement.executeQuery( 
+                  "SELECT * FROM Bookings WHERE userID = "+user.getUserID()+
+                  " AND bDate=>'"+formattedDate+"' "
+        		   ); 
+     
+ 
+            while (rs.next()) { 
+	            Booking booking = new Booking();
+	            
+                booking.setbID(rs.getInt("bID")); 
+                booking.setuserid(rs.getInt("userid")); 
+                booking.setroomID(rs.getInt("roomID")); 
+                booking.setbdate(rs.getString("bdate")); 
+                booking.setbStart(rs.getString("bStart")); 
+                booking.setbEnd(rs.getString("bEnd")); 
+
+                bookingArrayList.add(booking); 
+             }
+ 
+        }catch(SQLException e){ 
+            e.printStackTrace(); 
+        }          
+        
+        return bookingArrayList; 
+    }
 }
-  
+
+//END OF Get user and return ArrayList of Future Bookings
+
 
 
 
