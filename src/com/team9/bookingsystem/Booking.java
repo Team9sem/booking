@@ -1,6 +1,7 @@
 package com.team9.bookingsystem;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 
 /**
  * Created by Mayra Soliz on 01/11/15.
@@ -139,9 +140,9 @@ public class Booking {
 
     public void setUserZip(int zip){ this.user.setZip(zip); }
 
-    public BufferedImage getUserAvatar(){ return this.user.getAvatar(); }
+    public File getUserAvatar(){ return this.user.getAvatar(); }
 
-    public void setUserAvatar(BufferedImage avatar){ this.user.setAvatar(avatar); }
+    public void setUserAvatar(File avatar){ this.user.setAvatar(avatar); }
     //END OF USER SETTING/GETTING
 
     /**
