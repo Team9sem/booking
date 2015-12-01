@@ -40,10 +40,8 @@
 
             <HBox alignment="CENTER" GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.columnSpan="3">
                 <children>
-
-                    <Label styleClass="register-labels" text="Select Features" style="-fx-font-size: 15pt" />
+                    <Label styleClass="register-labels" text="Select Size" style="-fx-font-size: 15pt" />
                 </children>
-
             </HBox>
 
             <HBox alignment="CENTER_LEFT" GridPane.rowIndex="2">
