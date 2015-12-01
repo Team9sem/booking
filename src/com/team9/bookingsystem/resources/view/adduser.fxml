@@ -20,7 +20,18 @@
 
 
 
-        <HBox alignment="CENTER_LEFT" GridPane.rowIndex="0">
+        <HBox alignment="CENTER" prefHeight="60" GridPane.columnSpan="3" GridPane.rowIndex="0">
+            <children>
+                <Label fx:id="searchPreferences" alignment="TOP_LEFT" styleClass="options-area-labels" text="Add User" textAlignment="CENTER">
+                    <font>
+                        <Font name="Infinity" size="30.0" />
+                    </font>
+                </Label>
+            </children>
+        </HBox>
+
+
+        <HBox alignment="CENTER_LEFT" GridPane.rowIndex="1">
             <children>
 
                 <Label styleClass="register-labels" text="Username" />
@@ -29,7 +40,7 @@
                 <Insets left="90.0" />
             </padding>
         </HBox>
-        <HBox alignment="CENTER_LEFT" GridPane.rowIndex="1">
+        <HBox alignment="CENTER_LEFT" GridPane.rowIndex="2">
             <children>
 
                 <Label styleClass="register-labels" text="Password" />
@@ -38,7 +49,7 @@
                 <Insets left="90.0" />
             </padding>
         </HBox>
-        <HBox alignment="CENTER_LEFT" GridPane.rowIndex="2">
+        <HBox alignment="CENTER_LEFT" GridPane.rowIndex="3">
             <children>
 
                 <Label styleClass="register-labels" text="First Name" />
@@ -47,7 +58,7 @@
                 <Insets left="90.0" />
             </padding>
         </HBox>
-        <HBox alignment="CENTER_LEFT" GridPane.rowIndex="3">
+        <HBox alignment="CENTER_LEFT" GridPane.rowIndex="4">
             <children>
 
                 <Label styleClass="register-labels" text="Last Name" />
@@ -56,7 +67,7 @@
                 <Insets left="90.0" />
             </padding>
         </HBox>
-        <HBox alignment="CENTER_LEFT" GridPane.rowIndex="4">
+        <HBox alignment="CENTER_LEFT" GridPane.rowIndex="5">
             <children>
 
                 <Label styleClass="register-labels" text="Social Security Number" />
@@ -65,7 +76,7 @@
                 <Insets left="90.0" />
             </padding>
         </HBox>
-        <HBox alignment="CENTER_LEFT" GridPane.rowIndex="5">
+        <HBox alignment="CENTER_LEFT" GridPane.rowIndex="6">
             <children>
 
                 <Label styleClass="register-labels" text="Adress" />
@@ -74,7 +85,7 @@
                 <Insets left="90.0" />
             </padding>
         </HBox>
-        <HBox alignment="CENTER_LEFT" GridPane.rowIndex="6">
+        <HBox alignment="CENTER_LEFT" GridPane.rowIndex="7">
             <children>
 
                 <Label styleClass="register-labels" text="Zip Code" />
@@ -84,7 +95,7 @@
             </padding>
         </HBox>
 
-        <HBox alignment="CENTER_LEFT" prefWidth="223.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="0">
+        <HBox alignment="CENTER" prefWidth="223.0" GridPane.columnIndex="1" GridPane.columnSpan="1" GridPane.rowIndex="1">
 
             <GridPane.margin>
                 <Insets bottom="10" left="10" right="10" top="10" />
@@ -97,7 +108,7 @@
 
         </HBox>
 
-        <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
+        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="1" GridPane.rowIndex="2">
 
             <GridPane.margin>
                 <Insets bottom="10" left="10" right="10" top="10" />
@@ -107,7 +118,7 @@
 
         </HBox>
 
-        <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
+        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="1" GridPane.rowIndex="3">
 
             <GridPane.margin>
                 <Insets bottom="10" left="10" right="10" top="10" />
@@ -118,7 +129,7 @@
 
         </HBox>
 
-        <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
+        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="1" GridPane.rowIndex="4">
 
             <GridPane.margin>
                 <Insets bottom="10" left="10" right="10" top="10" />
@@ -129,7 +140,7 @@
 
         </HBox>
 
-        <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4">
+        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="1" GridPane.rowIndex="5">
 
 
             <GridPane.margin>
@@ -141,7 +152,7 @@
         </HBox>
 
 
-        <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5">
+        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="1" GridPane.rowIndex="6">
 
             <GridPane.margin>
                 <Insets bottom="10" left="10" right="10" top="10" />
@@ -151,7 +162,7 @@
 
         </HBox>
 
-        <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="6">
+        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="7">
 
             <GridPane.margin>
                 <Insets bottom="10" left="10" right="10" top="10" />
@@ -160,7 +171,7 @@
             <TextField fx:id="zip" promptText="Enter Zip Code" />
         </HBox>
 
-        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="1" GridPane.rowIndex="7">
+        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="1" GridPane.rowIndex="8">
 
             <GridPane.margin>
                 <Insets bottom="10" left="10" right="10" top="10" />
@@ -170,7 +181,7 @@
 
         </HBox>
 
-        <HBox alignment="CENTER" GridPane.columnIndex="0" GridPane.columnSpan="1" GridPane.rowIndex="7">
+        <HBox alignment="CENTER" GridPane.columnIndex="0" GridPane.columnSpan="1" GridPane.rowIndex="8">
 
             <GridPane.margin>
                 <Insets bottom="10" left="10" right="10" top="10" />
@@ -183,12 +194,12 @@
 
 
         </HBox>
-        <HBox alignment="CENTER" prefWidth="200"  GridPane.columnIndex="2" GridPane.rowIndex="0">
+        <HBox alignment="CENTER" prefWidth="200"  GridPane.columnIndex="2" GridPane.rowIndex="1">
             <children>
                 <Label styleClass="register-labels"  fx:id="userNameProgressLabel" text="Label" />
             </children>
         </HBox>
-        <HBox  alignment="CENTER" prefWidth="200" GridPane.columnIndex="2" GridPane.rowIndex="0">
+        <HBox  alignment="CENTER" prefWidth="200" GridPane.columnIndex="2" GridPane.rowIndex="1">
             <GridPane.margin>
                 <Insets top="15"></Insets>
             </GridPane.margin>
@@ -197,7 +208,7 @@
 
             </children>
         </HBox>
-        <HBox alignment="CENTER" prefWidth="100"  GridPane.columnIndex="2" GridPane.rowIndex="1">
+        <HBox alignment="CENTER" prefWidth="100"  GridPane.columnIndex="2" GridPane.rowIndex="2">
             <children>
                 <VBox alignment="CENTER">
                     <HBox.margin>
@@ -211,7 +222,7 @@
                 </VBox>
             </children>
         </HBox>
-        <HBox alignment="CENTER" prefWidth="150"  GridPane.columnIndex="2" GridPane.rowIndex="1">
+        <HBox alignment="CENTER" prefWidth="150"  GridPane.columnIndex="2" GridPane.rowIndex="2">
             <children>
 
                 <Label fx:id="passwordErrorLabel" styleClass="register-labels">
@@ -219,7 +230,7 @@
                 </Label>
             </children>
         </HBox>
-        <HBox alignment="CENTER" prefWidth="150"  GridPane.columnIndex="2" GridPane.rowIndex="1">
+        <HBox alignment="CENTER" prefWidth="150"  GridPane.columnIndex="2" GridPane.rowIndex="2">
             <children>
 
                 <ProgressIndicator  fx:id="passwordProgress" progress="0.0" />
@@ -227,7 +238,7 @@
 
         </HBox>
 
-        <HBox alignment="CENTER" prefWidth="100"  GridPane.columnIndex="2" GridPane.rowIndex="2">
+        <HBox alignment="CENTER" prefWidth="100"  GridPane.columnIndex="2" GridPane.rowIndex="3">
             <GridPane.margin>
                 <Insets top="15"></Insets>
             </GridPane.margin>
@@ -236,12 +247,12 @@
 
             </children>
         </HBox>
-        <HBox alignment="CENTER" prefWidth="100"  GridPane.columnIndex="2" GridPane.rowIndex="2">
+        <HBox alignment="CENTER" prefWidth="100"  GridPane.columnIndex="2" GridPane.rowIndex="3">
             <children>
                 <Label styleClass="register-labels"  fx:id="firstnameProgressLabel" text="Label" />
             </children>
         </HBox>
-        <HBox alignment="CENTER"  GridPane.columnIndex="2" GridPane.rowIndex="3">
+        <HBox alignment="CENTER"  GridPane.columnIndex="2" GridPane.rowIndex="4">
             <GridPane.margin>
                 <Insets top="15"></Insets>
             </GridPane.margin>
@@ -250,13 +261,13 @@
                 <ProgressIndicator  fx:id="lastnameProgress" progress="0.0" />
             </children>
         </HBox>
-        <HBox alignment="CENTER"  GridPane.columnIndex="2" GridPane.rowIndex="3">
+        <HBox alignment="CENTER"  GridPane.columnIndex="2" GridPane.rowIndex="4">
             <children>
                 <Label styleClass="register-labels"  fx:id="lastnameProgressLabel" text="Label" />
 
             </children>
         </HBox>
-        <HBox alignment="CENTER"  GridPane.columnIndex="2" GridPane.rowIndex="4">
+        <HBox alignment="CENTER"  GridPane.columnIndex="2" GridPane.rowIndex="5">
             <GridPane.margin>
                 <Insets top="15"></Insets>
             </GridPane.margin>
@@ -264,12 +275,12 @@
                 <ProgressIndicator  fx:id="pNumberProgress" progress="0.0" />
             </children>
         </HBox>
-        <HBox alignment="CENTER"  GridPane.columnIndex="2" GridPane.rowIndex="4">
+        <HBox alignment="CENTER"  GridPane.columnIndex="2" GridPane.rowIndex="5">
             <children>
                 <Label styleClass="register-labels"  fx:id="pNumberProgressLabel" text="Label" />
             </children>
         </HBox>
-        <HBox alignment="CENTER"  GridPane.columnIndex="2" GridPane.rowIndex="5">
+        <HBox alignment="CENTER"  GridPane.columnIndex="2" GridPane.rowIndex="6">
             <GridPane.margin>
                 <Insets top="15"></Insets>
             </GridPane.margin>
@@ -277,13 +288,13 @@
                 <ProgressIndicator fx:id="streetProgress" progress="0.0" />
             </children>
         </HBox>
-        <HBox alignment="CENTER"  GridPane.columnIndex="2" GridPane.rowIndex="5">
+        <HBox alignment="CENTER"  GridPane.columnIndex="2" GridPane.rowIndex="6">
             <children>
                 <Label styleClass="register-labels"  fx:id="streetProgressLabel" text="Label" />
 
             </children>
         </HBox>
-        <HBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="6">
+        <HBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="7">
             <GridPane.margin>
                 <Insets top="15"></Insets>
             </GridPane.margin>
@@ -291,13 +302,12 @@
                 <ProgressIndicator  fx:id="zipCodeProgress" progress="0.0" />
             </children>
         </HBox>
-        <HBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="6">
+        <HBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="7">
             <children>
                 <Label styleClass="register-labels"  fx:id="zipCodeProgressLabel" text="Label" />
 
             </children>
         </HBox>
-
 
 
 

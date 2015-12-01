@@ -68,7 +68,7 @@
 				<Insets />
 			</GridPane.margin>
 			<children>
-				<TextField promptText="enter id" />
+				<TextField fx:id="roomID" promptText="enter id" />
 			</children>
 		</HBox>
 		<HBox alignment="BOTTOM_LEFT" GridPane.columnSpan="3" GridPane.rowIndex="4">
@@ -85,17 +85,17 @@
 
 		<HBox GridPane.columnSpan="2" GridPane.rowIndex="5">
 			<children>
-				<CheckBox mnemonicParsing="false" text="Small" />
+				<CheckBox fx:id="small" mnemonicParsing="false" text="Small" />
 			</children>
 		</HBox>
 		<HBox GridPane.columnSpan="2" GridPane.rowIndex="6">
 			<children>
-				<CheckBox mnemonicParsing="false" text="Medium" />
+				<CheckBox fx:id="medium" mnemonicParsing="false" text="Medium" />
 			</children>
 		</HBox>
 		<HBox GridPane.columnSpan="2" GridPane.rowIndex="7">
 			<children>
-				<CheckBox mnemonicParsing="false" text="Large" />
+				<CheckBox fx:id="large" mnemonicParsing="false" text="Large" />
 			</children>
 		</HBox>
 
@@ -112,12 +112,12 @@
 		</HBox>
 		<HBox GridPane.columnSpan="2" GridPane.rowIndex="10">
 			<children>
-				<CheckBox mnemonicParsing="false" text="Projector" />
+				<CheckBox fx:id="hasProjector" mnemonicParsing="false" text="Projector" />
 			</children>
 		</HBox>
 		<HBox GridPane.columnSpan="2" GridPane.rowIndex="11">
 			<children>
-				<CheckBox mnemonicParsing="false" text="Coffe machine" />
+				<CheckBox fx:id="hasCoffeMachine" mnemonicParsing="false" text="Coffe machine" />
 			</children>
 		</HBox>
 		<HBox GridPane.columnSpan="3" GridPane.rowIndex="12">
@@ -128,7 +128,7 @@
 
 		<HBox GridPane.columnSpan="4" GridPane.rowIndex="13">
 			<children>
-				<TextField />
+				<TextField fx:id="locationField"></TextField>
 			</children>
 		</HBox>
 

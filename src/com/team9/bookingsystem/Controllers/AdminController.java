@@ -225,7 +225,7 @@ public class AdminController {
 
 
         }
-        else if(searchedForObject == searchedFor.room){
+        else if(searchedForObject == searchedFor.room && roomTableView != null){
 
                 Service<Boolean> updateRooms = new Service<Boolean>() {
                     @Override
@@ -324,52 +324,57 @@ public class AdminController {
     }
 
 
-		public void searchForRooms(Room room){
+    public void searchForRooms(Room room,boolean small,boolean medium, boolean large){
 
-			searchedForObject = searchedFor.room;
+    searchedForObject = searchedFor.room;
 
-			System.out.println("Searching in AdminController");
-
-
-
-			RoomSearchService searchForRoom = new RoomSearchService(new Room());
-			searchForRoom.start();
-			searchForRoom.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
-				@Override
-				public void handle(WorkerStateEvent event) {
-
-
-					roomSearchResult = (ArrayList<Room>) searchForRoom.getValue();
-
-					if (roomSearchResult == null) System.out.println("is null");
-
-					if (roomSearchResult != null) {
-
-						if (!roomTableView.getItems().isEmpty()) {
-							roomTableView.getItems().clear();
-						}
-						roomTableView.getItems().addAll(roomSearchResult);
-                        roomTableView.getTableviewData().addAll(roomSearchResult);
+    System.out.println("Searching in AdminController");
 
 
 
-						System.out.println(roomSearchResult.size());
-                        paginationBox.getChildren().clear();
-                        paginationBox.getChildren().add(roomTableView);
-                        paginationBox.setHgrow(roomTableView, Priority.SOMETIMES);
-					} else if (roomSearchResult == null) {
-
-						roomTableView.getItems().clear();
-                        paginationBox.getChildren().clear();
-                        paginationBox.getChildren().add(roomTableView);
+    RoomSearchService roomSearchService = new RoomSearchService(room,small,medium,large);
+    roomSearchService.start();
+    roomSearchService.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+        @Override
+        public void handle(WorkerStateEvent event) {
 
 
-					}
+            roomSearchResult = (ArrayList<Room>) roomSearchService.getValue();
+
+            if (roomSearchResult == null) System.out.println("is null");
+
+            if (roomSearchResult != null) {
+
+                if (!roomTableView.getItems().isEmpty()) {
+                    roomTableView.getItems().clear();
+                }
+                roomTableView.getItems().addAll(roomSearchResult);
+                roomTableView.getTableviewData().addAll(roomSearchResult);
 
 
-				}
-			});
 
+                System.out.println(roomSearchResult.size());
+                paginationBox.getChildren().clear();
+                paginationBox.getChildren().add(roomTableView);
+                paginationBox.setHgrow(roomTableView, Priority.SOMETIMES);
+            } else if (roomSearchResult == null) {
+
+                roomTableView.getItems().clear();
+                paginationBox.getChildren().clear();
+                paginationBox.getChildren().add(roomTableView);
+
+
+            }
+
+
+        }
+    });
+    roomSearchService.setOnFailed(new EventHandler<WorkerStateEvent>() {
+        @Override
+        public void handle(WorkerStateEvent event) {
+            System.out.println("failed");
+        }
+    });
 
 
 	}
@@ -416,28 +421,27 @@ public class AdminController {
 
 		});
 
-		userToggle.setOnAction(new EventHandler <ActionEvent>() {
+		userToggle.setOnAction(new EventHandler<ActionEvent>() {
 
 
+            @Override
+            public void handle(ActionEvent event) {
 
-			@Override
-			public void handle (ActionEvent event) {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/userSearch.fxml"));
+                    GridPane gridPane = loader.load();
+                    UserSearchController userSearchController = loader.getController();
+                    userSearchController.init(mainController, adminController, loggedInUser);
+                    System.out.println(this.toString());
+                    searchOptions.getChildren().clear();
+                    searchOptions.getChildren().add(gridPane);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
-				try{
-					FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/userSearch.fxml"));
-					GridPane gridPane = loader.load();
-					UserSearchController userSearchController = loader.getController();
-					userSearchController.init(mainController,adminController,loggedInUser);
-					System.out.println(this.toString());
-					searchOptions.getChildren().clear();
-					searchOptions.getChildren().add(gridPane);
-				}catch(IOException e){
-					e.printStackTrace();
-				}
+            }
 
-			}
-
-		});
+        });
 
 		userToggle.fire();
 	}
@@ -724,15 +728,15 @@ public class AdminController {
 		}
         else if(searchedForObject == searchedFor.room){
             try{
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/adduser.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/addroom.fxml"));
                 AnchorPane anchorPane = loader.load();
-                AddUserController addUserController = loader.getController();
+                AddRoomController addRoomController = loader.getController();
                 Stage popupStage = new Stage();
                 popupStage.setTitle("Add new User");
                 popupStage.initModality(Modality.WINDOW_MODAL);
                 Scene scene = new Scene(anchorPane);
                 popupStage.setScene(scene);
-                mainController.showPopup(popupStage, addUserController, new DialogCallback<User>() {
+                mainController.showPopup(popupStage, addRoomController, new DialogCallback<User>() {
                     @Override
                     public void onSuccess(User param) {
                         System.out.println(param.toString());
@@ -753,6 +757,9 @@ public class AdminController {
 
 
 
+        }
+        else if(searchedForObject == searchedFor.none){
+            System.out.println("no search result");
         }
 
 	}

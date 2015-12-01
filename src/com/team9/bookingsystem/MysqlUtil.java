@@ -799,6 +799,10 @@ public class MysqlUtil {
     public ArrayList<Room> getRooms(Room room){
         ArrayList<Room> roomArrayList = new ArrayList<>();
 
+        String id,whiteboard,coffeMachine, projector;
+        if(room.getRoomID() == 0) id = "";
+        if(room.getHasWhiteboard() == 0)
+
         try(Connection connection = getConnection()){
 
             System.out.println("\nUser Connection Established\n");
