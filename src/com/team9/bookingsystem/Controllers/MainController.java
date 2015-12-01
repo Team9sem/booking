@@ -185,12 +185,12 @@ public class MainController {
 		try {
 			System.out.println("in showUserProfile");
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/UserProfile.fxml"));
-			AnchorPane anchorPane = loader.load();
+			BorderPane borderPane = loader.load();
 			ProfileController profileController = loader.getController();
 //			profileController.init(this);
 			System.out.println(this.toString());
 			Ui.getChildren().clear();
-			Ui.getChildren().add(anchorPane);
+			Ui.getChildren().add(borderPane);
 //			Ui.setBottomAnchor(anchorPane, 0.0);
 //			Ui.setTopAnchor(anchorPane, 0.0);
 //			Ui.setLeftAnchor(anchorPane, 0.0);

@@ -166,6 +166,7 @@
 }
 
 .upLabels{
+	-fx-font-family: Avant Garde;
 	-fx-text-fill: white;
 }
 
@@ -178,10 +179,23 @@
 .upVbox{
 	-fx-border-style: solid;
     -fx-border-radius: 10 10 10 10;
+
 	
 }
 
-.upSplit{
+.upBookings{
 	-fx-border-style: solid;
     -fx-border-radius: 10 10 10 10;
+
+    
+}
+
+.bookingsText{
+	-fx-font-family: Avant Garde;
+	-fx-text-fill: white;
+	
+}
+
+.userInfoText{
+	
 }

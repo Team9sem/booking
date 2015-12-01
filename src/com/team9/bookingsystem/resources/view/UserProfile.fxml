@@ -9,72 +9,9 @@
 
 <!--by Nima, Olle-->
 
-<AnchorPane fx:id="userProfileAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="userAll" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <ImageView fitHeight="159.0" fitWidth="193.0" layoutX="36.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@booking/src/com/team9/bookingsystem/resources/img/Death_to_stock_communicate_hands_2.jpg" />
-         </image>
-      </ImageView>
-      <VBox layoutX="36.0" layoutY="257.0" prefHeight="431.0" prefWidth="299.0" styleClass="upVbox">
-         <children>
-            <HBox alignment="TOP_CENTER" prefHeight="61.0" prefWidth="162.0">
-               <children>
-                  <Label fx:id="userInfo" prefHeight="61.0" prefWidth="160.0" styleClass="upBigLabels" text="User Info">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox>
-               <children>
-                  <Label prefHeight="41.0" prefWidth="212.0" styleClass="upLabels" text="Username:" />
-                  <Label fx:id="userName" prefHeight="41.0" prefWidth="281.0" styleClass="upLabels" text="Username input" />
-               </children>
-            </HBox>
-            <HBox prefHeight="40.0" prefWidth="299.0">
-               <children>
-                  <Label prefHeight="48.0" prefWidth="306.0" styleClass="upLabels" text="Password:" />
-                  <Label fx:id="passWord" prefHeight="41.0" prefWidth="378.0" styleClass="upLabels" text="Password input" />
-               </children>
-            </HBox>
-            <HBox prefHeight="40.0" prefWidth="299.0">
-               <children>
-                  <Label prefHeight="41.0" prefWidth="299.0" styleClass="upLabels" text="Firstname:" />
-                  <Label fx:id="firstName" prefHeight="44.0" prefWidth="370.0" styleClass="upLabels" text="Firstname input" />
-               </children>
-            </HBox>
-            <HBox prefHeight="39.0" prefWidth="299.0">
-               <children>
-                  <Label prefHeight="42.0" prefWidth="301.0" styleClass="upLabels" text="Lastname:" />
-                  <Label fx:id="lastName" prefHeight="51.0" prefWidth="374.0" styleClass="upLabels" text="Lastname input" />
-               </children>
-            </HBox>
-            <HBox prefHeight="40.0" prefWidth="299.0">
-               <children>
-                  <Label prefHeight="46.0" prefWidth="309.0" styleClass="upLabels" text="Adress:" />
-                  <Label fx:id="adress" prefHeight="46.0" prefWidth="385.0" styleClass="upLabels" text="Adress input" />
-               </children>
-            </HBox>
-            <HBox prefHeight="40.0" prefWidth="299.0">
-               <children>
-                  <Label prefHeight="45.0" prefWidth="304.0" styleClass="upLabels" text="Zipcode:" />
-                  <Label fx:id="zipCode" prefHeight="57.0" prefWidth="380.0" styleClass="upLabels" text="Zipcode input" />
-               </children>
-            </HBox>
-            <HBox prefHeight="40.0" prefWidth="299.0">
-               <children>
-                  <Label prefHeight="49.0" prefWidth="299.0" styleClass="upLabels" text="SSN:" />
-                  <Label fx:id="ssn" prefHeight="40.0" prefWidth="375.0" styleClass="upLabels" text="SSN input" />
-               </children>
-            </HBox>
-         </children>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
-      </VBox>
-      <HBox alignment="TOP_CENTER" layoutX="271.0" layoutY="10.0">
+<BorderPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <HBox alignment="TOP_CENTER" BorderPane.alignment="CENTER">
          <children>
             <Label fx:id="profileTitle" alignment="CENTER" prefHeight="35.0" prefWidth="265.0" styleClass="upBigLabels" text="User Profile">
                <font>
@@ -83,32 +20,158 @@
             </Label>
          </children>
       </HBox>
-      <SplitPane dividerPositions="0.0705, 0.5, 0.4262" layoutX="342.0" layoutY="307.0" orientation="VERTICAL" prefHeight="300.0" prefWidth="300.0" styleClass="upSplit">
-        <items>
-            <Label text="Current Bookings" />
-            <TableView fx:id="currentBookings" editable="true" prefHeight="200.0" prefWidth="378.0">
-              <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
-              </columns>
-            </TableView>
-            <Label text="Booking History" />
-            <TableView fx:id="bookingHistory" prefHeight="500.0" prefWidth="500.0">
-              <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
-              </columns>
-            </TableView>
-        </items>
-         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </padding>
-      </SplitPane>
-   </children>
-   <padding>
-      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-   </padding>
-   <opaqueInsets>
-      <Insets />
-   </opaqueInsets>
-</AnchorPane>
+   </top>
+   <left>
+      <VBox prefHeight="300.0" prefWidth="300.0" spacing="10.0" styleClass="upVbox" BorderPane.alignment="TOP_LEFT">
+         <children>
+            <HBox>
+               <children>
+                  <ImageView fitHeight="159.0" fitWidth="193.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@booking/src/com/team9/bookingsystem/resources/img/Death_to_stock_communicate_hands_2.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="TOP_CENTER" prefHeight="30.0" prefWidth="162.0">
+               <children>
+                  <Label fx:id="userInfo" prefHeight="61.0" prefWidth="160.0" styleClass="upBigLabels" text="User Info">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="1.0">
+               <children>
+                  <Label prefWidth="212.0" styleClass="upLabels" text="Username:" />
+                  <Label fx:id="userName" prefWidth="281.0" styleClass="upLabels" text="Username input" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="10.0" prefWidth="299.0">
+               <children>
+                  <Label prefHeight="10.0" prefWidth="306.0" styleClass="upLabels" text="Password:" />
+                  <Label fx:id="passWord" prefWidth="378.0" styleClass="upLabels" text="Password input" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="10.0" prefWidth="299.0">
+               <children>
+                  <Label prefWidth="299.0" styleClass="upLabels" text="Firstname:" />
+                  <Label fx:id="firstName" prefWidth="370.0" styleClass="upLabels" text="Firstname input" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="10.0" prefWidth="299.0">
+               <children>
+                  <Label prefWidth="301.0" styleClass="upLabels" text="Lastname:" />
+                  <Label fx:id="lastName" prefWidth="374.0" styleClass="upLabels" text="Lastname input" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="10.0" prefWidth="299.0">
+               <children>
+                  <Label prefWidth="309.0" styleClass="upLabels" text="Adress:" />
+                  <Label fx:id="adress" prefWidth="385.0" styleClass="upLabels" text="Adress input" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="10.0" prefWidth="299.0">
+               <children>
+                  <Label prefWidth="304.0" styleClass="upLabels" text="Zipcode:" />
+                  <Label fx:id="zipCode" prefWidth="380.0" styleClass="upLabels" text="Zipcode input" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="10.0" prefWidth="299.0">
+               <children>
+                  <Label prefWidth="299.0" styleClass="upLabels" text="SSN:" />
+                  <Label fx:id="ssn" prefWidth="375.0" styleClass="upLabels" text="SSN input">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin></Label>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+         <BorderPane.margin>
+            <Insets left="5.0" />
+         </BorderPane.margin>
+      </VBox>
+   </left>
+   <right>
+      <VBox prefHeight="221.0" prefWidth="500.0" styleClass="upBookings" BorderPane.alignment="TOP_LEFT">
+         <children>
+            <HBox VBox.vgrow="SOMETIMES">
+               <children>
+                  <Label styleClass="bookingsText" text="Current Bookings" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox VBox.vgrow="SOMETIMES">
+               <children>
+                  <TableView fx:id="bookingHistory" prefHeight="400.0" prefWidth="500.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="C1" />
+                      <TableColumn prefWidth="75.0" text="C2" />
+                    </columns>
+                  </TableView>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox VBox.vgrow="SOMETIMES">
+               <children>
+                  <Label styleClass="bookingsText" text="Booking History" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox VBox.vgrow="SOMETIMES">
+               <children>
+                  <TableView fx:id="currentBookings" editable="true" prefHeight="400.0" prefWidth="500.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="C1" />
+                      <TableColumn prefWidth="75.0" text="C2" />
+                    </columns>
+                  </TableView>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </VBox>
+   </right>
+</BorderPane>
