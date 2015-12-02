@@ -77,7 +77,7 @@ public class ImageEncoder {
             byte[] byteArray = bos.toByteArray();
             System.out.println(byteArray.length);
             MysqlUtil util = new MysqlUtil();
-            util.uploadPicture(img);
+//            util.uploadPicture(img);
 
         }catch(IOException e){
             e.printStackTrace();

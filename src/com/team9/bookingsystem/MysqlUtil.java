@@ -1,8 +1,10 @@
 package com.team9.bookingsystem;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.sql.*;
 import java.sql.Date;
 import java.util.*;
@@ -10,6 +12,8 @@ import java.util.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONException;
+
+import javax.imageio.ImageIO;
 
 /**
  * Created by pontuspohl on 12/10/15.
@@ -112,6 +116,15 @@ public class MysqlUtil {
                     toReturn.setpNumber(rs.getLong("pnumber"));
                     toReturn.setStreet(rs.getString("street"));
                     toReturn.setZip(rs.getInt("zip"));
+                    if(rs.getBlob("picture") != null)
+                    {
+                        Blob blob = rs.getBlob("picture");
+                        InputStream inputStream = blob.getBinaryStream();
+                        BufferedImage bufferedImage = ImageIO.read(inputStream);
+                        toReturn.setAvatar(bufferedImage);
+                    }
+
+
                     //MAYRA assign the primary key UserID to the User object so that we can use it for booking rooms
                     int userID = Integer.parseInt(rs.getString("userID"));
                     toReturn.setUserID(userID);
@@ -1302,18 +1315,19 @@ public class MysqlUtil {
     } //end public BookedRoom
 
 
-        public void uploadPicture(File img){
+        public void uploadPicture(File img,User user){
 
 
             try(Connection connection = getConnection()){
 
 
                 PreparedStatement ps = null;
-                String insertPicture = "Update User SET User.picture = ?  WHERE User.alias = 'team9'";
+                String insertPicture = "Update User SET User.picture = ?  WHERE User.alias = ?";
             try{
                 connection.setAutoCommit(false);
                 FileInputStream fileInputStream = new FileInputStream(img);
                 ps = connection.prepareStatement(insertPicture);
+                ps.setString(2,user.getUserName());
                 ps.setBinaryStream(1,fileInputStream,(int)img.length());
                 ps.executeUpdate();
                 connection.commit();

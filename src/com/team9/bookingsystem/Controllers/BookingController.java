@@ -44,8 +44,10 @@ import java.util.ArrayList;
 public class BookingController {
 
 
+
+
     //Logged in user
-    User loggedInUser;
+    private User loggedInUser;
     // Parent Controller
     private MainController mainController;
     // Mysqlutil for Database Operations
@@ -264,6 +266,11 @@ public class BookingController {
 
     }
 
+    public User getLoggedInUser() {
+        return loggedInUser;
+    }
+
+
     /**
      * by Pontus
      */
@@ -335,9 +342,9 @@ public class BookingController {
 
             @Override
             public LocalDate fromString(String value) {
-                try{
+                try {
                     return defaultConverter.fromString(value);
-                }catch (DateTimeParseException e){
+                } catch (DateTimeParseException e) {
                     e.printStackTrace();
                     throw e;
                 }
@@ -352,7 +359,7 @@ public class BookingController {
     public void init(MainController mainController,User user){
         this.mainController = mainController;
         this.loggedInUser = user;
-        loggedInAs.setText("Logged in as: "+loggedInUser.getUserName());
+        loggedInAs.setText("Logged in as: " + loggedInUser.getUserName());
 
     }
 
@@ -734,16 +741,8 @@ public class BookingController {
         mainController.showStartScreen();
     }
 
-    public void showUserProfile(){
-    	
-    	userProfileButton.setOnAction(new EventHandler <ActionEvent>() {
+    @FXML public void showUserProfile(ActionEvent event){
 
-			@Override
-			public void handle(ActionEvent event) {
-				mainController.showUserProfile();
-				
-			}
-    
-    });
+        mainController.showUserProfile(this);
     }
 }

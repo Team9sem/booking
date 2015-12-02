@@ -9,7 +9,7 @@
 
 <!--by Nima, Olle-->
 
-<BorderPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team9.bookingsystem.Controllers.ProfileController">
    <top>
       <HBox alignment="TOP_CENTER" BorderPane.alignment="CENTER">
          <children>
@@ -26,7 +26,7 @@
          <children>
             <HBox>
                <children>
-                  <ImageView fitHeight="159.0" fitWidth="193.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageView" fitHeight="159.0" fitWidth="193.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@booking/src/com/team9/bookingsystem/resources/img/Death_to_stock_communicate_hands_2.jpg" />
                      </image>

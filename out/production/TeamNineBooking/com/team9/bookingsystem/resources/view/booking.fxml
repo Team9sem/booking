@@ -8,7 +8,7 @@
 
 <!--by Pontus, Nima, Olle-->
 
-<?import jfxtras.scene.control.LocalTimePicker?>
+<!--<?import jfxtras.scene.control.LocalTimePicker?>-->
 <BorderPane id="borderPane" fx:id="borderPane" prefHeight="600.0" prefWidth="1000.0" styleClass="borderPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team9.bookingsystem.Controllers.BookingController">
    <left>
       <AnchorPane fx:id="searchAnchorPane" styleClass="options-area" BorderPane.alignment="CENTER">
@@ -278,6 +278,13 @@
                         <Label fx:id="loggedInAs" styleClass="top-anchorpanetext" text="Logged in as: Team9"></Label>
                      </children>
                   </HBox>
+                  
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="237.0" GridPane.columnIndex="0" GridPane.rowIndex="1" >
+                     <children>
+                        <Button fx:id="userProfileButton" onAction="#showUserProfile" styleClass="userProfileButton" text="Profile"></Button>
+                     </children>
+                  </HBox>
+                  
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="0">
                      <children>
 
@@ -297,7 +304,7 @@
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="237.0" GridPane.columnIndex="4">
                      <children>
 
-                        <Button onAction="#SignOut" mnemonicParsing="false" text="Sign Out" />
+                        <Button onAction="#SignOut" styleClass="signOutButton" mnemonicParsing="false" text="Sign Out" />
                      </children>
                   </HBox>
                </children>

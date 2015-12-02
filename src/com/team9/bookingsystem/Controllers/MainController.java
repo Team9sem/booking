@@ -211,13 +211,13 @@ public class MainController {
     	 
      }
 
-    public void showUserProfile(AdminController adminController) {
+    public void showUserProfile(BookingController bookingController) {
         try {
             System.out.println("in showUserProfile");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/UserProfile.fxml"));
             BorderPane borderPane = loader.load();
             ProfileController profileController = loader.getController();
-			profileController.init(this,adminController,primaryStage);
+			profileController.init(this,bookingController,primaryStage);
             System.out.println(this.toString());
             Ui.getChildren().clear();
             Ui.getChildren().add(borderPane);

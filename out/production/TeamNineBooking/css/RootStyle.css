@@ -165,3 +165,45 @@
 }
 
 
+
+
+.userAll{
+	-fx-font-family: Avant Garde;
+	-fx-text-fill: white;
+
+}
+
+.upLabels{
+	-fx-font-family: Avant Garde;
+	-fx-text-fill: white;
+}
+
+.upBigLabels{
+	-fx-font-family: Infinity;
+	-fx-text-fill: white;
+	
+}
+
+.upVbox{
+	-fx-border-style: solid;
+    -fx-border-radius: 10 10 10 10;
+
+	
+}
+
+.upBookings{
+	-fx-border-style: solid;
+    -fx-border-radius: 10 10 10 10;
+
+    
+}
+
+.bookingsText{
+	-fx-font-family: Avant Garde;
+	-fx-text-fill: white;
+	
+}
+
+.userInfoText{
+	
+}

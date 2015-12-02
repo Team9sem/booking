@@ -1,5 +1,6 @@
 package com.team9.bookingsystem;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 
 /**
@@ -21,7 +22,10 @@ public class User implements SearchableObject {
     private String street;
     private String email;
     private int    zip;
-    private File avatar;
+
+
+
+    private BufferedImage avatar;
 
     // Default Constructor
     public User(){}
@@ -34,7 +38,7 @@ public class User implements SearchableObject {
                 String lastName,
                 int userType,
                 String street,
-                long pNumber,int zip,File avatar)
+                long pNumber,int zip,BufferedImage avatar)
     {
         _db = new MysqlUtil();
         this.userID = userID;
@@ -141,6 +145,14 @@ public class User implements SearchableObject {
 
     public void setZip(int zip) {
         this.zip = zip;
+    }
+
+    public BufferedImage getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(BufferedImage avatar) {
+        this.avatar = avatar;
     }
 
 
