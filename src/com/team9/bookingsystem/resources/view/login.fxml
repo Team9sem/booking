@@ -59,7 +59,7 @@
       </HBox>
       <HBox alignment="CENTER"  GridPane.columnIndex="1" GridPane.rowIndex="3">
          <children>
-            <Button mnemonicParsing="false" onAction="#showWelcomeArea" text="Back" />
+            <Button mnemonicParsing="false" onAction="#showWelcomeArea" text="Back" styleClass="search-button"/>
          </children>
           <GridPane.margin>
               <Insets top="10"></Insets>
@@ -67,7 +67,7 @@
       </HBox>
       <HBox alignment="CENTER"   GridPane.columnIndex="2" GridPane.rowIndex="3">
          <children>
-            <Button mnemonicParsing="false" onAction="#login" text="Login" />
+            <Button mnemonicParsing="false" onAction="#login" text="Login" styleClass="search-button" />
          </children>
           <GridPane.margin>
               <Insets top="10"></Insets>

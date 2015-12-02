@@ -11,19 +11,39 @@
 
 <BorderPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team9.bookingsystem.Controllers.ProfileController">
    <top>
-      <HBox alignment="TOP_CENTER" BorderPane.alignment="CENTER">
+      <GridPane BorderPane.alignment="CENTER">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+         </rowConstraints>
          <children>
-            <Label fx:id="profileTitle" alignment="CENTER" prefHeight="35.0" prefWidth="265.0" styleClass="upBigLabels" text="User Profile">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </Label>
+            <HBox alignment="CENTER_LEFT" prefWidth="310.0" GridPane.columnIndex="1">
+               <children>
+                  <Label fx:id="profileTitle" alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="400.0" styleClass="upBigLabels" text="User Profile">
+                     <font>
+                        <Font size="50.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefWidth="400.0">
+               <children>
+                  <Button fx:id="backToBookings" mnemonicParsing="false" onAction="#previousPage" styleClass="search-button" text="Previous Page" />
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" top="5.0" />
+               </GridPane.margin>
+            </HBox>
          </children>
-      </HBox>
+      </GridPane>
    </top>
    <left>
       <VBox prefHeight="300.0" prefWidth="300.0" spacing="10.0" styleClass="upVbox" BorderPane.alignment="TOP_LEFT">
          <children>
+            <HBox alignment="CENTER" />
             <HBox>
                <children>
                   <ImageView fx:id="imageView" fitHeight="159.0" fitWidth="193.0" pickOnBounds="true" preserveRatio="true">
@@ -33,8 +53,11 @@
                   </ImageView>
                   <HBox alignment="CENTER">
                      <children>
-                        <Button fx:id="ppButton" onAction="#handle" mnemonicParsing="false" text="Upload Picture" />
+                        <Button fx:id="ppButton" mnemonicParsing="false" onAction="#handle" styleClass="search-button" text="Upload Picture" />
                      </children>
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
                   </HBox>
                </children>
                <VBox.margin>
