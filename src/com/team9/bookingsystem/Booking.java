@@ -13,11 +13,13 @@ public class Booking {
 
     private MysqlUtil _db;
     private int bID;
-    private int userid; 
+    private int userid;
     private int roomID;
     private String bdate;
     private String bStart;
     private String bEnd;
+    private User user;
+    private Room room;
 
     // Default Constructor
     public Booking(){}
@@ -32,6 +34,19 @@ public class Booking {
         this.bdate = bdate;
         this.bStart  = bStart;
         this.bEnd = bEnd;
+    }
+
+    public Booking(int bID, int userid, int roomID, String bdate, String bStart, String bEnd, User user, Room room)
+    {
+        _db = new MysqlUtil();
+        this.bID = bID;
+        this.userid  = userid;
+        this.roomID  = roomID;
+        this.bdate = bdate;
+        this.bStart  = bStart;
+        this.bEnd = bEnd;
+        this.user = user;
+        this.room = room;
     }
 
     public int getbID() {
@@ -78,6 +93,14 @@ public class Booking {
     public void setbEnd(String bEnd) {
         this.bEnd = bEnd;
     }
+
+    public User getUser(){ return this.user; }
+
+    public void setUser(User user){ this.user = user; }
+
+    public Room getRoom(){ return this.room; }
+
+    public void setRoom(Room room){ this.room = room; }
     
 
     public static boolean isValidInput(int bID, int userid, String roomID, String bdate, String bStart, String bEnd)

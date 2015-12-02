@@ -3,8 +3,10 @@ package com.team9.bookingsystem;
 import java.sql.*;
 import java.sql.Date;
 import java.util.*;
+import java.text.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONException;
@@ -202,6 +204,7 @@ public class MysqlUtil {
         
     public String GetRoomLocation(int roomID) throws Exception
     {
+    		//Created by Mayra Soliz 26.10.15
         	//Method get the location using the roomID
         	String toReturn = "";
             // we have to catch potential SQLExceptions
@@ -233,7 +236,8 @@ public class MysqlUtil {
         
     public int GetRoomID(String location) throws Exception
     {
-        	//Method that prints all rooms 
+        	//Created by Mayra Soliz 26.10.15
+    		//Method that gets the room ID based on the location (room name)
         	int roomID = 0;
             // we have to catch potential SQLExceptions
             try(Connection connection = getConnection()){
@@ -284,7 +288,8 @@ public class MysqlUtil {
     //bEnd		NULL	time
     public boolean BookRoom(int userId, int roomId, String bDate, String bStart, String bEnd) throws Exception
     {
-      
+    	//Created by Mayra Soliz 04.11.15
+    	//Book a room based on user information
         // we have to catch potential SQLExceptions
         try(Connection connection = getConnection()){
 
@@ -1079,13 +1084,9 @@ public class MysqlUtil {
 
     public boolean BookRoom(Room roomObj) throws Exception
     {
-        //Created by Mayra Soliz.
-        //roomID int(11)
-        //location char(30)
-        //roomSize char(30)
-        //hasProjector int
-        //hasWhiteBoard int
-        //hasCoffeMachine int
+        //Created by Mayra Soliz 04.11.15
+    	//Book a room based on Room object
+
         String location = roomObj.getLocation();
         String roomSize= roomObj.getRoomSize();
         int hasProjector=roomObj.getHasProjector();
@@ -1459,6 +1460,204 @@ public class MysqlUtil {
 
         return toReturn;
     }
+
+    public void uploadPicture(String image){
+
+
+    try(Connection connection = getConnection()){
+
+        Statement statement = connection.createStatement();
+        statement.executeUpdate("Update User SET User.picture ='"+image+"' WHERE User.alias = 'team9'");
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+    }
+    
+    public Booking[] findTodaysBookings(User user) {
+    	//Created by Mayra Soliz 02.12.2015
+    	//this Method finds Todays bookings for one User and adds them to a booking array
+    	//which is used in the UserBookingsProfil class
+    	Booking[] toReturn = new Booking[100];
+    	DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    	Calendar cal = Calendar.getInstance();
+    	String bDate = dateFormat.format(cal.getTime());
+    	int userId = user.getUserID(); 
+    	try(Connection connection = getConnection()){
+
+             System.out.println("findPastBookings Connection Established");
+
+             // statement
+             Statement statement = connection.createStatement();
+
+             String sql = "SELECT * FROM Bookings WHERE userId = " + userId + " AND bDate = '"+bDate+"';";
+             System.out.println("SQL string: "+sql);
+
+             ResultSet rs = statement.executeQuery(sql);
+             int i = 0;
+             while(rs.next()){
+            	 toReturn[i] = new Booking();
+                 String bdate = rs.getString("bDate");
+                 String bEnd = rs.getString("bEnd");
+                 int bID = Integer.parseInt(rs.getString("bid"));
+                 String bStart = rs.getString("bStart");
+                 int roomID = Integer.parseInt(rs.getString("roomId"));
+                 int userid = Integer.parseInt(rs.getString("userId"));
+                 toReturn[i].setbdate(bdate);
+                 toReturn[i].setbEnd(bEnd);
+                 toReturn[i].setbID(bID);
+                 toReturn[i].setbStart(bStart);
+                 toReturn[i].setroomID(roomID);
+                 toReturn[i].setUser(user);
+                 toReturn[i].setuserid(userid);
+                 toReturn[i].setUser(user);
+                 i++;
+             } //end while
+
+             rs.close();
+             statement.close();
+             connection.close();
+
+        }catch(SQLException e){
+             e.printStackTrace();
+        }
+    	return toReturn;
+    }
+    	
+    public Booking[] findPastBookings(User user) {
+    	//Created by Mayra Soliz 02.12.2015
+    	//this Method finds past bookings for one User and adds them to a booking array
+    	//which is used in the UserBookingsProfil class
+    	Booking[] toReturn = new Booking[100];
+    	DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    	Calendar cal = Calendar.getInstance();
+    	Calendar dbCal = Calendar.getInstance();
+    	
+
+    	String bDate = dateFormat.format(cal.getTime());
+    	int userId = user.getUserID(); 
+    	try(Connection connection = getConnection()){
+
+             System.out.println("findPastBookings Connection Established");
+
+             // statement
+             Statement statement = connection.createStatement();
+
+             String sql = "SELECT * FROM Bookings WHERE userId = '" + userId+"';";
+             System.out.println("SQL string: "+sql);
+             ResultSet rs = statement.executeQuery(sql);
+             int i = 0;
+             while(rs.next()){
+            	 toReturn[i] = new Booking();
+            	 //2015-12-02
+            	 
+                 String bdate = rs.getString("bDate");
+                 //extract year, month and day)
+                 int year = Integer.parseInt(bdate.substring(0,4));
+                 int month = Integer.parseInt(bdate.substring(5,7));
+                 int day = Integer.parseInt(bdate.substring(8,10));
+                 dbCal.set(Calendar.YEAR, year);
+             	 dbCal.set(Calendar.MONTH, month-1); //really annoying Jan = 0, go figure
+             	 dbCal.set(Calendar.DAY_OF_MONTH, day);
+             	 String tempDBdate = dateFormat.format(dbCal.getTime());
+             	System.out.println("DBtime: "+tempDBdate);
+
+             	 if(dbCal.before(cal)){
+             		 String bEnd = rs.getString("bEnd");
+             		 int bID = Integer.parseInt(rs.getString("bid"));
+             		 String bStart = rs.getString("bStart");
+             		 int roomID = Integer.parseInt(rs.getString("roomId"));
+             		 int userid = Integer.parseInt(rs.getString("userId"));
+             		 toReturn[i].setbdate(bdate);
+             		 toReturn[i].setbEnd(bEnd);
+             		 toReturn[i].setbID(bID);
+             		 toReturn[i].setbStart(bStart);
+             		 toReturn[i].setroomID(roomID);
+             		 toReturn[i].setUser(user);
+             		 toReturn[i].setuserid(userid);
+             		 toReturn[i].setUser(user);
+             		 i++;
+             	 }
+             } //end while
+
+             rs.close();
+             statement.close();
+             connection.close();
+
+        }catch(SQLException e){
+             e.printStackTrace();
+        }
+    	return toReturn;
+    }
+    
+    public Booking[] findFutureBookings(User user) {
+    	//Created by Mayra Soliz 02.12.2015
+    	//this Method finds future bookings for one User and adds them to a booking array
+    	//which is used in the UserBookingsProfil class
+    	Booking[] toReturn = new Booking[100];
+    	DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    	Calendar cal = Calendar.getInstance();
+    	Calendar dbCal = Calendar.getInstance();
+    	
+
+    	String bDate = dateFormat.format(cal.getTime());
+    	int userId = user.getUserID(); 
+    	try(Connection connection = getConnection()){
+
+             System.out.println("findPastBookings Connection Established");
+
+             // statement
+             Statement statement = connection.createStatement();
+
+             String sql = "SELECT * FROM Bookings WHERE userId = '" + userId+"';";
+             System.out.println("SQL string: "+sql);
+             ResultSet rs = statement.executeQuery(sql);
+             int i = 0;
+             while(rs.next()){
+            	 toReturn[i] = new Booking();
+            	 //2015-12-02
+            	 
+                 String bdate = rs.getString("bDate");
+                 //extract year, month and day)
+                 int year = Integer.parseInt(bdate.substring(0,4));
+                 int month = Integer.parseInt(bdate.substring(5,7));
+                 int day = Integer.parseInt(bdate.substring(8,10));
+                 dbCal.set(Calendar.YEAR, year);
+             	 dbCal.set(Calendar.MONTH, month-1); //really annoying Jan = 0, go figure
+             	 dbCal.set(Calendar.DAY_OF_MONTH, day);
+             	 String tempDBdate = dateFormat.format(dbCal.getTime());
+             	System.out.println("DBtime: "+tempDBdate);
+
+                 //   Calendar calendar = Calendar.getInstance();
+            	//calendar.setTime(date);
+             	 if(dbCal.after(cal)){
+             		 String bEnd = rs.getString("bEnd");
+             		 int bID = Integer.parseInt(rs.getString("bid"));
+             		 String bStart = rs.getString("bStart");
+             		 int roomID = Integer.parseInt(rs.getString("roomId"));
+             		 int userid = Integer.parseInt(rs.getString("userId"));
+             		 toReturn[i].setbdate(bdate);
+             		 toReturn[i].setbEnd(bEnd);
+             		 toReturn[i].setbID(bID);
+             		 toReturn[i].setbStart(bStart);
+             		 toReturn[i].setroomID(roomID);
+             		 toReturn[i].setUser(user);
+             		 toReturn[i].setuserid(userid);
+             		 toReturn[i].setUser(user);
+             		 i++;
+             	 }
+             } //end while
+
+             rs.close();
+             statement.close();
+             connection.close();
+
+        }catch(SQLException e){
+             e.printStackTrace();
+        }
+    	return toReturn;
+    }
+
 }
 
 

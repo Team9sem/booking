@@ -40,8 +40,9 @@ public class Ui extends Application {
         ui = loader.load();
 
         controller= loader.getController();
+        controller.init(thestage);
 
-        uiScene = new Scene(ui,1000,600);
+        uiScene = new Scene(ui,1100,700);
 
 
 

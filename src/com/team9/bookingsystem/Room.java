@@ -3,7 +3,7 @@ package com.team9.bookingsystem;
 /**
  * Created by iso.f on 28/10/15.
  */
-public class Room {
+public class Room implements SearchableObject {
 
     private MysqlUtil _db;
 
