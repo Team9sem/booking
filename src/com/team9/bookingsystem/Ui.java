@@ -82,45 +82,4 @@ public class Ui extends Application {
 
  */
 
-        public class JavaFXImageFileChooser extends Application {
-        	 
-            @Override
-            public void start(Stage primaryStage) {
-                 
-                final FileChooser fileChooser = new FileChooser();
-                final Button openButton = new Button("Open Image");
-         
-                openButton.setOnAction(
-                    new EventHandler<ActionEvent>() {
-                        @Override
-                        public void handle(final ActionEvent e) {
-                            setExtFilters(fileChooser);
-                            File file = fileChooser.showOpenDialog(primaryStage);
-                            if (file != null) {
-                                openNewImageWindow(file);
-                            }
-                        }
-                    });
-         
-                 
-                StackPane root = new StackPane();
-                root.getChildren().add(openButton);
-                 
-                Scene scene = new Scene(root, 400, 150);
-                 
-                primaryStage.setTitle("file picker");
-                primaryStage.setScene(scene);
-                primaryStage.show();
-            }
-
-			protected void setExtFilters(FileChooser fileChooser) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			protected void openNewImageWindow(File file) {
-				// TODO Auto-generated method stub
-				
-			}
-        }
-
+       
