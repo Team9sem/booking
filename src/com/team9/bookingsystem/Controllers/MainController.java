@@ -211,6 +211,27 @@ public class MainController {
     	 
      }
 
+    public void showUserProfile(AdminController adminController) {
+        try {
+            System.out.println("in showUserProfile");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/UserProfile.fxml"));
+            BorderPane borderPane = loader.load();
+            ProfileController profileController = loader.getController();
+			profileController.init(this,adminController,primaryStage);
+            System.out.println(this.toString());
+            Ui.getChildren().clear();
+            Ui.getChildren().add(borderPane);
+			Ui.setBottomAnchor(borderPane, 0.0);
+			Ui.setTopAnchor(borderPane, 0.0);
+			Ui.setLeftAnchor(borderPane, 0.0);
+			Ui.setRightAnchor(borderPane, 0.0);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
 
 }

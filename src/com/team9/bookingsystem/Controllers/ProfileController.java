@@ -20,6 +20,8 @@ import javafx.stage.Stage;
 public class ProfileController {
 	
 	private MainController mainController;
+	private AdminController adminController;
+	private Stage primaryStage;
 	private User loggedInUser;
 	
 	@FXML AnchorPane UserProfileAnchor;
@@ -53,6 +55,12 @@ public class ProfileController {
 
 	 */
 
+
+			public void init(MainController mainController,AdminController adminController, Stage primaryStage) {
+				this.primaryStage = primaryStage;
+				this.mainController = mainController;
+				this.adminController = adminController;
+			}
               
              final FileChooser fileChooser = new FileChooser();
 //             final Button openButton = new Button("Open Image");
