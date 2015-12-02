@@ -53,10 +53,7 @@ public class UserSearchController {
     @FXML Button adminSearchButton;
 	
 	 public void initialize() {
-
-
-
- }
+     }
   
    public void init(MainController mainController,AdminController adminController,User admin){
        this.mainController = mainController;
@@ -70,8 +67,10 @@ public class UserSearchController {
         int id = 0;
         long pNumberValue = 0;
         int zip = 0;
+        int usertypeValue = 15;
         try{
             if(!ID.getText().isEmpty()){
+
                 id = Integer.parseInt(ID.getText());
             }
             if(!pNumber.getText().isEmpty()){
@@ -80,6 +79,13 @@ public class UserSearchController {
             if(!zipCode.getText().isEmpty()){
                 zip = Integer.parseInt(zipCode.getText());
             }
+            if(!userType.getText().isEmpty()){
+
+                usertypeValue = Integer.parseInt(userType.getText());
+                if(usertypeValue > 4 || usertypeValue < 0){
+                    usertypeValue = 15;
+                }
+            }
 
 
         }catch(NumberFormatException e){
@@ -87,16 +93,17 @@ public class UserSearchController {
         }
 
 
-
-            User user = new User(id,
-                    userName.getText(),
+            User user = new User(id,userName.getText(),
                     "",
                     firstName.getText(),
                     lastName.getText(),
-                    "","",
+                    usertypeValue,
+                    "",
                     pNumberValue,
-                    zip);
+                    zip,
+                    null);
 
+             System.out.println(user.toString());
             System.out.println("Clicked searchbutton");
             adminController.searchForUsers(user);
 

@@ -1,9 +1,11 @@
 package com.team9.bookingsystem;
 
+import java.io.File;
+
 /**
  * Created by pontuspohl on 12/10/15.
  */
-public class User {
+public class User implements SearchableObject {
 
     private MysqlUtil _db;
 
@@ -15,10 +17,11 @@ public class User {
     private String password;
     private String firstName;
     private String lastName;
-    private String userType;
+    private int userType;
     private String street;
     private String email;
     private int    zip;
+    private File avatar;
 
     // Default Constructor
     public User(){}
@@ -29,9 +32,9 @@ public class User {
                 String password,
                 String firstName,
                 String lastName,
-                String userType,
+                int userType,
                 String street,
-                long pNumber,int zip)
+                long pNumber,int zip,File avatar)
     {
         _db = new MysqlUtil();
         this.userID = userID;
@@ -43,6 +46,7 @@ public class User {
         this.street    = street;
         this.zip       = zip;
         this.pNumber = pNumber;
+        this.avatar  = avatar;
     }
 
     // Copy Constructor
@@ -83,7 +87,7 @@ public class User {
         return lastName;
     }
 
-    public String getUserType() {
+    public int getUserType() {
         return userType;
     }
 
@@ -127,7 +131,7 @@ public class User {
         this.lastName = lastName;
     }
 
-    public void setUserType(String userType) {
+    public void setUserType(int userType) {
         this.userType = userType;
     }
 

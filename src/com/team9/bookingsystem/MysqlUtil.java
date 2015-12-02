@@ -1,5 +1,8 @@
 package com.team9.bookingsystem;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.*;
 import java.sql.Date;
 import java.util.*;
@@ -343,7 +346,7 @@ public class MysqlUtil {
   //street		varchar(30)
   //zip			int(11)
         
-  public boolean RegisterUser(String alias, String passwd, String firstname, String lastname, long pNumber, String usertype, String street, int zip) throws Exception
+  public boolean RegisterUser(String alias, String passwd, String firstname, String lastname, long pNumber, int usertype, String street, int zip)
   {
           
 	  // we have to catch potential SQLExceptions
@@ -357,7 +360,7 @@ public class MysqlUtil {
 
     	  String sql = "INSERT INTO User" +
                    	"(alias, passwd, firstname, lastname, pNumber, usertype, street, zip)" +
-                   	" Values ('"+alias+ "','"+passwd+"','"+firstname+"','"+lastname+"',"+pNumber+",'"+usertype+"','"+street+"',"+zip+")";
+                   	" Values ('"+alias+ "','"+passwd+"','"+firstname+"','"+lastname+"',"+pNumber+","+usertype+",'"+street+"',"+zip+")";
       
     	  //System.out.println("SQL string: "+sql); 
            
@@ -375,7 +378,7 @@ public class MysqlUtil {
 
     }//end public User RegisterUser
     
-  public boolean RegisterRoom(String location, String roomSize, int hasProjector, int hasWhiteBoard, int hasCoffeeMachine) throws Exception
+  public boolean RegisterRoom(String location, String roomSize, int hasProjector, int hasWhiteBoard, int hasCoffeeMachine)
   {
 	  	//roomID int(11)
 	    //location char(30)
@@ -718,7 +721,7 @@ public class MysqlUtil {
 
             Statement statement = connection.createStatement();
             statement.executeUpdate(
-                    "DELETE FROM User WHERE userID= '"+user.getUserID()+"'"
+                    "DELETE FROM User WHERE userID= '" + user.getUserID() + "'"
             );
         }catch(SQLException e){
             e.printStackTrace();
@@ -727,29 +730,23 @@ public class MysqlUtil {
     //END OF EDITING AND REMOVING USER OPERATIONS
 
     /**
+     * Filip Isakovski
      * Searching through users, rooms and bookings in the database
      * Created by iso on 13/11/15
      */
 
     public ArrayList<User> getUsers(User user){
         ArrayList<User> userArrayList = new ArrayList<>();
-        System.out.println(user.toString());
 
-        String zip = "";
-        String pNumber  = "";
-        String id = "";
-        if(user.getZip() != 0){
-            zip = "" + user.getZip();
-        }
-        if(user.getpNumber() != 0){
-            pNumber = "" + user.getpNumber();
-        }
-        if(user.getUserID() != 0){
-            id = "" + user.getUserID();
-        }
+        String userIdQuery ="User.userID = " + user.getUserID()+" AND ";
+        String userTypeQuery = "AND usertype LIKE '%%" + user.getUserType()+"%%'";
+        String pNumberQuery  = "AND pNumber LIKE '%%"+user.getpNumber()+"%%'";
+        String zipQuery      = "AND zip LIKE '%%"+user.getZip()+"%%'";
 
-
-
+        if(user.getUserID()==0) { userIdQuery=""; }
+        if(user.getUserType()==15  ){ userTypeQuery=""; }
+        if(user.getpNumber() == 0) { pNumberQuery = "";}
+        if(user.getZip() == 0){zipQuery = "";}
 
         try(Connection connection = getConnection()){
 
@@ -757,17 +754,17 @@ public class MysqlUtil {
 
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(
-                    "SELECT * FROM User WHERE userID LIKE '%%"+id+"%%' AND alias LIKE '%%"+
+                    "SELECT * FROM User WHERE "+userIdQuery+" alias LIKE '%%"+
                             user.getUserName()+"%%' AND passwd LIKE '%%"+user.getPassword()+"%%' AND firstname LIKE '%%"+
-                            user.getFirstName()+"%%' AND lastname LIKE '%%"+ user.getLastName()+"%%' AND pNumber LIKE '%%"
-                            +pNumber+"%%' AND usertype LIKE '%%"+user.getUserType()+"%%' AND street LIKE '%%"
-                            +user.getStreet()+"%%' AND zip LIKE '%%"+zip+"%%';"
+                            user.getFirstName()+"%%' AND lastname LIKE '%%"+ user.getLastName()+"%%' AND street LIKE '%%"
+                            +user.getStreet()+"%%' "+zipQuery+" "+pNumberQuery+" "+userTypeQuery+";"
             );
-
+            System.out.println("SELECT * FROM User WHERE "+userIdQuery+" alias LIKE '%%"+
+                    user.getUserName()+"%%' AND passwd LIKE '%%"+user.getPassword()+"%%' AND firstname LIKE '%%"+
+                    user.getFirstName()+"%%' AND lastname LIKE '%%"+ user.getLastName()+"%%' AND street LIKE '%%"
+                    +user.getStreet()+"%%' "+zipQuery+" "+pNumberQuery+" "+userTypeQuery+";");
             while (rs.next()) {
                 User tmpUser = new User();
-
-
 
                 tmpUser.setUserID(rs.getInt("userID"));
                 tmpUser.setUserName(rs.getString("alias"));
@@ -775,14 +772,13 @@ public class MysqlUtil {
                 tmpUser.setFirstName(rs.getString("firstname"));
                 tmpUser.setLastName(rs.getString("lastname"));
                 tmpUser.setpNumber(rs.getLong("pNumber"));
-                tmpUser.setUserType(rs.getString("usertype"));
+                tmpUser.setUserType(rs.getInt("usertype"));
                 tmpUser.setStreet(rs.getString("street"));
                 tmpUser.setZip(rs.getInt("zip"));
 
                 userArrayList.add(tmpUser);
             }
 
-            return userArrayList;
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -793,20 +789,54 @@ public class MysqlUtil {
         return userArrayList;
     }
 
-    public ArrayList<Room> getRooms(Room room){
+    public ArrayList<Room> getRooms(Room room, boolean small, boolean medium, boolean large){
         ArrayList<Room> roomArrayList = new ArrayList<>();
+
+        String roomID = ""+room.getRoomID();
+        if(room.getRoomID()==0){ roomID = ""; }
+
+        String query="SELECT * FROM Room WHERE roomID = '"+roomID+"' ";
+
+        query += " AND( ";
+        if(small && medium && large) query += "roomSize = 'S' OR roomSize = 'M' OR roomSize = 'L' )";
+        else if(small){
+            if(medium) query += "roomSize = 'S' OR roomSize = 'M' )";
+            else if(large) query += "roomSize = 'S' OR roomSize = 'L' )";
+            else  query += "roomSize = 'S')";
+        }
+        else if(medium){
+            if(large) query += "roomSize = 'M' OR roomSize = 'L')";
+            else query += "roomSize = 'M' )";
+        }
+        else if(large) query += "roomSize = 'L')";
+        else{
+            query = "SELECT * FROM Room WHERE Room.roomID> 0 ";
+        }
+
+        query += " AND( ";
+        if(room.getHasProjector()>0 && room.getHasWhiteboard()>0 && room.getHasCoffeeMachine()>0){
+            query += "hasProjector = '1' OR hasWhiteboard = '1' OR hasCoffeeMachine = '1' )";
+        }
+        else if(room.getHasProjector()>0){
+            if(room.getHasWhiteboard()>0) query += "hasProjector = '1' OR hasWhiteboard = '1' )";
+            else if(room.getHasCoffeeMachine()>0) query += "hasProjector = '1' OR hasCoffeeMachine = '1' )";
+            else  query += "hasProjector = '1')";
+        }
+        else if(room.getHasWhiteboard()>0){
+            if(room.getHasCoffeeMachine()>0) query += "hasWhiteboard = '1' OR hasCoffeeMachine = '1')";
+            else query += "hasWhiteboard = '1' )";
+        }
+        else if(room.getHasCoffeeMachine()>0) query += "hasCoffeeMachine = '1')";
+        else{
+            query = "SELECT * FROM Room WHERE Room.roomID> 0 ";
+        }
 
         try(Connection connection = getConnection()){
 
             System.out.println("\nUser Connection Established\n");
 
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery(
-                    "SELECT * FROM Room WHERE roomID LIKE '%%"+room.getRoomID()+"%%' AND roomSize LIKE '%%" +
-                            room.getRoomSize()+"%%' AND location LIKE '%%"+room.getLocation()+"%%' AND hasProjector LIKE '%%"
-                            +room.getHasProjector()+"%%' AND hasWhiteboard LIKE '%%" + room.getHasWhiteboard() +
-                            "%%' AND hasCoffeeMachine LIKE '%%"+room.getHasCoffeeMachine()+"%%'"
-            );
+            ResultSet rs = statement.executeQuery(query);
 
             while (rs.next()) {
                 Room tmpRoom = new Room();
@@ -831,13 +861,16 @@ public class MysqlUtil {
     public ArrayList<Booking> getBookings(Booking booking){
         ArrayList<Booking> bookingArrayList = new ArrayList<>();
 
+        String bID = ""+ booking.getbID();
+        if(booking.getbID()==0){ bID=""; }
+
         try(Connection connection = getConnection()){
 
             System.out.println("\nUser Connection Established\n");
 
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(
-                    "SELECT * FROM Bookings WHERE bID LIKE '%%"+booking.getbID()+"%%' AND userid LIKE '%%" +
+                    "SELECT * FROM Bookings WHERE bID = '"+bID+"' AND userid LIKE '%%" +
                             booking.getuserid()+"%%' AND roomID LIKE '%%"+booking.getroomID()+"%%' AND bdate LIKE '%%"
                             +booking.getbdate()+"%%' AND bstart LIKE '%%"+booking.getbStart()+"%%' AND bEnd LIKE '%%"
                             +booking.getbEnd()+"%%'"
@@ -863,42 +896,6 @@ public class MysqlUtil {
         return bookingArrayList;
     }
 
-    public ArrayList<Booking> getBookings(User user){
-        ArrayList<Booking> bookingArrayList = new ArrayList<>();
-
-        try(Connection connection = getConnection()){
-
-            System.out.println("\nUser Connection Established\n");
-
-            Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery(
-                    "SELECT * FROM Bookings WHERE userID = "+user.getUserID() +""
-            );
-
-            while (rs.next()) {
-                Booking booking = new Booking();
-
-                booking.setbID(rs.getInt("bID"));
-                booking.setuserid(rs.getInt("userid"));
-                booking.setroomID(rs.getInt("roomID"));
-                booking.setbdate(rs.getString("bdate"));
-                booking.setbStart(rs.getString("bStart"));
-                booking.setbEnd(rs.getString("bEnd"));
-
-                bookingArrayList.add(booking);
-            }
-
-            for(Booking booking : bookingArrayList){
-                booking.setUser(getUser(booking.getuserid()));
-                booking.setRoom(getRoom(booking.getroomID()));
-            }
-
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
-
-        return bookingArrayList;
-    }
 
     public ArrayList<Booking> getBookings(Room room){
         ArrayList<Booking> bookingArrayList = new ArrayList<>();
@@ -957,7 +954,7 @@ public class MysqlUtil {
                 user.setFirstName(rs.getString("firstname"));
                 user.setLastName(rs.getString("lastname"));
                 user.setpNumber(rs.getInt("pNumber"));
-                user.setUserType(rs.getString("usertype"));
+                user.setUserType(rs.getInt("usertype"));
                 user.setStreet(rs.getString("street"));
                 user.setZip(rs.getInt("zip"));
             }
@@ -1006,7 +1003,7 @@ public class MysqlUtil {
      */
     public boolean isUsernameAvailable(String username){
 
-        try(Connection connection = getConnection()){
+        try(Connection connection = getConnection()) {
 
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery("Select * FROM User WHERE alias ='"+username+"';");
@@ -1119,7 +1116,7 @@ public class MysqlUtil {
 
     }//end public User RegisterUser
 
-    public boolean updateRoom(Room room) throws SQLException{
+    public boolean updateRoom(Room room) {
         //Created by Mayra Soliz 16 Nov 2015.
         //This method takes the data in the room object and updates the database with the data in the room object
 
@@ -1161,9 +1158,10 @@ public class MysqlUtil {
             return true;
         }catch(SQLException e){
             e.printStackTrace();
-            throw e;
+
         }
 
+        return false;
 //        return false;
     }
 
@@ -1304,14 +1302,25 @@ public class MysqlUtil {
     } //end public BookedRoom
 
 
-        public void uploadPicture(String image){
+        public void uploadPicture(File img){
 
 
             try(Connection connection = getConnection()){
 
 
-                Statement statement = connection.createStatement();
-                statement.executeUpdate("Update User SET User.picture ='"+image+"' WHERE User.alias = 'team9'");
+                PreparedStatement ps = null;
+                String insertPicture = "Update User SET User.picture = ?  WHERE User.alias = 'team9'";
+            try{
+                connection.setAutoCommit(false);
+                FileInputStream fileInputStream = new FileInputStream(img);
+                ps = connection.prepareStatement(insertPicture);
+                ps.setBinaryStream(1,fileInputStream,(int)img.length());
+                ps.executeUpdate();
+                connection.commit();
+
+            }catch(FileNotFoundException e){
+                e.printStackTrace();
+            }
 
 
 
@@ -1319,6 +1328,7 @@ public class MysqlUtil {
             }catch(SQLException e){
                     e.printStackTrace();
             }
+
 
         }
 

@@ -14,6 +14,9 @@ public class RoomSearchService extends AdminSearchService {
 
     private Task task;
     private Room room;
+    private boolean small;
+    private boolean medium;
+    private boolean large;
     private int roomID;
     private String roomSize;
     private String location;
@@ -66,9 +69,12 @@ public class RoomSearchService extends AdminSearchService {
         else this.hasCoffeMachine = 0;
 
     }
-    public RoomSearchService(Room room){
+    public RoomSearchService(Room room,boolean small,boolean medium, boolean large){
 
-        this.room = room;
+        this.room   = room;
+        this.small  = small;
+        this.medium = medium;
+        this.large  = large;
     }
 
     /**
@@ -82,8 +88,8 @@ public class RoomSearchService extends AdminSearchService {
             protected Object call() throws Exception {
 
                 MysqlUtil util = new MysqlUtil();
-                Room room = new Room(roomID,location,roomSize,hasProjector,hasWhiteboard,hasCoffeMachine);
-                ArrayList<Room> result = util.getRooms(room);
+
+                ArrayList<Room> result = util.getRooms(room,small,medium,large);
 
 
                 return result;

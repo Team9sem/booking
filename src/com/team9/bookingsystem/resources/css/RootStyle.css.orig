@@ -155,6 +155,60 @@
     -fx-border-radius: 5;
     -fx-background-radius: 5;
 }
+<<<<<<< HEAD
+.userprofile{
+    -fx-font-family: Avant Garde;
+}
+
+.signOutButton{
+	-fx-font-family: Avant Garde;
+}
+
+.userProfileButton{
+	-fx-font-family: Avant Garde;
+}
+
+.userAll{
+	-fx-font-family: Avant Garde;
+	-fx-text-fill: white;
+
+}
+
+.upLabels{
+	-fx-font-family: Avant Garde;
+	-fx-text-fill: white;
+}
+
+.upBigLabels{
+	-fx-font-family: Infinity;
+	-fx-text-fill: white;
+	
+}
+
+.upVbox{
+	-fx-border-style: solid;
+    -fx-border-radius: 10 10 10 10;
+
+	
+}
+
+.upBookings{
+	-fx-border-style: solid;
+    -fx-border-radius: 10 10 10 10;
+
+    
+}
+
+.bookingsText{
+	-fx-font-family: Avant Garde;
+	-fx-text-fill: white;
+	
+}
+
+.userInfoText{
+	
+}
+=======
 
 .table-view .column-header  {
     -fx-background-color: rgb(228, 228, 228);
@@ -165,3 +219,4 @@
 }
 
 
+>>>>>>> feature/AdminConsole_and_ScheduleView

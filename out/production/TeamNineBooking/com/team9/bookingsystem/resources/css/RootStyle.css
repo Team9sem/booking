@@ -11,6 +11,9 @@
     -fx-background-image: url("../img/background-twitter-images-1920x1080.png");
 	-fx-font-family: Infinity;
 }
+.popup-root{
+    -fx-background-image: url("../img/background-twitter-images-1920x1080.png");
+}
 
 .welcome-area{
 
@@ -60,7 +63,7 @@
 
 .options-area-labels{
 	-fx-text-fill: white;
-	
+    -fx-font-family: Avant Garde;
 }
 .login-labels{
 
@@ -68,7 +71,7 @@
 	
 }
 .register-labels{
-	
+    -fx-font-family: Arial;
 	-fx-text-fill: white;
 
 }
@@ -95,10 +98,15 @@
 .search-button{
     -fx-font-size: 12pt;
     -fx-background-color: rgb(255, 255, 255);
+    -fx-font-family: Avant Garde;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
 .search-button:pressed{
     -fx-background-color: rgb(226, 226, 226);
+}
+.search-button:hover{
+    -fx-background-color: rgb(228, 228, 228);
+
 }
 .check-box .box{
     -fx-background-color: rgb(255, 255, 255);
@@ -147,3 +155,13 @@
     -fx-border-radius: 5;
     -fx-background-radius: 5;
 }
+
+.table-view .column-header  {
+    -fx-background-color: rgb(228, 228, 228);
+
+    -fx-border-color: #a9acab;
+    -fx-border-width: 0.5px;
+
+}
+
+

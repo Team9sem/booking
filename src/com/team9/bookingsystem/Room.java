@@ -3,7 +3,7 @@ package com.team9.bookingsystem;
 /**
  * Created by iso.f on 28/10/15.
  */
-public class Room {
+public class Room implements SearchableObject {
 
     private MysqlUtil _db;
 
@@ -119,9 +119,7 @@ public class Room {
         toReturn += String.format("//- %s \n",getHasProjector());
         toReturn += String.format("//- %s \n",getHasWhiteboard());
         toReturn += String.format("//- %s \n",getHasCoffeeMachine());
-        toReturn += String.format("//- %s \n",getHasProjector());
-        toReturn += String.format("//- %s \n",getHasWhiteboard());
-        toReturn += String.format("//- %s \n",getHasCoffeeMachine());
+
 
 
         return toReturn;
