@@ -119,9 +119,7 @@ public class Room implements SearchableObject {
         toReturn += String.format("//- %s \n",getHasProjector());
         toReturn += String.format("//- %s \n",getHasWhiteboard());
         toReturn += String.format("//- %s \n",getHasCoffeeMachine());
-        toReturn += String.format("//- %s \n",getHasProjector());
-        toReturn += String.format("//- %s \n",getHasWhiteboard());
-        toReturn += String.format("//- %s \n",getHasCoffeeMachine());
+
 
 
         return toReturn;

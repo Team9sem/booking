@@ -378,7 +378,7 @@ public class MysqlUtil {
 
     }//end public User RegisterUser
     
-  public boolean RegisterRoom(String location, String roomSize, int hasProjector, int hasWhiteBoard, int hasCoffeeMachine) throws Exception
+  public boolean RegisterRoom(String location, String roomSize, int hasProjector, int hasWhiteBoard, int hasCoffeeMachine)
   {
 	  	//roomID int(11)
 	    //location char(30)
@@ -1116,7 +1116,7 @@ public class MysqlUtil {
 
     }//end public User RegisterUser
 
-    public boolean updateRoom(Room room) throws SQLException{
+    public boolean updateRoom(Room room) {
         //Created by Mayra Soliz 16 Nov 2015.
         //This method takes the data in the room object and updates the database with the data in the room object
 
@@ -1158,9 +1158,10 @@ public class MysqlUtil {
             return true;
         }catch(SQLException e){
             e.printStackTrace();
-            throw e;
+
         }
 
+        return false;
 //        return false;
     }
 

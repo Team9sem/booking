@@ -1,5 +1,6 @@
 package com.team9.bookingsystem.Controllers;
 
+import com.team9.bookingsystem.Components.RoomTableView;
 import com.team9.bookingsystem.Components.UserTableView;
 import com.team9.bookingsystem.DialogCallback;
 import com.team9.bookingsystem.PopupController;
@@ -34,6 +35,8 @@ public class ReviewChangesController implements PopupController {
 
 
     private UserTableView userTableView;
+    private RoomTableView roomTableView;
+
 
 
     private removeItemButton removeUpdated, removeDeleted, removeAdded;
@@ -51,6 +54,11 @@ public class ReviewChangesController implements PopupController {
     public void initialize(){
         createButtons();
     }
+
+    public void setRoomTableView(RoomTableView roomTableView) {
+        this.roomTableView = roomTableView;
+    }
+
 
     public void populate() {
         if (updatedItems != null && !updatedItems.isEmpty()) {

@@ -48,6 +48,7 @@ public class MainController {
     public boolean showPopup(Stage popupStage, PopupController popupController,DialogCallback callback){
         popupStage.initOwner(primaryStage);
         popupController.setStage(popupStage);
+        System.out.println(callback.toString());
         popupController.setCallBack(callback);
         popupStage.setResizable(false);
         popupStage.showAndWait();

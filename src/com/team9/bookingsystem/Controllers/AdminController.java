@@ -227,40 +227,90 @@ public class AdminController {
         }
         else if(searchedForObject == searchedFor.room && roomTableView != null){
 
-                Service<Boolean> updateRooms = new Service<Boolean>() {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/reviewChanges.fxml"));
+                AnchorPane anchorPane = loader.load();
+                ReviewChangesController reviewChangesController = loader.getController();
+                reviewChangesController.setAddedItems(roomTableView.getAddedRooms());
+                reviewChangesController.setUpdatedItems(roomTableView.getUpdatedRooms());
+                reviewChangesController.setDeletedItems(roomTableView.getDeletedRooms());
+                reviewChangesController.setRoomTableView(roomTableView);
+                reviewChangesController.populate();
+                Stage popupStage = new Stage();
+                popupStage.setTitle("Review Changes");
+                popupStage.initModality(Modality.WINDOW_MODAL);
+                Scene scene = new Scene(anchorPane);
+                popupStage.setScene(scene);
+                mainController.showPopup(popupStage, reviewChangesController, new DialogCallback() {
                     @Override
-                    protected Task<Boolean> createTask() {
-                        Task<Boolean> task = new Task<Boolean>() {
-                            @Override
-                            protected Boolean call() throws Exception {
-                                MysqlUtil util = new MysqlUtil();
-                                try{
-                                    // Todo: wait for Mayra
+                    public void onSuccess(Object param) {
 
-                                }catch(Exception e){
-                                    e.printStackTrace();
-                                }
-                                return true;
+                        // push changes
+
+                        Service<Boolean> pushChanges = new Service<Boolean>() {
+                            @Override
+                            protected Task<Boolean> createTask() {
+                                Task<Boolean> task = new Task<Boolean>() {
+                                    @Override
+                                    protected Boolean call() throws Exception {
+                                        MysqlUtil util = new MysqlUtil();
+                                        try {
+                                            if (roomTableView.getUpdatedRooms() != null && !roomTableView.getUpdatedRooms().isEmpty()) {
+                                               roomTableView.getUpdatedRooms().forEach(element -> util.updateRoom(element));
+                                            }
+                                            if (roomTableView.getAddedRooms() != null && !roomTableView.getAddedRooms().isEmpty()) {
+                                                roomTableView.getAddedRooms()
+                                                        .forEach(
+                                                                element -> util.
+                                                                        RegisterRoom(element.getLocation(),
+                                                                                element.getRoomSize(),
+                                                                                element.getHasProjector(),
+                                                                                element.getHasWhiteboard(),
+                                                                                element.getHasCoffeeMachine()));
+                                            }
+                                            if (roomTableView.getDeletedRooms() != null && !roomTableView.getDeletedRooms().isEmpty())
+                                            {
+                                                roomTableView.getDeletedRooms().forEach(element -> util.deleteRoom(element));
+                                            }
+
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                            return false;
+                                        }
+
+                                        return true;
+                                    }
+                                };
+                                return task;
                             }
                         };
-                        return task;
+                        pushChanges.start();
+                        pushChanges.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+                            @Override
+                            public void handle(WorkerStateEvent event) {
+                                if (pushChanges.getValue()) {
+                                    System.out.println("updated Sucessfully");
+                                }
+                            }
+                        });
+                        pushChanges.setOnFailed(new EventHandler<WorkerStateEvent>() {
+                            @Override
+                            public void handle(WorkerStateEvent event) {
+                                System.out.println("Update Failed");
+                            }
+                        });
+
+
                     }
-                };
-                updateRooms.start();
-                updateRooms.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+
                     @Override
-                    public void handle(WorkerStateEvent event) {
-                        if(updateRooms.getValue()){
-                            System.out.println("updated Sucessfully");
-                        }
+                    public void onFailure() {
+
                     }
                 });
-                updateRooms.setOnFailed(new EventHandler<WorkerStateEvent>() {
-                    @Override
-                    public void handle(WorkerStateEvent event) {
-                        System.out.println("Update Failed");
-                    }
-                });
+            } catch (IOException e) {
+                // Trown if fxml is not read properly
+            }
             }
     }
 
@@ -499,7 +549,7 @@ public class AdminController {
 	@FXML public void displayAddItemPopup(ActionEvent event){
 
         // Todo: fix so that added items id field is blank
-        System.out.println("pressed add user");
+        System.out.println("pressed add Item");
         if(searchedForObject == searchedFor.user){
 			try{
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/adduser.fxml"));
@@ -567,14 +617,44 @@ public class AdminController {
                 AnchorPane anchorPane = loader.load();
                 AddRoomController addRoomController = loader.getController();
                 Stage popupStage = new Stage();
-                popupStage.setTitle("Add new User");
+                popupStage.setTitle("Add new Room");
                 popupStage.initModality(Modality.WINDOW_MODAL);
                 Scene scene = new Scene(anchorPane);
                 popupStage.setScene(scene);
-                mainController.showPopup(popupStage, addRoomController, new DialogCallback<User>() {
+                mainController.showPopup(popupStage, addRoomController, new DialogCallback<Room>() {
                     @Override
-                    public void onSuccess(User param) {
-                        System.out.println(param.toString());
+                    public void onSuccess(Room added) {
+                        System.out.println(added.toString());
+
+                        roomTableView.getAddedRooms().add(added);
+
+
+                        if (roomSearchResult != null) {
+
+                            roomSearchResult.add(added);
+
+
+                            if(!roomTableView.getItems().isEmpty()){
+                                roomTableView.getItems().clear();
+                            }
+                            roomTableView.getItems().addAll(roomSearchResult);
+
+
+                            System.out.println(roomSearchResult.size());
+                            System.out.println(roomSearchResult.size());
+                            paginationBox.getChildren().clear();
+                            paginationBox.getChildren().add(roomTableView);
+                            paginationBox.setHgrow(roomTableView,Priority.SOMETIMES);
+                        }
+                        else if(userSearchResult == null){
+
+
+                            userTableView.getItems().clear();
+
+                            paginationBox.getChildren().clear();
+                            paginationBox.getChildren().add(userTableView);
+                        }
+
                     }
 
                     @Override
@@ -605,8 +685,12 @@ public class AdminController {
             userTableView.getItems().remove(userTableView.getSelectionModel().getSelectedItem());
             userTableView.getTableviewData().removeAll(userTableView.getSelectionModel().getSelectedItem());
             System.out.println(userTableView.getDeletedUsers().toString());
-
-
+        }
+        else if(searchedForObject == searchedFor.room){
+            roomTableView.getDeletedRooms().add(roomTableView.getSelectionModel().getSelectedItem());
+            roomTableView.getItems().remove(roomTableView.getSelectionModel().getSelectedItem());
+            roomTableView.getTableviewData().removeAll(roomTableView.getSelectionModel().getSelectedItem());
+            System.out.println(userTableView.getDeletedUsers().toString());
         }
     }
 

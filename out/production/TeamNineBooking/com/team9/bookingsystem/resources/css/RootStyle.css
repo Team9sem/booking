@@ -63,7 +63,7 @@
 
 .options-area-labels{
 	-fx-text-fill: white;
-	
+    -fx-font-family: Avant Garde;
 }
 .login-labels{
 
@@ -98,6 +98,7 @@
 .search-button{
     -fx-font-size: 12pt;
     -fx-background-color: rgb(255, 255, 255);
+    -fx-font-family: Avant Garde;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
 .search-button:pressed{

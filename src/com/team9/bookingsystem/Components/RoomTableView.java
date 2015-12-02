@@ -27,7 +27,14 @@ public class RoomTableView extends TableView<Room> {
 
 
     private ObservableList<Room> tableviewData = FXCollections.observableArrayList();
+
+
+
+
     private ArrayList<Room> updatedRooms = new ArrayList<>();
+    private ArrayList<Room> deletedRooms = new ArrayList<>();
+    private ArrayList<Room> addedRooms   = new ArrayList<>();
+
 
     private ArrayList<Button> tableButtons = new ArrayList<>();
 
@@ -43,14 +50,23 @@ public class RoomTableView extends TableView<Room> {
         return tableviewData;
     }
 
+    public ArrayList<Room> getDeletedRooms() {
+        return deletedRooms;
+    }
+    public ArrayList<Room> getUpdatedRooms() {
+        return updatedRooms;
+    }
+
+    public ArrayList<Room> getAddedRooms() {
+        return addedRooms;
+    }
+
     public void setTableviewData(ObservableList<Room> tableviewData) {
         this.tableviewData = tableviewData;
     }
 
 
-    public ArrayList<Room> getUpdatedUsers() {
-        return updatedRooms;
-    }
+
 
     private void setupTable(){
 
@@ -233,20 +249,7 @@ public class RoomTableView extends TableView<Room> {
         }
 
         RoomTableButtonCell(){
-//
 
-//            cellButton.setOnAction(new EventHandler<ActionEvent>() {
-//                @Override
-//                public void handle(ActionEvent event) {
-//                    System.out.println("TableButton Clicked");
-//                    roomTableView.getSelectionModel().select(getTableRow().getIndex());
-//
-//                    System.out.println(roomTableView.getItems().get(getTableRow().getIndex()).toString());
-////                    showSchedule(roomTableView.getItems().get(getTableRow().getIndex()),loggedInUser);
-//
-//
-//                }
-//            });
 
 
         }
