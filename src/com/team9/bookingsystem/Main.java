@@ -24,33 +24,34 @@ public class Main {
 //        System.out.println("enter password");
 //        String passwd = scanner.nextLine();
 
-       // Scanner scanner = new Scanner(System.in);
-       // System.out.println("Location (enter nothing if it doesn't matter): ");
-       // String location = scanner.nextLine();
-       // System.out.println("Enter size:(Small/Medium/Large)");
-       // String size = scanner.nextLine();
-       // System.out.println("Do you need a projector? 1/0 = Y/N");
-       // int hasProjector = scanner.nextInt();
-       // System.out.println("Do you need a whiteboard? 1/0 = Y/N");
-       // int hasWhiteboard = scanner.nextInt();
-       // System.out.println("Do you need a coffee machine? 1/0 = Y/N");
-       // int hasCoffeeMachine = scanner.nextInt();
-       // int roomID=3;
-        
-        String size = "s";
-        String location = "";
-        int hasProjector = 1;
-        int hasWhiteboard = 1;
-        int hasCoffeeMachine = 1;
-        int roomID =3;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Location (enter nothing if it doesn't matter): ");
+        String location = scanner.nextLine();
+        System.out.println("Enter size:(Small/Medium/Large)");
+        String size = scanner.nextLine();
+        System.out.println("Do you need a projector? 1/0 = Y/N");
+        int hasProjector = scanner.nextInt();
+        System.out.println("Do you need a whiteboard? 1/0 = Y/N");
+        int hasWhiteboard = scanner.nextInt();
+        System.out.println("Do you need a coffee machine? 1/0 = Y/N");
+        int hasCoffeeMachine = scanner.nextInt();
+        int roomID=0;
+
         //testing time
         String bookingDate = "", timeStart = "", timeEnd="";
 
         Room room = new Room(roomID, location, size, hasProjector, hasWhiteboard, hasCoffeeMachine);
-        
-        User user = new User();
-        user.setUserID(3);
-
+        User user = new User(9, "team9","team9","FN","LN","Admin", "testStreet",4241, 1);
+        Booking[] toReturn = new Booking[100];
+        Booking[] Past = new Booking[100];
+        Booking[] Present = new Booking[100];
+        Booking[] Future = new Booking[100];
+        //toReturn = util.findTodaysBookings(user);
+        //toReturn = util.findFutureBookings(user);
+        UserBookingsProfile userProfile = new UserBookingsProfile(user);
+        Future = userProfile.getFutureBookings();
+        Past = userProfile.getPastBookings();
+        Present = userProfile.getTodaysBookings();
         try{
             // try to fetch rooms
 //            Room[] rooms;
@@ -60,16 +61,7 @@ public class Main {
 //            for(int k=0; k < rooms.length; k++){
 //                System.out.println(rooms[k]);
 //            }
-        	//test 1 "2015-12-11", "09:10", "10:30" actual booking
-        	//test 2 "2015-12-11", "08:10", "10:30" OK
-        	//test 3 "2015-12-11", "09:20", "10:30" OK
-        	//test 4 "2015-12-11", "09:20", "11:30" OK
-        	//test 5 "2015-12-11", "09:20", "11:30" OK
-        	//test 6 "2015-12-10", "09:20", "11:30" OK
-        	//test 7 "2015-12-11", "10:20", "11:30" OK
-        	//test 5 "2015-12-11", "09:05", "09:10" 
-        	
-        	util.BookRoomNew(user, room, "2015-12-30", "09:10", "10:30", 2);
+
         }catch(Exception e){
             e.printStackTrace();
         }
