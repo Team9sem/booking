@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane  fx:id="userSearchGridPane" gridLinesVisible="true" hgap="10" prefWidth="432.0" vgap="2" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team9.bookingsystem.Controllers.UserSearchController">
+<GridPane  fx:id="userSearchGridPane" gridLinesVisible="false" hgap="10" prefWidth="432.0" vgap="2" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team9.bookingsystem.Controllers.UserSearchController">
          <columnConstraints>
             <ColumnConstraints hgrow="ALWAYS" maxWidth="307.0" minWidth="10.0" prefWidth="200.0" />
             <ColumnConstraints hgrow="ALWAYS" maxWidth="307.0" minWidth="10.0" prefWidth="200.0" />
@@ -37,7 +37,7 @@
          <children>
             <HBox alignment="CENTER_LEFT" GridPane.columnSpan="4">
                <children>
-                  <Label  fx:id="searchPreferences" alignment="TOP_LEFT" styleClass="options-area-labels" text="Search Preferences" textAlignment="CENTER">
+                  <Label  fx:id="searchPreferences" alignment="TOP_LEFT" styleClass="upBigLabels" text="Search Preferences" textAlignment="CENTER">
                      <font>
                         <Font name="Infinity" size="22.0" />
                      </font>
