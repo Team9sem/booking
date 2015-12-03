@@ -223,7 +223,37 @@ public class MysqlUtil {
 
             }
             return toReturn;
+    }
+
+    public ArrayList<String> getLocations(){
+        ArrayList<String> locations = new ArrayList<>();
+
+        try(Connection connection = getConnection()){
+
+            System.out.println("Connection Established");
+            String SQL="SELECT location FROM Room ORDER BY Room.location ASC ";
+            System.out.println(SQL);
+            // statement
+            Statement statement = connection.createStatement();
+
+            // Resultset that holds the result of our query, important that the query only returns one user.
+            ResultSet rs = statement.executeQuery(SQL);
+            while (rs.next()){
+                locations.add(rs.getString("location"));
+                //System.out.println(locations);
+            }
+
+            rs.close();
+            statement.close();
+            connection.close();
+
+        }catch(SQLException e){
+            e.printStackTrace();
+
         }
+
+        return locations;
+    }
         
     public int GetRoomID(String location) throws Exception
     {

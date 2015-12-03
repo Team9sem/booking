@@ -91,9 +91,10 @@ public class BookingController {
         setupDatePicker();
     	util = new MysqlUtil();
         paginationBox.setAlignment(Pos.CENTER);
-//        ObservableList<String> choices= FXCollections.observableArrayList();
-//        choices.addAll("OneChoice");
-//        locationPick.setItems(choices);
+        ObservableList<String> choices= FXCollections.observableArrayList(util.getLocations());
+        //choices.addAll("OneChoice");
+        locationPick.getItems().clear();
+        locationPick.setItems(choices);
 
 
     }
@@ -315,7 +316,8 @@ public class BookingController {
                 large.isSelected(),
                 coffeMachine.isSelected(),
                 whiteboard.isSelected(),
-                projector.isSelected()
+                projector.isSelected(),
+                locationPick.getSelectionModel().getSelectedItem().toString()
         );
         searchService.start();
         searchService.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
