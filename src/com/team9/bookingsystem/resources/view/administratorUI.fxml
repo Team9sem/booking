@@ -26,7 +26,7 @@
                   <children>
                      <GridPane  gridLinesVisible="false" vgap="10" hgap="10">
                      <ToggleButton fx:id="userToggle" prefWidth="70" mnemonicParsing="false" text="Users" GridPane.columnSpan="2" GridPane.rowIndex="0" styleClass="search-button" />
-                     <ToggleButton fx:id="roomToggle" prefWidth="70" mnemonicParsing="false" text="Rooms" GridPane.columnSpan="2" GridPane.rowIndex="1" styleClass="search-button" />
+                     <ToggleButton fx:id="roomToggle" prefWidth="70" mnemonicParsing="false" text="Rooms" GridPane.columnSpan="2" GridPane.rowIndex="0" styleClass="search-button" />
                      <!--<fx:include GridPane.rowIndex="3" GridPane.rowSpan="3" fx:id="SearchOptions" source= "userSearch.fxml"/>-->
                         <GridPane GridPane.rowIndex="3" GridPane.rowSpan="3"  fx:id="searchOptions" />
                      </GridPane>
