@@ -60,26 +60,43 @@ public class ImageEncoder {
         String path = System.getProperty("user.home") + File.separator + "Documents";
 
 
-        path += File.separator + "testImage.png";
+        path += File.separator + "testImage.jpg";
         int i = path.lastIndexOf('.');
         String extension = path.substring(i+1);
         System.out.println(extension);
         File img = new File(path);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
+
+
+        byte[] imageBytes = bos.toByteArray();
 
         try{
             BufferedImage bufferedImage = ImageIO.read(img);
-            System.out.println(bufferedImage.getHeight());
-            System.out.println(bufferedImage.toString());
-            String image = ImageEncoder.encodeToString(bufferedImage,extension);
-            if(image.isEmpty()){
-                System.out.println("is empty");
-            }
+            ImageIO.write(bufferedImage, extension, bos);
+            byte[] byteArray = bos.toByteArray();
+            System.out.println(byteArray.length);
             MysqlUtil util = new MysqlUtil();
-            util.uploadPicture(image);
+//            util.uploadPicture(img);
 
         }catch(IOException e){
             e.printStackTrace();
         }
+
+//        try{
+//            BufferedImage bufferedImage = ImageIO.read(img);
+//            System.out.println(bufferedImage.getHeight());
+//            System.out.println(bufferedImage.toString());
+//            String image = ImageEncoder.encodeToString(bufferedImage,extension);
+//            if(image.isEmpty()){
+//                System.out.println("is empty");
+//            }
+//            MysqlUtil util = new MysqlUtil();
+//            util.uploadPicture(image);
+//
+//        }catch(IOException e){
+//            e.printStackTrace();
+//        }
 
 
 

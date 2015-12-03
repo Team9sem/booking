@@ -1,18 +1,19 @@
 package com.team9.bookingsystem.Controllers;
 
+import com.team9.bookingsystem.DialogCallback;
 import com.team9.bookingsystem.MysqlUtil;
-import com.team9.bookingsystem.Threading.LoginService;
+import com.team9.bookingsystem.PopupController;
 import com.team9.bookingsystem.User;
-import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,62 +21,54 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * Created by Olle Renard and Nima Fard 22 October 2015
- * Controller for register.fxml
+ * Created by pontuspohl on 25/11/15.
  */
+public class AddUserController implements PopupController {
 
-
-// Controller for login.fxml
-public class RegisterController
-{
-
-    // Parent Controller
-    private MainController mainController;
-    // Mysqlutil for Database Operations
-    private MysqlUtil util;
 
     private ArrayList<ProgressIndicator> progressIndicators;
-    // Variables mapped to fxml elements
-    @FXML Label registerLabel;
-    @FXML TextField username;
-    @FXML TextField firstname;
-    @FXML TextField lastname;
-    @FXML TextField personnumber;
-    @FXML TextField adress;
-    @FXML TextField zip;
-    @FXML PasswordField password;
-    @FXML Button back;
-    @FXML Button login;
-    @FXML Label userNameProgressLabel;
-    @FXML Label firstnameProgressLabel;
-    @FXML Label lastnameProgressLabel;
-    @FXML Label passwordProgressLabel;
-    @FXML Label streetProgressLabel;
-    @FXML Label pNumberProgressLabel;
-    @FXML Label zipCodeProgressLabel;
-    @FXML ProgressIndicator usernameProgress;
-    @FXML ProgressIndicator firstnameProgress;
-    @FXML ProgressIndicator lastnameProgress;
-    @FXML ProgressIndicator passwordProgress;
-    @FXML ProgressIndicator streetProgress;
-    @FXML ProgressIndicator pNumberProgress;
-    @FXML ProgressIndicator zipCodeProgress;
-    @FXML ProgressBar passwordSecurityProgress;
-    @FXML Label             passwordErrorLabel;
 
-    // this method runs when controller is started
-    public void initialize() {
+    @FXML private TextField username;
+    @FXML private TextField firstname;
+    @FXML private TextField lastname;
+    @FXML private TextField personnumber;
+    @FXML private TextField adress;
+    @FXML private TextField zip;
+    @FXML private PasswordField password;
+
+    @FXML private Label userNameProgressLabel;
+    @FXML private Label firstnameProgressLabel;
+    @FXML private Label lastnameProgressLabel;
+    @FXML private Label passwordProgressLabel;
+    @FXML private Label streetProgressLabel;
+    @FXML private Label pNumberProgressLabel;
+    @FXML private Label zipCodeProgressLabel;
+    @FXML private ProgressIndicator usernameProgress;
+    @FXML private ProgressIndicator firstnameProgress;
+    @FXML private ProgressIndicator lastnameProgress;
+    @FXML private ProgressIndicator passwordProgress;
+    @FXML private ProgressIndicator streetProgress;
+    @FXML private ProgressIndicator pNumberProgress;
+    @FXML private ProgressIndicator zipCodeProgress;
+    @FXML private ProgressBar passwordSecurityProgress;
+    @FXML private Label             passwordErrorLabel;
 
 
-    }
+    private Stage stage;
+    private DialogCallback callback;
+    private User toAdd = null;
+    private boolean okClicked = false;
+
+
+    // Todo: Fix so error is displayed when input is missing from fields. Fix so added object gets returned correctly
 
 
 
-
-    // takes a reference to the controller of the parent
-    public void init(MainController mainController){
-        this.mainController = mainController;
+    @Override
+    public void setStage(Stage stage) {
+        this.stage = stage;
         setupErrorChecking();
+
         progressIndicators = new ArrayList<>();
         Stream<ProgressIndicator> indicators = Stream.of(usernameProgress,
                 passwordProgress,firstnameProgress,lastnameProgress
@@ -91,101 +84,7 @@ public class RegisterController
         zipCodeProgressLabel.setVisible(false);
         passwordSecurityProgress.setVisible(false);
         passwordErrorLabel.setVisible(false);
-        passwordSecurityProgress.setStyle("-fx-box-border: goldenrod;");
 
-
-
-
-    }
-    //  Method that displays welcomeArea
-    @FXML public void showWelcomeArea(){
-
-
-
-        // TODO: take user back to welcome area
-        mainController.showWelcomeArea();
-    }
-    // Validate user input with the database.
-    @FXML public void register(){
-
-
-        System.out.println( progressIndicators.stream().filter(indicator -> indicator.getProgress() == 1.0).count());
-        if( progressIndicators.stream().filter(indicator -> indicator.getProgress() == 1.0).count() ==
-                progressIndicators.size())
-        {
-
-
-
-        try{
-        	// Perform Register logic
-
-           User registered = new User();
-
-           Service<Boolean> registerService = new Service<Boolean>() {
-               @Override
-               protected Task<Boolean> createTask() {
-                   Task<Boolean> task = new Task<Boolean>() {
-                       @Override
-                       protected Boolean call() throws Exception {
-
-                           MysqlUtil util = new MysqlUtil();
-                           registered.setUserName(username.getText());
-                           registered.setFirstName(firstname.getText());
-                           registered.setLastName(lastname.getText());
-                           registered.setPassword(password.getText());
-                           registered.setpNumber(Long.parseLong(personnumber.getText()));
-                           registered.setStreet(adress.getText());
-                           registered.setZip(Integer.parseInt(zip.getText()));
-                           return util.RegisterUser(username.getText(),
-                                   password.getText(),
-                                   firstname.getText(),
-                                   lastname.getText(),
-                                   Long.parseLong(personnumber.getText())
-                                   ,0,adress.getText()
-                                   ,Integer.parseInt(zip.getText()));
-
-                       }
-
-
-                   };
-                   return task;
-               }
-           };
-           registerService.start();
-            registerService.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
-                @Override
-                public void handle(WorkerStateEvent event) {
-                    if(registered != null){
-                        LoginService loginService = new LoginService(registered.getUserName(), registered.getPassword());
-                        loginService.start();
-                        loginService.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
-                            @Override
-                            public void handle(WorkerStateEvent event) {
-                                User loggedInUser = (User)loginService.getValue();
-                                mainController.showBookingInterface(loggedInUser);
-                            }
-                        });
-                    }
-                    System.out.println("Successfully registered");
-
-                }
-            });
-            registerService.setOnFailed(new EventHandler<WorkerStateEvent>() {
-                @Override
-                public void handle(WorkerStateEvent event) {
-                    System.out.println("it failed");
-                }
-            });
-
-
-
-
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-            // Todo: show error message in GUI
-        }
-
-        }
     }
 
     private void setupErrorChecking(){
@@ -200,51 +99,51 @@ public class RegisterController
                 }
                 if(!newValue.isEmpty()){
 
-                usernameProgress.setProgress(-1.0);
+                    usernameProgress.setProgress(-1.0);
                     usernameProgress.setVisible(true);
-                Service<Boolean> getIsAvailable = new Service<Boolean>() {
-                    @Override
-                    protected Task<Boolean> createTask() {
-                        Task<Boolean> task = new Task<Boolean>() {
-                            @Override
-                            protected Boolean call() throws Exception {
-                                MysqlUtil util = new MysqlUtil();
-                                System.out.println(newValue);
+                    Service<Boolean> getIsAvailable = new Service<Boolean>() {
+                        @Override
+                        protected Task<Boolean> createTask() {
+                            Task<Boolean> task = new Task<Boolean>() {
+                                @Override
+                                protected Boolean call() throws Exception {
+                                    MysqlUtil util = new MysqlUtil();
+                                    System.out.println(newValue);
 //                                event.getTableView().getItems().get(event.getTablePosition()
 //                                        .getRow()).getUserName();
-                                return util.isUsernameAvailable(newValue);
+                                    return util.isUsernameAvailable(newValue);
+                                }
+                            };
+                            return task;
+                        }
+                    };
+                    getIsAvailable.start();
+
+                    getIsAvailable.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+                        @Override
+                        public void handle(WorkerStateEvent event) {
+
+                            if(getIsAvailable.getValue()) {
+                                System.out.println("is available");
+                                usernameProgress.setProgress(1.0);
+
                             }
-                        };
-                        return task;
-                    }
-                };
-                getIsAvailable.start();
-
-                getIsAvailable.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
-                    @Override
-                    public void handle(WorkerStateEvent event) {
-
-                        if(getIsAvailable.getValue()) {
-                            System.out.println("is available");
-                            usernameProgress.setProgress(1.0);
-
+                            else{
+                                usernameProgress.setVisible(false);
+                                userNameProgressLabel.setText("Username Not Available!");
+                                userNameProgressLabel.setVisible(true);
+                                System.out.println("not available");
+                            }
                         }
-                        else{
-                            usernameProgress.setVisible(false);
-                            userNameProgressLabel.setText("Username Not Available!");
-                            userNameProgressLabel.setVisible(true);
-                            System.out.println("not available");
+                    });
+                    getIsAvailable.setOnFailed(new EventHandler<WorkerStateEvent>() {
+                        @Override
+                        public void handle(WorkerStateEvent event) {
+                            System.out.println("error occured");
                         }
-                    }
-                });
-                getIsAvailable.setOnFailed(new EventHandler<WorkerStateEvent>() {
-                    @Override
-                    public void handle(WorkerStateEvent event) {
-                        System.out.println("error occured");
-                    }
-                });
+                    });
 
-            }
+                }
                 else{
                     usernameProgress.setVisible(false);
                     userNameProgressLabel.setVisible(true);
@@ -290,9 +189,9 @@ public class RegisterController
                             }
                         }
 
-                        List<Boolean> safetys = Stream.of(hasCapital,hasDigit,hasLower)
+                        List<Boolean> safetys = Stream.of(hasCapital, hasDigit, hasLower)
                                 .filter(aBoolean -> aBoolean)
-                                    .collect(Collectors.toList());
+                                .collect(Collectors.toList());
                         System.out.println(safetys.size());
 
                         if(safetys.size() == 3){
@@ -326,15 +225,15 @@ public class RegisterController
                     else{
                         passwordProgress.setVisible(false);
                         passwordErrorLabel.setVisible(true);
-                        passwordErrorLabel.setText("Please pick a password with at least 6 characters");
+                        passwordErrorLabel.setText("Please pick a password with\n at least 6 characters");
                     }
-                    }
-                    else
-                    {
-                        passwordProgress.setVisible(false);
-                        passwordErrorLabel.setVisible(true);
-                        passwordErrorLabel.setText("This field cannot be empty!");
-                    }
+                }
+                else
+                {
+                    passwordProgress.setVisible(false);
+                    passwordErrorLabel.setVisible(true);
+                    passwordErrorLabel.setText("This field cannot be empty!");
+                }
             }
         });
 
@@ -503,6 +402,39 @@ public class RegisterController
 
 
 
+    }
+
+    public void setCallBack(DialogCallback callback){
+        this.callback = callback;
+    }
+
+    @FXML public void cancel(ActionEvent event){
+        callback.onFailure();
+        stage.close();
+    }
+    @FXML public void addUser(ActionEvent event){
+        okClicked = true;
+        System.out.println( progressIndicators.stream().filter(indicator -> indicator.getProgress() == 1.0).count());
+        if( progressIndicators.stream().filter(indicator -> indicator.getProgress() == 1.0).count() ==
+                progressIndicators.size())
+        {
+            toAdd = new User();
+            toAdd.setUserName(username.getText());
+            toAdd.setFirstName(firstname.getText());
+            toAdd.setLastName(lastname.getText());
+            toAdd.setPassword(password.getText());
+            toAdd.setpNumber(Long.parseLong(personnumber.getText()));
+            toAdd.setStreet(adress.getText());
+            toAdd.setZip(Integer.parseInt(zip.getText()));
+            callback.onSuccess(toAdd);
+        }
+            else{
+            callback.onFailure();
+        }
+        stage.close();
+    }
+    public boolean isOkClicked(){
+        return okClicked;
     }
 
 

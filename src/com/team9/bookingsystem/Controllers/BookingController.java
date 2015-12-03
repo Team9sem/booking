@@ -29,6 +29,7 @@ import javafx.util.Callback;
 import javafx.util.StringConverter;
 import jfxtras.scene.control.LocalTimePicker;
 
+import java.awt.image.BufferedImage;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -44,8 +45,10 @@ import java.util.ArrayList;
 public class BookingController {
 
 
+
+
     //Logged in user
-    User loggedInUser;
+    private User loggedInUser;
     // Parent Controller
     private MainController mainController;
     // Mysqlutil for Database Operations
@@ -97,6 +100,7 @@ public class BookingController {
     @FXML Label  bookingResultLabel;
     @FXML ProgressIndicator bookingProgress;
     @FXML Label  loggedInAs;
+    @FXML Button userProfileButton;
     
     
 
@@ -263,6 +267,11 @@ public class BookingController {
 
     }
 
+    public User getLoggedInUser() {
+        return loggedInUser;
+    }
+
+
     /**
      * by Pontus
      */
@@ -334,9 +343,9 @@ public class BookingController {
 
             @Override
             public LocalDate fromString(String value) {
-                try{
+                try {
                     return defaultConverter.fromString(value);
-                }catch (DateTimeParseException e){
+                } catch (DateTimeParseException e) {
                     e.printStackTrace();
                     throw e;
                 }
@@ -351,7 +360,12 @@ public class BookingController {
     public void init(MainController mainController,User user){
         this.mainController = mainController;
         this.loggedInUser = user;
-        loggedInAs.setText("Logged in as: "+loggedInUser.getUserName());
+        this.loggedInUser.downloadAvatar();
+        loggedInAs.setText("Logged in as: " + loggedInUser.getUserName());
+
+
+
+
 
     }
 
@@ -731,5 +745,11 @@ public class BookingController {
 
     @FXML public void SignOut(ActionEvent event){
         mainController.showStartScreen();
+    }
+
+    @FXML public void showUserProfile(ActionEvent event){
+
+        mainController.showUserProfile(this);
+
     }
 }

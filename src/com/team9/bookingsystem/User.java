@@ -1,9 +1,17 @@
 package com.team9.bookingsystem;
 
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.EventHandler;
+
+import java.awt.image.BufferedImage;
+import java.io.File;
+
 /**
  * Created by pontuspohl on 12/10/15.
  */
-public class User {
+public class User implements SearchableObject {
 
     private MysqlUtil _db;
 
@@ -15,10 +23,14 @@ public class User {
     private String password;
     private String firstName;
     private String lastName;
-    private String userType;
+    private int userType;
     private String street;
     private String email;
     private int    zip;
+
+
+
+    private BufferedImage avatar;
 
     // Default Constructor
     public User(){}
@@ -29,9 +41,9 @@ public class User {
                 String password,
                 String firstName,
                 String lastName,
-                String userType,
+                int userType,
                 String street,
-                long pNumber,int zip)
+                long pNumber,int zip,BufferedImage avatar)
     {
         _db = new MysqlUtil();
         this.userID = userID;
@@ -43,6 +55,7 @@ public class User {
         this.street    = street;
         this.zip       = zip;
         this.pNumber = pNumber;
+        this.avatar  = avatar;
     }
 
     // Copy Constructor
@@ -83,7 +96,7 @@ public class User {
         return lastName;
     }
 
-    public String getUserType() {
+    public int getUserType() {
         return userType;
     }
 
@@ -127,7 +140,7 @@ public class User {
         this.lastName = lastName;
     }
 
-    public void setUserType(String userType) {
+    public void setUserType(int userType) {
         this.userType = userType;
     }
 
@@ -139,8 +152,49 @@ public class User {
         this.zip = zip;
     }
 
+    public BufferedImage getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(BufferedImage avatar) {
+        this.avatar = avatar;
+    }
 
 
+    public void downloadAvatar(){
+        User thisUser = this;
+
+        Service<BufferedImage> getUserAvatar = new Service<BufferedImage>() {
+            @Override
+            protected Task<BufferedImage> createTask() {
+                Task<BufferedImage> task = new Task<BufferedImage>() {
+                    @Override
+                    protected BufferedImage call() throws Exception {
+                        MysqlUtil util = new MysqlUtil();
+                        BufferedImage image = util.downloadImage(thisUser);
+                        if(image != null){
+                            return image;
+                        }
+                        return null;
+                    }
+
+                };
+                return task;
+            }
+        };
+        getUserAvatar.start();
+        getUserAvatar.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+                if(getUserAvatar.getValue() != null){
+                    thisUser.setAvatar(getUserAvatar.getValue());
+                    System.out.println(getUserAvatar.getValue().toString());
+                    System.out.println("downloaded avatar");
+                }
+            }
+        });
+
+    }
 
     public static boolean isValidInput(String userName,
                                       String password,

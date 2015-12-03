@@ -155,17 +155,18 @@
     -fx-border-radius: 5;
     -fx-background-radius: 5;
 }
-
-.table-view .column-header  {
-    -fx-background-color: rgb(228, 228, 228);
-
-    -fx-border-color: #a9acab;
-    -fx-border-width: 0.5px;
-
+<<<<<<< HEAD
+.userprofile{
+    -fx-font-family: Avant Garde;
 }
 
+.signOutButton{
+	-fx-font-family: Avant Garde;
+}
 
-
+.userProfileButton{
+	-fx-font-family: Avant Garde;
+}
 
 .userAll{
 	-fx-font-family: Avant Garde;
@@ -207,3 +208,15 @@
 .userInfoText{
 	
 }
+=======
+
+.table-view .column-header  {
+    -fx-background-color: rgb(228, 228, 228);
+
+    -fx-border-color: #a9acab;
+    -fx-border-width: 0.5px;
+
+}
+
+
+>>>>>>> feature/AdminConsole_and_ScheduleView

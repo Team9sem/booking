@@ -1,5 +1,7 @@
 package com.team9.bookingsystem;
 
+import java.util.ArrayList;
+
 /**
  * Created by Mayra Soliz on 01/11/15.
  */
@@ -142,3 +144,13 @@ public class Booking {
 
 
 }
+
+
+
+
+
+
+
+
+
+
