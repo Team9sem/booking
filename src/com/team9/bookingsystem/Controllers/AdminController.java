@@ -209,7 +209,7 @@ public class AdminController {
                                 public void handle(WorkerStateEvent event) {
                                     if (pushChanges.getValue()) {
                                         System.out.println("updated Sucessfully");
-                                        commitCompletionLabel.setText("Your Changes was pushed\n successfully!");
+                                        commitCompletionLabel.setText("Your Changes was pushed\nsuccessfully!");
                                         commitCompletionLabel.setVisible(true);
                                     }
                                 }
@@ -261,6 +261,7 @@ public class AdminController {
 
                         // push changes
 
+
                         Service<Boolean> pushChanges = new Service<Boolean>() {
                             @Override
                             protected Task<Boolean> createTask() {
@@ -271,6 +272,7 @@ public class AdminController {
                                         try {
                                             if (roomTableView.getUpdatedRooms() != null && !roomTableView.getUpdatedRooms().isEmpty()) {
                                                roomTableView.getUpdatedRooms().forEach(element -> util.updateRoom(element));
+
                                             }
                                             if (roomTableView.getAddedRooms() != null && !roomTableView.getAddedRooms().isEmpty()) {
                                                 roomTableView.getAddedRooms()
@@ -289,6 +291,7 @@ public class AdminController {
 
                                         } catch (Exception e) {
                                             e.printStackTrace();
+
                                             return false;
                                         }
                                         roomTableView.getUpdatedRooms().clear();
@@ -307,7 +310,7 @@ public class AdminController {
                             public void handle(WorkerStateEvent event) {
                                 if (pushChanges.getValue()) {
                                     System.out.println("updated Sucessfully");
-                                    commitCompletionLabel.setText("Your Changes was pushed\n successfully!");
+                                    commitCompletionLabel.setText("Your Changes was pushed\nsuccessfully!");
                                     commitCompletionLabel.setVisible(true);
                                 }
                             }
