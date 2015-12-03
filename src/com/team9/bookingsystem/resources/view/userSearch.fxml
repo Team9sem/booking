@@ -55,7 +55,7 @@
             </HBox>
       <HBox GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.columnSpan="3">
          <children>
-                  <Label fx:id="id" text="ID:" />
+                  <Label fx:id="id" text="ID:" styleClass="upLabels"/>
          </children>
       </HBox>
             <HBox alignment="BOTTOM_LEFT" GridPane.columnSpan="3" GridPane.rowIndex="3">
@@ -66,7 +66,7 @@
                   <Insets />
                </GridPane.margin>
                <children>
-                  <TextField fx:id="ID" promptText="enter id" />
+                  <TextField fx:id="ID" />
                </children>
             </HBox>
             <HBox alignment="BOTTOM_LEFT" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="4">
@@ -77,7 +77,7 @@
                   <Insets />
                </GridPane.margin>
                <children>
-                  <Label text="Username:" />
+                  <Label text="Username:" styleClass="upLabels"/>
                </children>
             </HBox>
             <HBox alignment="BOTTOM_LEFT" GridPane.columnIndex="0"  GridPane.columnSpan="3" GridPane.rowIndex="5">
@@ -88,42 +88,42 @@
                   <Insets />
                </GridPane.margin>
                <children>
-                  <TextField fx:id="userName" />
+                  <TextField fx:id="userName" styleClass="upLabels"/>
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" GridPane.columnSpan="3" GridPane.columnIndex="0"  GridPane.rowIndex="6">
                <children>
-                  <Label text="First Name:" />
+                  <Label text="First Name:" styleClass="upLabels"/>
                </children>
             </HBox>
             <HBox GridPane.columnSpan="3" GridPane.columnIndex="0" GridPane.rowIndex="7">
                <children>
-                  <TextField fx:id="firstName" />
+                  <TextField fx:id="firstName" styleClass="upLabels"/>
                </children>
             </HBox>
       <HBox GridPane.columnSpan="3" GridPane.rowIndex="8" GridPane.columnIndex="0">
          <children>
-            <Label text="Last Name:" />
+            <Label text="Last Name:" styleClass="upLabels"/>
          </children>
       </HBox>
       <HBox GridPane.columnSpan="3" GridPane.rowIndex="9" GridPane.columnIndex="0">
          <children>
-            <TextField fx:id="lastName" />
+            <TextField fx:id="lastName" styleClass="upLabels"/>
          </children>
       </HBox>
             <HBox GridPane.columnSpan="3" GridPane.rowIndex="10" GridPane.columnIndex="0">
                <children>
-                  <Label text="Usertype:" />
+                  <Label text="Usertype:" styleClass="upLabels"/>
                </children>
             </HBox>
             <HBox GridPane.columnSpan="3" GridPane.rowIndex="11" GridPane.columnIndex="0">
                <children>
-                  <TextField fx:id="userType" />
+                  <TextField fx:id="userType"/>
                </children>
             </HBox>
             <HBox GridPane.columnSpan="3" GridPane.rowIndex="12">
                <children>
-                  <Label text="Pnumber:" />
+                  <Label text="Pnumber:" styleClass="upLabels"/>
                </children>
             </HBox>
             <HBox GridPane.columnSpan="3" GridPane.rowIndex="13">
@@ -133,7 +133,7 @@
             </HBox>
             <HBox GridPane.columnSpan="3" GridPane.rowIndex="14">
                <children>
-                  <Label text="Zip Code:" />
+                  <Label text="Zip Code:" styleClass="upLabels"/>
                </children>
             </HBox>
              <HBox  GridPane.columnSpan="3" GridPane.rowIndex="15">
@@ -142,7 +142,7 @@
                  </children>
              </HBox>
 
-             <HBox alignment="CENTER" GridPane.columnSpan="4" GridPane.columnIndex="0" GridPane.rowIndex="16">
+             <HBox alignment="CENTER_LEFT" GridPane.columnSpan="4" GridPane.columnIndex="0" GridPane.rowIndex="16">
                  <GridPane.margin>
                      <Insets top="8"></Insets>
                  </GridPane.margin>
