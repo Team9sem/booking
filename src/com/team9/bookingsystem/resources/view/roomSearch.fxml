@@ -41,7 +41,7 @@
 			<children>
 				<Label fx:id="searchPreferences" alignment="TOP_LEFT" styleClass="options-area-labels" text="Search Preferences" textAlignment="CENTER">
 					<font>
-						<Font name="Infinity" size="30.0" />
+						<Font name="Infinity" size="22.0" />
 					</font>
 				</Label>
 			</children>

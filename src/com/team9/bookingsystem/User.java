@@ -1,5 +1,10 @@
 package com.team9.bookingsystem;
 
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.EventHandler;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -156,7 +161,40 @@ public class User implements SearchableObject {
     }
 
 
+    public void downloadAvatar(){
+        User thisUser = this;
 
+        Service<BufferedImage> getUserAvatar = new Service<BufferedImage>() {
+            @Override
+            protected Task<BufferedImage> createTask() {
+                Task<BufferedImage> task = new Task<BufferedImage>() {
+                    @Override
+                    protected BufferedImage call() throws Exception {
+                        MysqlUtil util = new MysqlUtil();
+                        BufferedImage image = util.downloadImage(thisUser);
+                        if(image != null){
+                            return image;
+                        }
+                        return null;
+                    }
+
+                };
+                return task;
+            }
+        };
+        getUserAvatar.start();
+        getUserAvatar.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+                if(getUserAvatar.getValue() != null){
+                    thisUser.setAvatar(getUserAvatar.getValue());
+                    System.out.println(getUserAvatar.getValue().toString());
+                    System.out.println("downloaded avatar");
+                }
+            }
+        });
+
+    }
 
     public static boolean isValidInput(String userName,
                                       String password,

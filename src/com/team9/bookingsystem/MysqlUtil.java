@@ -1,10 +1,7 @@
 package com.team9.bookingsystem;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.io.*;
 import java.sql.*;
 import java.sql.Date;
 import java.util.*;
@@ -14,6 +11,7 @@ import org.json.JSONObject;
 import org.json.JSONException;
 
 import javax.imageio.ImageIO;
+import javax.xml.transform.Result;
 
 /**
  * Created by pontuspohl on 12/10/15.
@@ -116,13 +114,7 @@ public class MysqlUtil {
                     toReturn.setpNumber(rs.getLong("pnumber"));
                     toReturn.setStreet(rs.getString("street"));
                     toReturn.setZip(rs.getInt("zip"));
-                    if(rs.getBlob("picture") != null)
-                    {
-                        Blob blob = rs.getBlob("picture");
-                        InputStream inputStream = blob.getBinaryStream();
-                        BufferedImage bufferedImage = ImageIO.read(inputStream);
-                        toReturn.setAvatar(bufferedImage);
-                    }
+
 
 
                     //MAYRA assign the primary key UserID to the User object so that we can use it for booking rooms
@@ -1315,35 +1307,92 @@ public class MysqlUtil {
     } //end public BookedRoom
 
 
-        public void uploadPicture(File img,User user){
+        public void uploadImage(File img,User user){
 
 
             try(Connection connection = getConnection()){
 
 
-                PreparedStatement ps = null;
-                String insertPicture = "Update User SET User.picture = ?  WHERE User.alias = ?";
-            try{
-                connection.setAutoCommit(false);
-                FileInputStream fileInputStream = new FileInputStream(img);
-                ps = connection.prepareStatement(insertPicture);
-                ps.setString(2,user.getUserName());
-                ps.setBinaryStream(1,fileInputStream,(int)img.length());
-                ps.executeUpdate();
-                connection.commit();
+                Statement statement = connection.createStatement();
 
-            }catch(FileNotFoundException e){
-                e.printStackTrace();
-            }
+                String checkQuery = "SELECT * FROM Blobs WHERE Blobs.userid = "+user.getUserID()+";";
 
+                ResultSet rs = statement.executeQuery(checkQuery);
 
+                if (!rs.isBeforeFirst()){
+                    PreparedStatement ps = null;
+                    String insertPicture = "INSERT INTO Blobs(userid,pic) VALUES (?,?)";
+                    try{
+                        connection.setAutoCommit(false);
+                        FileInputStream fileInputStream = new FileInputStream(img);
+                        ps = connection.prepareStatement(insertPicture);
+                        ps.setInt(1, user.getUserID());
+                        ps.setBinaryStream(2,fileInputStream,(int)img.length());
+                        ps.executeUpdate();
+                        connection.commit();
 
+                    }catch(FileNotFoundException e){
+                        e.printStackTrace();
+                    }
+                }
+                else {
 
+                    PreparedStatement ps = null;
+                    String insertPicture = "UPDATE Blobs SET Blobs.pic = ? WHERE Blobs.userid =?;";
+                    try{
+                        connection.setAutoCommit(false);
+                        FileInputStream fileInputStream = new FileInputStream(img);
+                        ps = connection.prepareStatement(insertPicture);
+                        ps.setInt(2, user.getUserID());
+                        ps.setBinaryStream(1,fileInputStream,(int)img.length());
+                        ps.executeUpdate();
+                        connection.commit();
+
+                    }catch(FileNotFoundException e){
+                        e.printStackTrace();
+                    }
+                }
             }catch(SQLException e){
                     e.printStackTrace();
             }
 
 
+        }
+
+        public BufferedImage downloadImage(User user) throws IOException{
+
+
+
+            try(Connection connection = getConnection()){
+
+                Statement statement = connection.createStatement();
+                ResultSet rs = statement.executeQuery("SELECT Blobs.pic FROM Blobs WHERE Blobs.userid=" + user.getUserID() + "");
+                if(!rs.isBeforeFirst()){
+                    return null;
+                }
+                while(rs.next()){
+
+                    if(rs.getBlob("pic") != null)
+                    {
+
+                        Blob blob = rs.getBlob("pic");
+                        InputStream inputStream = blob.getBinaryStream();
+                        BufferedImage bufferedImage = ImageIO.read(inputStream);
+                        return bufferedImage;
+
+                    }
+
+                }
+
+
+
+            }catch (SQLException e){
+                e.printStackTrace();
+
+            }
+
+
+            return null;
         }
 
 

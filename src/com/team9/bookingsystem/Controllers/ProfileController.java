@@ -106,7 +106,7 @@ public class ProfileController {
 									@Override
 									protected Boolean call() throws Exception {
 										MysqlUtil util = new MysqlUtil();
-										util.uploadPicture(picked,loggedInUser);
+										util.uploadImage(picked,loggedInUser);
 										return true;
 									}
 								};
@@ -135,12 +135,22 @@ public class ProfileController {
 
 				WritableImage writableImage = null;
 
+
 				if(image != null){
 
+//				BufferedImage newImage = new BufferedImage(image.getWidth(),image.getHeight(),BufferedImage.TYPE_3BYTE_BGR);
+//					newImage.getGraphics().drawImage(image, 0, 0, null);
+//					for(int x= 0; x < image.getWidth(); x++){
+//						for(int y = 0; y < image.getWidth(); y++){
+//							pixelWriter.setArgb(x,y,image.getRGB(x,y));
+//						}
+//					}
+
 					writableImage = new WritableImage(image.getWidth(),image.getHeight());
+
 					PixelWriter pixelWriter = writableImage.getPixelWriter();
 						for(int x= 0; x < image.getWidth(); x++){
-							for(int y = 0; y < image.getWidth(); y++){
+							for(int y = 0; y < image.getHeight(); y++){
 								pixelWriter.setArgb(x,y,image.getRGB(x,y));
 							}
 						}
@@ -152,7 +162,7 @@ public class ProfileController {
 
 
 
-			
+
      
 
 

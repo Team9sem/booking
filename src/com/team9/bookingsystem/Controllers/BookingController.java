@@ -29,6 +29,7 @@ import javafx.util.Callback;
 import javafx.util.StringConverter;
 import jfxtras.scene.control.LocalTimePicker;
 
+import java.awt.image.BufferedImage;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -359,7 +360,12 @@ public class BookingController {
     public void init(MainController mainController,User user){
         this.mainController = mainController;
         this.loggedInUser = user;
+        this.loggedInUser.downloadAvatar();
         loggedInAs.setText("Logged in as: " + loggedInUser.getUserName());
+
+
+
+
 
     }
 
@@ -744,5 +750,6 @@ public class BookingController {
     @FXML public void showUserProfile(ActionEvent event){
 
         mainController.showUserProfile(this);
+
     }
 }

@@ -90,6 +90,7 @@ public class AdminController {
     @FXML private ToggleButton roomToggle;
     @FXML private GridPane userSearchGridPane;
     @FXML private Label loggedInAs;
+    @FXML private Label commitCompletionLabel;
 
 
     /**
@@ -104,7 +105,7 @@ public class AdminController {
 		setupUserTableView();
         setupRoomTableView();
         setupToggleButtons();
-
+        commitCompletionLabel.setVisible(false);
 
         paginationBox.setAlignment(Pos.CENTER);
 //        SearchOptionsController.init(mainController,this,loggedInUser);
@@ -132,6 +133,9 @@ public class AdminController {
      * @param event
      */
     @FXML public void commitChanges(ActionEvent event){
+
+        commitCompletionLabel.setVisible(false);
+
         if(searchedForObject == searchedFor.user && userTableView != null) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/reviewChanges.fxml"));
@@ -140,7 +144,9 @@ public class AdminController {
                 reviewChangesController.setAddedItems(userTableView.getAddedUsers());
                 reviewChangesController.setUpdatedItems(userTableView.getUpdatedUsers());
                 reviewChangesController.setDeletedItems(userTableView.getDeletedUsers());
+                reviewChangesController.setReviewingObjects(ReviewChangesController.reviewing.user);
                 reviewChangesController.setUserTableView(userTableView);
+
                 reviewChangesController.populate();
                 Stage popupStage = new Stage();
                 popupStage.setTitle("Review Changes");
@@ -186,6 +192,11 @@ public class AdminController {
                                                 e.printStackTrace();
                                                 return false;
                                             }
+                                            userTableView.getUpdatedUsers().clear();
+                                            userTableView.getAddedUsers().clear();
+                                            userTableView.getDeletedUsers().clear();
+
+
                                             return true;
                                         }
                                     };
@@ -198,6 +209,8 @@ public class AdminController {
                                 public void handle(WorkerStateEvent event) {
                                     if (pushChanges.getValue()) {
                                         System.out.println("updated Sucessfully");
+                                        commitCompletionLabel.setText("Your Changes was pushed\n successfully!");
+                                        commitCompletionLabel.setVisible(true);
                                     }
                                 }
                             });
@@ -234,6 +247,7 @@ public class AdminController {
                 reviewChangesController.setAddedItems(roomTableView.getAddedRooms());
                 reviewChangesController.setUpdatedItems(roomTableView.getUpdatedRooms());
                 reviewChangesController.setDeletedItems(roomTableView.getDeletedRooms());
+                reviewChangesController.setReviewingObjects(ReviewChangesController.reviewing.room);
                 reviewChangesController.setRoomTableView(roomTableView);
                 reviewChangesController.populate();
                 Stage popupStage = new Stage();
@@ -277,6 +291,9 @@ public class AdminController {
                                             e.printStackTrace();
                                             return false;
                                         }
+                                        roomTableView.getUpdatedRooms().clear();
+                                        roomTableView.getAddedRooms().clear();
+                                        roomTableView.getDeletedRooms().clear();
 
                                         return true;
                                     }
@@ -290,6 +307,8 @@ public class AdminController {
                             public void handle(WorkerStateEvent event) {
                                 if (pushChanges.getValue()) {
                                     System.out.println("updated Sucessfully");
+                                    commitCompletionLabel.setText("Your Changes was pushed\n successfully!");
+                                    commitCompletionLabel.setVisible(true);
                                 }
                             }
                         });
@@ -346,7 +365,7 @@ public class AdminController {
                         userTableView.getItems().clear();
                     }
                     userTableView.getItems().addAll(userSearchResult);
-                    userTableView.getTableviewData().addAll(userSearchResult);
+
 
 
 
@@ -401,7 +420,7 @@ public class AdminController {
                     roomTableView.getItems().clear();
                 }
                 roomTableView.getItems().addAll(roomSearchResult);
-                roomTableView.getTableviewData().addAll(roomSearchResult);
+
 
 
 
@@ -564,34 +583,22 @@ public class AdminController {
                     @Override
                     public void onSuccess(User added) {
                         System.out.println(added.toString());
-                        userTableView.getAddedUsers().add(added);
+
+                        if (userTableView != null) {
+                            userTableView.getAddedUsers().add(added);
 
 
-                        if (userSearchResult != null) {
-
-                            userSearchResult.add(added);
+                            userTableView.getItems().add(added);
 
 
-                            if(!userTableView.getItems().isEmpty()){
-                                userTableView.getItems().clear();
-                            }
-                            userTableView.getItems().addAll(userSearchResult);
 
 
-                            System.out.println(userSearchResult.size());
-                            System.out.println(userSearchResult.size());
+
                             paginationBox.getChildren().clear();
                             paginationBox.getChildren().add(userTableView);
                             paginationBox.setHgrow(userTableView,Priority.SOMETIMES);
                         }
-                        else if(userSearchResult == null){
 
-
-                            userTableView.getItems().clear();
-
-                            paginationBox.getChildren().clear();
-                            paginationBox.getChildren().add(userTableView);
-                        }
                     }
 
 
@@ -626,33 +633,19 @@ public class AdminController {
                     public void onSuccess(Room added) {
                         System.out.println(added.toString());
 
-                        roomTableView.getAddedRooms().add(added);
+                        if (roomTableView != null) {
+                            roomTableView.getAddedRooms().add(added);
 
 
-                        if (roomSearchResult != null) {
-
-                            roomSearchResult.add(added);
+                            roomTableView.getItems().add(added);
 
 
-                            if(!roomTableView.getItems().isEmpty()){
-                                roomTableView.getItems().clear();
-                            }
-                            roomTableView.getItems().addAll(roomSearchResult);
 
 
-                            System.out.println(roomSearchResult.size());
-                            System.out.println(roomSearchResult.size());
+
                             paginationBox.getChildren().clear();
                             paginationBox.getChildren().add(roomTableView);
                             paginationBox.setHgrow(roomTableView,Priority.SOMETIMES);
-                        }
-                        else if(userSearchResult == null){
-
-
-                            userTableView.getItems().clear();
-
-                            paginationBox.getChildren().clear();
-                            paginationBox.getChildren().add(userTableView);
                         }
 
                     }

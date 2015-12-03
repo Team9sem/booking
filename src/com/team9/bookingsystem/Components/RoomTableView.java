@@ -32,6 +32,9 @@ public class RoomTableView extends TableView<Room> {
 
 
     private ArrayList<Room> updatedRooms = new ArrayList<>();
+
+
+
     private ArrayList<Room> deletedRooms = new ArrayList<>();
     private ArrayList<Room> addedRooms   = new ArrayList<>();
 
@@ -44,6 +47,18 @@ public class RoomTableView extends TableView<Room> {
     }
     public ArrayList<Button> getTableButtons() {
         return tableButtons;
+    }
+
+    public void setAddedRooms(ArrayList<Room> addedRooms) {
+        this.addedRooms = addedRooms;
+    }
+
+    public void setUpdatedRooms(ArrayList<Room> updatedRooms) {
+        this.updatedRooms = updatedRooms;
+    }
+
+    public void setDeletedRooms(ArrayList<Room> deletedRooms) {
+        this.deletedRooms = deletedRooms;
     }
 
     public ObservableList<Room> getTableviewData() {
