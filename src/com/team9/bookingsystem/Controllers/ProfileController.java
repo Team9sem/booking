@@ -51,6 +51,7 @@ public class ProfileController {
 	@FXML Label ssn;
 	@FXML Label zipCode;
 	@FXML Button ppButton;
+	@FXML Button backToBookings;
 	@FXML ImageView imageView;
 
 //	
@@ -164,7 +165,12 @@ public class ProfileController {
 
 
      
-
+	@FXML public void previousPage(ActionEvent event){
+		
+			mainController.showBookingInterface(loggedInUser);
+	}
+		
+	
 
 	
 	public void showCurrentBookings(){

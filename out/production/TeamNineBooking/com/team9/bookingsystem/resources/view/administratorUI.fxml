@@ -6,6 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 
 <!--by Pontus, Nima, Olle-->
 
@@ -25,8 +26,13 @@
                    prefWidth="250.0">
                   <children>
                      <GridPane  gridLinesVisible="false" vgap="10" hgap="10">
-                     <ToggleButton fx:id="userToggle" prefWidth="70" mnemonicParsing="false" text="Users" GridPane.columnSpan="2" GridPane.rowIndex="0" />
-                     <ToggleButton fx:id="roomToggle" prefWidth="70" mnemonicParsing="false" text="Rooms" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+                     <HBox>
+                     <Label text="Search for:" styleClass="options-area-labels"/>
+                     </HBox>
+                     <HBox GridPane.columnSpan="3" GridPane.rowIndex="1" spacing="10.0" alignment="CENTER">
+                     <ToggleButton fx:id="userToggle" prefWidth="70" mnemonicParsing="false" text="Users" GridPane.columnSpan="2" GridPane.rowIndex="0" styleClass="search-button" />
+                     <ToggleButton fx:id="roomToggle" prefWidth="70" mnemonicParsing="false" text="Rooms" GridPane.columnSpan="2" GridPane.rowIndex="0" styleClass="search-button" />
+                     </HBox>
                      <!--<fx:include GridPane.rowIndex="3" GridPane.rowSpan="3" fx:id="SearchOptions" source= "userSearch.fxml"/>-->
                         <GridPane GridPane.rowIndex="3" GridPane.rowSpan="3"  fx:id="searchOptions" />
                      </GridPane>
@@ -69,7 +75,7 @@
                      <children>
 
 
-                        <Label fx:id="loginLabel"  alignment="TOP_LEFT"  styleClass="options-area-labels" text="Administration Panel" textAlignment="CENTER">
+                        <Label fx:id="loginLabel"  alignment="TOP_LEFT"  styleClass="upBigLabels" text="Administration Panel" textAlignment="CENTER">
                            <font>
                               <Font name="Infinity" size="50.0" />
                            </font>
@@ -84,7 +90,7 @@
                   <HBox alignment="CENTER"  prefHeight="100.0" prefWidth="237.0" GridPane.columnIndex="4">
                      <children>
 
-                        <Button mnemonicParsing="false" onAction="#SignOut" text="Sign Out" />
+                        <Button mnemonicParsing="false" onAction="#SignOut" text="Sign Out"  styleClass="search-button"/>
                      </children>
                   </HBox>
                </children>
@@ -97,7 +103,7 @@
    <center>
       <AnchorPane fx:id="resultAnchorPane" minHeight="100.0" minWidth="100.0" BorderPane.alignment="CENTER" styleClass="result-area">
          <children>
-            <GridPane gridLinesVisible="true" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" >
+            <GridPane gridLinesVisible="false" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" >
                <columnConstraints>
                   <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
                   <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="150" />
@@ -111,7 +117,7 @@
                <children>
                   <HBox GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="2" alignment="CENTER">
                      <children>
-                        <Label alignment="CENTER" prefHeight="23.0" prefWidth="250.0" styleClass="options-area-labels" text="Search Results">
+                        <Label alignment="CENTER" prefHeight="23.0" prefWidth="250.0" styleClass="upBigLabels" text="Search Results">
                            <font>
                               <Font name="Infinity" size="30.0" />
                            </font>

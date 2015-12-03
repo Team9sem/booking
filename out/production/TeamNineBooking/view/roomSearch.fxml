@@ -7,7 +7,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane gridLinesVisible="false" fx:id="roomSearchGridPane" hgap="3.0" vgap="3.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team9.bookingsystem.Controllers.RoomSearchController">
+<GridPane gridLinesVisible="false" fx:id="roomSearchGridPane" hgap="3.0" vgap="5.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team9.bookingsystem.Controllers.RoomSearchController">
 	<columnConstraints>
 		<ColumnConstraints hgrow="ALWAYS" maxWidth="307.0" minWidth="10.0" prefWidth="120.0" />
 		<ColumnConstraints hgrow="ALWAYS" maxWidth="307.0" minWidth="10.0" prefWidth="100.0" />
@@ -57,7 +57,7 @@
 		</HBox>
 		<HBox GridPane.rowIndex="2">
 			<children>
-				<Label text="ID:" />
+				<Label text="ID:" styleClass="upLabels"/>
 			</children>
 		</HBox>
 		<HBox alignment="BOTTOM_LEFT" GridPane.columnSpan="3" GridPane.rowIndex="3">
@@ -79,50 +79,50 @@
 				<Insets />
 			</GridPane.margin>
 			<children>
-				<Label text="Size:" />
+				<Label text="Size:" styleClass="upLabels"/>
 			</children>
 		</HBox>
 
 		<HBox GridPane.columnSpan="2" GridPane.rowIndex="5">
 			<children>
-				<CheckBox fx:id="small" mnemonicParsing="false" text="Small" />
+				<CheckBox fx:id="small" mnemonicParsing="false" text="Small" styleClass="upLabels"/>
 			</children>
 		</HBox>
 		<HBox GridPane.columnSpan="2" GridPane.rowIndex="6">
 			<children>
-				<CheckBox fx:id="medium" mnemonicParsing="false" text="Medium" />
+				<CheckBox fx:id="medium" mnemonicParsing="false" text="Medium" styleClass="upLabels"/>
 			</children>
 		</HBox>
 		<HBox GridPane.columnSpan="2" GridPane.rowIndex="7">
 			<children>
-				<CheckBox fx:id="large" mnemonicParsing="false" text="Large" />
+				<CheckBox fx:id="large" mnemonicParsing="false" text="Large" styleClass="upLabels"/>
 			</children>
 		</HBox>
 
 
 		<HBox alignment="CENTER_LEFT" GridPane.columnSpan="3" GridPane.rowIndex="8">
 			<children>
-				<Label text="Features:" />
+				<Label text="Features:" styleClass="upLabels"/>
 			</children>
 		</HBox>
 		<HBox GridPane.columnSpan="2" GridPane.rowIndex="9">
 			<children>
-				<CheckBox fx:id="hasWhiteboard" mnemonicParsing="false" text="Whiteboard" />
+				<CheckBox fx:id="hasWhiteboard" mnemonicParsing="false" text="Whiteboard" styleClass="upLabels"/>
 			</children>
 		</HBox>
 		<HBox GridPane.columnSpan="2" GridPane.rowIndex="10">
 			<children>
-				<CheckBox fx:id="hasProjector" mnemonicParsing="false" text="Projector" />
+				<CheckBox fx:id="hasProjector" mnemonicParsing="false" text="Projector" styleClass="upLabels"/>
 			</children>
 		</HBox>
 		<HBox GridPane.columnSpan="2" GridPane.rowIndex="11">
 			<children>
-				<CheckBox fx:id="hasCoffeMachine" mnemonicParsing="false" text="Coffe machine" />
+				<CheckBox fx:id="hasCoffeMachine" mnemonicParsing="false" text="Coffe machine" styleClass="upLabels"/>
 			</children>
 		</HBox>
 		<HBox GridPane.columnSpan="3" GridPane.rowIndex="12">
 			<children>
-				<Label text="Location:" />
+				<Label text="Location:" styleClass="upLabels"/>
 			</children>
 		</HBox>
 
