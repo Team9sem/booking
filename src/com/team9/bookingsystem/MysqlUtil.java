@@ -1306,7 +1306,11 @@ public class MysqlUtil {
         return null;
     } //end public BookedRoom
 
-
+    /**
+     * By Pontus
+     * @param img File object pointing to img to upload to database
+     * @param user User to associate with this image
+     */
         public void uploadImage(File img,User user){
 
 
@@ -1359,6 +1363,13 @@ public class MysqlUtil {
 
         }
 
+    /**
+     * by Pontus
+     * @param user
+     * @return the image downloaded is returned as bufferedImage
+     * @throws IOException
+     */
+
         public BufferedImage downloadImage(User user) throws IOException{
 
 
@@ -1395,7 +1406,37 @@ public class MysqlUtil {
             return null;
         }
 
+    public User getUserFromId(int id){
 
+
+        try(Connection connection = getConnection()){
+
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery("Select * from User WHERE User.userID == '" + id + "';");
+
+            if(!rs.isBeforeFirst()){
+
+                return null;
+            }
+            while(rs.next())
+            {
+                User toReturn = new User();
+                toReturn.setFirstName(rs.getString("firstname"));
+                toReturn.setLastName(rs.getString("lastname"));
+                toReturn.setUserName(rs.getString("alias"));
+                toReturn.setPassword(rs.getString("passwd"));
+                toReturn.setZip(rs.getInt("zip"));
+                toReturn.setpNumber(rs.getLong("pNumber"));
+                toReturn.setStreet(rs.getString("street"));
+                toReturn.setUserID(rs.getInt("userID"));
+                toReturn.setUserType(rs.getInt("usertype"));
+                return toReturn;
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
 
 

@@ -46,7 +46,7 @@
             <HBox alignment="CENTER" />
             <HBox>
                <children>
-                  <ImageView fx:id="imageView" fitHeight="159.0" fitWidth="193.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageView" fitHeight="159.0" fitWidth="193.0" pickOnBounds="true" preserveRatio="false">
                      <image>
                         <Image url="@booking/src/com/team9/bookingsystem/resources/img/Death_to_stock_communicate_hands_2.jpg" />
                      </image>

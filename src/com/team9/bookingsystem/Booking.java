@@ -26,6 +26,9 @@ public class Booking {
     // Default Constructor
     public Booking(){}
 
+
+
+
     // New Room with Parameters
     public Booking(int bID, int userid, int roomID, String bdate, String bStart, String bEnd)
     {
