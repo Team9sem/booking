@@ -1,9 +1,17 @@
 package com.team9.bookingsystem;
 
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.EventHandler;
+
+import java.awt.image.BufferedImage;
+import java.io.File;
+
 /**
  * Created by pontuspohl on 12/10/15.
  */
-public class User {
+public class User implements SearchableObject {
 
     private MysqlUtil _db;
 
@@ -15,27 +23,39 @@ public class User {
     private String password;
     private String firstName;
     private String lastName;
+    private int userType;
     private String street;
+    private String email;
     private int    zip;
+
+
+
+    private BufferedImage avatar;
 
     // Default Constructor
     public User(){}
 
     // New User with Parameters
-    public User(String userName,
+    public User(int userID,
+                String userName,
                 String password,
                 String firstName,
                 String lastName,
+                int userType,
                 String street,
-                int zip)
+                long pNumber,int zip,BufferedImage avatar)
     {
         _db = new MysqlUtil();
+        this.userID = userID;
         this.userName  = userName;
         this.password  = password;
         this.firstName = firstName;
         this.lastName  = lastName;
+        this.userType  = userType;
         this.street    = street;
         this.zip       = zip;
+        this.pNumber = pNumber;
+        this.avatar  = avatar;
     }
 
     // Copy Constructor
@@ -47,26 +67,20 @@ public class User {
         this.password  = user.password;
         this.firstName = user.firstName;
         this.lastName  = user.lastName;
+        this.userType  = user.userType;
         this.street    = user.street;
         this.zip       = user.zip;
     }
-    public void setUserID(int userID) {   	
-    	this.userID = userID;
-    }
-    
-    public int getUserID(){
-    	return userID;
+
+    public int getUserID() {
+        return userID;
     }
 
     public long getpNumber() {
         return pNumber;
     }
 
-    public void setpNumber(long pNumber) {
-        this.pNumber = pNumber;
-    }
-
-    public String getUserName () {
+    public String getUserName() {
         return userName;
     }
 
@@ -82,12 +96,32 @@ public class User {
         return lastName;
     }
 
+    public int getUserType() {
+        return userType;
+    }
+
     public String getStreet() {
         return street;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public int getZip() {
         return zip;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
+    public void setpNumber(long pNumber) {
+        this.pNumber = pNumber;
     }
 
     public void setUserName(String userName) {
@@ -106,6 +140,10 @@ public class User {
         this.lastName = lastName;
     }
 
+    public void setUserType(int userType) {
+        this.userType = userType;
+    }
+
     public void setStreet(String street) {
         this.street = street;
     }
@@ -114,12 +152,55 @@ public class User {
         this.zip = zip;
     }
 
+    public BufferedImage getAvatar() {
+        return avatar;
+    }
 
+    public void setAvatar(BufferedImage avatar) {
+        this.avatar = avatar;
+    }
+
+
+    public void downloadAvatar(){
+        User thisUser = this;
+
+        Service<BufferedImage> getUserAvatar = new Service<BufferedImage>() {
+            @Override
+            protected Task<BufferedImage> createTask() {
+                Task<BufferedImage> task = new Task<BufferedImage>() {
+                    @Override
+                    protected BufferedImage call() throws Exception {
+                        MysqlUtil util = new MysqlUtil();
+                        BufferedImage image = util.downloadImage(thisUser);
+                        if(image != null){
+                            return image;
+                        }
+                        return null;
+                    }
+
+                };
+                return task;
+            }
+        };
+        getUserAvatar.start();
+        getUserAvatar.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+                if(getUserAvatar.getValue() != null){
+                    thisUser.setAvatar(getUserAvatar.getValue());
+                    System.out.println(getUserAvatar.getValue().toString());
+                    System.out.println("downloaded avatar");
+                }
+            }
+        });
+
+    }
 
     public static boolean isValidInput(String userName,
                                       String password,
                                       String firstName,
                                       String lastName,
+                                      String userType,
                                       String street,
                                       int zip)
     {
@@ -140,6 +221,7 @@ public class User {
         toReturn += String.format("//- %s \n",getUserName());
         toReturn += String.format("//- %s \n",getPassword());
         toReturn += String.format("//- %s \n",getpNumber());
+        toReturn += String.format("//- %s \n",getUserType());
         toReturn += String.format("//- %s \n",getStreet());
         toReturn += String.format("//- %s \n",getZip());
         toReturn += String.format("//- %s \n",getUserID());

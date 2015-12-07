@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
+
+
+
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team9.bookingsystem.Controllers.ReviewChangesController" styleClass="popup-root">
+    <GridPane styleClass="popup-root" gridLinesVisible="true" AnchorPane.topAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.bottomAnchor="0.0">
+        <rowConstraints>
+        <RowConstraints minHeight="70" prefHeight="100"/>
+        <RowConstraints minHeight="70"/>
+        <RowConstraints minHeight="70"/>
+        </rowConstraints>
+
+        <children>
+            <HBox alignment="CENTER" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0">
+                <children>
+                    <Label styleClass="login-title" style="-fx-font-size: 20pt;" text="Review Changes"></Label>
+                </children>
+            </HBox>
+            <HBox alignment="BOTTOM_CENTER" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0">
+                <GridPane.margin>
+                    <Insets bottom="5"></Insets>
+                </GridPane.margin>
+                <children>
+                    <Label styleClass="login-labels" text="Review your changes and commit them"></Label>
+                </children>
+            </HBox>
+            <TabPane GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                <tabs>
+                    <Tab fx:id="updatedTab" closable="false" text="Updated Items">
+                        <content>
+                            <VBox fx:id="updatedTabVbox">
+
+                            </VBox>
+                        </content>
+                    </Tab>
+                    <Tab fx:id="addedTab" closable="false" text="Added Items">
+                        <content>
+                            <VBox fx:id="addedTabVbox">
+
+                            </VBox>
+                        </content>
+                    </Tab>
+                    <Tab fx:id="deletedTab" closable="false" text="Removed Items">
+                        <content>
+                            <VBox fx:id="deletedTabVbox">
+
+                            </VBox>
+                        </content>
+                    </Tab>
+                </tabs>
+            </TabPane>
+            <HBox spacing="20" alignment="CENTER" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                <children>
+                    <Button styleClass="search-button" onAction="#Cancel" text="Cancel"></Button>
+                    <Button styleClass="search-button" onAction="#CommitChanges" text="Submit Changes"></Button>
+                </children>
+            </HBox>
+        </children>
+    <stylesheets>
+        <URL value="@../css/RootStyle.css" />
+    </stylesheets>
+    </GridPane>
+</AnchorPane>

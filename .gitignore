@@ -11,6 +11,7 @@ tasks.xml
 
 # Intellij
 .idea/
+/out/
 *.iml
 *.iws
 

@@ -1,0 +1,222 @@
+
+/* setting the font with the @font-face rule  */
+@font-face {
+    font-family: Infinity;
+    src: url('../fonts/Infinity.ttf');
+}
+
+/* each css class used here is defined with the stylesheet="" syntax in the fxml document  */
+.root{
+    -fx-background-color:#9099ac;
+    -fx-background-image: url("../img/background-twitter-images-1920x1080.png");
+	-fx-font-family: Infinity;
+}
+.popup-root{
+    -fx-background-image: url("../img/background-twitter-images-1920x1080.png");
+}
+
+.welcome-area{
+
+}
+.login{
+	-fx-font-family: Avant Garde;
+}
+.login-title{
+    -fx-font-smoothing-type: lcd;
+    -fx-font-size: 40pt;
+    -fx-font-family: Infinity;
+
+    -fx-fill: #0000;
+    -fx-text-fill: white;
+
+    -fx-fill: #ffffff; 
+
+}
+/* settings four round button needed to make it into a circle */
+.round-button{
+    -fx-min-height: 200px;
+    -fx-min-width: 200px;
+    -fx-max-height: 200px;
+    -fx-max-width: 200px;
+
+    -fx-background-color: azure;
+    -fx-font-family: Infinity;
+    -fx-font-smoothing-type: lcd;
+    -fx-font-size: 31pt;
+    -fx-text-fill: grey;
+}
+/* Booking Interface */
+.borderPane{
+	-fx-font-family: Infinity;
+}
+.options-area{
+	-fx-border-style: solid;
+    -fx-border-radius: 10 10 10 10;
+  	-fx-background-radius: 10 10 10 10;
+    -fx-font-family: Avant Garde;
+    -fx-background-color: rgba(212, 218, 255, 0.38)
+
+
+
+
+}
+
+.options-area-labels{
+	-fx-text-fill: white;
+    -fx-font-family: Avant Garde;
+}
+.login-labels{
+
+	-fx-text-fill: white;
+	
+}
+.register-labels{
+    -fx-font-family: Arial;
+	-fx-text-fill: white;
+
+}
+.result-area{
+	-fx-border-style: solid;
+    -fx-border-radius: 10 10 10 10;
+  	-fx-background-radius: 10 10 10 10;
+    -fx-font-family: Avant Garde;
+    -fx-background-color: rgba(212, 218, 255, 0.38)
+
+}
+.top-anchorpanetext{
+	-fx-font-family: Avant Garde;
+	-fx-text-fill: white;
+}
+.logout-button{
+	-fx-font-family: Avant Garde;
+}
+.pagination-box-text{
+	-fx-text-fill: white;
+	
+}
+
+.search-button{
+    -fx-font-size: 12pt;
+    -fx-background-color: rgb(255, 255, 255);
+    -fx-font-family: Avant Garde;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+.search-button:pressed{
+    -fx-background-color: rgb(226, 226, 226);
+}
+.search-button:hover{
+    -fx-background-color: rgb(228, 228, 228);
+
+}
+.check-box .box{
+    -fx-background-color: rgb(255, 255, 255);
+    /*-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);*/
+}
+.timeBox .timeText{
+    -fx-text-fill: white;
+    -fx-font-size: 15pt;
+}
+.result-element-label{
+    -fx-text-fill: white;
+}
+.error-message{
+    -fx-text-fill: #83161a;
+    -fx-font-size: 12pt;
+}
+/*.pagination{*/
+
+    /*-fx-base:black;*/
+
+/*}*/
+/*.pagination .toggle-button {*/
+
+    /*-fx-background-radius:15px;*/
+
+    /*-fx-padding: 0px;*/
+
+/*}*/
+
+/*.pagination .button{*/
+
+    /*-fx-padding: 10 15 10 16px;*/
+
+/*}*/
+
+.element-toggle-button{
+    -fx-background-color: rgba(169, 172, 171, 0.31);
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-text-fill: white;
+
+}
+.element-toggle-button:selected{
+    -fx-background-color: rgba(212, 47, 57, 0.65);
+
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+<<<<<<< HEAD
+.userprofile{
+    -fx-font-family: Avant Garde;
+}
+
+.signOutButton{
+	-fx-font-family: Avant Garde;
+}
+
+.userProfileButton{
+	-fx-font-family: Avant Garde;
+}
+
+.userAll{
+	-fx-font-family: Avant Garde;
+	-fx-text-fill: white;
+
+}
+
+.upLabels{
+	-fx-font-family: Avant Garde;
+	-fx-text-fill: white;
+}
+
+.upBigLabels{
+	-fx-font-family: Infinity;
+	-fx-text-fill: white;
+	
+}
+
+.upVbox{
+	-fx-border-style: solid;
+    -fx-border-radius: 10 10 10 10;
+
+	
+}
+
+.upBookings{
+	-fx-border-style: solid;
+    -fx-border-radius: 10 10 10 10;
+
+    
+}
+
+.bookingsText{
+	-fx-font-family: Avant Garde;
+	-fx-text-fill: white;
+	
+}
+
+.userInfoText{
+	
+}
+=======
+
+.table-view .column-header  {
+    -fx-background-color: rgb(228, 228, 228);
+
+    -fx-border-color: #a9acab;
+    -fx-border-width: 0.5px;
+
+}
+
+
+>>>>>>> feature/AdminConsole_and_ScheduleView

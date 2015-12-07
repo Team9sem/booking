@@ -11,6 +11,9 @@
     -fx-background-image: url("../img/background-twitter-images-1920x1080.png");
 	-fx-font-family: Infinity;
 }
+.popup-root{
+    -fx-background-image: url("../img/background-twitter-images-1920x1080.png");
+}
 
 .welcome-area{
 
@@ -60,7 +63,7 @@
 
 .options-area-labels{
 	-fx-text-fill: white;
-	
+    -fx-font-family: Avant Garde;
 }
 .login-labels{
 
@@ -68,7 +71,7 @@
 	
 }
 .register-labels{
-	
+    -fx-font-family: Arial;
 	-fx-text-fill: white;
 
 }
@@ -92,8 +95,33 @@
 	
 }
 
+.search-button{
+    -fx-font-size: 10pt;
+    -fx-background-color: rgb(255, 255, 255);
+    -fx-font-family: Avant Garde;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+.search-button:pressed{
+    -fx-background-color: rgb(226, 226, 226);
+}
+.search-button:hover{
+    -fx-background-color: rgb(228, 228, 228);
+
+}
+.check-box .box{
+    -fx-background-color: rgb(255, 255, 255);
+    /*-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);*/
+}
+.timeBox .timeText{
+    -fx-text-fill: white;
+    -fx-font-size: 15pt;
+}
 .result-element-label{
     -fx-text-fill: white;
+}
+.error-message{
+    -fx-text-fill: #83161a;
+    -fx-font-size: 12pt;
 }
 /*.pagination{*/
 
@@ -115,11 +143,67 @@
 /*}*/
 
 .element-toggle-button{
-    -fx-background-color: rgba(30, 68, 34, 0.76);
+    -fx-background-color: rgba(169, 172, 171, 0.31);
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
     -fx-text-fill: white;
 
 }
 .element-toggle-button:selected{
-    -fx-background-color: #3c50ee;
-    -fx-border-color: black;
+    -fx-background-color: rgba(212, 47, 57, 0.65);
+
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+.table-view .column-header  {
+    -fx-background-color: rgb(228, 228, 228);
+
+    -fx-border-color: #a9acab;
+    -fx-border-width: 0.5px;
+
+}
+
+
+
+
+.userAll{
+	-fx-font-family: Avant Garde;
+	-fx-text-fill: white;
+
+}
+
+.upLabels{
+	-fx-font-family: Avant Garde;
+	-fx-text-fill: white;
+}
+
+.upBigLabels{
+	-fx-font-family: Infinity;
+	-fx-text-fill: white;
+	
+}
+
+.upVbox{
+	-fx-border-style: solid;
+    -fx-border-radius: 10 10 10 10;
+
+	
+}
+
+.upBookings{
+	-fx-border-style: solid;
+    -fx-border-radius: 10 10 10 10;
+
+    
+}
+
+.bookingsText{
+	-fx-font-family: Avant Garde;
+	-fx-text-fill: white;
+	
+}
+
+.userInfoText{
+	
 }

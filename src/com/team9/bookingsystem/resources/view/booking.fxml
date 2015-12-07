@@ -6,7 +6,9 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<?import jfxtras.scene.control.LocalTimePicker?>
+<!--by Pontus, Nima, Olle-->
+<!--<?import jfxtras.scene.control.LocalTimePicker?>-->
+
 <BorderPane id="borderPane" fx:id="borderPane" prefHeight="600.0" prefWidth="1000.0" styleClass="borderPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team9.bookingsystem.Controllers.BookingController">
    <left>
       <AnchorPane fx:id="searchAnchorPane" styleClass="options-area" BorderPane.alignment="CENTER">
@@ -16,9 +18,9 @@
          <children>
             <VBox id="options-area" layoutX="8.0" layoutY="14.0" prefHeight="490.0" prefWidth="490.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                <children>
-                  <GridPane  hgap="10.0" vgap="10.0">
+                  <GridPane gridLinesVisible="false" hgap="5.0" vgap="5.0">
                      <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                      </columnConstraints>
@@ -43,23 +45,23 @@
                         <!--<RowConstraints minHeight="10.0" vgrow="SOMETIMES" />-->
                      <!--</rowConstraints>-->
                      <children>
-                        <HBox alignment="CENTER" GridPane.columnSpan="3">
+                        <HBox alignment="CENTER" GridPane.columnSpan="3" GridPane.rowIndex="0" GridPane.rowSpan="2">
                            <children>
-                              <Label fx:id="searchPreferences"  alignment="TOP_LEFT" styleClass="options-area-labels" text="Search Preferences" textAlignment="CENTER">
+                              <Label fx:id="searchPreferences" alignment="TOP_LEFT" styleClass="upBigLabels" text="Search Preferences" textAlignment="CENTER">
                                  <font>
                                     <Font name="Infinity" size="30.0" />
                                  </font>
                               </Label>
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                        <HBox alignment="CENTER_LEFT" style="-fx-border-width: 1px; -fx-border-color: white; -fx-border-style: hidden hidden solid hidden; " GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="2">
                            <children>
-                              <Label fx:id="features" styleClass="options-area-labels" text="Features:" />
+                              <Label fx:id="features" style="-fx-font-size: 10pt;" styleClass="options-area-labels" text="Features:" />
                            </children>
                         </HBox>
                         <HBox alignment="BOTTOM_LEFT" GridPane.columnIndex="0" GridPane.columnSpan="1" GridPane.rowIndex="3">
                            <children>
-                              <CheckBox fx:id="whiteboard" styleClass="options-area-labels" mnemonicParsing="false" text="Whiteboard">
+                              <CheckBox fx:id="whiteboard" mnemonicParsing="false" styleClass="options-area-labels" text="Whiteboard">
                                  <HBox.margin>
                                     <Insets top="5.0" />
                                  </HBox.margin></CheckBox>
@@ -73,7 +75,7 @@
                         </HBox>
                         <HBox alignment="BOTTOM_LEFT" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
                            <children>
-                              <CheckBox fx:id="projector" styleClass="options-area-labels" mnemonicParsing="false" text="Projector">
+                              <CheckBox fx:id="projector" mnemonicParsing="false" styleClass="options-area-labels" text="Projector">
                                  <HBox.margin>
                                     <Insets top="5.0" />
                                  </HBox.margin></CheckBox>
@@ -85,9 +87,9 @@
                               <Insets />
                            </GridPane.margin>
                         </HBox>
-                        <HBox alignment="BOTTOM_LEFT" GridPane.columnSpan="1" GridPane.columnIndex="0" GridPane.rowIndex="4">
+                        <HBox alignment="BOTTOM_LEFT" GridPane.columnIndex="2" GridPane.columnSpan="1" GridPane.rowIndex="3">
                            <children>
-                              <CheckBox fx:id="coffeMachine" styleClass="options-area-labels" mnemonicParsing="false" text="Coffe machine">
+                              <CheckBox fx:id="coffeMachine" mnemonicParsing="false" styleClass="options-area-labels" text="Coffe machine">
 
                               </CheckBox>
                            </children>
@@ -98,7 +100,7 @@
                               <Insets />
                            </GridPane.margin>
                         </HBox>
-                        <HBox alignment="CENTER_LEFT" GridPane.rowIndex="5">
+                        <HBox alignment="CENTER_LEFT" style="-fx-border-width: 1px; -fx-border-color: white; -fx-border-style: hidden hidden solid hidden;" GridPane.columnSpan="3" GridPane.rowIndex="4">
                            <children>
                               <Label fx:id="roomSize" styleClass="options-area-labels" text="Room size:">
                                  <HBox.margin>
@@ -107,74 +109,115 @@
                               </Label>
                            </children>
                         </HBox>
-                        <HBox GridPane.rowIndex="6" GridPane.columnIndex="0">
+                        <HBox GridPane.columnIndex="0" GridPane.rowIndex="5">
                            <children>
-                              <CheckBox fx:id="small" styleClass="options-area-labels" mnemonicParsing="false" prefHeight="20.0" prefWidth="92.0" text="Small">
+                              <CheckBox fx:id="small" mnemonicParsing="false" prefHeight="20.0" prefWidth="92.0" styleClass="options-area-labels" text="Small">
                                  <HBox.margin>
-                                    <Insets />
+                                    <Insets bottom="5" top="5" />
                                  </HBox.margin>
                               </CheckBox>
                            </children>
                         </HBox>
-                        <HBox GridPane.rowIndex="6" GridPane.columnIndex="1">
+                        <HBox GridPane.columnIndex="1" GridPane.rowIndex="5">
                            <children>
-                              <CheckBox fx:id="medium" styleClass="options-area-labels" mnemonicParsing="false" text="Medium">
+                              <CheckBox fx:id="medium" mnemonicParsing="false" styleClass="options-area-labels" text="Medium">
                                  <HBox.margin>
-                                    <Insets top="5.0" />
+                                    <Insets bottom="5" top="5.0" />
                                  </HBox.margin>
                               </CheckBox>
                            </children>
                         </HBox>
-                        <HBox GridPane.rowIndex="6" GridPane.columnIndex="2">
+                        <HBox GridPane.columnIndex="2" GridPane.rowIndex="5">
                            <children>
-                              <CheckBox fx:id="large" styleClass="options-area-labels" mnemonicParsing="false" text="Large">
+                              <CheckBox fx:id="large" mnemonicParsing="false" styleClass="options-area-labels" text="Large">
                                  <HBox.margin>
-                                    <Insets top="5.0" />
+                                    <Insets bottom="5" top="5.0" />
                                  </HBox.margin></CheckBox>
                            </children>
                         </HBox>
-                        <HBox GridPane.columnIndex="0" GridPane.rowIndex="7">
+                        <HBox alignment="CENTER_LEFT" style="-fx-border-width: 1px; -fx-border-color: white; -fx-border-style: hidden hidden solid hidden; " GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="6">
                            <children>
                               <Label fx:id="date" styleClass="options-area-labels" text="Date:">
                                  <HBox.margin>
-                                    <Insets top="5.0" />
+                                    <Insets />
                                  </HBox.margin></Label>
                            </children>
                         </HBox>
-                        <HBox GridPane.columnIndex="1" GridPane.rowIndex="7" GridPane.columnSpan="2">
+                        <HBox fx:id="datePickerBox" alignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="1" GridPane.rowIndex="7">
+                           <GridPane.margin>
+                              <Insets top="5" />
+                           </GridPane.margin>
                            <children>
                               <DatePicker fx:id="datePicker" />
                            </children>
                         </HBox>
-                        <HBox GridPane.rowIndex="8">
+                        <HBox style="-fx-border-width: 1px; -fx-border-color: white; -fx-border-style: hidden hidden solid hidden; " GridPane.columnSpan="3" GridPane.rowIndex="8">
                            <children>
-                              <Label fx:id="fomTime" styleClass="options-area-labels" text="From time:">
+                              <Label fx:id="fromTime" styleClass="options-area-labels" text="From:">
                                  <HBox.margin>
                                     <Insets top="5.0" />
                                  </HBox.margin></Label>
                            </children>
                         </HBox>
-                        <HBox  GridPane.rowIndex="9" GridPane.rowSpan="4" GridPane.columnIndex="0" GridPane.columnSpan="3">
+                        <HBox alignment="CENTER" styleClass="timeBox" GridPane.columnIndex="0" GridPane.columnSpan="1" GridPane.rowIndex="9" GridPane.rowSpan="1">
+                           <GridPane.margin>
+                              <Insets top="10" />
+                           </GridPane.margin>
+                              <children>
+                                 <Label fx:id="fromHourDisplayed" styleClass="timeText" />
+                                 <Label fx:id="fromMinuteDisplayed" styleClass="timeText" />
+                                 <Label fx:id="fromAmPm" styleClass="timeText" />
+                              </children>
+                        </HBox>
+                        <HBox alignment="TOP_LEFT" spacing="10" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="9" GridPane.rowSpan="1">
+                           <GridPane.margin>
+                              <Insets top="10" />
+                           </GridPane.margin>
                            <children>
-                              <LocalTimePicker fx:id="fromTimeInput" prefWidth="400" prefHeight="300"></LocalTimePicker>
-                              <!--<TextField fx:id="fromTimeInput" promptText="i.e. 12:00" />-->
+                              <VBox spacing="10">
+                              <Label prefWidth="60" styleClass="options-area-labels" text="Hour" />
+                                 <Label prefWidth="60" styleClass="options-area-labels" text="Minute" />
+                              </VBox>
+                              <VBox spacing="11">
+                                 <Slider fx:id="fromHourSlider" prefWidth="250" />
+                                 <Slider fx:id="fromMinuteSlider" prefWidth="250" />
+                              </VBox>
                            </children>
                         </HBox>
-                        <HBox GridPane.rowIndex="13">
+                        <HBox style="-fx-border-width: 1px; -fx-border-color: white; -fx-border-style: hidden hidden solid hidden; " GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="10" GridPane.rowSpan="1">
                            <children>
-                              <Label fx:id="toTime" styleClass="options-area-labels" text="To time:">
+                              <Label fx:id="toTime" styleClass="options-area-labels" text="To:">
                                  <HBox.margin>
                                     <Insets top="5.0" />
                                  </HBox.margin></Label>
                            </children>
                         </HBox>
-                        <HBox  GridPane.rowIndex="14" GridPane.rowSpan="4" GridPane.columnIndex="0" GridPane.columnSpan="3">
+                        <HBox alignment="CENTER" styleClass="timeBox" GridPane.columnIndex="0" GridPane.columnSpan="1" GridPane.rowIndex="11" GridPane.rowSpan="1">
+                           <GridPane.margin>
+                              <Insets top="10" />
+                           </GridPane.margin>
+                              <children>
+                                 <Label fx:id="toHourDisplayed" styleClass="timeText" />
+                                 <Label fx:id="toMinuteDisplayed" styleClass="timeText" />
+                                 <Label fx:id="toAmPm" styleClass="timeText" />
+                              </children>
+                        </HBox>
+                        <HBox alignment="TOP_LEFT" spacing="10" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="11" GridPane.rowSpan="1">
+                           <GridPane.margin>
+                              <Insets top="10" />
+                           </GridPane.margin>
                            <children>
-                              <!--<TextField fx:id="toTimeInput" promptText="i.e. 14:00" />-->
-                              <LocalTimePicker  fx:id="toTimeInput" style="-fx-progress-color: crimson" prefWidth="400" prefHeight="300" ></LocalTimePicker>
+                              <VBox spacing="10">
+                                 <Label prefWidth="60" styleClass="options-area-labels" text="Hour" />
+                                 <Label prefWidth="60" styleClass="options-area-labels" text="Minute" />
+                              </VBox>
+                              <VBox spacing="11">
+                                 <Slider fx:id="toHourSlider" prefWidth="250" />
+                                 <Slider fx:id="toMinuteSlider" prefWidth="250" />
+                              </VBox>
                            </children>
                         </HBox>
-                        <HBox GridPane.rowIndex="18">
+                        <HBox GridPane.rowIndex="12">
                            <children>
                               <Label fx:id="location" styleClass="options-area-labels" text="Location:">
                                  <HBox.margin>
@@ -182,17 +225,43 @@
                                  </HBox.margin></Label>
                            </children>
                         </HBox>
-                        <HBox GridPane.rowIndex="19">
+                        <HBox GridPane.rowIndex="13">
                            <children>
-                              <ChoiceBox fx:id="locationPick"  prefWidth="150.0" />
+                              <ChoiceBox fx:id="locationPick" prefWidth="150.0" />
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER_LEFT" GridPane.columnSpan="3" GridPane.rowIndex="20">
+                        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="1" GridPane.rowIndex="14">
                            <children>
-                              <Button fx:id="searchButton" mnemonicParsing="false" onAction="#Search" styleClass="search-button" text="Search" />
+                              <Button fx:id="searchButton" mnemonicParsing="false" onAction="#Search" prefWidth="100" styleClass="search-button" text="Search" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="15">
+                           <GridPane.margin>
+                              <Insets top="10.0" />
+                           </GridPane.margin>
+                           <children>
+                              <Label fx:id="searchErrorLabel" styleClass="error-message" />
                            </children>
                         </HBox>
                      </children>
+                     <rowConstraints>
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                     </rowConstraints>
                   </GridPane>
                </children>
                <padding>
@@ -202,10 +271,8 @@
          </children>
       </AnchorPane>
    </left>
+
    <top>
-
-
-
       <AnchorPane id="top-area" fx:id="topAnchorPane" prefHeight="103.0" prefWidth="1000.0" styleClass="top-area" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets />
@@ -221,19 +288,30 @@
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints />
                </rowConstraints>
                <children>
 
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="237.0" GridPane.columnIndex="0">
                      <children>
-                        <Label styleClass="top-anchorpanetext" text="Logged in as: Team9"></Label>
+                        <Label fx:id="loggedInAs" styleClass="top-anchorpanetext" text="Logged in as: Team9">
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin></Label>
+                        <Button fx:id="userProfileButton" alignment="CENTER_RIGHT" onAction="#showUserProfile" styleClass="search-button" text="Profile">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin></Button>
                      </children>
                   </HBox>
+                  
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="237.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                  
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="0">
                      <children>
 
 
-                           <Label fx:id="loginLabel"  alignment="TOP_LEFT"  styleClass="options-area-labels" text="Book a room!" textAlignment="CENTER">
+                           <Label fx:id="loginLabel" alignment="TOP_LEFT" styleClass="upBigLabels" text="Book a room!" textAlignment="CENTER">
                               <font>
                                  <Font name="Infinity" size="50.0" />
                               </font>
@@ -248,7 +326,7 @@
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="237.0" GridPane.columnIndex="4">
                      <children>
 
-                        <Button mnemonicParsing="false" text="Sign Out" />
+                        <Button mnemonicParsing="false" onAction="#SignOut" styleClass="search-button" text="Sign Out" />
                      </children>
                   </HBox>
                </children>
@@ -262,21 +340,26 @@
 
    </top>
    <center>
-      <AnchorPane fx:id="resultAnchorPane" minHeight="100.0" minWidth="100.0" BorderPane.alignment="CENTER" styleClass="result-area">
+      <AnchorPane fx:id="resultAnchorPane" minHeight="100.0" minWidth="100.0" styleClass="result-area" BorderPane.alignment="CENTER">
          <children>
-            <GridPane  AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <VBox id="options-area" layoutX="8.0" layoutY="14.0" prefHeight="490.0" prefWidth="490.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <GridPane gridLinesVisible="true" hgap="5.0" vgap="5.0">
                <columnConstraints>
                   <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
                </columnConstraints>
                <rowConstraints>
-                  <RowConstraints maxHeight="75.33334350585938" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="365.3333282470703" minHeight="10.0" prefHeight="334.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="141.33334350585938" minHeight="0.0" prefHeight="52.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="75.0" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="400.0" minHeight="10.0" prefHeight="377.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="141.0" minHeight="0.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                     <RowConstraints />
                </rowConstraints>
                <children>
                   <HBox alignment="CENTER">
+                     <!--<GridPane.margin>-->
+                        <!--<Insets bottom="40" top="60"></Insets>-->
+                     <!--</GridPane.margin>-->
                      <children>
-                        <Label alignment="CENTER" prefHeight="23.0" prefWidth="172.0" styleClass="options-area-labels" text="Search Results">
+                        <Label alignment="CENTER" prefHeight="23.0" prefWidth="172.0" styleClass="upBigLabels" text="Search Results">
                            <font>
                              <Font name="Infinity" size="30.0" />
                            </font>
@@ -286,11 +369,25 @@
                   <HBox fx:id="paginationBox" GridPane.rowIndex="1" />
                   <HBox alignment="CENTER" GridPane.rowIndex="2">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#bookRoom" text="Confirm" />
+                        <Button mnemonicParsing="false" onAction="#bookRoom" styleClass="search-button" text="Book Selected" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" GridPane.rowIndex="3">
+                     <!--<GridPane.margin>-->
+                        <!--<Insets top="20"></Insets>-->
+                     <!--</GridPane.margin>-->
+                     <children>
+                        <ProgressIndicator fx:id="bookingProgress" visible="false" />
+                        <Label fx:id="bookingResultLabel" alignment="CENTER" styleClass="options-area-labels" visible="false">
+                           <font>
+                              <Font name="Infinity" size="30.0" />
+                           </font>
+                        </Label>
                      </children>
                   </HBox>
                </children>
             </GridPane>
+            </VBox>
          </children>
          <BorderPane.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" />

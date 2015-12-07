@@ -7,18 +7,20 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Circle?>
 
-<GridPane fx:id="registerPane" gridLinesVisible="true" prefWidth="432.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team9.bookingsystem.Controllers.RegisterController">
+<!--by nima-->
+
+<GridPane fx:id="registerPane" gridLinesVisible="false" prefWidth="432.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team9.bookingsystem.Controllers.RegisterController">
     <children>
 
-        <HBox alignment="CENTER" spacing="10" GridPane.columnIndex="0" GridPane.columnSpan="2">
+        <HBox alignment="CENTER" spacing="10" GridPane.columnIndex="0" GridPane.columnSpan="3">
 
             <Label fx:id="registerLabel" styleClass="login-title" text="Register" />
 
             <GridPane.margin>
-                <Insets bottom="10" left="50" right="100" top="10" />
+                <Insets bottom="10" left="10" right="10" top="10" />
             </GridPane.margin>
          <padding>
-            <Insets left="100.0" />
+            <Insets  />
          </padding>
 
 
@@ -53,7 +55,7 @@
       <HBox alignment="CENTER_LEFT" GridPane.rowIndex="4">
          <children>
               
-         <Label styleClass="register-labels" text="Last Name"/>
+         <Label styleClass="register-labels" text="Last Name" />
          </children>
          <padding>
             <Insets left="90.0" />
@@ -93,7 +95,7 @@
                 <Insets bottom="10" left="10" right="10" top="10" />
             </GridPane.margin>
 
-            <TextField fx:id="username"  promptText="Enter Username" />
+            <TextField fx:id="username" promptText="Enter Username" />
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
@@ -127,7 +129,7 @@
                 <Insets bottom="10" left="10" right="10" top="10" />
             </GridPane.margin>
 
-            <TextField fx:id="lastname" promptText="Enter Last Name"/>
+            <TextField fx:id="lastname" promptText="Enter Last Name" />
 
 
         </HBox>
@@ -139,7 +141,7 @@
                 <Insets bottom="10" left="10" right="10" top="10" />
             </GridPane.margin>
 
-            <TextField fx:id="personnumber" promptText="Enter SSN"/>
+            <TextField fx:id="personnumber" promptText="Enter SSN" />
             
             </HBox>
      
@@ -150,7 +152,7 @@
                 <Insets bottom="10" left="10" right="10" top="10" />
             </GridPane.margin>
 
-            <TextField fx:id="adress" promptText="Enter Adress"/>
+            <TextField fx:id="adress" promptText="Enter Adress" />
             
         </HBox>
 
@@ -160,7 +162,7 @@
                 <Insets bottom="10" left="10" right="10" top="10" />
             </GridPane.margin>
 
-            <TextField fx:id="zip"  promptText="Enter Zip Code" />
+            <TextField fx:id="zip" promptText="Enter Zip Code" />
         </HBox>
        
         <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="1" GridPane.rowIndex="8">
@@ -169,7 +171,7 @@
                 <Insets bottom="10" left="10" right="10" top="10" />
             </GridPane.margin>
 
-            <Button fx:id="register" onAction="#register" text="Register" />
+            <Button fx:id="register" onAction="#register" text="Register" styleClass="search-button"/>
 
         </HBox>
 
@@ -179,12 +181,117 @@
                 <Insets bottom="10" left="10" right="10" top="10" />
             </GridPane.margin>
 
-            <Button fx:id="back" onAction="#showWelcomeArea" text="Back" />
+            <Button fx:id="back" onAction="#showWelcomeArea" text="Back" styleClass="search-button"/>
          <padding>
             <Insets left="30.0" />
          </padding>
             
 
+        </HBox>
+      <HBox alignment="CENTER" prefWidth="200"  GridPane.columnIndex="2" GridPane.rowIndex="1">
+         <children>
+            <Label styleClass="options-area-labels"  fx:id="userNameProgressLabel" text="Label" />
+         </children>
+      </HBox>
+        <HBox  alignment="CENTER" prefWidth="200" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <GridPane.margin>
+                <Insets top="15"></Insets>
+            </GridPane.margin>
+            <children>
+                <ProgressIndicator  fx:id="usernameProgress"  />
+
+            </children>
+        </HBox>
+      <HBox alignment="CENTER" prefWidth="100"  GridPane.columnIndex="2" GridPane.rowIndex="2">
+         <children>
+             <VBox alignment="CENTER">
+                 <HBox.margin>
+                     <Insets bottom="20"></Insets>
+                 </HBox.margin>
+                 <children>
+                     <Label styleClass="register-labels" fx:id="passwordProgressLabel" text="Label" />
+                     <ProgressBar fx:id="passwordSecurityProgress"></ProgressBar>
+
+                 </children>
+             </VBox>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefWidth="150"  GridPane.columnIndex="2" GridPane.rowIndex="2">
+          <children>
+              <ProgressIndicator  fx:id="passwordProgress" progress="0.0" />
+              <Label fx:id="passwordErrorLabel" styleClass="register-labels"></Label>
+          </children>
+      </HBox>
+
+      <HBox alignment="CENTER" prefWidth="100"  GridPane.columnIndex="2" GridPane.rowIndex="3">
+          <GridPane.margin>
+              <Insets top="15"></Insets>
+          </GridPane.margin>
+          <children>
+            <ProgressIndicator  fx:id="firstnameProgress" progress="0.0" />
+
+         </children>
+      </HBox>
+        <HBox alignment="CENTER" prefWidth="100"  GridPane.columnIndex="2" GridPane.rowIndex="3">
+            <children>
+                <Label styleClass="options-area-labels"  fx:id="firstnameProgressLabel" text="Label" />
+            </children>
+        </HBox>
+      <HBox alignment="CENTER"  GridPane.columnIndex="2" GridPane.rowIndex="4">
+          <GridPane.margin>
+              <Insets top="15"></Insets>
+          </GridPane.margin>
+          <children>
+
+            <ProgressIndicator  fx:id="lastnameProgress" progress="0.0" />
+         </children>
+      </HBox>
+        <HBox alignment="CENTER"  GridPane.columnIndex="2" GridPane.rowIndex="4">
+            <children>
+                <Label styleClass="options-area-labels"  fx:id="lastnameProgressLabel" text="Label" />
+
+            </children>
+        </HBox>
+      <HBox alignment="CENTER"  GridPane.columnIndex="2" GridPane.rowIndex="5">
+          <GridPane.margin>
+              <Insets top="15"></Insets>
+          </GridPane.margin>
+         <children>
+             <ProgressIndicator  fx:id="pNumberProgress" progress="0.0" />
+         </children>
+      </HBox>
+        <HBox alignment="CENTER"  GridPane.columnIndex="2" GridPane.rowIndex="5">
+            <children>
+                <Label styleClass="options-area-labels"  fx:id="pNumberProgressLabel" text="Label" />
+            </children>
+        </HBox>
+      <HBox alignment="CENTER"  GridPane.columnIndex="2" GridPane.rowIndex="6">
+          <GridPane.margin>
+              <Insets top="15"></Insets>
+          </GridPane.margin>
+          <children>
+             <ProgressIndicator fx:id="streetProgress" progress="0.0" />
+         </children>
+      </HBox>
+        <HBox alignment="CENTER"  GridPane.columnIndex="2" GridPane.rowIndex="6">
+            <children>
+                <Label styleClass="options-area-labels"  fx:id="streetProgressLabel" text="Label" />
+
+            </children>
+        </HBox>
+      <HBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="7">
+          <GridPane.margin>
+              <Insets top="15"></Insets>
+          </GridPane.margin>
+          <children>
+              <ProgressIndicator  fx:id="zipCodeProgress" progress="0.0" />
+         </children>
+      </HBox>
+        <HBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="7">
+            <children>
+                <Label styleClass="options-area-labels"  fx:id="zipCodeProgressLabel" text="Label" />
+
+            </children>
         </HBox>
 
 
@@ -195,18 +302,19 @@
    <columnConstraints>
       <ColumnConstraints maxWidth="245.0" minWidth="220.0" prefWidth="223.0" />
       <ColumnConstraints maxWidth="212.0" minWidth="187.0" prefWidth="209.0" />
-      <ColumnConstraints />
+      <ColumnConstraints minWidth="200" prefWidth="200"/>
+
    </columnConstraints>
    <rowConstraints>
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints maxHeight="69.0" minHeight="15.0" prefHeight="48.0" />
-      <RowConstraints maxHeight="77.0" minHeight="23.0" prefHeight="44.0" />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
+      <RowConstraints minHeight="70"/>
+      <RowConstraints minHeight="70"/>
+      <RowConstraints minHeight="70"/>
+      <RowConstraints minHeight="70"/>
+      <RowConstraints minHeight="70" />
+      <RowConstraints minHeight="70"/>
+      <RowConstraints minHeight="70"/>
+      <RowConstraints minHeight="70"/>
+      <RowConstraints minHeight="70"/>
    </rowConstraints>
    <opaqueInsets>
       <Insets />
