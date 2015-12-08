@@ -401,7 +401,7 @@ public class AdminController {
 
     searchedForObject = searchedFor.room;
 
-    System.out.println("Searching in AdminController");
+    System.out.println("Searching in AdminController for rooms");
 
 
 
