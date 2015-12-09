@@ -364,7 +364,7 @@ public class BookingController {
         this.mainController = mainController;
         this.loggedInUser = user;
         this.loggedInUser.downloadAvatar();
-        System.out.println("USER TYPE: "+loggedInUser.getUserType());
+        System.out.println("USER TYPE: " + loggedInUser.getUserType());
         if(loggedInUser.getUserType()==1){
             loggedInAs.setText("User: " + loggedInUser.getUserName() + " \nType: Lecturer");
         }else if(loggedInUser.getUserType()==2){
@@ -567,6 +567,8 @@ public class BookingController {
         if(fromLocalDate.isBefore(currentDate)){
             throw new Exception("The date that you picked is before todays date!");
         }
+
+        //if(checkBookingTime(loggedInUser, TODAYS DATE)
 
         LocalTime currentTime = LocalTime.now();
         LocalTime fromLocalTime = LocalTime.of((int)fromHourSlider.getValue(),(int)fromMinuteSlider.getValue());
