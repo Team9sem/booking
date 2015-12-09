@@ -122,6 +122,7 @@ public class BookingController {
         //choices.addAll("OneChoice");
         locationPick.getItems().clear();
         locationPick.setItems(choices);
+        locationPick.getSelectionModel().select(0);
 
 
     }

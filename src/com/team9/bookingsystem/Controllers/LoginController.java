@@ -8,6 +8,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import java.awt.event.KeyEvent;
 
 
 /**
@@ -54,6 +55,7 @@ public class LoginController
     @FXML public void showWelcomeArea(){
         // TODO: take user back to welcome area
         mainController.showWelcomeArea();
+
     }
 
     /**
@@ -79,6 +81,15 @@ public class LoginController
             // Starting the Service
             loginService.start();
             // when Service has succeeded Call mainController to switch to Booking interface.
+
+//            loginService.setOnSucceeded(final EventHandler<KeyEvent>(){
+//                public void handle(final KeyEvent e) {
+//                    if (e.getKeyCode()== KeyEvent.VK_ENTER){
+//                        System.out.println("Hello");
+//                    }
+//                }
+//            });
+
             loginService.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
                 @Override
                 public void handle(WorkerStateEvent event) {
@@ -103,6 +114,10 @@ public class LoginController
             // Todo: show error message in GUI
         }
 
+    }
+
+    public void onEnter(){
+        login();
     }
 
 

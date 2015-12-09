@@ -240,6 +240,7 @@ public class MysqlUtil {
 
     public ArrayList<String> getLocations(){
         ArrayList<String> locations = new ArrayList<>();
+        locations.add("N/A");
 
         try(Connection connection = getConnection()){
 
@@ -483,6 +484,7 @@ public class MysqlUtil {
                                    String timeEnd){
 
         System.out.println("inside composemethod");
+        if(location=="N/A") location ="";
 
         String query = "SELECT * FROM Room WHERE Room.roomID> 0 ";
 
@@ -828,11 +830,11 @@ public class MysqlUtil {
         ArrayList<Room> roomArrayList = new ArrayList<>();
 
         String roomID = ""+room.getRoomID();
-        if(room.getRoomID()==0){ roomID = ""; }
 
         String query="SELECT * FROM Room WHERE roomID = '"+roomID+"' ";
+        if(room.getRoomID()==0){ query="SELECT * FROM Room WHERE roomID > 0"; }
 
-        query += " AND( ";
+        if(small||medium||large) query += " AND( ";
         if(small && medium && large) query += "roomSize = 'S' OR roomSize = 'M' OR roomSize = 'L' )";
         else if(small){
             if(medium) query += "roomSize = 'S' OR roomSize = 'M' )";
@@ -848,24 +850,24 @@ public class MysqlUtil {
             query = "SELECT * FROM Room WHERE Room.roomID> 0 ";
         }
 
-        query += " AND( ";
+        if(room.getHasProjector()>0 || room.getHasWhiteboard()>0 || room.getHasCoffeeMachine()>0) query += " AND( ";
         if(room.getHasProjector()>0 && room.getHasWhiteboard()>0 && room.getHasCoffeeMachine()>0){
-            query += "hasProjector = '1' OR hasWhiteboard = '1' OR hasCoffeeMachine = '1' )";
+            query += "hasProjector = '1' AND hasWhiteboard = '1' AND hasCoffeeMachine = '1' )";
         }
         else if(room.getHasProjector()>0){
-            if(room.getHasWhiteboard()>0) query += "hasProjector = '1' OR hasWhiteboard = '1' )";
-            else if(room.getHasCoffeeMachine()>0) query += "hasProjector = '1' OR hasCoffeeMachine = '1' )";
+            if(room.getHasWhiteboard()>0) query += "hasProjector = '1' AND hasWhiteboard = '1' )";
+            else if(room.getHasCoffeeMachine()>0) query += "hasProjector = '1' AND hasCoffeeMachine = '1' )";
             else  query += "hasProjector = '1')";
         }
         else if(room.getHasWhiteboard()>0){
-            if(room.getHasCoffeeMachine()>0) query += "hasWhiteboard = '1' OR hasCoffeeMachine = '1')";
+            if(room.getHasCoffeeMachine()>0) query += "hasWhiteboard = '1' AND hasCoffeeMachine = '1')";
             else query += "hasWhiteboard = '1' )";
         }
         else if(room.getHasCoffeeMachine()>0) query += "hasCoffeeMachine = '1')";
-        else{
-            query = "SELECT * FROM Room WHERE Room.roomID> 0 ";
-        }
-
+//        else{
+//            query = "SELECT * FROM Room WHERE Room.roomID> 0 ";
+//        }
+        System.out.println(query);
         try(Connection connection = getConnection()){
 
             System.out.println("\nUser Connection Established\n");
