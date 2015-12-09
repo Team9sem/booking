@@ -52,7 +52,8 @@ public class ScheduleController implements PopupController {
     public void init(MainController mainController,Room room,User user,User loggedInUser){
 
 
-
+        this.user = user;
+        this.room = room;
         this.mainController = mainController;
         this.loggedInUser = loggedInUser;
         scheduleBox.getChildren().add(agenda);
@@ -85,23 +86,26 @@ public class ScheduleController implements PopupController {
     }
 
     private void setupAgenda(){
-
+        System.out.println("setting up agenda");
         if(room != null){
-
+            System.out.println("setting up a room agenda");
             agenda.setStyle("-fx-font-family: sans-serif;");
-
+            System.out.println("getting bookings for"+room.toString());
             MysqlUtil util = new MysqlUtil();
             ArrayList<Booking> bookings= util.getBookings(room);
+            System.out.println(bookings.size());
             System.out.println(bookings);
 
             ArrayList<Agenda.AppointmentImplLocal> appointments = new ArrayList<>();
+
+
 
             for(Booking booking : bookings){
                 Agenda.AppointmentImplLocal appointment = new Agenda.AppointmentImplLocal();
                 appointment.withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group0"));
                 appointment.setDescription(room.getLocation());
-                User appointmentUser = util.getUserFromId(booking.getUser().getUserID());
-                appointment.setSummary("Room: "+room.getLocation()+"\nBooked By:"+appointmentUser.getFirstName());
+
+                appointment.setSummary("Room: "+booking.getRoom().getLocation()+"\nBooked By:"+booking.getUser().getFirstName());
                 String date = booking.getbdate();
 
                 int year = Integer.parseInt(date.substring(0, 4));
@@ -145,7 +149,7 @@ public class ScheduleController implements PopupController {
 //        appointment.setStartTime(Calendar.getInstance().);
         }
         if(user != null){
-
+            System.out.println("setting up a user agenda");
             agenda.setStyle("-fx-font-family: sans-serif;");
 
             MysqlUtil util = new MysqlUtil();
@@ -153,7 +157,7 @@ public class ScheduleController implements PopupController {
             Arrays.asList(util.GetUserBookings(user.getUserID()))
                     .stream()
                     .forEach(element -> bookings.add(element));
-
+            System.out.println(bookings.size());
             System.out.println(bookings);
 
             ArrayList<Agenda.AppointmentImplLocal> appointments = new ArrayList<>();
@@ -161,9 +165,8 @@ public class ScheduleController implements PopupController {
             for(Booking booking : bookings){
                 Agenda.AppointmentImplLocal appointment = new Agenda.AppointmentImplLocal();
                 appointment.withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group0"));
-                appointment.setDescription(user.getUserName());
-                User appointmentUser = util.getUserFromId(booking.getUser().getUserID());
-                appointment.setSummary("Room: "+room.getLocation()+"\nBooked By:"+appointmentUser.getFirstName());
+                appointment.setDescription(booking.getUser().getUserName());
+                appointment.setSummary("Room: "+booking.getRoom().getLocation()+"\nBooked By:"+booking.getUser().getFirstName());
                 String date = booking.getbdate();
 
                 int year = Integer.parseInt(date.substring(0, 4));
@@ -202,8 +205,12 @@ public class ScheduleController implements PopupController {
 
             }
 
+
             appointments.forEach(element -> agenda.appointments().add(element));
 
+        }
+        else{
+            System.out.println("all items are null");
         }
 
     }

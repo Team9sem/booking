@@ -177,6 +177,7 @@ public class BookingController {
 
                 if(newValue.intValue() < 10){
                     fromMinuteDisplayed.setText(String.format("0%d",newValue.intValue()));
+                    System.out.println("");
                 }
                 else{
                     fromMinuteDisplayed.setText(String.format("%d",newValue.intValue()));
@@ -221,12 +222,18 @@ public class BookingController {
             }
         });
 
-        fromHourDisplayed.setText(String.format("%d:",(int)fromHourSlider.getValue()));
-        fromMinuteDisplayed.setText(String.format("0%d:",(int)fromMinuteSlider.getValue()));
-        toHourDisplayed.setText(String.format("%d:",(int)toHourSlider.getValue()));
-        toMinuteDisplayed.setText(String.format("0%d:",(int)toMinuteSlider.getValue()));
-        fromAmPm.setText("PM");
-        toAmPm.setText("PM");
+        fromHourSlider.setValue(LocalTime.now().getHour());
+        fromMinuteSlider.setValue(LocalTime.now().getMinute());
+        toHourSlider.setValue(LocalTime.now().plusHours(3).getHour());
+        toMinuteSlider.setValue(LocalTime.now().getMinute());
+
+//        fromHourDisplayed.setText(String.format("%d:",(int)fromHourSlider.getValue()));
+//        fromMinuteDisplayed.setText(String.format("%d:",(int)fromMinuteSlider.getValue()));
+//        toHourDisplayed.setText(String.format("%d:",(int)toHourSlider.getValue()));
+//        toMinuteDisplayed.setText(String.format("%d:",(int)toMinuteSlider.getValue()));
+
+//        fromAmPm.setText("PM");
+//        toAmPm.setText("PM");
     }
 
 

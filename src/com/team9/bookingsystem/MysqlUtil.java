@@ -846,9 +846,9 @@ public class MysqlUtil {
             else query += "roomSize = 'M' )";
         }
         else if(large) query += "roomSize = 'L')";
-        else{
-            query = "SELECT * FROM Room WHERE Room.roomID> 0 ";
-        }
+//        else{
+//            query = "SELECT * FROM Room WHERE Room.roomID> 0 ";
+//        }
 
         if(room.getHasProjector()>0 || room.getHasWhiteboard()>0 || room.getHasCoffeeMachine()>0) query += " AND( ";
         if(room.getHasProjector()>0 && room.getHasWhiteboard()>0 && room.getHasCoffeeMachine()>0){
@@ -990,7 +990,7 @@ public class MysqlUtil {
                 user.setPassword(rs.getString("passwd"));
                 user.setFirstName(rs.getString("firstname"));
                 user.setLastName(rs.getString("lastname"));
-                user.setpNumber(rs.getInt("pNumber"));
+                user.setpNumber(rs.getLong("pNumber"));
                 user.setUserType(rs.getInt("usertype"));
                 user.setStreet(rs.getString("street"));
                 user.setZip(rs.getInt("zip"));
