@@ -364,7 +364,16 @@ public class BookingController {
         this.mainController = mainController;
         this.loggedInUser = user;
         this.loggedInUser.downloadAvatar();
-        loggedInAs.setText("Logged in as: " + loggedInUser.getUserName());
+        System.out.println("USER TYPE: "+loggedInUser.getUserType());
+        if(loggedInUser.getUserType()==1){
+            loggedInAs.setText("User: " + loggedInUser.getUserName() + " \nType: Lecturer");
+        }else if(loggedInUser.getUserType()==2){
+            loggedInAs.setText("User: " + loggedInUser.getUserName() + " \nType: Company");
+        }else if(loggedInUser.getUserType()==4){
+            loggedInAs.setText("User: " + loggedInUser.getUserName() + " \nType: Admin");
+        }else if(loggedInUser.getUserType()==0) {
+            loggedInAs.setText("User: " + loggedInUser.getUserName() + " \nType: User");
+        }
 
 
 
