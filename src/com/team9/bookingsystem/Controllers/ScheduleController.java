@@ -1,7 +1,14 @@
 package com.team9.bookingsystem.Controllers;
 
 import com.team9.bookingsystem.*;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import jfxtras.scene.control.agenda.*;
@@ -30,6 +37,9 @@ public class ScheduleController implements PopupController {
     private DialogCallback callback;
     private boolean okClicked;
     @FXML private VBox scheduleBox;
+    @FXML private ProgressIndicator loadingProgress;
+    @FXML private Label loadingLabel;
+    @FXML private BorderPane progressPane;
 
 
     public void initialize() {
@@ -86,132 +96,193 @@ public class ScheduleController implements PopupController {
     }
 
     private void setupAgenda(){
+
         System.out.println("setting up agenda");
-        if(room != null){
-            System.out.println("setting up a room agenda");
-            agenda.setStyle("-fx-font-family: sans-serif;");
-            System.out.println("getting bookings for"+room.toString());
-            MysqlUtil util = new MysqlUtil();
-            ArrayList<Booking> bookings= util.getBookings(room);
-            System.out.println(bookings.size());
-            System.out.println(bookings);
+        loadingProgress.setProgress(-1.0);
+        loadingProgress.setVisible(true);
+        progressPane.setVisible(true);
+        loadingLabel.setText("Loading Schedule");
 
-            ArrayList<Agenda.AppointmentImplLocal> appointments = new ArrayList<>();
+        Service<ArrayList> agendaService = new Service<ArrayList>() {
+            @Override
+            protected Task<ArrayList> createTask() {
+                Task<ArrayList> task = new Task<ArrayList>() {
+                    @Override
+                    protected ArrayList call() throws Exception {
 
+                        if(room != null){
 
+                            MysqlUtil util = new MysqlUtil();
+                            ArrayList<Booking> bookings= util.getBookings(room);
+                            System.out.println(bookings.size());
+                            System.out.println(bookings);
+                            return bookings;
 
-            for(Booking booking : bookings){
-                Agenda.AppointmentImplLocal appointment = new Agenda.AppointmentImplLocal();
-                appointment.withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group0"));
-                appointment.setDescription(room.getLocation());
+                        }
+                        if(user != null){
 
-                appointment.setSummary("Room: "+booking.getRoom().getLocation()+"\nBooked By:"+booking.getUser().getFirstName());
-                String date = booking.getbdate();
+                            MysqlUtil util = new MysqlUtil();
+                            ArrayList<Booking> bookings = util.GetUserBookings(user.getUserID());
 
-                int year = Integer.parseInt(date.substring(0, 4));
-                System.out.println(year);
+                            System.out.println(bookings.size());
+                            System.out.println(bookings);
 
-                date = date.substring(5);
-                int month = Integer.parseInt(date.substring(0, 2));
-                System.out.println(month);
-                date = date.substring(3);
-                int day = Integer.parseInt(date.substring(0, 2));
-                System.out.println(day);
+                            return bookings;
 
-                String startTime = booking.getbStart();
-                int startHour = Integer.parseInt(startTime.substring(0,2));
-                startTime = startTime.substring(3);
-                int startMinute = Integer.parseInt(startTime.substring(0,2));
-                System.out.println(startHour);
-                System.out.println(startMinute);
-
-                appointment.setStartLocalDateTime(LocalDateTime.of(year,month,day,startHour,startMinute));
-
-                String endTime = booking.getbEnd();
-                int endHour = Integer.parseInt(endTime.substring(0,2));
-                endTime = endTime.substring(3);
-                int endMinute = Integer.parseInt(endTime.substring(0,2));
-                System.out.println(endHour);
-                System.out.println(endMinute);
-
-                appointment.setEndLocalDateTime(LocalDateTime.of(year, month, day, endHour, endMinute));
-
-                appointment.withDescription("Bajs");
-
-                appointments.add(appointment);
+                        }
+                        else{
+                            this.failed();
+                            return null;
+                        }
 
 
 
+                    }
+                };
+            return task;
             }
+        };
+        agendaService.start();
+        agendaService.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
 
-            appointments.forEach(element -> agenda.appointments().add(element));
+                if(room != null && agendaService.getValue()!= null){
+                    System.out.println("setting up a room agenda");
+                    agenda.setStyle("-fx-font-family: sans-serif;");
+                    System.out.println("getting bookings for"+room.toString());
+
+                    ArrayList<Booking> bookings= agendaService.getValue();
+                    System.out.println(bookings.size());
+                    System.out.println(bookings);
+
+                    ArrayList<Agenda.AppointmentImplLocal> appointments = new ArrayList<>();
+
+
+
+                    for(Booking booking : bookings){
+                        Agenda.AppointmentImplLocal appointment = new Agenda.AppointmentImplLocal();
+                        appointment.withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group0"));
+                        appointment.setDescription(room.getLocation());
+
+                        appointment.setSummary("Room: "+booking.getRoom().getLocation()+"\nBooked By:"+booking.getUser().getUserName());
+                        String date = booking.getbdate();
+
+                        int year = Integer.parseInt(date.substring(0, 4));
+                        System.out.println(year);
+
+                        date = date.substring(5);
+                        int month = Integer.parseInt(date.substring(0, 2));
+                        System.out.println(month);
+                        date = date.substring(3);
+                        int day = Integer.parseInt(date.substring(0, 2));
+                        System.out.println(day);
+
+                        String startTime = booking.getbStart();
+                        int startHour = Integer.parseInt(startTime.substring(0,2));
+                        startTime = startTime.substring(3);
+                        int startMinute = Integer.parseInt(startTime.substring(0,2));
+                        System.out.println(startHour);
+                        System.out.println(startMinute);
+
+                        appointment.setStartLocalDateTime(LocalDateTime.of(year,month,day,startHour,startMinute));
+
+                        String endTime = booking.getbEnd();
+                        int endHour = Integer.parseInt(endTime.substring(0,2));
+                        endTime = endTime.substring(3);
+                        int endMinute = Integer.parseInt(endTime.substring(0,2));
+                        System.out.println(endHour);
+                        System.out.println(endMinute);
+
+                        appointment.setEndLocalDateTime(LocalDateTime.of(year, month, day, endHour, endMinute));
+
+                        appointment.withDescription("Appointment");
+
+                        appointments.add(appointment);
+
+
+
+                    }
+
+                    appointments.forEach(element -> agenda.appointments().add(element));
 
 //        appointment.setStartTime(Calendar.getInstance().);
-        }
-        if(user != null){
-            System.out.println("setting up a user agenda");
-            agenda.setStyle("-fx-font-family: sans-serif;");
+                }
+                if(user != null && agendaService.getValue() != null){
+                    System.out.println("setting up a user agenda");
+                    agenda.setStyle("-fx-font-family: sans-serif;");
 
-            MysqlUtil util = new MysqlUtil();
-            ArrayList<Booking> bookings = new ArrayList<>();
-            Arrays.asList(util.GetUserBookings(user.getUserID()))
-                    .stream()
-                    .forEach(element -> bookings.add(element));
-            System.out.println(bookings.size());
-            System.out.println(bookings);
 
-            ArrayList<Agenda.AppointmentImplLocal> appointments = new ArrayList<>();
+                    ArrayList<Booking> bookings = agendaService.getValue();
 
-            for(Booking booking : bookings){
-                Agenda.AppointmentImplLocal appointment = new Agenda.AppointmentImplLocal();
-                appointment.withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group0"));
-                appointment.setDescription(booking.getUser().getUserName());
-                appointment.setSummary("Room: "+booking.getRoom().getLocation()+"\nBooked By:"+booking.getUser().getFirstName());
-                String date = booking.getbdate();
+                    System.out.println(bookings.size());
+                    System.out.println(bookings);
 
-                int year = Integer.parseInt(date.substring(0, 4));
-                System.out.println(year);
+                    ArrayList<Agenda.AppointmentImplLocal> appointments = new ArrayList<>();
 
-                date = date.substring(5);
-                int month = Integer.parseInt(date.substring(0, 2));
-                System.out.println(month);
-                date = date.substring(3);
-                int day = Integer.parseInt(date.substring(0, 2));
-                System.out.println(day);
+                    for(Booking booking : bookings){
+                        Agenda.AppointmentImplLocal appointment = new Agenda.AppointmentImplLocal();
+                        appointment.withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group0"));
+                        appointment.setDescription(booking.getUser().getUserName());
+                        appointment.setSummary("Room: "+booking.getRoom().getLocation()+"\nBooked By:"+booking.getUser().getFirstName());
+                        String date = booking.getbdate();
 
-                String startTime = booking.getbStart();
-                int startHour = Integer.parseInt(startTime.substring(0,2));
-                startTime = startTime.substring(3);
-                int startMinute = Integer.parseInt(startTime.substring(0,2));
-                System.out.println(startHour);
-                System.out.println(startMinute);
+                        int year = Integer.parseInt(date.substring(0, 4));
+                        System.out.println(year);
 
-                appointment.setStartLocalDateTime(LocalDateTime.of(year,month,day,startHour,startMinute));
+                        date = date.substring(5);
+                        int month = Integer.parseInt(date.substring(0, 2));
+                        System.out.println(month);
+                        date = date.substring(3);
+                        int day = Integer.parseInt(date.substring(0, 2));
+                        System.out.println(day);
 
-                String endTime = booking.getbEnd();
-                int endHour = Integer.parseInt(endTime.substring(0,2));
-                endTime = endTime.substring(3);
-                int endMinute = Integer.parseInt(endTime.substring(0,2));
-                System.out.println(endHour);
-                System.out.println(endMinute);
+                        String startTime = booking.getbStart();
+                        int startHour = Integer.parseInt(startTime.substring(0,2));
+                        startTime = startTime.substring(3);
+                        int startMinute = Integer.parseInt(startTime.substring(0,2));
+                        System.out.println(startHour);
+                        System.out.println(startMinute);
 
-                appointment.setEndLocalDateTime(LocalDateTime.of(year, month, day, endHour, endMinute));
+                        appointment.setStartLocalDateTime(LocalDateTime.of(year,month,day,startHour,startMinute));
 
-                appointment.withDescription("Bajs");
+                        String endTime = booking.getbEnd();
+                        int endHour = Integer.parseInt(endTime.substring(0,2));
+                        endTime = endTime.substring(3);
+                        int endMinute = Integer.parseInt(endTime.substring(0,2));
+                        System.out.println(endHour);
+                        System.out.println(endMinute);
 
-                appointments.add(appointment);
+                        appointment.setEndLocalDateTime(LocalDateTime.of(year, month, day, endHour, endMinute));
+
+                        appointment.withDescription("Appointment");
+
+                        appointments.add(appointment);
 
 
 
+                    }
+
+
+                    appointments.forEach(element -> agenda.appointments().add(element));
+                    loadingProgress.setVisible(false);
+                    loadingLabel.setVisible(false);
+                }
+
+                progressPane.setVisible(false);
             }
+        });
+        agendaService.setOnFailed(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+                System.out.println("something went wrong");
+            }
+        });
 
 
-            appointments.forEach(element -> agenda.appointments().add(element));
 
-        }
-        else{
-            System.out.println("all items are null");
-        }
+
+
 
     }
 }

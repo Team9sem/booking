@@ -100,7 +100,9 @@ public class LoginController
             // if Service Fails: ie login fails, display failedText.
             loginService.setOnFailed(new EventHandler<WorkerStateEvent>() {
                 @Override
+
                 public void handle(WorkerStateEvent event) {
+                    System.out.println("failed");
                     failedText.setVisible(true);
                 }
             });

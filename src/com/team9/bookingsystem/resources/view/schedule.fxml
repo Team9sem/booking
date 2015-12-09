@@ -28,11 +28,13 @@
                                 <Label fx:id="ScheduleTitle" styleClass="login-title" text="Schedule" />
                             </children>
                         </HBox>
-                  <HBox alignment="CENTER"  GridPane.columnIndex="2">
-                     <children>
-                        <Button mnemonicParsing="false" fx:id="closeButton" styleClass="search-button" onAction="#close" text="Close Dialog" />
-                     </children>
-                  </HBox>
+
+                        <HBox alignment="CENTER"  GridPane.columnIndex="2">
+                             <children>
+                                <Button mnemonicParsing="false" fx:id="closeButton" styleClass="search-button" onAction="#close" text="Close Dialog" />
+                             </children>
+                          </HBox>
+
                     </children>
                <columnConstraints>
                    <ColumnConstraints minWidth="200.0" prefWidth="300.0" />
@@ -58,7 +60,14 @@
             <RowConstraints />
          </rowConstraints>
         </GridPane>
-
+        <BorderPane fx:id="progressPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <center>
+                <HBox spacing="10" alignment="CENTER">
+                    <ProgressIndicator fx:id="loadingProgress"></ProgressIndicator>
+                    <Label fx:id="loadingLabel" styleClass="login-title" style="-fx-text-fill: black" text="Loading Schedule..."></Label>
+                </HBox>
+            </center>
+        </BorderPane>
 
 
     </children>

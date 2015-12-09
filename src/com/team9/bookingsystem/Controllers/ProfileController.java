@@ -95,12 +95,12 @@ public class ProfileController {
 	/**
 	 * by Pontus and Alemeseged
 	 *
-	 *	 
 	 *
 	 *
 	 *
 	 *
-	 *   and Pontus did the rest.
+	 *
+	 *
 	 * @param event
 	 */
 			@FXML public void handle(ActionEvent event){
