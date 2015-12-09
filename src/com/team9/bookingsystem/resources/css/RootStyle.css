@@ -106,7 +106,9 @@
 }
 .search-button:hover{
     -fx-background-color: rgb(228, 228, 228);
-
+}
+.search-button:selected{
+	-fx-background-color: rgb(184,184,184);
 }
 .check-box .box{
     -fx-background-color: rgb(255, 255, 255);
