@@ -145,7 +145,7 @@
                   <HBox spacing="20" alignment="CENTER" GridPane.rowIndex="3" GridPane.columnIndex="0">
                      <children>
 
-                        <Button prefWidth="140" styleClass="search-button" text="Show Schedule"></Button>
+                        <Button prefWidth="140" styleClass="search-button" text="Show Schedule" onAction="#showSchedule"></Button>
                         <Button prefWidth="100" styleClass="search-button" text="Delete" onAction="#deleteItem"></Button>
                         <Button prefWidth="100" styleClass="search-button" text="Add New" onAction="#displayAddItemPopup"></Button>
                      </children>

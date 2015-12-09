@@ -88,7 +88,7 @@
                   <Insets />
                </GridPane.margin>
                <children>
-                  <TextField fx:id="userName" styleClass="upLabels"/>
+                  <TextField fx:id="userName" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" GridPane.columnSpan="3" GridPane.columnIndex="0"  GridPane.rowIndex="6">
@@ -98,7 +98,7 @@
             </HBox>
             <HBox GridPane.columnSpan="3" GridPane.columnIndex="0" GridPane.rowIndex="7">
                <children>
-                  <TextField fx:id="firstName" styleClass="upLabels"/>
+                  <TextField fx:id="firstName" />
                </children>
             </HBox>
       <HBox GridPane.columnSpan="3" GridPane.rowIndex="8" GridPane.columnIndex="0">
@@ -108,7 +108,7 @@
       </HBox>
       <HBox GridPane.columnSpan="3" GridPane.rowIndex="9" GridPane.columnIndex="0">
          <children>
-            <TextField fx:id="lastName" styleClass="upLabels"/>
+            <TextField fx:id="lastName" />
          </children>
       </HBox>
             <HBox GridPane.columnSpan="3" GridPane.rowIndex="10" GridPane.columnIndex="0">
@@ -123,7 +123,7 @@
             </HBox>
             <HBox GridPane.columnSpan="3" GridPane.rowIndex="12">
                <children>
-                  <Label text="Pnumber:" styleClass="upLabels"/>
+                  <Label text="Pnumber:" />
                </children>
             </HBox>
             <HBox GridPane.columnSpan="3" GridPane.rowIndex="13">
