@@ -92,6 +92,17 @@ public class ProfileController {
 				}
 			}
 
+	/**
+	 * by Pontus and Alemeseged
+	 *
+	 *	 
+	 *
+	 *
+	 *
+	 *
+	 *   and Pontus did the rest.
+	 * @param event
+	 */
 			@FXML public void handle(ActionEvent event){
 				FileChooser fileChooser = new FileChooser();
 				fileChooser.setTitle("Add Profile Picture");
