@@ -191,17 +191,19 @@ public class ProfileController {
 	// Method that creates a table view for the User Profile
 	//
 
-	public class UserTableViewControler implements Initializable {
+	public class UserTableViewControlerCB implements Initializable {
 		//
-		TableView<UserBookingsProfile> UserProfile;
+		//TableView<UserBookingsProfile> UserProfile;
+		TableView<UserBookingsProfile> currentBookings;
 		
-		TableColumn Location = new TableColumn("Location");
+		
+		private TableColumn <UserBookingsProfile, String> Location = new TableColumn("Location");
 	    
-        TableColumn Date = new TableColumn("Date");
+        private TableColumn <UserBookingsProfile, String> Date = new TableColumn("Date");
 	    
-        TableColumn StartTime = new TableColumn("Start Time");
+        private TableColumn <UserBookingsProfile, String> StartTime= new TableColumn("Start Time");
 	    
-	    TableColumn EndTime = new TableColumn("End Time");
+	    private TableColumn <UserBookingsProfile, String> EndTime = new TableColumn("End Time");
 	    
 	    
 	    ObservableList<UserBookingsProfile> data= FXCollections.observableArrayList();
@@ -214,7 +216,34 @@ public class ProfileController {
 			Date.setCellValueFactory(new PropertyValueFactory<UserBookingsProfile,String>("bdate"));
 			StartTime.setCellValueFactory(new PropertyValueFactory<UserBookingsProfile,String>("bStart"));
 			EndTime.setCellValueFactory(new PropertyValueFactory<UserBookingsProfile,String>("bEnd"));
-			UserProfile.setItems(data);
+			currentBookings.setItems(data);
+			System.out.println("unside table view controller");
+		}}
+	
+	public class UserTableViewControlerHB implements Initializable {
+		//
+		
+		TableView<UserBookingsProfile> bookingHistory;
+		
+		private TableColumn <UserBookingsProfile, String> Location = new TableColumn("Location");
+	    
+        private TableColumn <UserBookingsProfile, String> Date = new TableColumn("Date");
+	    
+        private TableColumn <UserBookingsProfile, String> StartTime = new TableColumn("Start Time");
+	    
+	    private TableColumn <UserBookingsProfile, String> EndTime = new TableColumn("End Time");
+	    
+	    ObservableList<UserBookingsProfile> data2= FXCollections.observableArrayList();
+	
+		@Override
+		public void initialize(URL location, ResourceBundle resources) {
+			// TODO Auto-generated method stub
+			Location.setCellValueFactory(new PropertyValueFactory<UserBookingsProfile,String>("room"));
+			Date.setCellValueFactory(new PropertyValueFactory<UserBookingsProfile,String>("bdate"));
+			StartTime.setCellValueFactory(new PropertyValueFactory<UserBookingsProfile,String>("bStart"));
+			EndTime.setCellValueFactory(new PropertyValueFactory<UserBookingsProfile,String>("bEnd"));
+			bookingHistory.setItems(data2);
+	
 		}}
 }
 
