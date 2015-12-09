@@ -62,13 +62,8 @@ public class AddUserController implements PopupController {
 
     // Todo: Fix so error is displayed when input is missing from fields. Fix so added object gets returned correctly
 
-
-
-    @Override
-    public void setStage(Stage stage) {
-        this.stage = stage;
+    public void initialize() {
         setupErrorChecking();
-
         progressIndicators = new ArrayList<>();
         Stream<ProgressIndicator> indicators = Stream.of(usernameProgress,
                 passwordProgress,firstnameProgress,lastnameProgress
@@ -84,7 +79,11 @@ public class AddUserController implements PopupController {
         zipCodeProgressLabel.setVisible(false);
         passwordSecurityProgress.setVisible(false);
         passwordErrorLabel.setVisible(false);
+    }
 
+    @Override
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 
     private void setupErrorChecking(){

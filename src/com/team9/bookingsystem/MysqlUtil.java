@@ -166,7 +166,7 @@ public class MysqlUtil {
 
         }
         
-    public Booking[] GetUserBookings(int userId) throws Exception
+    public Booking[] GetUserBookings(int userId)
     {
         	Booking[] BookObj = new Booking[100];
         	String bID;

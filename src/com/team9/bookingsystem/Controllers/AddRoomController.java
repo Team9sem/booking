@@ -59,7 +59,7 @@ public class AddRoomController implements PopupController {
 
     public boolean isOkClicked(){
 
-        return false;
+        return okClicked;
     }
     public void setCallBack(DialogCallback callback){
         this.callback = callback;
