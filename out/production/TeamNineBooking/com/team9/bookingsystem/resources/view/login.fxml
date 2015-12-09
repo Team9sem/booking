@@ -44,44 +44,46 @@
       </HBox>
       <HBox alignment="CENTER"  GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
          <children>
-            <TextField fx:id="username" promptText="Enter Username" />
-         </children>
-      </HBox>
-      <HBox alignment="CENTER"  GridPane.rowIndex="2">
-         <children>
-            <Label styleClass="login-labels" text="Password:" />
-         </children>
-      </HBox>
-      <HBox alignment="CENTER"  GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
-         <children>
-            <PasswordField fx:id="password" promptText="Enter Password" />
-         </children>
-      </HBox>
-      <HBox alignment="CENTER"  GridPane.columnIndex="1" GridPane.rowIndex="3">
-         <children>
-            <Button mnemonicParsing="false" onAction="#showWelcomeArea" text="Back" styleClass="search-button"/>
-         </children>
-          <GridPane.margin>
-              <Insets top="10"></Insets>
-          </GridPane.margin>
-      </HBox>
-      <HBox alignment="CENTER"   GridPane.columnIndex="2" GridPane.rowIndex="3">
-         <children>
-            <Button mnemonicParsing="false" onAction="#login" text="Login" styleClass="search-button" />
-         </children>
-          <GridPane.margin>
-              <Insets top="10"></Insets>
-          </GridPane.margin>
-      </HBox>
-      <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4">
-         <children>
-            <ProgressIndicator fx:id="progressIndicator" progress="0.0" />
-         </children>
-      </HBox>
-      <HBox  alignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4">
-          <children>
-              <Label fx:id="failedText" styleClass="login-labels" text="Wrong Username or Password!"></Label>
+             <!--<TextField fx:id="username" promptText="Enter Username" />-->
+             <TextField fx:id="username" promptText="Enter Username" onAction="#onEnter"  />
           </children>
-      </HBox>
-   </children>
-</GridPane>
+       </HBox>
+       <HBox alignment="CENTER"  GridPane.rowIndex="2">
+          <children>
+             <Label styleClass="login-labels" text="Password:" />
+          </children>
+       </HBox>
+       <HBox alignment="CENTER"  GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
+          <children>
+              <!--<PasswordField fx:id="password" promptText="Enter Password" />-->
+              <PasswordField fx:id="password" promptText="Enter Password" onAction="#onEnter"  />
+           </children>
+        </HBox>
+        <HBox alignment="CENTER"  GridPane.columnIndex="1" GridPane.rowIndex="3">
+           <children>
+              <Button mnemonicParsing="false" onAction="#showWelcomeArea" text="Back" styleClass="search-button"/>
+           </children>
+            <GridPane.margin>
+                <Insets top="10"></Insets>
+            </GridPane.margin>
+        </HBox>
+        <HBox alignment="CENTER"   GridPane.columnIndex="2" GridPane.rowIndex="3">
+           <children>
+              <Button mnemonicParsing="false" onAction="#login" text="Login" styleClass="search-button" />
+           </children>
+            <GridPane.margin>
+                <Insets top="10"></Insets>
+            </GridPane.margin>
+        </HBox>
+        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4">
+           <children>
+              <ProgressIndicator fx:id="progressIndicator" progress="0.0" />
+           </children>
+        </HBox>
+        <HBox  alignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4">
+            <children>
+                <Label fx:id="failedText" styleClass="login-labels" text="Wrong Username or Password!"></Label>
+            </children>
+        </HBox>
+     </children>
+  </GridPane>
