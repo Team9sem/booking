@@ -14,6 +14,10 @@
 .popup-root{
     -fx-background-image: url("../img/background-twitter-images-1920x1080.png");
 }
+.agenda-popup{
+    -fx-background-color:#9099ac;
+    -fx-font-family: Avant Garde;
+}
 
 .welcome-area{
 
@@ -112,6 +116,9 @@
     -fx-background-color: rgb(255, 255, 255);
     /*-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);*/
 }
+
+
+
 .timeBox .timeText{
     -fx-text-fill: white;
     -fx-font-size: 15pt;

@@ -6,10 +6,12 @@ import java.sql.*;
 import java.sql.Date;
 import java.util.*;
 
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONException;
 
+import javax.activation.DataSource;
 import javax.imageio.ImageIO;
 import javax.xml.transform.Result;
 
@@ -18,26 +20,42 @@ import javax.xml.transform.Result;
  */
 public class MysqlUtil {
 
-    private final String path;
-    private final String user;
-    private final String pass;
+    private final static String URL= "jdbc:mysql://sql.smallwhitebird.com:3306/BookingSystem";;
+    private final static String USER = "team9";
+    private final static String PASS = "team9";
+    private final static String CLASSNAME = "com.mysql.jdbc.Driver";
+    private final static BasicDataSource dataSource;
 
+    static {
+        BasicDataSource basicDataSource = new BasicDataSource();
+        basicDataSource.setDriverClassName(CLASSNAME);
+        basicDataSource.setUrl(URL);
+        basicDataSource.setUsername(USER);
+        basicDataSource.setPassword(PASS);
+        dataSource = basicDataSource;
+    }
 
     public MysqlUtil()
     {
-        path = "jdbc:mysql://sql.smallwhitebird.com:3306/BookingSystem";
-        user = "team9";
-        pass = "team9";
+        System.out.println("util Constructor");
     }
     // initialises the Connection.
     public Connection getConnection() throws SQLException{
-        try{
-            Class.forName("com.mysql.jdbc.Driver");
-        }catch (ClassNotFoundException e){
-            e.printStackTrace();
-        }
+        System.out.println("number of active Connections:");
+            System.out.println(dataSource.getNumActive());
+        System.err.println("nr of idle connections:");
+        System.err.println(dataSource.getNumIdle());
 
-        return DriverManager.getConnection(path,user,pass);
+            return dataSource.getConnection();
+
+//              try{
+//            Class.forName("com.mysql.jdbc.Driver");
+//        }catch (ClassNotFoundException e){
+//            e.printStackTrace();
+//        }
+//
+//        return DriverManager.getConnection(path,user,pass);
+
 
 
     }
@@ -166,9 +184,9 @@ public class MysqlUtil {
 
         }
         
-    public Booking[] GetUserBookings(int userId) throws Exception
+    public ArrayList<Booking> GetUserBookings(int userId)
     {
-        	Booking[] BookObj = new Booking[100];
+        	ArrayList<Booking> bookings = new ArrayList<>();
         	String bID;
         	//Method that prints all Bookings
             // we have to catch potential SQLExceptions
@@ -182,29 +200,29 @@ public class MysqlUtil {
 
                     // Resultset that holds the result of our query, important that the query only returns one user.
                     ResultSet rs = statement.executeQuery(SQL);
-                    int i = 0;
-                    while(rs.next()){
-                    	BookObj[i] = new Booking();      
-                    	BookObj[i].setbID(rs.getInt("bID"));
-                    	BookObj[i].setuserid(rs.getInt("userid"));
-                    	BookObj[i].setroomID(rs.getInt("roomID"));
-                    	BookObj[i].setbdate(rs.getString("bdate"));
-                    	BookObj[i].setbStart(rs.getString("bStart"));
-                    	BookObj[i].setbEnd(rs.getString("bEnd"));
-                    	i++;
-                 
-                    }
 
-                    rs.close();
-                    statement.close();
-                    connection.close();
+                    while(rs.next()){
+                    	Booking booking = new Booking();
+                    	booking.setbID(rs.getInt("bID"));
+                    	booking.setuserid(rs.getInt("userid"));
+                    	booking.setroomID(rs.getInt("roomID"));
+                    	booking.setbdate(rs.getString("bdate"));
+                    	booking.setbStart(rs.getString("bStart"));
+                    	booking.setbEnd(rs.getString("bEnd"));
+                    	bookings.add(booking);
+                    }
+                for(Booking booking : bookings){
+                    booking.setUser(getUser(booking.getuserid()));
+                    booking.setRoom(getRoom(booking.getroomID()));
+                }
+                    return bookings;
 
             }catch(SQLException e){
                 e.printStackTrace();
 
             }
-            return BookObj;
 
+            return null;
         }
         
     public String GetRoomLocation(int roomID) throws Exception
@@ -236,7 +254,38 @@ public class MysqlUtil {
 
             }
             return toReturn;
+    }
+
+    public ArrayList<String> getLocations(){
+        ArrayList<String> locations = new ArrayList<>();
+        locations.add("N/A");
+
+        try(Connection connection = getConnection()){
+
+            System.out.println("Connection Established");
+            String SQL="SELECT location FROM Room ORDER BY Room.location ASC ";
+            System.out.println(SQL);
+            // statement
+            Statement statement = connection.createStatement();
+
+            // Resultset that holds the result of our query, important that the query only returns one user.
+            ResultSet rs = statement.executeQuery(SQL);
+            while (rs.next()){
+                locations.add(rs.getString("location"));
+                //System.out.println(locations);
+            }
+
+            rs.close();
+            statement.close();
+            connection.close();
+
+        }catch(SQLException e){
+            e.printStackTrace();
+
         }
+
+        return locations;
+    }
         
     public int GetRoomID(String location) throws Exception
     {
@@ -453,6 +502,7 @@ public class MysqlUtil {
                                    String timeEnd){
 
         System.out.println("inside composemethod");
+        if(location=="N/A") location ="";
 
         String query = "SELECT * FROM Room WHERE Room.roomID> 0 ";
 
@@ -602,14 +652,14 @@ public class MysqlUtil {
 
         try{
 
-            Connection connection = DriverManager.getConnection(path,user,pass);
-            connection.setAutoCommit(false);
-
-            Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("Select * FROM User;");
-            while(rs.next()){
-
-            }
+////            Connection connection = DriverManager.getConnection(path,user,pass);
+//            connection.setAutoCommit(false);
+//
+//            Statement statement = connection.createStatement();
+//            ResultSet rs = statement.executeQuery("Select * FROM User;");
+//            while(rs.next()){
+//
+//            }
 
         }catch(Exception e){
             e.printStackTrace();
@@ -798,11 +848,11 @@ public class MysqlUtil {
         ArrayList<Room> roomArrayList = new ArrayList<>();
 
         String roomID = ""+room.getRoomID();
-        if(room.getRoomID()==0){ roomID = ""; }
 
         String query="SELECT * FROM Room WHERE roomID = '"+roomID+"' ";
+        if(room.getRoomID()==0){ query="SELECT * FROM Room WHERE roomID > 0"; }
 
-        query += " AND( ";
+        if(small||medium||large) query += " AND( ";
         if(small && medium && large) query += "roomSize = 'S' OR roomSize = 'M' OR roomSize = 'L' )";
         else if(small){
             if(medium) query += "roomSize = 'S' OR roomSize = 'M' )";
@@ -814,28 +864,28 @@ public class MysqlUtil {
             else query += "roomSize = 'M' )";
         }
         else if(large) query += "roomSize = 'L')";
-        else{
-            query = "SELECT * FROM Room WHERE Room.roomID> 0 ";
-        }
+//        else{
+//            query = "SELECT * FROM Room WHERE Room.roomID> 0 ";
+//        }
 
-        query += " AND( ";
+        if(room.getHasProjector()>0 || room.getHasWhiteboard()>0 || room.getHasCoffeeMachine()>0) query += " AND( ";
         if(room.getHasProjector()>0 && room.getHasWhiteboard()>0 && room.getHasCoffeeMachine()>0){
-            query += "hasProjector = '1' OR hasWhiteboard = '1' OR hasCoffeeMachine = '1' )";
+            query += "hasProjector = '1' AND hasWhiteboard = '1' AND hasCoffeeMachine = '1' )";
         }
         else if(room.getHasProjector()>0){
-            if(room.getHasWhiteboard()>0) query += "hasProjector = '1' OR hasWhiteboard = '1' )";
-            else if(room.getHasCoffeeMachine()>0) query += "hasProjector = '1' OR hasCoffeeMachine = '1' )";
+            if(room.getHasWhiteboard()>0) query += "hasProjector = '1' AND hasWhiteboard = '1' )";
+            else if(room.getHasCoffeeMachine()>0) query += "hasProjector = '1' AND hasCoffeeMachine = '1' )";
             else  query += "hasProjector = '1')";
         }
         else if(room.getHasWhiteboard()>0){
-            if(room.getHasCoffeeMachine()>0) query += "hasWhiteboard = '1' OR hasCoffeeMachine = '1')";
+            if(room.getHasCoffeeMachine()>0) query += "hasWhiteboard = '1' AND hasCoffeeMachine = '1')";
             else query += "hasWhiteboard = '1' )";
         }
         else if(room.getHasCoffeeMachine()>0) query += "hasCoffeeMachine = '1')";
-        else{
-            query = "SELECT * FROM Room WHERE Room.roomID> 0 ";
-        }
-
+//        else{
+//            query = "SELECT * FROM Room WHERE Room.roomID> 0 ";
+//        }
+        System.out.println(query);
         try(Connection connection = getConnection()){
 
             System.out.println("\nUser Connection Established\n");
@@ -927,15 +977,15 @@ public class MysqlUtil {
                 bookingArrayList.add(booking);
             }
 
-
+            for(Booking booking : bookingArrayList){
+                booking.setUser(getUser(booking.getuserid()));
+                booking.setRoom(getRoom(booking.getroomID()));
+            }
         }catch(SQLException e){
             e.printStackTrace();
         }
 
-        for(Booking booking : bookingArrayList){
-            booking.setUser(getUser(booking.getuserid()));
-            booking.setRoom(getRoom(booking.getroomID()));
-        }
+
 
         return bookingArrayList;
     }
@@ -945,7 +995,7 @@ public class MysqlUtil {
 
         try(Connection connection = getConnection()){
 
-            System.out.println("\nUser Connection Established\n");
+//            System.out.println("\nUser Connection Established\n");
 
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(
@@ -958,7 +1008,7 @@ public class MysqlUtil {
                 user.setPassword(rs.getString("passwd"));
                 user.setFirstName(rs.getString("firstname"));
                 user.setLastName(rs.getString("lastname"));
-                user.setpNumber(rs.getInt("pNumber"));
+                user.setpNumber(rs.getLong("pNumber"));
                 user.setUserType(rs.getInt("usertype"));
                 user.setStreet(rs.getString("street"));
                 user.setZip(rs.getInt("zip"));
@@ -975,9 +1025,12 @@ public class MysqlUtil {
 
         Room room = new Room();
 
-        try(Connection connection = getConnection()){
 
-            System.out.println("\nUser Connection Established\n");
+
+        try(Connection connection = getConnection())
+        {
+
+//            System.out.println("\nUser Connection Established\n");
 
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(

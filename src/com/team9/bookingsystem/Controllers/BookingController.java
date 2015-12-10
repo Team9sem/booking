@@ -12,6 +12,7 @@ import com.team9.bookingsystem.User;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
@@ -117,9 +118,27 @@ public class BookingController {
         setupSliders();
     	util = new MysqlUtil();
         paginationBox.setAlignment(Pos.CENTER);
-//        ObservableList<String> choices= FXCollections.observableArrayList();
-//        choices.addAll("OneChoice");
-//        locationPick.setItems(choices);
+        ObservableList<String> choices= FXCollections.observableArrayList(util.getLocations());
+        //choices.addAll("OneChoice");
+        locationPick.getItems().clear();
+        locationPick.setItems(choices);
+        locationPick.getSelectionModel().select(0);
+
+
+    }
+
+    // takes a reference to the controller of the parent
+    public void init(MainController mainController,User user){
+        this.mainController = mainController;
+        this.loggedInUser = user;
+        if(this.loggedInUser.getAvatar() == null){
+            this.loggedInUser.downloadAvatar();
+        }
+
+        loggedInAs.setText("Logged in as: " + loggedInUser.getUserName());
+
+
+
 
 
     }
@@ -174,6 +193,7 @@ public class BookingController {
 
                 if(newValue.intValue() < 10){
                     fromMinuteDisplayed.setText(String.format("0%d",newValue.intValue()));
+                    System.out.println("");
                 }
                 else{
                     fromMinuteDisplayed.setText(String.format("%d",newValue.intValue()));
@@ -218,12 +238,18 @@ public class BookingController {
             }
         });
 
-        fromHourDisplayed.setText(String.format("%d:",(int)fromHourSlider.getValue()));
-        fromMinuteDisplayed.setText(String.format("0%d:",(int)fromMinuteSlider.getValue()));
-        toHourDisplayed.setText(String.format("%d:",(int)toHourSlider.getValue()));
-        toMinuteDisplayed.setText(String.format("0%d:",(int)toMinuteSlider.getValue()));
-        fromAmPm.setText("PM");
-        toAmPm.setText("PM");
+        fromHourSlider.setValue(LocalTime.now().getHour());
+        fromMinuteSlider.setValue(LocalTime.now().getMinute());
+        toHourSlider.setValue(LocalTime.now().plusHours(3).getHour());
+        toMinuteSlider.setValue(LocalTime.now().getMinute());
+
+//        fromHourDisplayed.setText(String.format("%d:",(int)fromHourSlider.getValue()));
+//        fromMinuteDisplayed.setText(String.format("%d:",(int)fromMinuteSlider.getValue()));
+//        toHourDisplayed.setText(String.format("%d:",(int)toHourSlider.getValue()));
+//        toMinuteDisplayed.setText(String.format("%d:",(int)toMinuteSlider.getValue()));
+
+//        fromAmPm.setText("PM");
+//        toAmPm.setText("PM");
     }
 
 
@@ -356,18 +382,7 @@ public class BookingController {
 
     }
 
-    // takes a reference to the controller of the parent
-    public void init(MainController mainController,User user){
-        this.mainController = mainController;
-        this.loggedInUser = user;
-        this.loggedInUser.downloadAvatar();
-        loggedInAs.setText("Logged in as: " + loggedInUser.getUserName());
 
-
-
-
-
-    }
 
     /**
      * By Pontus
@@ -596,7 +611,8 @@ public class BookingController {
                 large.isSelected(),
                 coffeMachine.isSelected(),
                 whiteboard.isSelected(),
-                projector.isSelected()
+                projector.isSelected(),
+                locationPick.getSelectionModel().getSelectedItem().toString()
         );
         findRoomService.start();
         findRoomService.setOnSucceeded(new EventHandler<WorkerStateEvent>() {

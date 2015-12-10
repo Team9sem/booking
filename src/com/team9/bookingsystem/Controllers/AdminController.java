@@ -91,6 +91,10 @@ public class AdminController {
     @FXML private GridPane userSearchGridPane;
     @FXML private Label loggedInAs;
     @FXML private Label commitCompletionLabel;
+    @FXML private Button scheduleButton;
+    @FXML private Button addButton;
+    @FXML private Button deleteButton;
+
 
 
     /**
@@ -106,6 +110,9 @@ public class AdminController {
         setupRoomTableView();
         setupToggleButtons();
         commitCompletionLabel.setVisible(false);
+        scheduleButton.setText("Show Schedule\nfor Selected Item");
+        deleteButton.setText("Delete\nSelected Item");
+        addButton.setText("Add New\nItem");
 
         paginationBox.setAlignment(Pos.CENTER);
 //        SearchOptionsController.init(mainController,this,loggedInUser);
@@ -122,6 +129,8 @@ public class AdminController {
         this.mainController = mainController;
         this.loggedInUser = admin;
         loggedInAs.setText("Logged in as: "+loggedInUser.getUserName());
+        searchedForObject = searchedFor.none;
+
 
     }
 
@@ -347,6 +356,9 @@ public class AdminController {
 		searchedForObject = searchedFor.user;
 
 		System.out.println("Searching in AdminController");
+
+        roomTableView = new RoomTableView();
+
         UserSearchService userSearchService = new UserSearchService(user);
         userSearchService.start();
         userSearchService.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
@@ -401,8 +413,10 @@ public class AdminController {
 
     searchedForObject = searchedFor.room;
 
-    System.out.println("Searching in AdminController");
+    System.out.println("Searching in AdminController for rooms");
 
+    // reset the userTableview now that we are searching for rooms
+    userTableView = new UserTableView();
 
 
     RoomSearchService roomSearchService = new RoomSearchService(room,small,medium,large);
@@ -453,9 +467,7 @@ public class AdminController {
 
 	}
 
-    private void showSchedule(){
 
-    }
 
     /**
      * By Nima
@@ -690,6 +702,83 @@ public class AdminController {
         }
     }
 
+    @FXML public void showSchedule(ActionEvent event){
+        if(searchedForObject == searchedFor.none){
+            return;
+        }
+        if(searchedForObject == searchedFor.room){
+        try{
+            if(roomTableView!=null){
+                if(!roomTableView.getItems().isEmpty());
+
+                Room toSchedule = roomTableView.getSelectionModel().getSelectedItem();
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/schedule.fxml"));
+                AnchorPane anchorPane = loader.load();
+                ScheduleController scheduleController = loader.getController();
+                scheduleController.init(mainController,toSchedule,null,loggedInUser);
+                Stage popupStage = new Stage();
+                popupStage.setTitle("Schedule for: "+toSchedule.getLocation());
+                popupStage.initModality(Modality.WINDOW_MODAL);
+                Scene scene = new Scene(anchorPane);
+                popupStage.setScene(scene);
+                mainController.showPopup(popupStage, scheduleController, new DialogCallback() {
+                    @Override
+                    public void onSuccess(Object param) {
+
+                    }
+
+                    @Override
+                    public void onFailure() {
+
+                    }
+                });
+            }
+
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+
+
+
+//            mainController.showPopup();
+        }
+        if(searchedForObject == searchedFor.user){
+
+            try{
+                if(userTableView!=null){
+                    if(!userTableView.getItems().isEmpty());
+
+                    User toSchedule = userTableView.getSelectionModel().getSelectedItem();
+
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/schedule.fxml"));
+                    AnchorPane anchorPane = loader.load();
+                    ScheduleController scheduleController = loader.getController();
+                    scheduleController.init(mainController,null,toSchedule,loggedInUser);
+                    Stage popupStage = new Stage();
+                    popupStage.setTitle("Schedule for: "+toSchedule.getUserName());
+                    popupStage.initModality(Modality.WINDOW_MODAL);
+                    Scene scene = new Scene(anchorPane);
+                    popupStage.setScene(scene);
+                    mainController.showPopup(popupStage, scheduleController, new DialogCallback() {
+                        @Override
+                        public void onSuccess(Object param) {
+
+                        }
+
+                        @Override
+                        public void onFailure() {
+
+                        }
+                    });
+                }
+
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+
+        }
+    }
 
 
     

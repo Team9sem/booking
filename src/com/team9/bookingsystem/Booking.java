@@ -128,16 +128,17 @@ public class Booking {
     }
 
     public String toString(){
-    	String location="";
-    	MysqlUtil BookingDB = new MysqlUtil();
-    	try{
-    		location = BookingDB.GetRoomLocation(getroomID());
-    	}catch(Exception e){
-			e.printStackTrace();
-		}
+//    	String location="";
+//    	MysqlUtil BookingDB = new MysqlUtil();
+//    	try{
+//    		location = BookingDB.GetRoomLocation(getroomID());
+//    	}catch(Exception e){
+//			e.printStackTrace();
+//		}
         String toReturn = "";
         toReturn += String.format("Booking ID- %s \n",getbID());
-        toReturn += String.format("Location- %s \n", location);
+        toReturn += String.format("Room ID %d \n", roomID);
+        toReturn += String.format("Dser ID %d \n", userid);
         toReturn += String.format("Date- %s \n",getbdate());
         toReturn += String.format("Start- %s \n",getbStart());
         toReturn += String.format("End- %s \n",getbEnd());

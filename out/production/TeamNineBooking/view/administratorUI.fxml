@@ -145,9 +145,9 @@
                   <HBox spacing="20" alignment="CENTER" GridPane.rowIndex="3" GridPane.columnIndex="0">
                      <children>
 
-                        <Button prefWidth="140" styleClass="search-button" text="Show Schedule"></Button>
-                        <Button prefWidth="100" styleClass="search-button" text="Delete" onAction="#deleteItem"></Button>
-                        <Button prefWidth="100" styleClass="search-button" text="Add New" onAction="#displayAddItemPopup"></Button>
+                        <Button prefHeight="50" fx:id="scheduleButton" prefWidth="140" styleClass="search-button" style="-fx-text-alignment: center" text="Show Schedule" onAction="#showSchedule"></Button>
+                        <Button prefHeight="50" prefWidth="120" fx:id="deleteButton" styleClass="search-button" style="-fx-text-alignment: center" text="Delete Selected" onAction="#deleteItem"></Button>
+                        <Button prefHeight="50" prefWidth="100" fx:id="addButton" styleClass="search-button" style="-fx-text-alignment: center" text="Add New"  onAction="#displayAddItemPopup"></Button>
                      </children>
                   </HBox>
                   <HBox alignment="BOTTOM_CENTER" spacing="10" GridPane.rowIndex="3" GridPane.columnIndex="1">

@@ -59,7 +59,8 @@ public class FindRoomService extends ThreadService {
                            boolean isLarge,
                            boolean hasCoffeemachine,
                            boolean hasWhiteBoard,
-                           boolean hasProjector)
+                           boolean hasProjector,
+                           String location)
     {
         super();
         this.date = date;
