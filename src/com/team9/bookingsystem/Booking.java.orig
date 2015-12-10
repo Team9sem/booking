@@ -212,10 +212,18 @@ public class Booking {
 //		}
         String toReturn = "";
         toReturn += String.format("Booking ID- %s \n",getbID());
+<<<<<<< HEAD
         toReturn += String.format("Room ID %d \n", roomID);
         toReturn += String.format("Dser ID %d \n", userid);
+        toReturn += String.format("Date- %s \n",getbdate());
+        toReturn += String.format("Start- %s \n",getbStart());
+        toReturn += String.format("End- %s \n",getbEnd());
+=======
+        toReturn += String.format("Location- %s \n", location);
+        toReturn += String.format("Date- %s \n", getBdate());
         toReturn += String.format("Start- %s \n", getBStart());
         toReturn += String.format("End- %s \n", getBEnd());
+>>>>>>> feature/filip-locationCBox
         
         return toReturn;
     }

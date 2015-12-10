@@ -9,6 +9,7 @@
 
 <!--by Nima, Olle-->
 
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <BorderPane prefHeight="700.0"  prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team9.bookingsystem.Controllers.ProfileController">
    <top>
       <GridPane BorderPane.alignment="CENTER">
@@ -164,11 +165,7 @@
             </HBox>
             <HBox VBox.vgrow="SOMETIMES">
                <children>
-                  <TableView fx:id="bookingHistory" prefHeight="400.0" prefWidth="500.0">
-                    <columns>
-                      <TableColumn prefWidth="75.0" text="C1" />
-                      <TableColumn prefWidth="75.0" text="C2" />
-                    </columns>
+                  <TableView fx:id="currentBookings" prefHeight="400.0" prefWidth="500.0">
                   </TableView>
                </children>
                <VBox.margin>
@@ -185,11 +182,7 @@
             </HBox>
             <HBox VBox.vgrow="SOMETIMES">
                <children>
-                  <TableView fx:id="currentBookings" editable="true" prefHeight="400.0" prefWidth="500.0">
-                    <columns>
-                      <TableColumn prefWidth="75.0" text="C1" />
-                      <TableColumn prefWidth="75.0" text="C2" />
-                    </columns>
+                  <TableView fx:id="bookingHistory" editable="true" prefHeight="400.0" prefWidth="500.0">
                   </TableView>
                </children>
                <VBox.margin>

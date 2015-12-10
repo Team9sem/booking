@@ -175,7 +175,7 @@ public class ScheduleController implements PopupController {
                         appointment.setDescription(room.getLocation());
 
                         appointment.setSummary(""+booking.getRoom().getLocation()+"\n\nBooked By:\n"+booking.getUser().getUserName());
-                        String date = booking.getbdate();
+                        String date = booking.getBdate();
 
                         int year = Integer.parseInt(date.substring(0, 4));
                         System.out.println(year);
@@ -187,7 +187,7 @@ public class ScheduleController implements PopupController {
                         int day = Integer.parseInt(date.substring(0, 2));
                         System.out.println(day);
 
-                        String startTime = booking.getbStart();
+                        String startTime = booking.getBStart();
                         int startHour = Integer.parseInt(startTime.substring(0,2));
                         startTime = startTime.substring(3);
                         int startMinute = Integer.parseInt(startTime.substring(0,2));
@@ -196,7 +196,7 @@ public class ScheduleController implements PopupController {
 
                         appointment.setStartLocalDateTime(LocalDateTime.of(year,month,day,startHour,startMinute));
 
-                        String endTime = booking.getbEnd();
+                        String endTime = booking.getBEnd();
                         int endHour = Integer.parseInt(endTime.substring(0,2));
                         endTime = endTime.substring(3);
                         int endMinute = Integer.parseInt(endTime.substring(0,2));
@@ -233,7 +233,7 @@ public class ScheduleController implements PopupController {
                         appointment.withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group0"));
                         appointment.setDescription(booking.getUser().getUserName());
                         appointment.setSummary(""+booking.getRoom().getLocation()+"\n\nBooked By:\n"+booking.getUser().getUserName());
-                        String date = booking.getbdate();
+                        String date = booking.getBdate();
 
                         int year = Integer.parseInt(date.substring(0, 4));
                         System.out.println(year);
@@ -245,7 +245,7 @@ public class ScheduleController implements PopupController {
                         int day = Integer.parseInt(date.substring(0, 2));
                         System.out.println(day);
 
-                        String startTime = booking.getbStart();
+                        String startTime = booking.getBStart();
                         int startHour = Integer.parseInt(startTime.substring(0,2));
                         startTime = startTime.substring(3);
                         int startMinute = Integer.parseInt(startTime.substring(0,2));
@@ -254,7 +254,7 @@ public class ScheduleController implements PopupController {
 
                         appointment.setStartLocalDateTime(LocalDateTime.of(year,month,day,startHour,startMinute));
 
-                        String endTime = booking.getbEnd();
+                        String endTime = booking.getBEnd();
                         int endHour = Integer.parseInt(endTime.substring(0,2));
                         endTime = endTime.substring(3);
                         int endMinute = Integer.parseInt(endTime.substring(0,2));
