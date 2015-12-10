@@ -129,7 +129,16 @@ public class BookingController {
         if(this.loggedInUser.getAvatar() == null){
             this.loggedInUser.downloadAvatar();
         }
-
+        System.out.println("USER TYPE: " + loggedInUser.getUserType());
+        if(loggedInUser.getUserType()==1){
+            loggedInAs.setText("User: " + loggedInUser.getUserName() + " \nType: Lecturer");
+        }else if(loggedInUser.getUserType()==2){
+            loggedInAs.setText("User: " + loggedInUser.getUserName() + " \nType: Company");
+        }else if(loggedInUser.getUserType()==4){
+            loggedInAs.setText("User: " + loggedInUser.getUserName() + " \nType: Admin");
+        }else if(loggedInUser.getUserType()==0) {
+            loggedInAs.setText("User: " + loggedInUser.getUserName() + " \nType: User");
+        }
         loggedInAs.setText("Logged in as: " + loggedInUser.getUserName());
 
 
@@ -377,16 +386,7 @@ public class BookingController {
 
     }
 
-        System.out.println("USER TYPE: " + loggedInUser.getUserType());
-        if(loggedInUser.getUserType()==1){
-            loggedInAs.setText("User: " + loggedInUser.getUserName() + " \nType: Lecturer");
-        }else if(loggedInUser.getUserType()==2){
-            loggedInAs.setText("User: " + loggedInUser.getUserName() + " \nType: Company");
-        }else if(loggedInUser.getUserType()==4){
-            loggedInAs.setText("User: " + loggedInUser.getUserName() + " \nType: Admin");
-        }else if(loggedInUser.getUserType()==0) {
-            loggedInAs.setText("User: " + loggedInUser.getUserName() + " \nType: User");
-        }
+
 
 
     /**
