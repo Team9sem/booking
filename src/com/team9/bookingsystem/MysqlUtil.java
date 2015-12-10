@@ -3,7 +3,7 @@ package com.team9.bookingsystem;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.sql.*;
-import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import org.apache.commons.dbcp2.BasicDataSource;
@@ -13,7 +13,8 @@ import org.json.JSONException;
 
 import javax.activation.DataSource;
 import javax.imageio.ImageIO;
-import javax.xml.transform.Result;
+
+import java.util.Date;
 
 /**
  * Created by pontuspohl on 12/10/15.
@@ -130,6 +131,7 @@ public class MysqlUtil {
                     toReturn.setPassword(rs.getString("passwd"));
                     toReturn.setUserName(rs.getString("alias"));
                     toReturn.setpNumber(rs.getLong("pnumber"));
+                    toReturn.setUserType(rs.getInt("usertype"));
                     toReturn.setStreet(rs.getString("street"));
                     toReturn.setZip(rs.getInt("zip"));
 
@@ -927,8 +929,8 @@ public class MysqlUtil {
             ResultSet rs = statement.executeQuery(
                     "SELECT * FROM Bookings WHERE bID = '"+bID+"' AND userid LIKE '%%" +
                             booking.getuserid()+"%%' AND roomID LIKE '%%"+booking.getroomID()+"%%' AND bdate LIKE '%%"
-                            +booking.getbdate()+"%%' AND bstart LIKE '%%"+booking.getbStart()+"%%' AND bEnd LIKE '%%"
-                            +booking.getbEnd()+"%%'"
+                            +booking.getBdate()+"%%' AND bstart LIKE '%%"+booking.getBStart()+"%%' AND bEnd LIKE '%%"
+                            +booking.getBEnd()+"%%'"
             );
 
             while (rs.next()) {
@@ -951,7 +953,126 @@ public class MysqlUtil {
         return bookingArrayList;
     }
 
+    /**
+     *
+     *
+     * Created by Alemeseged Setie
+     *
+     * Get user and return ArrayList of Past Bookings
+     *
+     *   November 23, 2015
+     */
 
+    public ArrayList<Booking> getPastBookings(User user){
+        ArrayList<Booking> bookingArrayList = new ArrayList<>();
+
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat currentHour = new SimpleDateFormat("HH:mm:ss");
+        String formattedDate = sdf.format(date);
+        String formattedHour = currentHour.format(date);
+
+        try(Connection connection = getConnection()){
+
+
+            System.out.println("\nUser Connection Established\n");
+
+
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(
+                    "SELECT * FROM Bookings WHERE userID = "+user.getUserID()+
+                            " AND bDate<='"+formattedDate+"' "
+            );
+
+
+            while (rs.next()) {
+                Booking booking = new Booking();
+
+                booking.setbID(rs.getInt("bID"));
+                booking.setuserid(rs.getInt("userid"));
+                booking.setroomID(rs.getInt("roomID"));
+                booking.setbdate(rs.getString("bdate"));
+                booking.setbStart(rs.getString("bStart"));
+                booking.setbEnd(rs.getString("bEnd"));
+
+                bookingArrayList.add(booking);
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        for(Booking booking : bookingArrayList){
+            booking.setUser(getUser(booking.getuserid()));
+            booking.setRoom(getRoom(booking.getroomID()));
+        }
+
+        return bookingArrayList;
+    }
+    //END OF Get user and return ArrayList of  Past Bookings
+
+
+
+    /**
+     *
+     *
+     * Created by Alemeseged Setie
+     *
+     * Get user and return ArrayList of Future Bookings
+     *
+     *   November 23, 2015
+     */
+
+    public ArrayList<Booking> getFutureBookings(User user){
+        ArrayList<Booking> bookingArrayList = new ArrayList<>();
+
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate = sdf.format(date);
+        SimpleDateFormat currentHour = new SimpleDateFormat("HH:mm:ss");
+        String formattedHour = currentHour.format(date);
+
+        try(Connection connection = getConnection()){
+
+
+            System.out.println("\nUser Connection Established\n");
+
+
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(
+                    //  "SELECT * FROM Bookings WHERE userID = "+user.getUserID()+
+                    // " AND bDate=>'"+formattedDate+"' "
+                    //   );
+
+                    "SELECT * FROM Bookings WHERE userID = "+user.getUserID()+
+                            " AND bDate>='"+formattedDate+"' "
+            );
+
+            while (rs.next()) {
+                Booking booking = new Booking();
+
+                booking.setbID(rs.getInt("bID"));
+                booking.setuserid(rs.getInt("userid"));
+                booking.setroomID(rs.getInt("roomID"));
+                booking.setbdate(rs.getString("bdate"));
+                booking.setbStart(rs.getString("bStart"));
+                booking.setbEnd(rs.getString("bEnd"));
+
+                bookingArrayList.add(booking);
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        for(Booking booking : bookingArrayList){
+            booking.setUser(getUser(booking.getuserid()));
+            booking.setRoom(getRoom(booking.getroomID()));
+        }
+
+        return bookingArrayList;
+    }
+
+    //END OF Get user and return ArrayList of Future Bookings
     public ArrayList<Booking> getBookings(Room room){
         ArrayList<Booking> bookingArrayList = new ArrayList<>();
 
@@ -1118,8 +1239,8 @@ public class MysqlUtil {
             //statement = connection.createStatement();
 
             String sql = "UPDATE Bookings SET roomID = '"+booking.getroomID()+
-                    "', bdate= '"+booking.getbdate()+"', bStart='"+booking.getbStart()+
-                    "',bEnd='"+booking.getbEnd()+"', userid='"+booking.getuserid()+"' WHERE bid="+booking.getbID();
+                    "', bdate= '"+booking.getBdate()+"', bStart='"+booking.getBStart()+
+                    "',bEnd='"+booking.getBEnd()+"', userid='"+booking.getuserid()+"' WHERE bid="+booking.getbID();
             statement.executeUpdate(sql);
 
         }catch(Exception e){
@@ -1489,6 +1610,21 @@ public class MysqlUtil {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public boolean checkBookingTime(User user, String time){
+        try(Connection connection = getConnection()){
+
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(
+                    "Select * from bookings WHERE userid='"+user.getUserID() + "' "
+            );
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+
     }
 }
 

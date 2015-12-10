@@ -377,6 +377,13 @@ public class BookingController {
 
     }
 
+<<<<<<< HEAD
+=======
+    // takes a reference to the controller of the parent
+    public void init(MainController mainController,User user){
+        this.mainController = mainController;
+        this.loggedInUser = user;
+        this.loggedInUser.downloadAvatar();
         System.out.println("USER TYPE: " + loggedInUser.getUserType());
         if(loggedInUser.getUserType()==1){
             loggedInAs.setText("User: " + loggedInUser.getUserName() + " \nType: Lecturer");
@@ -387,6 +394,9 @@ public class BookingController {
         }else if(loggedInUser.getUserType()==0) {
             loggedInAs.setText("User: " + loggedInUser.getUserName() + " \nType: User");
         }
+
+
+>>>>>>> feature/filip-locationCBox
 
 
     /**
