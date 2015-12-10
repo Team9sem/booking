@@ -300,7 +300,7 @@
                            </HBox.margin></Label>
                         <Button fx:id="userProfileButton" alignment="CENTER_RIGHT" onAction="#showUserProfile" styleClass="search-button" text="Profile">
                            <HBox.margin>
-                              <Insets />
+                              <Insets bottom= "5.0" />
                            </HBox.margin></Button>
                      </children>
                   </HBox>
