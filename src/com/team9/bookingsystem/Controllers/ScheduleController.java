@@ -5,13 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
 import jfxtras.scene.control.agenda.*;
 
-import java.awt.print.Book;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Year;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 /**
  * Created by pontuspohl on 13/11/15.
@@ -70,7 +65,7 @@ public class ScheduleController {
                 appointment.setDescription(room.getLocation());
                 User appointmentUser = util.getUserFromId(booking.getUser().getUserID());
                 appointment.setSummary("Room: "+room.getLocation()+"\nBooked By:"+appointmentUser.getFirstName());
-                String date = booking.getbdate();
+                String date = booking.getBdate();
 
                 int year = Integer.parseInt(date.substring(0, 4));
                 System.out.println(year);
@@ -82,7 +77,7 @@ public class ScheduleController {
                 int day = Integer.parseInt(date.substring(0, 2));
                 System.out.println(day);
 
-                String startTime = booking.getbStart();
+                String startTime = booking.getBStart();
                 int startHour = Integer.parseInt(startTime.substring(0,2));
                 startTime = startTime.substring(3);
                 int startMinute = Integer.parseInt(startTime.substring(0,2));
@@ -91,7 +86,7 @@ public class ScheduleController {
 
                 appointment.setStartLocalDateTime(LocalDateTime.of(year,month,day,startHour,startMinute));
 
-                String endTime = booking.getbEnd();
+                String endTime = booking.getBEnd();
                 int endHour = Integer.parseInt(endTime.substring(0,2));
                 endTime = endTime.substring(3);
                 int endMinute = Integer.parseInt(endTime.substring(0,2));

@@ -1,7 +1,6 @@
 package com.team9.bookingsystem;
 
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 /**
  * Created by Mayra Soliz on 01/11/15.
@@ -55,6 +54,8 @@ public class Booking {
         this.room = room;
     }
 
+    //public final StringProperty roomLocationProperty() { return this.room.getLocation(); }
+
     public int getbID() {
     	return bID;
     }
@@ -78,7 +79,7 @@ public class Booking {
     public void setroomID(int roomID) {
         this.roomID = roomID;
     }
-    public String getbdate () {
+    public String getBdate() {
         return this.bdate;
     }
 
@@ -86,7 +87,7 @@ public class Booking {
         this.bdate =  bdate;
     }
 
-    public String getbStart() {
+    public String getBStart() {
         return this.bStart;
     }
 
@@ -94,7 +95,7 @@ public class Booking {
         this.bStart = bStart;
     }
 
-    public String getbEnd() {
+    public String getBEnd() {
         return this.bEnd;
     }
 
@@ -212,9 +213,9 @@ public class Booking {
         String toReturn = "";
         toReturn += String.format("Booking ID- %s \n",getbID());
         toReturn += String.format("Location- %s \n", location);
-        toReturn += String.format("Date- %s \n",getbdate());
-        toReturn += String.format("Start- %s \n",getbStart());
-        toReturn += String.format("End- %s \n",getbEnd());
+        toReturn += String.format("Date- %s \n", getBdate());
+        toReturn += String.format("Start- %s \n", getBStart());
+        toReturn += String.format("End- %s \n", getBEnd());
         
         return toReturn;
     }

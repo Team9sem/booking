@@ -21,10 +21,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -47,7 +44,9 @@ public class ProfileController {
 
 	@FXML AnchorPane UserProfileAnchor;
 	@FXML TableView<Booking> currentBookings;
+
 	@FXML TableView<Booking> bookingHistory;
+
 	@FXML Label profileTitle;
 	@FXML Label userInfo;
 	@FXML Label userName;
@@ -79,39 +78,66 @@ public class ProfileController {
 	 */
 
 			public void futureTables(ArrayList<Booking> bookings){
+				System.out.println("in future tables");
 
 				ObservableList<Booking> ofBookings= FXCollections.observableArrayList(bookings);
+
 				TableColumn roomLocation = new TableColumn("Location");
-				roomLocation.setCellValueFactory(new PropertyValueFactory<Booking,String>("location"));
+				roomLocation.setCellValueFactory(new PropertyValueFactory<Booking,String>("roomLocation"));
 				TableColumn bookingDate = new TableColumn("Date");
+				bookingDate.setCellValueFactory(new PropertyValueFactory<Booking,String>("bdate"));
 				TableColumn startTime = new TableColumn("Start Time");
+				startTime.setCellValueFactory(new PropertyValueFactory<Booking,String>("bStart"));
 				TableColumn endTime = new TableColumn("End Time");
+				endTime.setCellValueFactory(new PropertyValueFactory<Booking,String>("bEnd"));
+				System.out.println("future bookings");
 
-
-				currentBookings.getItems().addAll(ofBookings);
-				//currentBookings.setItems(ofBookings);
+//				currentBookings.getItems().addAll(ofBookings);
+//				currentBookings.setItems(ofBookings);
+				currentBookings.getItems().setAll(ofBookings);
 				currentBookings.getColumns().addAll(roomLocation,bookingDate,startTime,endTime);
+
+				currentBookings.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+				currentBookings.getColumns().get(0).prefWidthProperty().bind(currentBookings.widthProperty().multiply(0.40));
+				currentBookings.getColumns().get(1).prefWidthProperty().bind(currentBookings.widthProperty().multiply(0.20));
+				currentBookings.getColumns().get(2).prefWidthProperty().bind(currentBookings.widthProperty().multiply(0.20));
+				currentBookings.getColumns().get(3).prefWidthProperty().bind(currentBookings.widthProperty().multiply(0.192));
+
+				System.out.println("end of future tables");
 			}
 
 			public void pastTables(ArrayList<Booking> bookings){
 
 				ObservableList<Booking> ofBookings= FXCollections.observableArrayList(bookings);
-				TableColumn roomLocation = new TableColumn("Location");
-				roomLocation.setCellValueFactory(new PropertyValueFactory<Booking,String>("location"));
+
+				TableColumn location = new TableColumn("Location");
+				location.setCellValueFactory(new PropertyValueFactory<>("roomLocation"));
 				TableColumn bookingDate = new TableColumn("Date");
+				bookingDate.setCellValueFactory(new PropertyValueFactory<Booking,String>("bdate"));
 				TableColumn startTime = new TableColumn("Start Time");
+				startTime.setCellValueFactory(new PropertyValueFactory<Booking,String>("bStart"));
 				TableColumn endTime = new TableColumn("End Time");
+				endTime.setCellValueFactory(new PropertyValueFactory<Booking,String>("bEnd"));
+//				System.out.println("future bookings");
 
 
-				bookingHistory.getItems().addAll(ofBookings);
-				//currentBookings.setItems(ofBookings);
-				bookingHistory.getColumns().addAll(roomLocation,bookingDate,startTime,endTime);
+				//bookingHistory.getItems().addAll(ofBookings);
+				bookingHistory.setItems(ofBookings);
+				//bookingHistory.getItems().setAll(ofBookings);
+				bookingHistory.getColumns().addAll(location,bookingDate,startTime,endTime);
+
+				bookingHistory.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+				bookingHistory.getColumns().get(0).prefWidthProperty().bind(currentBookings.widthProperty().multiply(0.40));
+				bookingHistory.getColumns().get(1).prefWidthProperty().bind(currentBookings.widthProperty().multiply(0.20));
+				bookingHistory.getColumns().get(2).prefWidthProperty().bind(currentBookings.widthProperty().multiply(0.20));
+				bookingHistory.getColumns().get(3).prefWidthProperty().bind(currentBookings.widthProperty().multiply(0.192));
 
 			}
 
 			public void init(MainController mainController,BookingController bookingController, Stage primaryStage)
 			{
 				MysqlUtil util = new MysqlUtil();
+
 				this.primaryStage = primaryStage;
 				this.mainController = mainController;
 				this.bookingController = bookingController;

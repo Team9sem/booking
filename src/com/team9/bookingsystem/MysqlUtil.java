@@ -11,11 +11,8 @@ import org.json.JSONObject;
 import org.json.JSONException;
 
 import javax.imageio.ImageIO;
-import javax.xml.transform.Result;
 
-import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
 
 /**
  * Created by pontuspohl on 12/10/15.
@@ -914,8 +911,8 @@ public class MysqlUtil {
             ResultSet rs = statement.executeQuery(
                     "SELECT * FROM Bookings WHERE bID = '"+bID+"' AND userid LIKE '%%" +
                             booking.getuserid()+"%%' AND roomID LIKE '%%"+booking.getroomID()+"%%' AND bdate LIKE '%%"
-                            +booking.getbdate()+"%%' AND bstart LIKE '%%"+booking.getbStart()+"%%' AND bEnd LIKE '%%"
-                            +booking.getbEnd()+"%%'"
+                            +booking.getBdate()+"%%' AND bstart LIKE '%%"+booking.getBStart()+"%%' AND bEnd LIKE '%%"
+                            +booking.getBEnd()+"%%'"
             );
 
             while (rs.next()) {
@@ -966,7 +963,7 @@ public class MysqlUtil {
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(
                     "SELECT * FROM Bookings WHERE userID = "+user.getUserID()+
-                            " AND bDate<='"+formattedDate+"' AND bEnd < '"+formattedHour+"' "
+                            " AND bDate<='"+formattedDate+"' "
             );
 
 
@@ -985,6 +982,11 @@ public class MysqlUtil {
 
         }catch(SQLException e){
             e.printStackTrace();
+        }
+
+        for(Booking booking : bookingArrayList){
+            booking.setUser(getUser(booking.getuserid()));
+            booking.setRoom(getRoom(booking.getroomID()));
         }
 
         return bookingArrayList;
@@ -1025,9 +1027,8 @@ public class MysqlUtil {
                     //   );
 
                     "SELECT * FROM Bookings WHERE userID = "+user.getUserID()+
-                            " AND bDate>='"+formattedDate+"' AND bEnd >= '"+formattedHour+"' "
+                            " AND bDate>='"+formattedDate+"' "
             );
-
 
             while (rs.next()) {
                 Booking booking = new Booking();
@@ -1044,6 +1045,10 @@ public class MysqlUtil {
 
         }catch(SQLException e){
             e.printStackTrace();
+        }
+        for(Booking booking : bookingArrayList){
+            booking.setUser(getUser(booking.getuserid()));
+            booking.setRoom(getRoom(booking.getroomID()));
         }
 
         return bookingArrayList;
@@ -1106,7 +1111,7 @@ public class MysqlUtil {
                 user.setPassword(rs.getString("passwd"));
                 user.setFirstName(rs.getString("firstname"));
                 user.setLastName(rs.getString("lastname"));
-                user.setpNumber(rs.getInt("pNumber"));
+                user.setpNumber(rs.getLong("pNumber"));
                 user.setUserType(rs.getInt("usertype"));
                 user.setStreet(rs.getString("street"));
                 user.setZip(rs.getInt("zip"));
@@ -1213,8 +1218,8 @@ public class MysqlUtil {
             //statement = connection.createStatement();
 
             String sql = "UPDATE Bookings SET roomID = '"+booking.getroomID()+
-                    "', bdate= '"+booking.getbdate()+"', bStart='"+booking.getbStart()+
-                    "',bEnd='"+booking.getbEnd()+"', userid='"+booking.getuserid()+"' WHERE bid="+booking.getbID();
+                    "', bdate= '"+booking.getBdate()+"', bStart='"+booking.getBStart()+
+                    "',bEnd='"+booking.getBEnd()+"', userid='"+booking.getuserid()+"' WHERE bid="+booking.getbID();
             statement.executeUpdate(sql);
 
         }catch(Exception e){

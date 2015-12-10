@@ -1,9 +1,6 @@
 package com.team9.bookingsystem.Controllers;
 
-import com.sun.javafx.scene.control.skin.SpinnerSkin;
 import com.team9.bookingsystem.Booking;
-import com.team9.bookingsystem.Components.CustomDatePicker;
-import com.team9.bookingsystem.Components.CustomDatePickerSkin;
 import com.team9.bookingsystem.MysqlUtil;
 
 import com.team9.bookingsystem.Room;
@@ -23,14 +20,12 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import jfxtras.scene.control.LocalTimePicker;
 
-import java.awt.image.BufferedImage;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -689,9 +684,9 @@ public class BookingController {
                             MysqlUtil util = new MysqlUtil();
                             return util.BookRoomNew(latestSearch.getUser(),
                                     latestSearch.getRoom(),
-                                    latestSearch.getbdate()
-                                    , latestSearch.getbStart(),
-                                    latestSearch.getbEnd()
+                                    latestSearch.getBdate()
+                                    , latestSearch.getBStart(),
+                                    latestSearch.getBEnd()
                             );
                         }
 
