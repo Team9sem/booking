@@ -6,11 +6,16 @@ import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.print.Printer;
+import javafx.print.PrinterJob;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import jfxtras.internal.scene.control.skin.agenda.AgendaMonthSkin;
+import jfxtras.internal.scene.control.skin.agenda.AgendaSkin;
+import jfxtras.internal.scene.control.skin.agenda.AgendaWeekSkin;
 import jfxtras.scene.control.agenda.*;
 
 import java.awt.print.Book;
@@ -27,7 +32,7 @@ import java.util.GregorianCalendar;
  */
 public class ScheduleController implements PopupController {
 
-
+    // inst vars
     private MainController mainController;
     private User loggedInUser;
     private Room room;
@@ -36,21 +41,22 @@ public class ScheduleController implements PopupController {
     private Stage stage;
     private DialogCallback callback;
     private boolean okClicked;
+
+    // fxml mapped elements
     @FXML private VBox scheduleBox;
     @FXML private ProgressIndicator loadingProgress;
     @FXML private Label loadingLabel;
     @FXML private BorderPane progressPane;
 
-
+    /**
+     * JFX "Constructor" runs when associated fxml file is loaded.
+     */
     public void initialize() {
+        // Create the agenda A.K.A Schedule.
         agenda = new Agenda();
-        agenda.setAllowDragging(false);
-        agenda.setAllowResize(false);
 
-
-
-
-        agenda.newAppointmentCallbackProperty().set( (localDateTimeRange) -> {
+        // 
+        agenda.newAppointmentCallbackProperty().set((localDateTimeRange) -> {
             return new Agenda.AppointmentImplLocal()
                     .withStartLocalDateTime(localDateTimeRange.getStartLocalDateTime())
                     .withEndLocalDateTime(localDateTimeRange.getEndLocalDateTime())
@@ -66,8 +72,14 @@ public class ScheduleController implements PopupController {
         this.room = room;
         this.mainController = mainController;
         this.loggedInUser = loggedInUser;
-        scheduleBox.getChildren().add(agenda);
+
         setupAgenda();
+
+
+
+        agenda.setAllowDragging(false);
+        agenda.setAllowResize(false);
+        scheduleBox.getChildren().add(agenda);
     }
     public void setCallBack(DialogCallback callback){
         this.callback = callback;
@@ -114,8 +126,7 @@ public class ScheduleController implements PopupController {
 
                             MysqlUtil util = new MysqlUtil();
                             ArrayList<Booking> bookings= util.getBookings(room);
-                            System.out.println(bookings.size());
-                            System.out.println(bookings);
+
                             return bookings;
 
                         }
@@ -124,8 +135,7 @@ public class ScheduleController implements PopupController {
                             MysqlUtil util = new MysqlUtil();
                             ArrayList<Booking> bookings = util.GetUserBookings(user.getUserID());
 
-                            System.out.println(bookings.size());
-                            System.out.println(bookings);
+
 
                             return bookings;
 
@@ -153,8 +163,7 @@ public class ScheduleController implements PopupController {
                     System.out.println("getting bookings for"+room.toString());
 
                     ArrayList<Booking> bookings= agendaService.getValue();
-                    System.out.println(bookings.size());
-                    System.out.println(bookings);
+
 
                     ArrayList<Agenda.AppointmentImplLocal> appointments = new ArrayList<>();
 
@@ -165,7 +174,7 @@ public class ScheduleController implements PopupController {
                         appointment.withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group0"));
                         appointment.setDescription(room.getLocation());
 
-                        appointment.setSummary("Room: "+booking.getRoom().getLocation()+"\nBooked By:"+booking.getUser().getUserName());
+                        appointment.setSummary(""+booking.getRoom().getLocation()+"\n\nBooked By:\n"+booking.getUser().getUserName());
                         String date = booking.getbdate();
 
                         int year = Integer.parseInt(date.substring(0, 4));
@@ -215,8 +224,7 @@ public class ScheduleController implements PopupController {
 
                     ArrayList<Booking> bookings = agendaService.getValue();
 
-                    System.out.println(bookings.size());
-                    System.out.println(bookings);
+
 
                     ArrayList<Agenda.AppointmentImplLocal> appointments = new ArrayList<>();
 
@@ -224,7 +232,7 @@ public class ScheduleController implements PopupController {
                         Agenda.AppointmentImplLocal appointment = new Agenda.AppointmentImplLocal();
                         appointment.withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group0"));
                         appointment.setDescription(booking.getUser().getUserName());
-                        appointment.setSummary("Room: "+booking.getRoom().getLocation()+"\nBooked By:"+booking.getUser().getFirstName());
+                        appointment.setSummary(""+booking.getRoom().getLocation()+"\n\nBooked By:\n"+booking.getUser().getUserName());
                         String date = booking.getbdate();
 
                         int year = Integer.parseInt(date.substring(0, 4));

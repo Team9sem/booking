@@ -12,7 +12,7 @@
 <AnchorPane fx:id="Ui" style="-fx-background-color:#9099ac;" styleClass="agenda-popup" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team9.bookingsystem.Controllers.ScheduleController">
 
     <children>
-        <GridPane prefHeight="600" style="-fx-background-color:#9099ac;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <GridPane prefHeight="800" style="-fx-background-color:#9099ac;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <GridPane GridPane.columnIndex="0" GridPane.columnSpan="1" GridPane.rowIndex="0">
                     <children>

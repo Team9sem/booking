@@ -127,6 +127,22 @@ public class BookingController {
 
     }
 
+    // takes a reference to the controller of the parent
+    public void init(MainController mainController,User user){
+        this.mainController = mainController;
+        this.loggedInUser = user;
+        if(this.loggedInUser.getAvatar() == null){
+            this.loggedInUser.downloadAvatar();
+        }
+
+        loggedInAs.setText("Logged in as: " + loggedInUser.getUserName());
+
+
+
+
+
+    }
+
     /**
      * by Pontus
      * Initializes the Slider Controls
@@ -366,18 +382,7 @@ public class BookingController {
 
     }
 
-    // takes a reference to the controller of the parent
-    public void init(MainController mainController,User user){
-        this.mainController = mainController;
-        this.loggedInUser = user;
-        this.loggedInUser.downloadAvatar();
-        loggedInAs.setText("Logged in as: " + loggedInUser.getUserName());
 
-
-
-
-
-    }
 
     /**
      * By Pontus

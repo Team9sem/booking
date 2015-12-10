@@ -27,6 +27,7 @@ public class User implements SearchableObject {
     private String street;
     private String email;
     private int    zip;
+    private boolean downloading = false;
 
 
 
@@ -160,10 +161,14 @@ public class User implements SearchableObject {
         this.avatar = avatar;
     }
 
+    public boolean isDownloading(){
+        return downloading;
+    }
+
 
     public void downloadAvatar(){
         User thisUser = this;
-
+        downloading = true;
         Service<BufferedImage> getUserAvatar = new Service<BufferedImage>() {
             @Override
             protected Task<BufferedImage> createTask() {
@@ -190,7 +195,15 @@ public class User implements SearchableObject {
                     thisUser.setAvatar(getUserAvatar.getValue());
                     System.out.println(getUserAvatar.getValue().toString());
                     System.out.println("downloaded avatar");
+                    downloading = false;
                 }
+            }
+        });
+        getUserAvatar.setOnFailed(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+                System.out.println("avatar download failed");
+                downloading = false;
             }
         });
 

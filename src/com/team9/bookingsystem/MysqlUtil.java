@@ -38,20 +38,25 @@ public class MysqlUtil {
     public MysqlUtil()
     {
         System.out.println("util Constructor");
-
-
     }
     // initialises the Connection.
     public Connection getConnection() throws SQLException{
-//        try{
+        System.out.println("number of active Connections:");
+            System.out.println(dataSource.getNumActive());
+        System.err.println("nr of idle connections:");
+        System.err.println(dataSource.getNumIdle());
+
+            return dataSource.getConnection();
+
+//              try{
 //            Class.forName("com.mysql.jdbc.Driver");
 //        }catch (ClassNotFoundException e){
 //            e.printStackTrace();
 //        }
 //
 //        return DriverManager.getConnection(path,user,pass);
-        System.out.println("getting connection");
-            return dataSource.getConnection();
+
+
 
     }
     // accepts any query, BEWARE can damage database.

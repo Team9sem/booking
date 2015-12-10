@@ -91,6 +91,10 @@ public class AdminController {
     @FXML private GridPane userSearchGridPane;
     @FXML private Label loggedInAs;
     @FXML private Label commitCompletionLabel;
+    @FXML private Button scheduleButton;
+    @FXML private Button addButton;
+    @FXML private Button deleteButton;
+
 
 
     /**
@@ -106,6 +110,9 @@ public class AdminController {
         setupRoomTableView();
         setupToggleButtons();
         commitCompletionLabel.setVisible(false);
+        scheduleButton.setText("Show Schedule\nfor Selected Item");
+        deleteButton.setText("Delete\nSelected Item");
+        addButton.setText("Add New\nItem");
 
         paginationBox.setAlignment(Pos.CENTER);
 //        SearchOptionsController.init(mainController,this,loggedInUser);
