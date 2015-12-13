@@ -155,7 +155,10 @@ public class MysqlUtil {
         	}
         	return toReturn;
     	}
-        
+    
+    //GetLocations Created by Mayra Soliz on 01 November 2015 - commit 2c6ae2d
+    //simple function that prints all locations (rooms) to the console
+    //Takes no arguments and has no return type
     public void GetLocations() throws Exception
     {
         	//Method that prints all rooms 
@@ -185,7 +188,11 @@ public class MysqlUtil {
             }
 
         }
-        
+    
+    //GetUserBookings Created by Mayra Soliz on 03 November 2015 - commit b999fc8
+    //Refactored by Potus to return ArrayList<Booking> instead of Booking[]
+    //Takes the userId and returns all the booking the this user has made
+    //Return Arraylist<Booking> 
     public ArrayList<Booking> GetUserBookings(int userId)
     {
         	ArrayList<Booking> bookings = new ArrayList<>();
@@ -226,7 +233,10 @@ public class MysqlUtil {
 
             return null;
         }
-        
+    
+    //GetRoomLocation Created by Mayra Soliz on 03 November 2015 - commit b99fc8
+    //This method takes the roomID (primary key) and returns the corresponding location (room name)
+    //Returns the location as a string
     public String GetRoomLocation(int roomID) throws Exception
     {
         	//Method get the location using the roomID
@@ -257,7 +267,9 @@ public class MysqlUtil {
             }
             return toReturn;
     }
-
+    
+    //getLocations() created by Mayra Soliz on 01 November 2015 - commit 2c6ae2d
+    //Refactored by ?? to return ArrayList<String>
     public ArrayList<String> getLocations(){
         ArrayList<String> locations = new ArrayList<>();
         locations.add("N/A");
@@ -288,7 +300,9 @@ public class MysqlUtil {
 
         return locations;
     }
-        
+    
+    //GetRoomID created by Mayra Soliz 01.11.2015 - commit 2c6ae2d
+    //Returns the RoomID (primary key) from the SQL database for a given location (room name)
     public int GetRoomID(String location) throws Exception
     {
         	//Method that prints all rooms 
@@ -340,6 +354,10 @@ public class MysqlUtil {
     //bDate		NULL	date
     //bStart	NULL	time
     //bEnd		NULL	time
+    
+    //BookRoom Created by Mayra Soliz on 27 October 2015 - commit 08a7cc5
+    //Books a room in the SQL database using string input
+    //returns a boolean
     public boolean BookRoom(int userId, int roomId, String bDate, String bStart, String bEnd) throws Exception
     {
       
@@ -367,6 +385,9 @@ public class MysqlUtil {
      return false;   
   } //end public User BookRoom
 
+    //removeRoomBooking created by Mayra Soliz on 03.11.15 - commit b999fc8
+    //This method removes a booking from the SQL database based on the booking ID (primary key)
+    //Returns boolean
     public boolean removeRoomBooking(int bID) throws Exception
     {
       
@@ -401,7 +422,10 @@ public class MysqlUtil {
   //usertype	varchar(30)
   //street		varchar(30)
   //zip			int(11)
-        
+  
+  //RegisterUser created by Mayra Soliz on 27 October 2015 - Commit No. 08a7cc5
+  //Adds a user to the SQL Database based on String, long and integer input
+  //returns boolean  
   public boolean RegisterUser(String alias, String passwd, String firstname, String lastname, long pNumber, int usertype, String street, int zip)
   {
           
@@ -433,7 +457,10 @@ public class MysqlUtil {
     return false;
 
     }//end public User RegisterUser
-    
+  
+  //RegisterRoom created by Mayra Soliz on 26 October 2015 - commit 7d94a83
+  //This method adds a room to the SQL database based in String and integer arguments
+  //Returns boolean
   public boolean RegisterRoom(String location, String roomSize, int hasProjector, int hasWhiteBoard, int hasCoffeeMachine)
   {
 	  	//roomID int(11)
@@ -469,7 +496,7 @@ public class MysqlUtil {
 
     return false;
 
-    }//end public User RegisterUser
+    }//end public User RegisterRoom
 
     public int totalNumberOfRooms(){
         int j = 0;
@@ -1142,6 +1169,7 @@ public class MysqlUtil {
         return user;
     }
 
+    //Created by Mayra? 
     public Room getRoom(int roomID){
 
         Room room = new Room();
@@ -1251,7 +1279,8 @@ public class MysqlUtil {
         //END OF EDIT BOOKING FUNCTION
     }
 
-
+    //BookRoom Created by Mayra on 27 October 
+    //refactored by Potus from registerroom to BookRoom 19 Nov
     public boolean BookRoom(Room roomObj) throws Exception
     {
         //Created by Mayra Soliz.
@@ -1294,7 +1323,10 @@ public class MysqlUtil {
         return false;
 
     }//end public User RegisterUser
-
+    
+    //updateRoom Created by Mayra 16 November 2015 as "editRoom" renamed to updateRoom by Pontus - commit 057cd41
+    //changes the information in a room stored in the SQL database with the contents of a room objects
+    //Returns boolean
     public boolean updateRoom(Room room) {
         //Created by Mayra Soliz 16 Nov 2015.
         //This method takes the data in the room object and updates the database with the data in the room object
@@ -1343,7 +1375,10 @@ public class MysqlUtil {
         return false;
 //        return false;
     }
-
+    
+    //deleteRoom Created by Mayra Soliz on 16 of November 2015 - commit 057cd41
+    //This method deletes a room with the RoomID
+    //Returns boolean
     public boolean deleteRoom(Room room) {
         //Created by Mayra Soliz 16 Nov 2015.
         //This method deletes the Room using the roomID.
@@ -1394,10 +1429,11 @@ public class MysqlUtil {
         return false;
     }
 
-
+    //Created by Mayra Soliz. Modified 15 November 2015
+    //Takes User object, Room object and date strings and then books a room and returns a Booking object
+    //Returns Booking object
     public Booking BookRoomNew(User userObj, Room roomObj, String bDate, String bStart, String bEnd) throws Exception
     {
-        //Created by Mayra Soliz. Modified 15 November 2015
         //Note that using strings to transfer date information can cause SQL errors if the strings are not formatted
         //correctly.
 
