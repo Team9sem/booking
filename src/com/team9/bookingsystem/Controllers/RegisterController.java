@@ -11,8 +11,12 @@ import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +26,7 @@ import java.util.stream.Stream;
 /**
  * Created by Olle Renard and Nima Fard 22 October 2015
  * Controller for register.fxml
+ * Mayra added additional error checking 12 December 2015
  */
 
 
@@ -108,7 +113,6 @@ public class RegisterController
     // Validate user input with the database.
     @FXML public void register(){
 
-
         System.out.println( progressIndicators.stream().filter(indicator -> indicator.getProgress() == 1.0).count());
         if( progressIndicators.stream().filter(indicator -> indicator.getProgress() == 1.0).count() ==
                 progressIndicators.size())
@@ -118,16 +122,15 @@ public class RegisterController
 
         try{
         	// Perform Register logic
-
            User registered = new User();
 
            Service<Boolean> registerService = new Service<Boolean>() {
                @Override
+               
                protected Task<Boolean> createTask() {
                    Task<Boolean> task = new Task<Boolean>() {
                        @Override
                        protected Boolean call() throws Exception {
-
                            MysqlUtil util = new MysqlUtil();
                            registered.setUserName(username.getText());
                            registered.setFirstName(firstname.getText());
@@ -185,6 +188,45 @@ public class RegisterController
             // Todo: show error message in GUI
         }
 
+        }
+        else{
+        	//Added by Mayra Soliz 12.12.2015
+        	//The code in this else clause takes care of the case that 
+        	//the user presses "Register" without filling out the fields 
+        	//in this case a modal PopUp window opens to tell the user to complete the fields
+        	//and sets  the labels to "this field cannot be empty"
+        	
+        	//username.setText("-");
+        	//usernameProgress.setProgress(-1.0);
+        	//usernameProgress.setVisible(true);
+        	userNameProgressLabel.setVisible(true);
+            userNameProgressLabel.setText("This field cannot be empty!");
+        	passwordProgressLabel.setVisible(true); 
+        	passwordProgressLabel.setText("This field cannot be empty!");
+        	firstnameProgressLabel.setVisible(true); 
+        	firstnameProgressLabel.setText("This field cannot be empty!");
+        	lastnameProgressLabel.setVisible(true); 
+        	lastnameProgressLabel.setText("This field cannot be empty!");
+        	pNumberProgressLabel.setVisible(true); 
+        	pNumberProgressLabel.setText("This field cannot be empty!");
+        	streetProgressLabel.setVisible(true); 
+        	streetProgressLabel.setText("This field cannot be empty!");
+        	zipCodeProgressLabel.setVisible(true); 
+        	zipCodeProgressLabel.setText("This field cannot be empty!");
+        	
+        	Label secondLabel = new Label("Please fill in all required fields");
+             
+            StackPane secondaryLayout = new StackPane();
+            secondaryLayout.getChildren().add(secondLabel);
+              
+            Scene secondScene = new Scene(secondaryLayout, 200, 100);
+
+            Stage secondStage = new Stage();
+            secondStage.setTitle("Missing input");
+            secondStage.setScene(secondScene);
+            //Mayra make sure that the popup has control and that the user closes this window before continuing
+            secondStage.initModality(Modality.APPLICATION_MODAL);
+            secondStage.show();
         }
     }
 
