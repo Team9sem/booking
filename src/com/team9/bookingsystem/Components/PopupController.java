@@ -1,5 +1,6 @@
-package com.team9.bookingsystem;
+package com.team9.bookingsystem.Components;
 
+import com.team9.bookingsystem.Components.DialogCallback;
 import javafx.stage.Stage;
 
 /**

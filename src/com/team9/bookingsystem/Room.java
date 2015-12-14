@@ -1,5 +1,7 @@
 package com.team9.bookingsystem;
 
+import com.team9.bookingsystem.Components.SearchableObject;
+
 /**
  * Created by iso.f on 28/10/15.
  */

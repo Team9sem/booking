@@ -1,13 +1,11 @@
 package com.team9.bookingsystem.Controllers;
 
-import com.team9.bookingsystem.DialogCallback;
-import com.team9.bookingsystem.PopupController;
+import com.team9.bookingsystem.Components.DialogCallback;
+import com.team9.bookingsystem.Components.PopupController;
 import com.team9.bookingsystem.Room;
-import com.team9.bookingsystem.User;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -16,7 +14,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Created by pontuspohl on 30/11/15.

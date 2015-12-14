@@ -1,12 +1,12 @@
 package com.team9.bookingsystem;
 
+import com.team9.bookingsystem.Components.SearchableObject;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 
 /**
  * Created by pontuspohl on 12/10/15.

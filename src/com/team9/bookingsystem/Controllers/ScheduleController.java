@@ -1,31 +1,22 @@
 package com.team9.bookingsystem.Controllers;
 
 import com.team9.bookingsystem.*;
+import com.team9.bookingsystem.Components.DialogCallback;
+import com.team9.bookingsystem.Components.PopupController;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.print.Printer;
-import javafx.print.PrinterJob;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import jfxtras.internal.scene.control.skin.agenda.AgendaMonthSkin;
-import jfxtras.internal.scene.control.skin.agenda.AgendaSkin;
-import jfxtras.internal.scene.control.skin.agenda.AgendaWeekSkin;
 import jfxtras.scene.control.agenda.*;
 
-import java.awt.print.Book;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Year;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 /**
  * Created by pontuspohl on 13/11/15.

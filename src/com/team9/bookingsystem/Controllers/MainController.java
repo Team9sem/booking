@@ -1,10 +1,9 @@
 package com.team9.bookingsystem.Controllers;
 
-import com.team9.bookingsystem.DialogCallback;
-import com.team9.bookingsystem.PopupController;
+import com.team9.bookingsystem.Components.DialogCallback;
+import com.team9.bookingsystem.Components.PopupController;
 import com.team9.bookingsystem.User;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;

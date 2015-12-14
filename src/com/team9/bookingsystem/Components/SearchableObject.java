@@ -1,4 +1,4 @@
-package com.team9.bookingsystem;
+package com.team9.bookingsystem.Components;
 
 /**
  * Created by pontuspohl on 25/11/15.

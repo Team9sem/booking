@@ -7,14 +7,12 @@ import java.util.ArrayList;
 
 
 import com.team9.bookingsystem.*;
-import com.team9.bookingsystem.Components.CustomColumnResizePolicy;
+import com.team9.bookingsystem.Components.DialogCallback;
 import com.team9.bookingsystem.Components.RoomTableView;
 import com.team9.bookingsystem.Components.UserTableView;
 import com.team9.bookingsystem.Threading.Admin.RoomSearchService;
 import com.team9.bookingsystem.Threading.Admin.UserSearchService;
 
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
@@ -27,14 +25,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Callback;
-import javafx.util.converter.IntegerStringConverter;
-import javafx.util.converter.LongStringConverter;
 
 /**
  * Controller class for administratorUI.fxml

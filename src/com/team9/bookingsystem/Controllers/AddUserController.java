@@ -1,8 +1,8 @@
 package com.team9.bookingsystem.Controllers;
 
-import com.team9.bookingsystem.DialogCallback;
+import com.team9.bookingsystem.Components.DialogCallback;
 import com.team9.bookingsystem.MysqlUtil;
-import com.team9.bookingsystem.PopupController;
+import com.team9.bookingsystem.Components.PopupController;
 import com.team9.bookingsystem.User;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;

@@ -2,8 +2,8 @@ package com.team9.bookingsystem.Controllers;
 
 import com.team9.bookingsystem.Components.RoomTableView;
 import com.team9.bookingsystem.Components.UserTableView;
-import com.team9.bookingsystem.DialogCallback;
-import com.team9.bookingsystem.PopupController;
+import com.team9.bookingsystem.Components.DialogCallback;
+import com.team9.bookingsystem.Components.PopupController;
 import com.team9.bookingsystem.Room;
 import com.team9.bookingsystem.User;
 import javafx.event.ActionEvent;
@@ -13,12 +13,10 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Created by pontuspohl on 27/11/15.
