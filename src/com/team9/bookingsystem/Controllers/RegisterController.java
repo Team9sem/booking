@@ -26,9 +26,10 @@ import java.util.stream.Stream;
 /**
  * Created by Olle Renard and Nima Fard 22 October 2015
  * Controller for register.fxml
- * Mayra added additional error checking 12 December 2015
  */
 
+//Mayra added additional error checking on 12 December 2015
+//Based on the framework created by Pontus
 
 // Controller for login.fxml
 public class RegisterController
@@ -199,24 +200,69 @@ public class RegisterController
 
 
         	//username.setText("-");
-        	//usernameProgress.setProgress(-1.0);
-        	//usernameProgress.setVisible(true);
-        	userNameProgressLabel.setVisible(true);
-            userNameProgressLabel.setText("This field cannot be empty!");
-        	passwordProgressLabel.setVisible(true); 
-        	passwordProgressLabel.setText("This field cannot be empty!");
-        	firstnameProgressLabel.setVisible(true); 
-        	firstnameProgressLabel.setText("This field cannot be empty!");
-        	lastnameProgressLabel.setVisible(true); 
-        	lastnameProgressLabel.setText("This field cannot be empty!");
-        	pNumberProgressLabel.setVisible(true); 
-        	pNumberProgressLabel.setText("This field cannot be empty!");
-        	streetProgressLabel.setVisible(true); 
-        	streetProgressLabel.setText("This field cannot be empty!");
-        	zipCodeProgressLabel.setVisible(true); 
-        	zipCodeProgressLabel.setText("This field cannot be empty!");
+        	double tmp;
+        	tmp = usernameProgress.getProgress();
+        	if(tmp != 1.0) {
+        		userNameProgressLabel.setVisible(true);
+                userNameProgressLabel.setText("Please complete this field");
+        	}
+        	else {
+        		userNameProgressLabel.setVisible(false);
+        	}
+        	tmp = passwordProgress.getProgress();
+        	if(!passwordSecurityProgress.isVisible()) {
+        		
+        		passwordProgressLabel.setVisible(true); 
+        		passwordProgressLabel.setText("Please complete this field");
+        		
+        		passwordErrorLabel.setText("Please complete this field");
+        		passwordErrorLabel.setVisible(false); 
+        	}
+        	else {
+        		passwordErrorLabel.setVisible(false); 
+        	}
+        	tmp = firstnameProgress.getProgress();
+        	if(tmp != 1.0) {       	
+        		firstnameProgressLabel.setVisible(true); 
+        		firstnameProgressLabel.setText("Please complete this field");
+        	}
+        	else {
+        		firstnameProgressLabel.setVisible(false); 
+        	}
+        	tmp = lastnameProgress.getProgress();
+        	if(tmp != 1.0) {
+        		lastnameProgressLabel.setVisible(true); 
+            	lastnameProgressLabel.setText("Please complete this field");
+        	}
+        	else {
+        		lastnameProgressLabel.setVisible(false); 
+        	}
+        	tmp = pNumberProgress.getProgress();
+        	if(tmp != 1.0) {        		
+        		pNumberProgressLabel.setVisible(true); 
+        		pNumberProgressLabel.setText("Please complete this field");
+        	}
+        	else {
+        		pNumberProgressLabel.setVisible(false); 
+        	}
+        	tmp = streetProgress.getProgress();
+        	if(tmp != 1.0) { 
+        		streetProgressLabel.setVisible(true); 
+            	streetProgressLabel.setText("Please complete this field");
+        	}
+        	else {
+        		streetProgressLabel.setVisible(false); 
+        	}
+        	tmp = zipCodeProgress.getProgress();
+        	if(tmp != 1.0) { 
+        		zipCodeProgressLabel.setVisible(true); 
+        		zipCodeProgressLabel.setText("Please complete this field");
+        	}
+        	else {
+        		zipCodeProgressLabel.setVisible(false); 
+        	}
         	
-        	Label secondLabel = new Label("Please fill in all required fields");
+        	Label secondLabel = new Label("Please complete the form");
              
             StackPane secondaryLayout = new StackPane();
             secondaryLayout.getChildren().add(secondLabel);
