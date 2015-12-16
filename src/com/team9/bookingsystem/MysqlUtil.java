@@ -1574,7 +1574,7 @@ public class MysqlUtil {
         }
 
     /**
-     * by Pontus
+     * by Pontus and Filip
      * @param user
      * @return the image downloaded is returned as bufferedImage
      * @throws IOException

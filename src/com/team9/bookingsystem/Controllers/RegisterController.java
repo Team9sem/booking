@@ -195,7 +195,9 @@ public class RegisterController
         	//the user presses "Register" without filling out the fields 
         	//in this case a modal PopUp window opens to tell the user to complete the fields
         	//and sets  the labels to "this field cannot be empty"
-        	
+
+
+
         	//username.setText("-");
         	//usernameProgress.setProgress(-1.0);
         	//usernameProgress.setVisible(true);
