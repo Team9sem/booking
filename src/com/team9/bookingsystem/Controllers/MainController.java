@@ -186,7 +186,11 @@ public class MainController {
             showAdminConsole(loggedinUser);
         }
     }
-        
+    
+    /*
+     * By Nima Fard
+     * Loads the admin console
+     */
      public void showAdminConsole(User admin){
     	try{
             System.out.println("in showAdmin");
@@ -209,7 +213,11 @@ public class MainController {
     	}
     	 
      }
-
+    
+    /*
+     * By Nima Fard
+     * Loads the user profile
+     */
     public void showUserProfile(BookingController bookingController) {
         try {
             System.out.println("in showUserProfile");
