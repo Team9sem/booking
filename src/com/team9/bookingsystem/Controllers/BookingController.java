@@ -765,11 +765,17 @@ public class BookingController {
         });
         }
     }
-
+    /*
+     * By Pontus
+     */
     @FXML public void SignOut(ActionEvent event){
         mainController.showStartScreen();
     }
-
+    
+    /*
+     * By Nima
+     * User profile button
+     */
     @FXML public void showUserProfile(ActionEvent event){
 
         mainController.showUserProfile(this);
