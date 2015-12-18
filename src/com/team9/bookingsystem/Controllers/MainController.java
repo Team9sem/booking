@@ -108,7 +108,7 @@ public class MainController {
     }
     /**
      * Clears out welcomeArea Pane and loads register.fxml into it. Also gives RegisterController instance
-     * a reference to this instance.
+     * a reference to this instance. // Added by Olle Renard
      */
     public void showRegisterForm(){
 
