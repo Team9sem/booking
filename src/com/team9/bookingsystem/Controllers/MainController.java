@@ -1,9 +1,10 @@
 package com.team9.bookingsystem.Controllers;
 
-import com.team9.bookingsystem.Components.DialogCallback;
-import com.team9.bookingsystem.Components.PopupController;
+import com.team9.bookingsystem.DialogCallback;
+import com.team9.bookingsystem.PopupController;
 import com.team9.bookingsystem.User;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -186,7 +187,11 @@ public class MainController {
             showAdminConsole(loggedinUser);
         }
     }
-        
+    
+     /*
+      * By Nima
+      * Loads admin console
+      */
      public void showAdminConsole(User admin){
     	try{
             System.out.println("in showAdmin");
@@ -209,7 +214,11 @@ public class MainController {
     	}
     	 
      }
-
+     
+    /*
+     * By Nima
+     * loads user profile
+     */
     public void showUserProfile(BookingController bookingController) {
         try {
             System.out.println("in showUserProfile");
