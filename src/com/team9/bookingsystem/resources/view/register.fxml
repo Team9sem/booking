@@ -73,7 +73,7 @@
       <HBox alignment="CENTER_LEFT" GridPane.rowIndex="6">
          <children>
       
-         <Label styleClass="register-labels" text="Adress" />
+         <Label styleClass="register-labels" text="Address" />
          </children>
          <padding>
             <Insets left="90.0" />
