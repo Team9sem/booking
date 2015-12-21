@@ -488,6 +488,7 @@ public class AdminController {
 					System.out.println(this.toString());
 					searchOptions.getChildren().clear();
 					searchOptions.getChildren().add(gridPane);
+					roomToggle.setStyle("element-toggle-button:selected");
 				}catch(IOException e){
 					e.printStackTrace();
 				}
@@ -514,6 +515,7 @@ public class AdminController {
                     System.out.println(this.toString());
                     searchOptions.getChildren().clear();
                     searchOptions.getChildren().add(gridPane);
+                    userToggle.setStyle("element-toggle-button:selected");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

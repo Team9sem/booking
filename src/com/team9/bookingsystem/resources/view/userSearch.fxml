@@ -123,7 +123,7 @@
             </HBox>
             <HBox GridPane.columnSpan="3" GridPane.rowIndex="12">
                <children>
-                  <Label text="Pnumber:" />
+                  <Label text="Personal Number:" styleClass="upLabels" />
                </children>
             </HBox>
             <HBox GridPane.columnSpan="3" GridPane.rowIndex="13">
