@@ -59,7 +59,6 @@ public class UserSearchController {
        this.mainController = mainController;
        this.loggedInUser = admin;
        this.adminController = adminController;
-
    }
 
     @FXML public void Search(ActionEvent event){

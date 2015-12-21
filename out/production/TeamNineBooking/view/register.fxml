@@ -206,7 +206,7 @@
          <children>
              <VBox alignment="CENTER">
                  <HBox.margin>
-                     <Insets bottom="20"></Insets>
+                     <Insets top="20"></Insets>
                  </HBox.margin>
                  <children>
                      <Label styleClass="register-labels" fx:id="passwordProgressLabel" text="Label" />
