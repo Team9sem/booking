@@ -140,7 +140,7 @@ public class AdminController {
 
         if(searchedForObject == searchedFor.user && userTableView != null) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/reviewChanges.fxml"));
+                FXMLLoader loader = new FXMLLoader(com.team9.bookingsystem.Ui.class.getResource("resources/view/reviewChanges.fxml"));
                 AnchorPane anchorPane = loader.load();
                 ReviewChangesController reviewChangesController = loader.getController();
                 reviewChangesController.setAddedItems(userTableView.getAddedUsers());
@@ -243,7 +243,7 @@ public class AdminController {
         else if(searchedForObject == searchedFor.room && roomTableView != null){
 
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/reviewChanges.fxml"));
+                FXMLLoader loader = new FXMLLoader(com.team9.bookingsystem.Ui.class.getResource("resources/view/reviewChanges.fxml"));
                 AnchorPane anchorPane = loader.load();
                 ReviewChangesController reviewChangesController = loader.getController();
                 reviewChangesController.setAddedItems(roomTableView.getAddedRooms());
@@ -481,7 +481,7 @@ public class AdminController {
 			@Override
 			public void handle (ActionEvent event) {
 				try{
-					FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/roomSearch.fxml"));
+					FXMLLoader loader = new FXMLLoader(com.team9.bookingsystem.Ui.class.getResource("resources/view/roomSearch.fxml"));
 					GridPane gridPane = loader.load();
 					RoomSearchController roomSearchController = loader.getController();
 					roomSearchController.init(mainController,adminController,loggedInUser);
@@ -507,7 +507,7 @@ public class AdminController {
             public void handle(ActionEvent event) {
 
                 try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/userSearch.fxml"));
+                    FXMLLoader loader = new FXMLLoader(com.team9.bookingsystem.Ui.class.getResource("resources/view/userSearch.fxml"));
                     GridPane gridPane = loader.load();
                     UserSearchController userSearchController = loader.getController();
                     userSearchController.init(mainController, adminController, loggedInUser);
@@ -579,7 +579,7 @@ public class AdminController {
         System.out.println("pressed add Item");
         if(searchedForObject == searchedFor.user){
 			try{
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/adduser.fxml"));
+				FXMLLoader loader = new FXMLLoader(com.team9.bookingsystem.Ui.class.getResource("resources/view/adduser.fxml"));
 				AnchorPane anchorPane = loader.load();
 				AddUserController addUserController = loader.getController();
                 Stage popupStage = new Stage();
@@ -628,7 +628,7 @@ public class AdminController {
 		}
         else if(searchedForObject == searchedFor.room){
             try{
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/addroom.fxml"));
+                FXMLLoader loader = new FXMLLoader(com.team9.bookingsystem.Ui.class.getResource("resources/view/addroom.fxml"));
                 AnchorPane anchorPane = loader.load();
                 AddRoomController addRoomController = loader.getController();
                 Stage popupStage = new Stage();
@@ -706,7 +706,7 @@ public class AdminController {
 
                 Room toSchedule = roomTableView.getSelectionModel().getSelectedItem();
 
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/schedule.fxml"));
+                FXMLLoader loader = new FXMLLoader(com.team9.bookingsystem.Ui.class.getResource("resources/view/schedule.fxml"));
                 AnchorPane anchorPane = loader.load();
                 ScheduleController scheduleController = loader.getController();
                 scheduleController.init(mainController,toSchedule,null,loggedInUser);
@@ -744,7 +744,7 @@ public class AdminController {
 
                     User toSchedule = userTableView.getSelectionModel().getSelectedItem();
 
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/schedule.fxml"));
+                    FXMLLoader loader = new FXMLLoader(com.team9.bookingsystem.Ui.class.getResource("resources/view/schedule.fxml"));
                     AnchorPane anchorPane = loader.load();
                     ScheduleController scheduleController = loader.getController();
                     scheduleController.init(mainController,null,toSchedule,loggedInUser);

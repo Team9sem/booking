@@ -33,6 +33,8 @@ public class MainController {
      * Javafx Controller class constructor, Called when Controller is loaded, Sends reference
      * to this controller instance to welcomeareaController
      */
+
+
     public void initialize() {
 
 
@@ -62,7 +64,7 @@ public class MainController {
 
         try{
             System.out.println("in showAdmin");
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/Root.fxml"));
+            FXMLLoader loader = new FXMLLoader(com.team9.bookingsystem.Ui.class.getResource("resources/view/Root.fxml"));
             AnchorPane anchorPane = loader.load();
             loader.setController(this);
             Ui.getChildren().clear();
@@ -94,7 +96,7 @@ public class MainController {
      */
     public void showLoginForm(){
         try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/login.fxml"));
+            FXMLLoader loader = new FXMLLoader(com.team9.bookingsystem.Ui.class.getResource("resources/view/login.fxml"));
             GridPane gridPane = loader.load();
             LoginController loginController = loader.getController();
             loginController.init(this);
@@ -113,7 +115,7 @@ public class MainController {
     public void showRegisterForm(){
 
         try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/register.fxml"));
+            FXMLLoader loader = new FXMLLoader(com.team9.bookingsystem.Ui.class.getResource("resources/view/register.fxml"));
             GridPane gridPane = loader.load();
             RegisterController registerController = loader.getController();
             registerController.init(this);
@@ -135,7 +137,7 @@ public class MainController {
     public void showWelcomeArea(){
 
         try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/welcomearea.fxml"));
+            FXMLLoader loader = new FXMLLoader(com.team9.bookingsystem.Ui.class.getResource("resources/view/welcomearea.fxml"));
             GridPane gridPane = loader.load();
             welcomeAreaController welcomeController = loader.getController();
             welcomeController.init(this);
@@ -161,7 +163,7 @@ public class MainController {
             System.out.println("in showbooking");
 
         try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/booking.fxml"));
+            FXMLLoader loader = new FXMLLoader(com.team9.bookingsystem.Ui.class.getResource("resources/view/booking.fxml"));
             BorderPane borderPane = loader.load();
             BookingController bookingController = loader.getController();
             bookingController.init(this,loggedinUser);
@@ -190,7 +192,7 @@ public class MainController {
      public void showAdminConsole(User admin){
     	try{
             System.out.println("in showAdmin");
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/administratorUI.fxml"));
+            FXMLLoader loader = new FXMLLoader(com.team9.bookingsystem.Ui.class.getResource("resources/view/administratorUI.fxml"));
     		BorderPane borderPane = loader.load();
             AdminController adminController = loader.getController();
             adminController.init(this,admin);
@@ -213,7 +215,7 @@ public class MainController {
     public void showUserProfile(BookingController bookingController) {
         try {
             System.out.println("in showUserProfile");
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/view/UserProfile.fxml"));
+            FXMLLoader loader = new FXMLLoader(com.team9.bookingsystem.Ui.class.getResource("resources/view/UserProfile.fxml"));
             BorderPane borderPane = loader.load();
             ProfileController profileController = loader.getController();
 			profileController.init(this,bookingController,primaryStage);
