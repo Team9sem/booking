@@ -188,8 +188,8 @@ public class MainController {
     }
     
     /*
-     * By Nima Fard
-     * Loads the admin console
+ 	 * Clears out Login UI and loads administratorUI.fxml into it. Also gives AdminController instance
+     * a reference to this instance. Sets distance from anchors on root AnchorPane to 0.0 on all sides.
      */
      public void showAdminConsole(User admin){
     	try{
@@ -216,7 +216,8 @@ public class MainController {
     
     /*
      * By Nima Fard
-     * Loads the user profile
+     * Clears out Booking interface UI and loads UserProfile.fxml into it. Also gives ProfileController instance
+     * a reference to this instance. Sets distance from anchors on root AnchorPane to 0.0 on all sides.
      */
     public void showUserProfile(BookingController bookingController) {
         try {

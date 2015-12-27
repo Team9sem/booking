@@ -304,14 +304,4 @@ public class ProfileController {
 			// call method on mainController that switches from User Profile to Booking Interface
 			mainController.showBookingInterface(loggedInUser);
 	}
-		
-	
-
-	
-	public void showCurrentBookings(){
-		
-	}
-	
 }
-
- 

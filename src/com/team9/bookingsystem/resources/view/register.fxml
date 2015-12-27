@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Circle?>
 
-<!--by nima-->
+<!--By Olle & Nima-->
 
 <GridPane fx:id="registerPane" gridLinesVisible="false" prefWidth="432.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team9.bookingsystem.Controllers.RegisterController">
     <children>

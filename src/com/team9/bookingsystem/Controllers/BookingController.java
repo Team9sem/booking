@@ -769,7 +769,11 @@ public class BookingController {
     @FXML public void SignOut(ActionEvent event){
         mainController.showStartScreen();
     }
-
+    
+    /*
+     * By Nima
+     * Loads user profile
+     */
     @FXML public void showUserProfile(ActionEvent event){
 
         mainController.showUserProfile(this);
