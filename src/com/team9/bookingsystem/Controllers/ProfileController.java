@@ -73,6 +73,11 @@ public class ProfileController {
 	 * @param bookingController reference to bookingController Instance
 	 * @param primaryStage reference to primaryStage instance
 	 */
+
+	/**
+	 * by Filip
+	 * Future and past table views
+	 */
 			public void futureTables(ArrayList<Booking> bookings){
 				System.out.println("in future tables");
 
@@ -129,6 +134,8 @@ public class ProfileController {
 				bookingHistory.getColumns().get(3).prefWidthProperty().bind(currentBookings.widthProperty().multiply(0.192));
 
 			}
+			//END OF FUTURE AND PAST TABLE VIEWS by Filip
+
 			public void init(MainController mainController,BookingController bookingController, Stage primaryStage)
 			{
 				MysqlUtil util = new MysqlUtil();
