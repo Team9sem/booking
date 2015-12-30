@@ -9,6 +9,12 @@ import java.util.ArrayList;
 
 /**
  * Created by pontuspohl on 16/11/15.
+ *
+ *
+ * All content by Pontus
+ *
+ *
+ *
  */
 public class RoomSearchService extends AdminSearchService {
 

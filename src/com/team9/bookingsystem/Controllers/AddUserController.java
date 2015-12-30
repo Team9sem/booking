@@ -22,6 +22,8 @@ import java.util.stream.Stream;
 
 /**
  * Created by pontuspohl on 25/11/15.
+ * All Content by Pontus Pohl
+ * Controller for addroom.fxml popup view component
  */
 public class AddUserController implements PopupController {
 

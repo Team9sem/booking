@@ -21,6 +21,9 @@ import java.util.Date;
  */
 public class MysqlUtil {
 
+    /**
+     * variable declaration by Pontus
+     */
     private final static String URL= "jdbc:mysql://sql.smallwhitebird.com:3306/BookingSystem";;
     private final static String USER = "team9";
     private final static String PASS = "team9";
@@ -36,16 +39,25 @@ public class MysqlUtil {
         dataSource = basicDataSource;
     }
 
+    /**
+     * by Pontus
+     */
     public MysqlUtil()
     {
         System.out.println("util Constructor");
     }
-    // initialises the Connection.
+
+
+    /**
+     * by Pontus
+     * @return
+     * @throws SQLException
+     */
     public Connection getConnection() throws SQLException{
-        System.out.println("number of active Connections:");
-            System.out.println(dataSource.getNumActive());
-        System.err.println("nr of idle connections:");
-        System.err.println(dataSource.getNumIdle());
+//        System.out.println("number of active Connections:");
+//            System.out.println(dataSource.getNumActive());
+//        System.err.println("nr of idle connections:");
+//        System.err.println(dataSource.getNumIdle());
 
             return dataSource.getConnection();
 
@@ -61,6 +73,11 @@ public class MysqlUtil {
 
     }
     // accepts any query, BEWARE can damage database.
+
+    /**
+     * by Pontus
+     * @param query
+     */
     public void runQuery(String query){
         try(Connection connection = getConnection()){
 
@@ -1003,7 +1020,7 @@ public class MysqlUtil {
 
 
             System.out.println("\nUser Connection Established\n");
-
+            System.out.println("getting Past Bookings");
 
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(
@@ -1028,11 +1045,12 @@ public class MysqlUtil {
         }catch(SQLException e){
             e.printStackTrace();
         }
-
-        for(Booking booking : bookingArrayList){
-            booking.setUser(getUser(booking.getuserid()));
-            booking.setRoom(getRoom(booking.getroomID()));
-        }
+        System.out.println("got in MySqlUtil Past Bookings");
+//        for(Booking booking : bookingArrayList){
+//            System.out.println("in loop");
+//            booking.setUser(getUser(booking.getuserid()));
+//            booking.setRoom(getRoom(booking.getroomID()));
+//        }
 
         return bookingArrayList;
     }
@@ -1091,10 +1109,12 @@ public class MysqlUtil {
         }catch(SQLException e){
             e.printStackTrace();
         }
-        for(Booking booking : bookingArrayList){
-            booking.setUser(getUser(booking.getuserid()));
-            booking.setRoom(getRoom(booking.getroomID()));
-        }
+        System.out.println("got future bookings in mySqlUtil");
+//        for(Booking booking : bookingArrayList){
+//            System.out.println("in loop");
+//            booking.setUser(getUser(booking.getuserid()));
+//            booking.setRoom(getRoom(booking.getroomID()));
+//        }
 
         return bookingArrayList;
     }

@@ -9,6 +9,11 @@ import java.util.ArrayList;
 
 /**
  * Created by pontuspohl on 01/11/15.
+ *
+ *
+ * All Content by Pontus
+ *
+ *
  */
 public class FindRoomService extends ThreadService {
 

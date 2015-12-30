@@ -8,7 +8,12 @@ import java.util.ArrayList;
 /**
  * Created By Pontus Pohl 31/10 - 2015
  * Basic ThreadService that extends Service<Object>
+ *
+ * All Content by Pontus
+ *
  * @see Service
+ *
+ *
  */
 public  class ThreadService extends Service<Object> {
 

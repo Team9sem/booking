@@ -20,6 +20,10 @@ import java.util.ArrayList;
 
 /**
  * Created by pontuspohl on 13/11/15.
+ *
+ * All Content by Pontus
+ *
+ * Controller for schedule.fxml popup view
  */
 public class ScheduleController implements PopupController {
 

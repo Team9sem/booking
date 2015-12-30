@@ -165,7 +165,9 @@ public class User implements SearchableObject {
         return downloading;
     }
 
-
+    /**
+     * by Pontus
+     */
     public void downloadAvatar(){
         User thisUser = this;
         downloading = true;

@@ -5,7 +5,12 @@ import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
 /**
- * Created by pontuspohl on 25/10/15.
+ * Created by pontuspohl on 27/12/15.
+ *
+ *
+ * All Content by Pontus
+ *
+ *
  */
 public class LoginService extends ThreadService{
 

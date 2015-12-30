@@ -11,6 +11,9 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Created by pontuspohl on 22/11/15.
+ * All Content by Pontus Pohl
+ * Protoype modification of the JavaFX datePicker, that allows for custom elements such as an embedded
+ * timepicker in the DatePicker and so on.
  */
 public class CustomDatePicker extends DatePicker {
 

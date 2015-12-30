@@ -20,6 +20,10 @@ import java.util.ArrayList;
 
 /**
  * Created by pontuspohl on 27/11/15.
+ *
+ * All Content by Pontus
+ *
+ * Controller for reviewChanges.fxml popup view
  */
 public class ReviewChangesController implements PopupController {
 

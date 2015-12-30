@@ -41,6 +41,10 @@ public class Ui extends Application {
         launch(args);
     }
 
+    /**
+     * by Pontus
+     * @param primaryStage
+     */
     @Override
     public void start(Stage primaryStage) {
         thestage = primaryStage;
@@ -55,6 +59,10 @@ public class Ui extends Application {
 
     }
 
+    /**
+     * by Pontus
+     * @throws IOException
+     */
     public void initializeScenes() throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("resources/view/Root.fxml"));
         ui = loader.load();
@@ -70,17 +78,5 @@ public class Ui extends Application {
     }
 }
 
-
-
-/**
- * 
- * 
- * Created by Alemeseged Setie
- * 
- * open and save png files, using JavaFX FileChooser
- *   
- *   
-
- */
 
        
