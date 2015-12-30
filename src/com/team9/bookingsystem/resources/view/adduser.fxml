@@ -6,12 +6,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Circle?>
-
-
-        
 <?import javafx.scene.text.Font?>
+
+<!-- By Pontus & Nima -->
+
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team9.bookingsystem.Controllers.AddUserController" styleClass="popup-root">
-<GridPane style="-fx-background-color: rgba(212, 218, 255, 0.38);"  fx:id="registerPane" gridLinesVisible="true" prefWidth="432.0"
+<GridPane style="-fx-background-color: rgba(212, 218, 255, 0.38);"  fx:id="registerPane" gridLinesVisible="false" prefWidth="432.0"
         AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
         >
     <children>
@@ -22,7 +22,7 @@
 
         <HBox alignment="CENTER" prefHeight="60" GridPane.columnSpan="3" GridPane.rowIndex="0">
             <children>
-                <Label fx:id="searchPreferences" alignment="TOP_LEFT" styleClass="options-area-labels" text="Add User" textAlignment="CENTER">
+                <Label fx:id="searchPreferences" alignment="TOP_LEFT" styleClass="upBigLabels" text="Add User" textAlignment="CENTER">
                     <font>
                         <Font name="Infinity" size="30.0" />
                     </font>
@@ -37,16 +37,16 @@
                 <Label styleClass="register-labels" text="Username" />
             </children>
             <padding>
-                <Insets left="90.0" />
+                <Insets left="100.0" />
             </padding>
         </HBox>
-        <HBox alignment="CENTER_LEFT" GridPane.rowIndex="2">
+        <HBox alignment="CENTER_LEFT" GridPane.rowIndex="2" >
             <children>
 
                 <Label styleClass="register-labels" text="Password" />
             </children>
             <padding>
-                <Insets left="90.0" />
+                <Insets left="100.0" />
             </padding>
         </HBox>
         <HBox alignment="CENTER_LEFT" GridPane.rowIndex="3">
@@ -55,7 +55,7 @@
                 <Label styleClass="register-labels" text="First Name" />
             </children>
             <padding>
-                <Insets left="90.0" />
+                <Insets left="100.0" />
             </padding>
         </HBox>
         <HBox alignment="CENTER_LEFT" GridPane.rowIndex="4">
@@ -64,7 +64,7 @@
                 <Label styleClass="register-labels" text="Last Name" />
             </children>
             <padding>
-                <Insets left="90.0" />
+                <Insets left="100.0" />
             </padding>
         </HBox>
         <HBox alignment="CENTER_LEFT" GridPane.rowIndex="5">
@@ -73,7 +73,7 @@
                 <Label styleClass="register-labels" text="Social Security Number" />
             </children>
             <padding>
-                <Insets left="90.0" />
+                <Insets left="100.0" />
             </padding>
         </HBox>
         <HBox alignment="CENTER_LEFT" GridPane.rowIndex="6">
@@ -82,7 +82,7 @@
                 <Label styleClass="register-labels" text="Adress" />
             </children>
             <padding>
-                <Insets left="90.0" />
+                <Insets left="100.0" />
             </padding>
         </HBox>
         <HBox alignment="CENTER_LEFT" GridPane.rowIndex="7">
@@ -91,14 +91,14 @@
                 <Label styleClass="register-labels" text="Zip Code" />
             </children>
             <padding>
-                <Insets left="90.0" />
+                <Insets left="100.0" />
             </padding>
         </HBox>
 
-        <HBox alignment="CENTER" prefWidth="223.0" GridPane.columnIndex="1" GridPane.columnSpan="1" GridPane.rowIndex="1">
+        <HBox alignment="CENTER_LEFT" prefWidth="223.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
 
             <GridPane.margin>
-                <Insets bottom="10" left="10" right="10" top="10" />
+                <Insets bottom="10" left="25" right="10" top="10" />
             </GridPane.margin>
 
             <TextField fx:id="username" promptText="Enter Username" />
@@ -108,20 +108,20 @@
 
         </HBox>
 
-        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="1" GridPane.rowIndex="2">
+        <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
 
             <GridPane.margin>
-                <Insets bottom="10" left="10" right="10" top="10" />
+                <Insets bottom="10" left="25" right="10" top="10" />
             </GridPane.margin>
 
             <PasswordField fx:id="password" promptText="Enter Password" />
 
         </HBox>
 
-        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="1" GridPane.rowIndex="3">
+        <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
 
             <GridPane.margin>
-                <Insets bottom="10" left="10" right="10" top="10" />
+                <Insets bottom="10" left="25" right="10" top="10" />
             </GridPane.margin>
 
             <TextField fx:id="firstname" promptText="Enter First Name" />
@@ -129,10 +129,10 @@
 
         </HBox>
 
-        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="1" GridPane.rowIndex="4">
+        <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4">
 
             <GridPane.margin>
-                <Insets bottom="10" left="10" right="10" top="10" />
+                <Insets bottom="10" left="25" right="10" top="10" />
             </GridPane.margin>
 
             <TextField fx:id="lastname" promptText="Enter Last Name" />
@@ -140,11 +140,11 @@
 
         </HBox>
 
-        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="1" GridPane.rowIndex="5">
+        <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5">
 
 
             <GridPane.margin>
-                <Insets bottom="10" left="10" right="10" top="10" />
+                <Insets bottom="10" left="25" right="10" top="10" />
             </GridPane.margin>
 
             <TextField fx:id="personnumber" promptText="Enter SSN" />
@@ -152,42 +152,42 @@
         </HBox>
 
 
-        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="1" GridPane.rowIndex="6">
+        <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="6">
 
             <GridPane.margin>
-                <Insets bottom="10" left="10" right="10" top="10" />
+                <Insets bottom="10" left="25" right="10" top="10" />
             </GridPane.margin>
 
             <TextField fx:id="adress" promptText="Enter Adress" />
 
         </HBox>
 
-        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="7">
+        <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="7">
 
             <GridPane.margin>
-                <Insets bottom="10" left="10" right="10" top="10" />
+                <Insets bottom="10" left="25" right="10" top="10" />
             </GridPane.margin>
 
             <TextField fx:id="zip" promptText="Enter Zip Code" />
         </HBox>
 
-        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="1" GridPane.rowIndex="8">
+        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="8">
 
             <GridPane.margin>
                 <Insets bottom="10" left="10" right="10" top="10" />
             </GridPane.margin>
 
-            <Button fx:id="register" onAction="#addUser"  text="Add User" />
+            <Button fx:id="register" onAction="#addUser"  text="Add User" styleClass="search-button"/>
 
         </HBox>
 
-        <HBox alignment="CENTER" GridPane.columnIndex="0" GridPane.columnSpan="1" GridPane.rowIndex="8">
+        <HBox alignment="CENTER" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="8">
 
             <GridPane.margin>
                 <Insets bottom="10" left="10" right="10" top="10" />
             </GridPane.margin>
 
-            <Button fx:id="cancel"  onAction="#cancel" text="Cancel" />
+            <Button fx:id="cancel"  onAction="#cancel" text="Cancel" styleClass="search-button"/>
             <padding>
                 <Insets left="30.0" />
             </padding>

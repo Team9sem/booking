@@ -52,15 +52,19 @@ public class UserSearchController {
    
     @FXML Button adminSearchButton;
 	
-	 public void initialize() {
-     }
-  
+    /*
+   	 * By Pontus & Nima
+   	 */
    public void init(MainController mainController,AdminController adminController,User admin){
        this.mainController = mainController;
        this.loggedInUser = admin;
        this.adminController = adminController;
    }
-
+   	
+   	/*
+   	 * By Pontus & Nima
+   	 * User search in admin console
+   	 */
     @FXML public void Search(ActionEvent event){
 
         int id = 0;

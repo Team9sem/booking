@@ -370,7 +370,6 @@ public class ProfileController {
 		getBookingsService getFutureBookingsService = new getBookingsService(new getFutureBookingsTask(loggedInUser));
 		getPastBookingsService.start();
 
-
 		getPastBookingsService.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
 			@Override
 			public void handle(WorkerStateEvent event) {
@@ -413,7 +412,4 @@ public class ProfileController {
 	}
 
 
-	
 }
-
- 

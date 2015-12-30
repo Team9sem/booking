@@ -780,7 +780,11 @@ public class BookingController {
         mainController.showStartScreen();
     }
 
-
+    
+    /*
+     * By Nima
+     * Loads user profile
+     */
     @FXML public void showUserProfile(ActionEvent event){
 
         mainController.showUserProfile(this);

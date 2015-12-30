@@ -209,13 +209,17 @@ public class MainController {
             showAdminConsole(loggedinUser);
         }
     }
+<<<<<<< HEAD
 
     /**
      * by Pontus
      * @param admin
+=======
+    
     /*
  	 * Clears out Login UI and loads administratorUI.fxml into it. Also gives AdminController instance
      * a reference to this instance. Sets distance from anchors on root AnchorPane to 0.0 on all sides.
+>>>>>>> feature/nima_comments
      */
      public void showAdminConsole(User admin){
     	try{

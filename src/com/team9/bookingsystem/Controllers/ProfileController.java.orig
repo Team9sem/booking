@@ -8,8 +8,12 @@ import java.util.Arrays;
 import java.util.Observable;
 
 import com.team9.bookingsystem.Booking;
+import com.team9.bookingsystem.Components.getBookingsCallback;
 import com.team9.bookingsystem.MysqlUtil;
+import com.team9.bookingsystem.Threading.User.getFutureBookingsTask;
+import com.team9.bookingsystem.Threading.User.getPastBookingsTask;
 import com.team9.bookingsystem.User;
+import com.team9.bookingsystem.Threading.User.getBookingsService;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -28,6 +32,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -59,6 +64,7 @@ public class ProfileController {
 	@FXML Button ppButton;
 	@FXML Button backToBookings;
 	@FXML ImageView imageView;
+	@FXML private HBox progressLayer;
 
 //	
 //	public void init(MainController mainController){
@@ -69,11 +75,119 @@ public class ProfileController {
 
 	/**
 	 * by Pontus and Nima
+	 *
+	 * Logic regarding avatar by Pontus
+	 *
 	 * @param mainController reference to mainController instance
 	 * @param bookingController reference to bookingController Instance
 	 * @param primaryStage reference to primaryStage instance
 	 */
-			public void futureTables(ArrayList<Booking> bookings){
+
+	public void init(MainController mainController,BookingController bookingController, Stage primaryStage)
+	{
+		MysqlUtil util = new MysqlUtil();
+
+		this.primaryStage = primaryStage;
+		this.mainController = mainController;
+		this.bookingController = bookingController;
+		this.loggedInUser = bookingController.getLoggedInUser();
+
+		// setting user fields to values from the current loggedin user.
+		userName.setText(loggedInUser.getUserName());
+		firstName.setText(loggedInUser.getFirstName());
+		lastName.setText(loggedInUser.getLastName());
+		adress.setText(loggedInUser.getStreet());
+		ssn.setText(""+loggedInUser.getpNumber());
+		zipCode.setText(""+loggedInUser.getZip());
+
+//		futureTables(util.getFutureBookings(loggedInUser));
+//		pastTables(util.getPastBookings(loggedInUser));
+//		getBookings();
+
+		// if the user profilePic is downloaded, set it to imageView
+		if(loggedInUser.getAvatar() != null){
+			System.out.println("allready have an avatar");
+			Image image = bufferedImageToWritableImage(loggedInUser.getAvatar());
+			imageView.setImage(image);
+			getBookings(new getBookingsCallback() {
+				@Override
+				public void onSuccess() {
+					progressLayer.setVisible(false);
+				}
+
+				@Override
+				public void onFailure() {
+					progressLayer.setVisible(false);
+				}
+			});
+		}
+		// if its still being downloaded, start a thread that waits for it to finish
+		if(loggedInUser.getAvatar() == null && loggedInUser.isDownloading()){
+			System.out.println("still downloading avatar");
+			Service<Boolean> finishedDownload = new Service<Boolean>() {
+				@Override
+				protected Task<Boolean> createTask() {
+					Task<Boolean> task = new Task<Boolean>() {
+						@Override
+						protected Boolean call() throws Exception {
+							if(!loggedInUser.isDownloading()){
+								return true;
+							}
+							while(loggedInUser.isDownloading()){
+								Thread.sleep(100);
+							}
+							return true;
+
+						}
+					};
+					return task;
+				}
+			};
+			finishedDownload.start();
+
+			// when thread finishes set the image to the imageview.
+			finishedDownload.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+				@Override
+				public void handle(WorkerStateEvent event) {
+					if(loggedInUser.getAvatar() !=null){
+						Image image = bufferedImageToWritableImage(loggedInUser.getAvatar());
+						imageView.setImage(image);
+						getBookings(new getBookingsCallback() {
+							@Override
+							public void onSuccess() {
+								progressLayer.setVisible(false);
+							}
+
+							@Override
+							public void onFailure() {
+								progressLayer.setVisible(false);
+							}
+						});
+					}
+				}
+			});
+			finishedDownload.setOnFailed(new EventHandler<WorkerStateEvent>() {
+				@Override
+				public void handle(WorkerStateEvent event) {
+					getBookings(new getBookingsCallback() {
+						@Override
+						public void onSuccess() {
+							progressLayer.setVisible(false);
+						}
+
+						@Override
+						public void onFailure() {
+							progressLayer.setVisible(false);
+						}
+					});
+				}
+			});
+		}
+
+
+	}
+
+		public void futureTables(ArrayList<Booking> bookings){
 				System.out.println("in future tables");
 
 				ObservableList<Booking> ofBookings= FXCollections.observableArrayList(bookings);
@@ -103,7 +217,7 @@ public class ProfileController {
 			}
 
 			public void pastTables(ArrayList<Booking> bookings){
-
+				System.out.println("in past tables");
 				ObservableList<Booking> ofBookings= FXCollections.observableArrayList(bookings);
 
 				TableColumn location = new TableColumn("Location");
@@ -127,69 +241,9 @@ public class ProfileController {
 				bookingHistory.getColumns().get(1).prefWidthProperty().bind(currentBookings.widthProperty().multiply(0.20));
 				bookingHistory.getColumns().get(2).prefWidthProperty().bind(currentBookings.widthProperty().multiply(0.20));
 				bookingHistory.getColumns().get(3).prefWidthProperty().bind(currentBookings.widthProperty().multiply(0.192));
-
+				System.out.println("end of past tables");
 			}
-			public void init(MainController mainController,BookingController bookingController, Stage primaryStage)
-			{
-				MysqlUtil util = new MysqlUtil();
 
-				this.primaryStage = primaryStage;
-				this.mainController = mainController;
-				this.bookingController = bookingController;
-				this.loggedInUser = bookingController.getLoggedInUser();
-
-				// setting user fields to values from the current loggedin user.
-				userName.setText(loggedInUser.getUserName());
-				firstName.setText(loggedInUser.getFirstName());
-				lastName.setText(loggedInUser.getLastName());
-				adress.setText(loggedInUser.getStreet());
-				ssn.setText(""+loggedInUser.getpNumber());
-				zipCode.setText(""+loggedInUser.getZip());
-
-				futureTables(util.getFutureBookings(loggedInUser));
-				pastTables(util.getPastBookings(loggedInUser));
-
-				// if the user profilePic is downloaded, set it to imageView
-				if(loggedInUser.getAvatar() != null){
-					Image image = bufferedImageToWritableImage(loggedInUser.getAvatar());
-					imageView.setImage(image);
-				}
-				// if its still being downloaded, start a thread that waits for it to finish
-				if(loggedInUser.getAvatar() == null && loggedInUser.isDownloading()){
-					Service<Boolean> finishedDownload = new Service<Boolean>() {
-						@Override
-						protected Task<Boolean> createTask() {
-							Task<Boolean> task = new Task<Boolean>() {
-								@Override
-								protected Boolean call() throws Exception {
-									if(!loggedInUser.isDownloading()){
-										return true;
-									}
-									while(loggedInUser.isDownloading()){
-										Thread.sleep(100);
-									}
-									return true;
-
-								}
-							};
-						return task;
-						}
-					};
-					finishedDownload.start();
-
-					// when thread finishes set the image to the imageview.
-					finishedDownload.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
-						@Override
-						public void handle(WorkerStateEvent event) {
-							if(loggedInUser.getAvatar() !=null){
-								Image image = bufferedImageToWritableImage(loggedInUser.getAvatar());
-								imageView.setImage(image);
-							}
-						}
-					});
-
-				}
-			}
 
 	/**
 	 * by Pontus and Alemeseged
@@ -256,7 +310,7 @@ public class ProfileController {
 			}
 
 	/**
-	 *
+	 * By Pontus
 	 * @param image BufferedImage to be converted
 	 * @return converted Image as WriteableImage( subclass of Image)
 	 */
@@ -304,14 +358,66 @@ public class ProfileController {
 			// call method on mainController that switches from User Profile to Booking Interface
 			mainController.showBookingInterface(loggedInUser);
 	}
-		
-	
+<<<<<<< HEAD
+	/**
+	 * By Pontus
+	 * Instanties Service Classes that retrieves arraylist of bookings for the tableviews in the userProfile.
+	 *
+	 *
+	 */
+	private void getBookings(getBookingsCallback callback){
 
-	
-	public void showCurrentBookings(){
-		
+		getBookingsService getPastBookingsService = new getBookingsService(new getPastBookingsTask(loggedInUser));
+		getBookingsService getFutureBookingsService = new getBookingsService(new getFutureBookingsTask(loggedInUser));
+		getPastBookingsService.start();
+
+
+		getPastBookingsService.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+			@Override
+			public void handle(WorkerStateEvent event) {
+
+				pastTables(getPastBookingsService.getValue());
+				callback.setGotPastBookings(true);
+				getFutureBookingsService.start();
+			}
+		});
+		getPastBookingsService.setOnFailed(new EventHandler<WorkerStateEvent>() {
+			@Override
+			public void handle(WorkerStateEvent event) {
+				System.out.println("failed");
+				getFutureBookingsService.start();
+			}
+		});
+
+
+		getFutureBookingsService.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+			@Override
+			public void handle(WorkerStateEvent event) {
+				System.out.println("got future Bookings");
+				futureTables(getFutureBookingsService.getValue());
+				callback.setGotFutureBookings(true);
+				if(callback.getGotFutureBookings() && callback.getGotPastBookings()){
+					callback.onSuccess();
+				}
+				else{
+					callback.onFailure();
+				}
+			}
+		});
+		getFutureBookingsService.setOnFailed(new EventHandler<WorkerStateEvent>() {
+			@Override
+			public void handle(WorkerStateEvent event) {
+				System.out.println("failed");
+				callback.onFailure();
+			}
+		});
 	}
+
+
 	
 }
 
  
+=======
+}
+>>>>>>> feature/nima_comments
