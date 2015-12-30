@@ -76,19 +76,12 @@ public class ProfileController {
 	/**
 	 * by Pontus and Nima
 	 *
-	 * Logic regarding avatar by Pontus
+	 * Logic regarding avatar and threading by Pontus
 	 *
 	 * @param mainController reference to mainController instance
 	 * @param bookingController reference to bookingController Instance
 	 * @param primaryStage reference to primaryStage instance
 	 */
-
-	/**
-	 * by Filip
-	 * Future and past table views
-	 */
-
-			//END OF FUTURE AND PAST TABLE VIEWS by Filip
 
 	public void init(MainController mainController,BookingController bookingController, Stage primaryStage)
 	{
@@ -193,7 +186,10 @@ public class ProfileController {
 
 
 	}
-
+	/**
+	 * by Filip
+	 * 
+	 */
 		public void futureTables(ArrayList<Booking> bookings){
 				System.out.println("in future tables");
 
@@ -223,6 +219,12 @@ public class ProfileController {
 				System.out.println("end of future tables");
 			}
 
+	/**
+	 *
+	 * by Filip
+	 *
+	 * @param bookings
+     */
 			public void pastTables(ArrayList<Booking> bookings){
 				System.out.println("in past tables");
 				ObservableList<Booking> ofBookings= FXCollections.observableArrayList(bookings);

@@ -6,6 +6,8 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
+<!-- By Olle & Nima -->
+
 <GridPane  fx:id="userSearchGridPane" gridLinesVisible="false" hgap="10" prefWidth="432.0" vgap="2" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team9.bookingsystem.Controllers.UserSearchController">
          <columnConstraints>
             <ColumnConstraints hgrow="ALWAYS" maxWidth="307.0" minWidth="10.0" prefWidth="200.0" />
@@ -123,7 +125,7 @@
             </HBox>
             <HBox GridPane.columnSpan="3" GridPane.rowIndex="12">
                <children>
-                  <Label text="Pnumber:" />
+                  <Label text="Personal Number:" styleClass="upLabels" />
                </children>
             </HBox>
             <HBox GridPane.columnSpan="3" GridPane.rowIndex="13">
