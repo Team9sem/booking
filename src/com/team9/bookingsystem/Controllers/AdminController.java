@@ -115,6 +115,7 @@ public class AdminController {
 
     /**
      * set this controller up with references to parent controller and loggedInUser.
+     * By Pontus
      * @param mainController
      * @param admin
      */
@@ -401,7 +402,13 @@ public class AdminController {
 
     }
 
-
+    /**
+     * by Pontus Pohl
+     * @param room
+     * @param small
+     * @param medium
+     * @param large
+     */
     public void searchForRooms(Room room,boolean small,boolean medium, boolean large){
 
     searchedForObject = searchedFor.room;
@@ -545,6 +552,7 @@ public class AdminController {
 
     /**
      * By Pontus
+     * Creates the tableView of Users
      */
     private void setupUserTableView(){
 
@@ -573,6 +581,13 @@ public class AdminController {
 
         mainController.showStartScreen();
 	}
+
+    /**
+     * By Pontus Pohl
+     * Displays popup
+     *
+     * @param event
+     */
 	@FXML public void displayAddItemPopup(ActionEvent event){
 
         // Todo: fix so that added items id field is blank
@@ -680,6 +695,11 @@ public class AdminController {
 
 	}
 
+    /**
+     * By Pontus Pohl
+     * Deletes a selected item.
+     * @param event
+     */
     @FXML public void deleteItem(ActionEvent event){
         if(searchedForObject == searchedFor.user){
             userTableView.getDeletedUsers().add(userTableView.getSelectionModel().getSelectedItem());
@@ -695,6 +715,11 @@ public class AdminController {
         }
     }
 
+    /**
+     * by Pontus Pohl
+     * Show Schedule for a selected item
+     * @param event
+     */
     @FXML public void showSchedule(ActionEvent event){
         if(searchedForObject == searchedFor.none){
             return;

@@ -26,6 +26,8 @@ import java.util.ArrayList;
 
 /**
  * Created by pontuspohl on 26/11/15.
+ * All Content by Pontus Pohl
+ * Custom TableView used in Administrator Interface
  */
 public class UserTableView extends TableView<User> {
 

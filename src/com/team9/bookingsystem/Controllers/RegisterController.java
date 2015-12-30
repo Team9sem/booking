@@ -70,14 +70,20 @@ public class RegisterController
     @FXML Label             passwordErrorLabel;
 
     // this method runs when controller is started
+
+    /**
+     * by Pontus
+     */
     public void initialize() {
 
 
     }
 
 
-
-
+    /**
+     * by Pontus
+     * @param mainController
+     */
     // takes a reference to the controller of the parent
     public void init(MainController mainController){
         this.mainController = mainController;
@@ -111,6 +117,10 @@ public class RegisterController
         // TODO: take user back to welcome area
         mainController.showWelcomeArea();
     }
+
+    /**
+     * all by Pontus except for else-clause by Marya as commented
+     */
     // Validate user input with the database.
     @FXML public void register(){
 
@@ -278,6 +288,10 @@ public class RegisterController
         }
     }
 
+    /**
+     * bu Pontus
+     * sets up error checking logic
+     */
     private void setupErrorChecking(){
 
         username.textProperty().addListener(new ChangeListener<String>() {

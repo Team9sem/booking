@@ -12,6 +12,9 @@ import java.io.IOException;
 
 /**
  * Created by pontuspohl on 22/10/15.
+ *
+ * All content by Pontus
+ *
  * Controller for welcomearea.fxml
  *
  */

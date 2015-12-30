@@ -17,6 +17,8 @@ import java.util.ArrayList;
 
 /**
  * Created by pontuspohl on 30/11/15.
+ * All Content by Pontus Pohl
+ * Controller for addRoom.fxml popup view component.
  */
 public class AddRoomController implements PopupController {
 

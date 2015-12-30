@@ -21,6 +21,8 @@ import java.util.ArrayList;
 
 /**
  * Created by pontuspohl on 26/11/15.
+ * All Content by Pontus Pohl
+ * Custom Tableview used in Administrator Interface
  */
 public class RoomTableView extends TableView<Room> {
 

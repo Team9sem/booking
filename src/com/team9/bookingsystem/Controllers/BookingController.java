@@ -103,6 +103,7 @@ public class BookingController {
 
 
     /**
+     * by Pontus and Filip
      * this method runs when controller is started
      */
     public void initialize() {
@@ -122,6 +123,11 @@ public class BookingController {
 
     }
 
+    /**
+     * by Pontus and Filip
+     * @param mainController
+     * @param user
+     */
     // takes a reference to the controller of the parent
     public void init(MainController mainController,User user){
         this.mainController = mainController;
@@ -303,7 +309,7 @@ public class BookingController {
 
 
     /**
-     * by Pontus
+     * by Pontus and Filip
      */
     private void setupDatePicker(){
         datePicker.setShowWeekNumbers(true);
@@ -766,9 +772,14 @@ public class BookingController {
         }
     }
 
+    /**
+     * by Pontus
+     * @param event
+     */
     @FXML public void SignOut(ActionEvent event){
         mainController.showStartScreen();
     }
+
 
     @FXML public void showUserProfile(ActionEvent event){
 

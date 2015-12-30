@@ -9,6 +9,8 @@ import java.util.DoubleSummaryStatistics;
 
 /**
  * Created by pontuspohl on 18/11/15.
+ * All Content by Pontus Pohl
+ * calculates the widths for a tableview. currently used in the admin interface tableviews.
  */
 public class CustomColumnResizePolicy implements Callback<TableView.ResizeFeatures, Boolean> {
 
