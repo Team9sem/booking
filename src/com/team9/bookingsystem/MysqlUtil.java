@@ -515,6 +515,9 @@ public class MysqlUtil {
 
     }//end public User RegisterRoom
 
+    /**
+     * GET ROOMS, COMPOSE ROOM QUERY and TOTAL NUMBER OF ROOMS by Filip
+     */
     public int totalNumberOfRooms(){
         int j = 0;
         try(Connection connection = getConnection()){
@@ -634,60 +637,16 @@ public class MysqlUtil {
                 rs.getInt("roomId");
             }
             return bridgeRooms;
-//                for (int i = 1; i <= columnsNumber; i++) {
-//
-//                    String columnValue = rs.getString(i);
-//                    char c;
-//                    if(i==1 || i==7 || i==8) {
-//                        if(i==1){ rID = Integer.parseInt(columnValue); }
-//                        if(i==7){ bID = Integer.parseInt(columnValue); }
-//                        if(i==8){ uID = Integer.parseInt(columnValue); }
-//                    }
-//                    if(i==2) {
-//                        locationOfRoom = columnValue;
-//                    }
-//                    if(i==3) {
-//                        sizeOfRoom = columnValue;
-//                    }
-//                    if(i==4 || i == 5 || i == 6){
-//                        c = columnValue.charAt(0);
-//                        if(i==4) { projector = Character.getNumericValue(c); }
-//                        if(i==5) { whiteboard = Character.getNumericValue(c); }
-//                        if(i==6) { coffee = Character.getNumericValue(c); }
-//                    }
-//                    if(i==9){  }
-//                    if(i==10){  }
-//                    if(i==11){  }
 
-
-//                Room tmpRoom = new Room(rID, locationOfRoom, sizeOfRoom, projector, whiteboard, coffee);
-//                hlpRooms[k] = new BookedRoom(tmpRoom, bID, uID, date, startTime, endTime);
-//                k++;
-//                availableRoomsNo++;
-//
-//            //testing purposes - counts results
-//            System.out.println("Rooms total:"+availableRoomsNo);
-//
-//            bridgeRooms = hlpRooms;
-//
-//            rs.close();
-//            statement.close();
-//            connection.close();
 
         }catch(SQLException e){
             e.printStackTrace();
         }
 
-//        Room[] rooms = new Room[availableRoomsNo];
-//
-//        for(int i=0; i<availableRoomsNo; i++){
-//            rooms[i] = bridgeRooms[i];
-//        }
-//
-//        return rooms;
+
         return null;
     }
-
+    //END OF GET ROOMS, COMPOSE ROOM QUERY
 
     /**
      * by Pontus
@@ -788,7 +747,7 @@ public class MysqlUtil {
 
     /**
      *Editing and removing a user from the database
-     *Created by iso on 12/11/15
+     *Created by Filip on 12/11/15
      */
 
     public void updateUser(ArrayList<User> users) throws SQLException{
@@ -833,7 +792,7 @@ public class MysqlUtil {
     /**
      * Filip Isakovski
      * Searching through users, rooms and bookings in the database
-     * Created by iso on 13/11/15
+     * Created by Filip on 13/11/15
      */
 
     public ArrayList<User> getUsers(User user){
@@ -996,7 +955,8 @@ public class MysqlUtil {
 
         return bookingArrayList;
     }
-
+        //END OF Searching through users, rooms and bookings in the database
+    
     /**
      *
      *
@@ -1119,7 +1079,11 @@ public class MysqlUtil {
         return bookingArrayList;
     }
 
-    //END OF Get user and return ArrayList of Future Bookings
+    //END OF Get user and return ArrayList of Future Bookings //
+
+    /**
+     * SEARCHING USER, ROOM AND BOOKING METHODS //by Filip
+     */
     public ArrayList<Booking> getBookings(Room room){
         ArrayList<Booking> bookingArrayList = new ArrayList<>();
 
@@ -1189,7 +1153,7 @@ public class MysqlUtil {
         return user;
     }
 
-    //Created by Mayra? 
+
     public Room getRoom(int roomID){
 
         Room room = new Room();
@@ -1221,7 +1185,7 @@ public class MysqlUtil {
 
         return room;
     }
-    //END OF SEARCHING USER, ROOM AND BOOKING METHODS
+    //END OF SEARCHING USER, ROOM AND BOOKING METHODS //by Filip
 
     /**
      * by Pontus

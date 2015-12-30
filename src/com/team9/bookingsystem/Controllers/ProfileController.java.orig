@@ -83,6 +83,7 @@ public class ProfileController {
 	 * @param primaryStage reference to primaryStage instance
 	 */
 
+<<<<<<< HEAD
 	public void init(MainController mainController,BookingController bookingController, Stage primaryStage)
 	{
 		MysqlUtil util = new MysqlUtil();
@@ -188,6 +189,13 @@ public class ProfileController {
 	}
 
 		public void futureTables(ArrayList<Booking> bookings){
+=======
+	/**
+	 * by Filip
+	 * Future and past table views
+	 */
+			public void futureTables(ArrayList<Booking> bookings){
+>>>>>>> feature/cmtFilip
 				System.out.println("in future tables");
 
 				ObservableList<Booking> ofBookings= FXCollections.observableArrayList(bookings);
@@ -243,6 +251,51 @@ public class ProfileController {
 				bookingHistory.getColumns().get(3).prefWidthProperty().bind(currentBookings.widthProperty().multiply(0.192));
 				System.out.println("end of past tables");
 			}
+<<<<<<< HEAD
+=======
+			//END OF FUTURE AND PAST TABLE VIEWS by Filip
+
+			public void init(MainController mainController,BookingController bookingController, Stage primaryStage)
+			{
+				MysqlUtil util = new MysqlUtil();
+
+				this.primaryStage = primaryStage;
+				this.mainController = mainController;
+				this.bookingController = bookingController;
+				this.loggedInUser = bookingController.getLoggedInUser();
+
+				// setting user fields to values from the current loggedin user.
+				userName.setText(loggedInUser.getUserName());
+				firstName.setText(loggedInUser.getFirstName());
+				lastName.setText(loggedInUser.getLastName());
+				adress.setText(loggedInUser.getStreet());
+				ssn.setText(""+loggedInUser.getpNumber());
+				zipCode.setText(""+loggedInUser.getZip());
+
+				futureTables(util.getFutureBookings(loggedInUser));
+				pastTables(util.getPastBookings(loggedInUser));
+
+				// if the user profilePic is downloaded, set it to imageView
+				if(loggedInUser.getAvatar() != null){
+					Image image = bufferedImageToWritableImage(loggedInUser.getAvatar());
+					imageView.setImage(image);
+				}
+				// if its still being downloaded, start a thread that waits for it to finish
+				if(loggedInUser.getAvatar() == null && loggedInUser.isDownloading()){
+					Service<Boolean> finishedDownload = new Service<Boolean>() {
+						@Override
+						protected Task<Boolean> createTask() {
+							Task<Boolean> task = new Task<Boolean>() {
+								@Override
+								protected Boolean call() throws Exception {
+									if(!loggedInUser.isDownloading()){
+										return true;
+									}
+									while(loggedInUser.isDownloading()){
+										Thread.sleep(100);
+									}
+									return true;
+>>>>>>> feature/cmtFilip
 
 
 	/**
@@ -358,7 +411,6 @@ public class ProfileController {
 			// call method on mainController that switches from User Profile to Booking Interface
 			mainController.showBookingInterface(loggedInUser);
 	}
-<<<<<<< HEAD
 	/**
 	 * By Pontus
 	 * Instanties Service Classes that retrieves arraylist of bookings for the tableviews in the userProfile.
@@ -370,7 +422,6 @@ public class ProfileController {
 		getBookingsService getPastBookingsService = new getBookingsService(new getPastBookingsTask(loggedInUser));
 		getBookingsService getFutureBookingsService = new getBookingsService(new getFutureBookingsTask(loggedInUser));
 		getPastBookingsService.start();
-
 
 		getPastBookingsService.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
 			@Override
@@ -414,10 +465,4 @@ public class ProfileController {
 	}
 
 
-	
 }
-
- 
-=======
-}
->>>>>>> feature/nima_comments

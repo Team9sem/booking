@@ -83,6 +83,13 @@ public class ProfileController {
 	 * @param primaryStage reference to primaryStage instance
 	 */
 
+	/**
+	 * by Filip
+	 * Future and past table views
+	 */
+
+			//END OF FUTURE AND PAST TABLE VIEWS by Filip
+
 	public void init(MainController mainController,BookingController bookingController, Stage primaryStage)
 	{
 		MysqlUtil util = new MysqlUtil();
