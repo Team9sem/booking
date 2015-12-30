@@ -1,8 +1,4 @@
 package com.team9.bookingsystem.Controllers;
-
-/**
- * by Nima
- */
 import java.text.ParseException;
 import java.util.ArrayList;
 
@@ -22,9 +18,13 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
-
+	
 public class UserSearchController {
 	
+	/*
+	 * By Nima and Pontus
+	 */
+
 	//Logged in user
     User loggedInUser;
     // Parent Controller
