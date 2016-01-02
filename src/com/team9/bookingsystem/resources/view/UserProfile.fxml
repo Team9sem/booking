@@ -43,7 +43,7 @@
          </GridPane>
       </top>
       <left>
-         <VBox prefHeight="300.0" prefWidth="300.0" spacing="10.0" styleClass="upVbox" BorderPane.alignment="TOP_LEFT">
+         <VBox prefHeight="300.0" prefWidth="350.0" spacing="10.0" styleClass="upVbox" BorderPane.alignment="TOP_LEFT">
             <children>
                <HBox alignment="CENTER" />
                <HBox>
@@ -55,7 +55,7 @@
                      </ImageView>
                      <HBox alignment="CENTER">
                         <children>
-                           <Button fx:id="ppButton" mnemonicParsing="false" onAction="#handle" styleClass="search-button" text="Upload Picture" />
+                           <Button prefWidth="200" fx:id="ppButton" mnemonicParsing="false" onAction="#handle" styleClass="search-button" text="Upload Picture" />
                         </children>
                         <HBox.margin>
                            <Insets left="5.0" />

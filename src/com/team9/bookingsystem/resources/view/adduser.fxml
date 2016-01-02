@@ -70,7 +70,7 @@
         <HBox alignment="CENTER_LEFT" GridPane.rowIndex="5">
             <children>
 
-                <Label styleClass="register-labels" text="Social Security Number" />
+                <Label styleClass="register-labels" fx:id="pNumberLabel" text="Social Security Number" />
             </children>
             <padding>
                 <Insets left="100.0" />

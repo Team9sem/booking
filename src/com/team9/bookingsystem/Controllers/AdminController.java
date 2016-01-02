@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 
+import com.mysql.jdbc.StringUtils;
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import com.team9.bookingsystem.*;
 import com.team9.bookingsystem.Components.DialogCallback;
 import com.team9.bookingsystem.Components.RoomTableView;
@@ -60,7 +62,9 @@ public class AdminController {
     private ArrayList<Room> deletedRooms = new ArrayList<>();
     private ArrayList<User> deletedUsers = new ArrayList<>();
     private RoomTableView roomTableView;
-
+    private static final String INTEGRITY_VIOLATION_MESSAGE
+            = "Some Update/Delete Operations failed\nDatabase integrity rules was violated!";
+    private static final String SQL_ERROR_MESSAGE =  "Update Completed with Errors";
     private UserTableView userTableView;
 
 
@@ -130,6 +134,8 @@ public class AdminController {
 
 	public enum searchedFor{user,room,none}
 
+    public enum sqlViolations{}
+
     /**
      * By Pontus Pohl
      * Called when user commits changes
@@ -162,12 +168,24 @@ public class AdminController {
 
                         // push changes
 
-                            Service<Boolean> pushChanges = new Service<Boolean>() {
+                            Service<String> pushChanges = new Service<String>() {
+
+
+
                                 @Override
-                                protected Task<Boolean> createTask() {
-                                    Task<Boolean> task = new Task<Boolean>() {
+                                protected Task<String> createTask() {
+
+
+                                    Task<String> task = new Task<String>() {
+
+                                        String violation = "";
+
+                                        public String getViolation(){
+                                            return violation;
+                                        }
+
                                         @Override
-                                        protected Boolean call() throws Exception {
+                                        protected String call() throws Exception {
                                             MysqlUtil util = new MysqlUtil();
                                             try {
                                                 if (userTableView.getUpdatedUsers() != null && !userTableView.getUpdatedUsers().isEmpty()) {
@@ -188,31 +206,59 @@ public class AdminController {
                                                 }
                                                 if (userTableView.getDeletedUsers() != null && !userTableView.getDeletedUsers().isEmpty())
                                                 {
-                                                    userTableView.getDeletedUsers().forEach(element -> util.deleteUser(element));
+
+                                                        userTableView.getDeletedUsers().forEach(element -> {
+                                                            try {
+                                                                util.deleteUser(element);
+                                                            } catch (SQLException e) {
+                                                                e.printStackTrace();
+                                                                if(e instanceof com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException){
+                                                                    violation = INTEGRITY_VIOLATION_MESSAGE;
+                                                                }
+                                                            }
+                                                        });
+
+
                                                 }
 
                                             } catch (SQLException e) {
                                                 e.printStackTrace();
-                                                return false;
+                                                violation = SQL_ERROR_MESSAGE;
                                             }
                                             userTableView.getUpdatedUsers().clear();
                                             userTableView.getAddedUsers().clear();
                                             userTableView.getDeletedUsers().clear();
 
 
-                                            return true;
+                                            return violation;
                                         }
                                     };
+
                                     return task;
+
                                 }
                             };
                             pushChanges.start();
                             pushChanges.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
                                 @Override
                                 public void handle(WorkerStateEvent event) {
-                                    if (pushChanges.getValue()) {
+
+                                    if (pushChanges.getValue().isEmpty()) {
                                         System.out.println("updated Sucessfully");
                                         commitCompletionLabel.setText("Your Changes was pushed\nsuccessfully!");
+                                        commitCompletionLabel.setStyle("-fx-font-size: 9pt;");
+                                        commitCompletionLabel.setVisible(true);
+                                    }
+                                    else if(pushChanges.getValue().equals(INTEGRITY_VIOLATION_MESSAGE)){
+                                        System.out.println("updated With Errors");
+                                        commitCompletionLabel.setText(INTEGRITY_VIOLATION_MESSAGE);
+                                        commitCompletionLabel.setStyle("-fx-font-size: 9pt;");
+                                        commitCompletionLabel.setVisible(true);
+                                    }
+                                    else if(pushChanges.getValue().equals(SQL_ERROR_MESSAGE)){
+                                        System.out.println("updated With Errors");
+                                        commitCompletionLabel.setText(SQL_ERROR_MESSAGE);
+                                        commitCompletionLabel.setStyle("-fx-font-size: 9pt;");
                                         commitCompletionLabel.setVisible(true);
                                     }
                                 }

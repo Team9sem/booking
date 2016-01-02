@@ -9,7 +9,7 @@
 
 <!--By Olle & Nima-->
 
-<GridPane fx:id="registerPane" gridLinesVisible="false" prefWidth="432.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team9.bookingsystem.Controllers.RegisterController">
+<GridPane fx:id="registerPane" gridLinesVisible="false" prefWidth="550.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team9.bookingsystem.Controllers.RegisterController">
     <children>
 
         <HBox alignment="CENTER" spacing="10" GridPane.columnIndex="0" GridPane.columnSpan="3">
@@ -64,7 +64,7 @@
       <HBox alignment="CENTER_LEFT" GridPane.rowIndex="5">
          <children>
               
-         <Label styleClass="register-labels" text="Social Security Number" />
+         <Label styleClass="register-labels" fx:id="pNumberLabel" text="Social Security Number" />
          </children>
          <padding>
             <Insets left="90.0" />
@@ -202,11 +202,19 @@
 
             </children>
         </HBox>
-      <HBox alignment="CENTER" prefWidth="100"  GridPane.columnIndex="2" GridPane.rowIndex="2">
+
+        <!--     Password         !-->
+
+      <HBox alignment="CENTER" prefWidth="250"  GridPane.columnIndex="2" GridPane.rowIndex="2">
+          <children>
+              <Label fx:id="passwordErrorLabel" styleClass="options-area-labels"></Label>
+          </children>
+      </HBox>
+      <HBox alignment="CENTER" prefWidth="200"  GridPane.columnIndex="2" GridPane.rowIndex="2">
          <children>
              <VBox alignment="CENTER">
                  <HBox.margin>
-                     <Insets top="20"></Insets>
+                     <Insets bottom="10"></Insets>
                  </HBox.margin>
                  <children>
                      <Label styleClass="register-labels" fx:id="passwordProgressLabel" text="Label" />
@@ -216,12 +224,16 @@
              </VBox>
          </children>
       </HBox>
-      <HBox alignment="CENTER" prefWidth="150"  GridPane.columnIndex="2" GridPane.rowIndex="2">
+
+        <HBox alignment="CENTER" prefWidth="200"  GridPane.columnIndex="2" GridPane.rowIndex="2">
           <children>
               <ProgressIndicator  fx:id="passwordProgress" progress="0.0" />
-              <Label fx:id="passwordErrorLabel" styleClass="register-labels"></Label>
+
           </children>
       </HBox>
+
+
+        <!--     Password         !-->
 
       <HBox alignment="CENTER" prefWidth="100"  GridPane.columnIndex="2" GridPane.rowIndex="3">
           <GridPane.margin>

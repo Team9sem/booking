@@ -6,6 +6,7 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -774,7 +775,7 @@ public class MysqlUtil {
 
     }
 
-    public void deleteUser(User user){
+    public void deleteUser(User user) throws SQLException{
         try(Connection connection = getConnection()){
 
             System.out.println("\nUser Connection Established\n");
@@ -785,6 +786,7 @@ public class MysqlUtil {
             );
         }catch(SQLException e){
             e.printStackTrace();
+            throw e;
         }
     }
     //END OF EDITING AND REMOVING USER OPERATIONS

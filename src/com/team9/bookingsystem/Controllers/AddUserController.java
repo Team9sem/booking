@@ -43,6 +43,7 @@ public class AddUserController implements PopupController {
     @FXML private Label lastnameProgressLabel;
     @FXML private Label passwordProgressLabel;
     @FXML private Label streetProgressLabel;
+    @FXML private Label pNumberLabel;
     @FXML private Label pNumberProgressLabel;
     @FXML private Label zipCodeProgressLabel;
     @FXML private ProgressIndicator usernameProgress;
@@ -81,6 +82,7 @@ public class AddUserController implements PopupController {
         zipCodeProgressLabel.setVisible(false);
         passwordSecurityProgress.setVisible(false);
         passwordErrorLabel.setVisible(false);
+        pNumberLabel.setText("Social Security\nNumber");
     }
 
     @Override
@@ -226,7 +228,7 @@ public class AddUserController implements PopupController {
                     else{
                         passwordProgress.setVisible(false);
                         passwordErrorLabel.setVisible(true);
-                        passwordErrorLabel.setText("Please pick a password with\n at least 6 characters");
+                        passwordErrorLabel.setText("Please pick a password with\nat least 6 characters");
                     }
                 }
                 else
@@ -321,7 +323,7 @@ public class AddUserController implements PopupController {
                         if (!Character.isDigit(character)) {
                             // Todo: output error
                             pNumberProgress.setVisible(false);
-                            pNumberProgressLabel.setText("Social Security Number must be all digits!");
+                            pNumberProgressLabel.setText("Social Security Number\nmust be all digits!");
                             pNumberProgressLabel.setVisible(true);
                             break;
                         } else {
@@ -380,7 +382,7 @@ public class AddUserController implements PopupController {
 
                             // Todo: output error
                             zipCodeProgress.setVisible(false);
-                            zipCodeProgressLabel.setText("Your zip code can only contain numbers!");
+                            zipCodeProgressLabel.setText("Your zip code can only\ncontain numbers!");
                             zipCodeProgressLabel.setVisible(true);
 //                            if(zip.getText().)
                             break;

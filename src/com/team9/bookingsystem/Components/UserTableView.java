@@ -406,7 +406,7 @@ public class UserTableView extends TableView<User> {
             }
         });
 
-        getColumns().addAll(userId,username,firstName,lastName,passWord,userType,street,zip,pNumberCol,buttons);
+        getColumns().addAll(userId,username,firstName,lastName,passWord,userType,street,zip,pNumberCol);
         setColumnResizePolicy(new CustomColumnResizePolicy());
 //        userTableView.setColumnResizePolicy(new Callback<TableView.ResizeFeatures, Boolean>() {
 //            @Override

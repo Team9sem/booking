@@ -3,15 +3,13 @@ package com.team9.bookingsystem.Components;
 import com.team9.bookingsystem.Room;
 import com.team9.bookingsystem.User;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.Callback;
@@ -122,6 +120,32 @@ public class RoomTableView extends TableView<Room> {
         TableColumn size = new TableColumn("Size");
         size.setCellValueFactory(new PropertyValueFactory<Room,String>("roomSize"));
         size.setPrefWidth(10.0);
+
+        // Check value that is set is formatted to small,medium or large.
+        Callback<TableColumn,TableCell> cellFactory = new Callback<TableColumn, TableCell>() {
+            @Override
+            public TableCell call(TableColumn param) {
+                return new TableCell<Room,String>(){
+                   @Override public void updateItem(String item, boolean empty){
+                       super.updateItem(item,empty);
+                       if(empty){
+                           setText(null);
+                           setGraphic(null);
+                       }
+                       else{
+                           String toSet = getItem() == null ? "" : getItem();
+                           if(toSet.equals("S")) toSet = "Small";
+                           if(toSet.equals("M")) toSet = "Medium";
+                           if(toSet.equals("L")) toSet = "Large";
+                           setText(toSet);
+                           setContentDisplay(ContentDisplay.TEXT_ONLY);
+                       }
+                   }
+                };
+            }
+        };
+        size.setCellFactory(cellFactory);
+
 
 
         TableColumn projector = new TableColumn("Projector");
@@ -248,7 +272,7 @@ public class RoomTableView extends TableView<Room> {
             }
         });
 
-        getColumns().addAll(roomid,location,size,projector,whiteboard,coffeMachine,buttons);
+        getColumns().addAll(roomid,location,size,projector,whiteboard,coffeMachine);
 //        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         setColumnResizePolicy(new CustomColumnResizePolicy());
         setEditable(true);
